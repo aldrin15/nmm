@@ -11,9 +11,23 @@ class Nmm extends MX_Controller {
 		$this->_view_content			= '';
 		
 		modules::run('login/index');
+		$this->load->library('form_validation');
 	}
 	
 	public function index() {
+		$post = $this->input->post();
+		
+		if($post):
+			if(array_key_exists('ride_submit', $post)):
+				$this->form_validation->set_rules('from', 'From', 'required');
+				$this->form_validation->set_rules('to', 'To', 'required');
+				
+				if($this->form_validation->run() == TRUE):
+					header("location lift?from=".$this->input->post('from')."&to=".$this->input->post('to'));
+				endif;
+			endif;
+		endif;
+	
 		$data['view_file'] = 'index_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}

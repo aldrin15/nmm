@@ -3,7 +3,8 @@
 <style type="text/css">
 .error {color:#ff0000;}
 
-search-option ul li {float:left;}
+.search-option ul {list-style:none;}
+.search-option ul li {float:left;}
 </style>
 
 
@@ -32,4 +33,9 @@ search-option ul li {float:left;}
 	</div>
 </div>
 
-<script type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
+<script type="text/javascript">
+$(function() {
+	$('#datepicker').datepicker();
+});
+</script>
