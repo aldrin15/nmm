@@ -23,7 +23,7 @@ class Nmm extends MX_Controller {
 				$this->form_validation->set_rules('to', 'To', 'required');
 				
 				if($this->form_validation->run() == TRUE):
-					header("location lift?from=".$this->input->post('from')."&to=".$this->input->post('to'));
+					header("location: lift?from=".$this->input->post('from')."&to=".$this->input->post('to'));
 				endif;
 			endif;
 		endif;
