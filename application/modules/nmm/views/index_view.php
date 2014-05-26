@@ -31,9 +31,11 @@
 					<label for="To">To: </label>
 					<input type="text" name="to" id="to-route"/>
 				</li>
+				<!-- 
 				<li>
 					<input type="text" name="date" id="datepicker"/>
 				</li>
+				-->
 				<li>
 					<input type="submit" name="ride_submit" value="Search"/>
 				</li>

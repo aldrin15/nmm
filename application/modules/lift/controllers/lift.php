@@ -67,6 +67,15 @@ class Lift extends MX_Controller {
 	}
 	
 	public function quick_book() {
-		$this->lift_model->booking();
+		$user_id 	= $this->input->get('user_id');
+		$from 		= $this->input->get('from');
+		$to 		= $this->input->get('to');
+		$seat_taken = $this->input->get('seat_taken');
+		$amount 	= $this->input->get('amount');
+		$message 	= $this->input->get('message');
+		$request 	= $this->input->get('request');
+		$date 		= date('Y-m-d', strtotime($this->input->get('date')));
+	
+		$this->lift_model->booking($user_id, $from, $to, $seat_taken, $amount, $message, $request, $date);
 	}
 }

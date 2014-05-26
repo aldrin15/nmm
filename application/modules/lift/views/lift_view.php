@@ -16,11 +16,13 @@
 
 .popup-overlay {display:none; background:url('assets/images/overlay.png') repeat; position:absolute; top:0; left:0; width:100%; height:100%;}
 .popup-wrapper {position:relative;}
-.quick-book-popup {background:#fff; position:absolute; left:50%; margin-left:-250px; width:500px;}
+.quick-book-popup {background:#fff; position:absolute; left:50%; margin-left:-250px; padding:20px; width:500px;}
 
-.quick-book-popup {padding:20px;}
 .quick-book-popup ul {list-style:none;}
 .quick-book-popup ul li {margin-bottom:10px;}
+
+.success-overlay {display:none; background:url('assets/images/overlay.png') repeat; position:absolute; top:0; left:0; width:100%; height:100%;}
+.booking-success-popup {background:#fff; position:absolute; text-align:center; left:50%; margin-top:10%; margin-left:-250px; padding:20px; width:500px;}
 </style>
 
 <div class="lift-view">
@@ -69,8 +71,8 @@
 						<span><?php echo date('M d, Y', strtotime($row['date']))?></span>
 					</div>
 					<div>
-						<label for="Amount">Amount:</label>
-						<span>&#128;<?php echo $row['amount']?></span>
+						<label for="Amount">Amount: &#128;</label>
+						<span><?php echo $row['amount']?></span>
 					</div>					
 				</a>
 				
@@ -111,10 +113,18 @@
 					<li><input type="submit" name="book_submit" value="Proceed"/></li>
 				</ul>
 				
+				<div class="lift-view-data">
+				</div>
 				<input type="hidden" name="user_id" value=""/>
 				<input type="hidden" name="seat" value=""/>
 			</form>
 		</div>	
+	</div>
+</div>
+
+<div class="success-overlay">
+	<div class="popup-wrapper">
+		<div class="booking-success-popup"><a href="#" class="success-close">Close</a> You have successfully booked. Please wait for the driver confirmation within 24 hours.</div>
 	</div>
 </div>
 
@@ -125,26 +135,36 @@ $(function() {
 	$('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
 	
 	$('.quick-book').click(function(e) {
+		$('.lift-view-data').empty();
+		$('input[name="seat[]"]').removeAttr('checked');
 		var user_id = $(this).attr('data-id');
 		
 		$('.popup-overlay').fadeIn().show();
 		$('.quick-book-popup').fadeIn().show();
 		$('input[name="user_id"]').attr('value', user_id);
 		
-		// $(this).closest('li').find('span').text()
 		$(this).closest('li').find('span').each(function(index, value) {
-			console.log($(value).text());
+			$('.lift-view-data').append('<input type="hidden" value="'+$(value).text()+'" class="lift-info'+index+'"/>');
 		});
-		
-		// console.log($(this).closest('li').find('span').text());
 		
 		e.preventDefault();
 	});
 	
 	$('.popup-close').click(function() { $('.popup-overlay').hide(); });
+	$('.success-close').on('click', function(e) { 
+		$('.success-overlay').hide();
+		
+		e.preventDefault();
+	});
 	
 	$('input[name="book_submit"]').click(function(e) {
 		var	user_id = $('input[name="user_id"]').attr('value'),
+			from 	= $('.lift-info0').val(),
+			to		= $('.lift-info1').val(),
+			message	= $('textarea[name="message"]').val(),
+			request	= $('textarea[name="request"]').val(),
+			amount	= $('.lift-info3').val(),
+			date	= $('.lift-info2').val(),
 			seat_taken = 0,
 			error = 0;
 		
@@ -161,14 +181,22 @@ $(function() {
 		
 		if(error === 0) {
 			$.ajax({
-				url : '<?php base_url('lift/quick_book')?>',
+				url : '<?php echo base_url('lift/quick_book')?>',
 				data: {
-					user_id : user_id,
-					seat_taken	: seat_taken
+					user_id 	: user_id,
+					from		: from,
+					to			: to,
+					message		: message,
+					request		: request,
+					amount		: amount,
+					seat_taken	: seat_taken,
+					date		: date,
 				},
-				type: 'POST',
+				type: 'GET',
 				success: function() {
 					console.log('success');
+					$('.popup-overlay').hide();
+					$('.success-overlay').show();
 				}
 			});
 		} else {
@@ -177,5 +205,7 @@ $(function() {
 		
 		e.preventDefault();
 	});
+	
+
 });
 </script>

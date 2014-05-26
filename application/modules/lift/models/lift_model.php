@@ -19,7 +19,7 @@ class Lift_model extends CI_Model {
 		endif;
 		
 		if($date != ''):
-			$where[] = "`date` <=  '{$date} 24:00:01'";
+			$where[] = "`date` Like  '{$date}'";
 		endif;
 		
 		if(count($where)):
@@ -49,7 +49,7 @@ class Lift_model extends CI_Model {
 		endif;
 		
 		if($date != ''):
-			$where[] = "`date` <= '{$date} 24:00:01'";
+			$where[] = "`date` Like '{$date}'";
 		endif;
 		
 		if(count($where)):
@@ -78,13 +78,17 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function booking() {
-		$user_id = $this->input->get('user_id');
-		$seat_taken = $this->input->get('seat_taken');
-		
+	function booking($user_id, $from, $to, $seat_taken, $amount, $message, $request, $date) {	
 		$data = array(
-			'user_id' 		=> $user_id,
-			'seat_taken' 	=> $seat_taken
+			'user_id' 			=> $user_id,
+			'route_from' 		=> $from,
+			'route_to' 			=> $to,
+			'seat_taken' 		=> $seat_taken,
+			'amount' 			=> $amount,
+			'message' 			=> $message,
+			'request' 			=> $request,
+			'booking_status'	=> 'Pending',
+			'date' 				=> $date
 		);
 		
 		$query = $this->db->insert('user_passenger_booking', $data);
