@@ -56,4 +56,17 @@ class Lift extends MX_Controller {
 		$data['view_file'] = 'lift_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
+	
+	public function detail() {
+		$id = $this->uri->segment(3);
+		
+		$data['lift_information'] = $this->lift_model->details($id);
+		
+		$data['view_file'] = 'lift_detail_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function quick_book() {
+		$this->lift_model->booking();
+	}
 }

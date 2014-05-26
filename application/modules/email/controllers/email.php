@@ -46,4 +46,24 @@ class Email extends MX_Controller {
 
 		$this->email->send();
 	}
+	
+	public function contactEmail($name, $email, $message) {
+		$config['protocol'] 	= 'smtp';
+		$config['mailpath'] 	= '/usr/sbin/sendmail';
+		$config['charset'] 		= 'iso-8859-1';
+		$config['smtp_host']    = 'ssl://smtp.gmail.com';
+        $config['smtp_port']    = '465';
+		$config['smtp_user']    = 'damingalam99@gmail.com';
+        $config['smtp_pass']    = '!123qweasd';
+		$config['newline']    	= "\r\n";
+		$config['wordwrap'] 	= TRUE;
+
+		$this->email->initialize($config);
+		$this->email->from($email, $name);
+		$this->email->to('damingalam99@gmail.com'); 
+		$this->email->subject('Client Inquiry');
+		$this->email->message($message);
+
+		$this->email->send();	
+	}
 }

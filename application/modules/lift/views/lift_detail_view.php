@@ -6,7 +6,7 @@
 </style>
 
 <div class="lift-detail-view">
-	<?php foreach($detail_information as $row):?>
+	<?php foreach($lift_information as $row):?>
 	<div class="lift-information">
 		<div class="profile-image fl"><img src="<?php echo base_url('assets/images/car.jpg')?>" width="180" height="120" alt="Car"/></div>
 		
@@ -15,6 +15,7 @@
 			<span><strong>To: </strong> <?php echo $row['route_to']?></span>
 			<span><strong>Date: </strong> <?php echo date('M d, Y', strtotime($row['date']))?></span>
 			<span><strong>Amount: </strong> &#128;<?php echo $row['amount']?></span>
+			<span><strong>Available Seats: </strong> <?php echo $row['available']?></span>
 		</div>
 		
 		<div class="clr"></div>

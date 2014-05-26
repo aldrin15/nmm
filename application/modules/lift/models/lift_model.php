@@ -32,10 +32,23 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-/* 	function listing() {
-		$id = join(',', $this->session->userdata('ride_data'));  
-		$query = $this->db->query("SELECT * FROM `user_lift_booking` WHERE `id` IN ({$id})");
+	function details($id) {
+		$query = $this->db->get_where('user_lift_booking', array('user_id' => $id));
 		
-		return $query->result();
-	} */
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function booking() {
+		$user_id = $this->input->get('user_id');
+		$seat_taken = $this->input->get('seat_taken');
+		
+		$data = array(
+			'user_id' 		=> $user_id,
+			'seat_taken' 	=> $seat_taken
+		);
+		
+		$query = $this->db->insert('user_passenger_booking', $data);
+	}
 }

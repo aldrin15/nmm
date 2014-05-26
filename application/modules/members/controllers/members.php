@@ -18,14 +18,6 @@ class Members extends MX_Controller {
 	}
 	
 	public function index() {
-/* 		if($this->session->userdata('validated')):
-			$data['members_data'] = $this->member_model->members($this->session->userdata('user_id'));
-			$data['view_file'] = 'members_view';
-			echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
-		else:
-			redirect('nmm/index');
-		endif; */
-		
 		$post = $this->input->post();
 		
 		if($post):
@@ -46,24 +38,7 @@ class Members extends MX_Controller {
 					
 					redirect('lift','refresh');
 				endif;
-			/* elseif(array_key_exists('passenger_submit', $post)):
-				$this->form_validation->set_rules('from', 'From', 'required');
-				$this->form_validation->set_rules('to', 'To', 'required');
-				
-				if($this->form_validation->run() == TRUE):
-					$passenger = $this->member_model->search_location();
-					
-					$passenger_data = array();
-					
-					foreach($passenger as $details):
-						$passenger_data[] = $details['id'];
-					endforeach;
-					
-					$this->session->set_userdata('passenger_data', $passenger_data);
-					
-					redirect('passenger','refresh');
-				endif;
-			endif; */
+			endif;
 		endif;
 		
 		$data['members_data'] 	= $this->member_model->members($this->session->userdata('user_id'));
