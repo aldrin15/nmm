@@ -3,10 +3,29 @@
 class Lift_model extends CI_Model {
 	
 	function search_location() {
-		$from = $this->input->post('from');
-		$to = $this->input->post('to');
+		$from 	= $this->input->post('from');
+		$to 	= $this->input->post('to');
+		$date 	= $this->input->post('date');
 		
-		$query = $this->db->query("SELECT * FROM  `user_lift_booking` WHERE  `route_from` LIKE  '{$from}' AND  `route_to` LIKE  '{$to}' AND  `date` IS NOT NULL");
+		$where = array();
+		$query = NULL;
+		
+		if($from != ''):
+			$where[] = "`route_from` Like '{$from}'";
+		endif;
+		
+		if($to != ''):
+			$where[] = "`route_to` Like '{$to}'";
+		endif;
+		
+		if($date != ''):
+			$where[] = "`date` <=  '{$date} 24:00:01'";
+		endif;
+		
+		if(count($where)):
+			$query_result = "SELECT * FROM  `user_lift_booking` WHERE  ".implode(' AND ', $where);
+			$query = $this->db->query($query_result);
+		endif;
 	
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
@@ -14,10 +33,29 @@ class Lift_model extends CI_Model {
 	}
 	
 	function search_get_location() {
-		$from = $this->input->get('from');
-		$to = $this->input->get('to');
+		$from 	= $this->input->get('from');
+		$to 	= $this->input->get('to');
+		$date 	= $this->input->get('date');
 		
-		$query = $this->db->query("SELECT * FROM  `user_lift_booking` WHERE  `route_from` LIKE  '{$from}' AND  `route_to` LIKE  '{$to}' AND  `date` IS NOT NULL");
+		$where = array();
+		$query = NULL;
+		
+		if($from != ''):
+			$where[] = "`route_from` Like '{$from}'";
+		endif;
+		
+		if($to != ''):
+			$where[] = "`route_to` Like '{$to}'";
+		endif;
+		
+		if($date != ''):
+			$where[] = "`date` <= '{$date} 24:00:01'";
+		endif;
+		
+		if(count($where)):
+			$query_result = "SELECT * FROM `user_lift_booking` WHERE ".implode(' AND ', $where);
+			$query = $this->db->query($query_result);
+		endif;
 	
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
@@ -33,7 +71,7 @@ class Lift_model extends CI_Model {
 	}
 	
 	function details($id) {
-		$query = $this->db->get_where('user_lift_booking', array('user_id' => $id));
+		$query = $this->db->get_where('user_lift_booking', array('id' => $id));
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;

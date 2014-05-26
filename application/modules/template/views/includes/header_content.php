@@ -6,25 +6,29 @@ nav ul li a {padding:0 10px;}
 </style>
 
 	<header>
-		<div class="login-register">
-			<a href="<?php echo base_url('login')?>">Login</a>
-			<a href="<?php echo base_url('register')?>">Register</a>
+		<div class="fr">
+			<div class="status">
+			Hi! 
+			<?php 
+				if($this->session->userdata('validated') == TRUE):
+					$firstname = $this->session->userdata('firstname');
+					
+					echo $firstname." "."<a href='".base_url('login/logout')."'>Logout</a>";
+					echo '<br />';
+					echo '<a href="'.base_url('members').'">Profile Account</a>';
+				else:
+					echo "Guest";
+				endif;
+			?>
+			</div>
+		
+			<div class="login-register">
+				<a href="<?php echo base_url('login')?>">Login</a> |
+				<a href="<?php echo base_url('register')?>">Register</a>
+			</div>
 		</div>
 		
-		<div class="status">
-		Hi! 
-		<?php 
-			if($this->session->userdata('validated') == TRUE):
-				$firstname = $this->session->userdata('firstname');
-				
-				echo $firstname." "."<a href='".base_url('login/logout')."'>Logout</a>";
-				echo '<br />';
-				echo '<a href="'.base_url('members').'">Profile Account</a>';
-			else:
-				echo "Guest";
-			endif;
-		?>
-		</div>
+		<div class="clr"></div>
 	
 		<nav>
 			<ul>

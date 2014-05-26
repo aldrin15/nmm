@@ -38,7 +38,7 @@
 					<input type="text" name="to" id=""/>
 				</li>
 				<li>
-					<input type="text" name="" id="datepicker"/>
+					<input type="text" name="date" id="datepicker"/>
 				</li>
 				<li>
 					<input type="submit" name="ride_submit" value="Search"/>
@@ -54,7 +54,7 @@
 			<?php 
 			foreach($ride_list as $row):?>
 			<li>
-				<a href="<?php echo base_url().'lift/detail/'.$row['user_id']?>">
+				<a href="<?php echo base_url().'lift/detail/'.$row['id']?>">
 					<div><img src="<?php echo base_url('assets/images/car.jpg')?>" width="180" height="120" alt="Car"/></div>
 					<div>
 						<label for="From">From</label>
@@ -71,15 +71,7 @@
 					<div>
 						<label for="Amount">Amount:</label>
 						<span>&#128;<?php echo $row['amount']?></span>
-					</div>
-					
-<!-- 
-					<span><img src="<?php //echo base_url('assets/images/car.jpg')?>" width="180" height="120" alt="Car"/></span>
-					<span><strong>From: </strong><?php //echo $row['route_from']?></span>
-					<span><strong>To: </strong> <?php //echo $row['route_to']?></span>
-					<span><strong>Date: </strong> <?php //echo date('M d, Y', strtotime($row['date']))?></span>
-					<span><strong>Amount: </strong> &#128;<?php //echo $row['amount']?></span>
--->
+					</div>					
 				</a>
 				
 				<div class="clr"></div><br />
@@ -130,7 +122,7 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript">
 $(function() {
-	$('#datepicker').datepicker();
+	$('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
 	
 	$('.quick-book').click(function(e) {
 		var user_id = $(this).attr('data-id');

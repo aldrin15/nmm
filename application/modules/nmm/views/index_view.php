@@ -32,7 +32,7 @@
 					<input type="text" name="to" id="to-route"/>
 				</li>
 				<li>
-					<input type="text" name="" id="datepicker"/>
+					<input type="text" name="date" id="datepicker"/>
 				</li>
 				<li>
 					<input type="submit" name="ride_submit" value="Search"/>
@@ -47,7 +47,7 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript">
 $(function() {
-	$('#datepicker').datepicker();
+	$('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
 	
 	/*
 	 * Get Route

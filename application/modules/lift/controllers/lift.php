@@ -19,7 +19,7 @@ class Lift extends MX_Controller {
 		$query = parse_url($url, PHP_URL_QUERY);
 		parse_str($query, $params);
 		
-		if(isset($params['from'])):
+		if(isset($params['from']) && isset($params['to'])):
 			$data['ride_list'] = $this->lift_model->search_get_location();
 			
 			$post = $this->input->post();

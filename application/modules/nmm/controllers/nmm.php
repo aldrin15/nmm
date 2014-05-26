@@ -23,7 +23,30 @@ class Nmm extends MX_Controller {
 				$this->form_validation->set_rules('to', 'To', 'required');
 				
 				if($this->form_validation->run() == TRUE):
-					header("location: lift?from=".$this->input->post('from')."&to=".$this->input->post('to'));
+					$from	= $this->input->post('from');
+					$to		= $this->input->post('to');
+					$date	= $this->input->post('date');
+					
+					$where = array();
+					$query = NULL;
+					
+					if($from != ''):
+						$where[] = 'from='.$from;
+					endif;
+					
+					if($to != ''):
+						$where[] = 'to='.$to;
+					endif;
+					
+					if($date != ''):
+						$where[] = 'date='.$date;
+					endif;
+					
+					if(count($where)) {
+						$query.= implode('&', $where);
+					}
+					
+					header("location: lift?".$query);
 				endif;
 			endif;
 		endif;
