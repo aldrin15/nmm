@@ -3,6 +3,8 @@
 
 <style type="text/css">
 .error {color:#ff0000;}
+
+.contact ul {list-style:none;}
 </style>
 
 <div class="contact">

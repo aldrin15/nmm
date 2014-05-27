@@ -52,36 +52,40 @@
 	</div>
 	
 	<div class="lift-listing">
-		<ul>
-			<?php 
-			foreach($ride_list as $row):?>
-			<li>
-				<a href="<?php echo base_url().'lift/detail/'.$row['id']?>">
-					<div><img src="<?php echo base_url('assets/images/car.jpg')?>" width="180" height="120" alt="Car"/></div>
-					<div>
-						<label for="From">From</label>
-						<span><?php echo $row['route_from']?></span>
-					</div>
-					<div>
-						<label for="To">To</label>
-						<span><?php echo $row['route_to']?></span>
-					</div>
-					<div>
-						<label for="Date">Date:</label>
-						<span><?php echo date('M d, Y', strtotime($row['date']))?></span>
-					</div>
-					<div>
-						<label for="Amount">Amount: &#128;</label>
-						<span><?php echo $row['amount']?></span>
-					</div>					
-				</a>
-				
-				<div class="clr"></div><br />
-				
-				<a href="#" class="quick-book" data-id="<?php echo $row['user_id']?>">Quick Book</a>
-			</li>
-			<?php endforeach?>
-		</ul>	
+		<?php if($ride_list == 0):?>
+			<div style="font-size:26px; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px; width:1024px;">No records found</div>
+		<?php else:?>
+			<ul>
+				<?php 
+				foreach($ride_list as $row):?>
+				<li>
+					<a href="<?php echo base_url().'lift/detail/'.$row['id']?>">
+						<div><img src="<?php echo base_url('assets/images/car.jpg')?>" width="180" height="120" alt="Car"/></div>
+						<div>
+							<label for="From">From</label>
+							<span><?php echo $row['route_from']?></span>
+						</div>
+						<div>
+							<label for="To">To</label>
+							<span><?php echo $row['route_to']?></span>
+						</div>
+						<div>
+							<label for="Date">Date:</label>
+							<span><?php echo date('M d, Y', strtotime($row['date']))?></span>
+						</div>
+						<div>
+							<label for="Amount">Amount: &#128;</label>
+							<span><?php echo $row['amount']?></span>
+						</div>					
+					</a>
+					
+					<div class="clr"></div><br />
+					
+					<a href="#" class="quick-book" data-id="<?php echo $row['user_id']?>">Quick Book</a>
+				</li>
+				<?php endforeach?>
+			</ul>	
+		<?php endif?>
 	</div>
 </div>
 
