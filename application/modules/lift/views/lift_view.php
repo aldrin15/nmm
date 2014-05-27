@@ -10,7 +10,8 @@
 .lift-listing ul li {border:1px solid #000;}
 .lift-listing ul li:hover {border:1px solid #ff0000;}
 .lift-listing ul li a {color:#000;}
-.lift-listing ul li span {display:block; width:200px;}
+.lift-listing ul li span {display:block;}
+.lift-listing ul li span, .lift-listing ul li label {float:left}
 
 .quick-book-popup {display:none;}
 
@@ -64,26 +65,42 @@
 					<a href="<?php echo base_url().'lift/detail/'.$row['id']?>">
 						<div><img src="<?php echo base_url('assets/images/car.jpg')?>" width="180" height="120" alt="Car"/></div>
 						<div>
-							<label for="From">From</label>
+							<label for="From"><strong>From: </strong></label>
 							<span><?php echo $row['route_from']?></span>
+							
+							<div class="clr"></div>
 						</div>
 						<div>
-							<label for="To">To</label>
+							<label for="To"><strong>To: </strong></label>
 							<span><?php echo $row['route_to']?></span>
+							
+							<div class="clr"></div>
 						</div>
 						<div>
-							<label for="Date">Date:</label>
-							<span><?php echo date('M d, Y', strtotime($row['date']))?></span>
+							<label for="Date"><strong>On &nbsp;</strong></label>
+							<span><?php echo date('M d', strtotime($row['date']))?></span>
+							<label for="at">&nbsp;<strong>at</strong>&nbsp;</label>
+							<span><?php echo date('g A', strtotime($row['start_time']))?></span>
+							
+							<div class="clr"></div>
 						</div>
 						<div>
-							<label for="Amount">Amount: &#128;</label>
+							<label for="Available Seats"><strong>Available Seat/s:</strong>&nbsp;</label>
+							<span><?php echo $row['available']?></span>
+							
+							<div class="clr"></div>
+						</div>
+						<div>
+							<label for="">&#128; </label>
 							<span><?php echo $row['amount']?></span>
+							
+							<div class="clr"></div>
 						</div>					
 					</a>
 					
 					<div class="clr"></div><br />
 					
-					<a href="#" class="quick-book" data-id="<?php echo $row['user_id']?>">Quick Book</a>
+					<a href="#" class="quick-book" data-id="<?php echo $row['user_id']?>" data-car="<?php echo $row['car_model']?>" data-plate="<?php echo $row['license_plate']?>" data-stime="<?php echo $row['start_time']?>" data-etime="<?php echo $row['end_time']?>">Quick Book</a>
 				</li>
 				<?php endforeach?>
 			</ul>	
@@ -123,6 +140,10 @@
 				</div>
 				<input type="hidden" name="user_id" value=""/>
 				<input type="hidden" name="seat" value=""/>
+				<input type="hidden" name="car_model" value=""/>
+				<input type="hidden" name="license_plate" value=""/>
+				<input type="hidden" name="start_time" value=""/>
+				<input type="hidden" name="end_time" value=""/>
 			</form>
 		</div>	
 	</div>
@@ -141,13 +162,23 @@ $(function() {
 	$('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
 	
 	$('.quick-book').click(function(e) {
+		var user_id 	= $(this).attr('data-id'),
+			car_model 	= $(this).attr('data-car'),
+			plate 		= $(this).attr('data-plate'),
+			start_time	= $(this).attr('data-stime'),
+			end_time	= $(this).attr('data-etime');
+			
 		$('.lift-view-data').empty();
+		$('textarea').val(' ');
 		$('input[name="seat[]"]').removeAttr('checked');
-		var user_id = $(this).attr('data-id');
 		
 		$('.popup-overlay').fadeIn().show();
 		$('.quick-book-popup').fadeIn().show();
 		$('input[name="user_id"]').attr('value', user_id);
+		$('input[name="car_model"]').attr('value', car_model);
+		$('input[name="license_plate"]').attr('value', plate);
+		$('input[name="start_time"]').attr('value', start_time);
+		$('input[name="end_time"]').attr('value', end_time);
 		
 		$(this).closest('li').find('span').each(function(index, value) {
 			$('.lift-view-data').append('<input type="hidden" value="'+$(value).text()+'" class="lift-info'+index+'"/>');
@@ -156,6 +187,9 @@ $(function() {
 		e.preventDefault();
 	});
 	
+	/*
+	 * Close Popup
+	 */
 	$('.popup-close').click(function() { $('.popup-overlay').hide(); });
 	$('.success-close').on('click', function(e) { 
 		$('.success-overlay').hide();
@@ -164,15 +198,19 @@ $(function() {
 	});
 	
 	$('input[name="book_submit"]').click(function(e) {
-		var	user_id = $('input[name="user_id"]').attr('value'),
-			from 	= $('.lift-info0').val(),
-			to		= $('.lift-info1').val(),
-			message	= $('textarea[name="message"]').val(),
-			request	= $('textarea[name="request"]').val(),
-			amount	= $('.lift-info3').val(),
-			date	= $('.lift-info2').val(),
-			seat_taken = 0,
-			error = 0;
+		var	user_id 	= $('input[name="user_id"]').attr('value'),
+			from 		= $('.lift-info0').val(),
+			to			= $('.lift-info1').val(),
+			car_model	= $('input[name="car_model"]').attr('value'),
+			plate 		= $('input[name="license_plate"]').attr('value'),
+			seat_taken 	= 0,
+			amount		= $('.lift-info5').val(),
+			message		= $('textarea[name="message"]').val(),
+			request		= $('textarea[name="request"]').val(),
+			start_time	= $('input[name="start_time"]').val(),
+			end_time	= $('input[name="end_time"]').val(),
+			date		= $('.lift-info2').val(),
+			error 		= 0;
 		
 		if(!$('input[name="seat[]"]').is(':checked')) {
 			console.log('You need to check the checkbox');
@@ -192,10 +230,14 @@ $(function() {
 					user_id 	: user_id,
 					from		: from,
 					to			: to,
+					car_model	: car_model,
+					plate		: plate,
 					message		: message,
 					request		: request,
 					amount		: amount,
 					seat_taken	: seat_taken,
+					start_time	: start_time,
+					end_time	: end_time,
 					date		: date,
 				},
 				type: 'GET',
@@ -211,7 +253,5 @@ $(function() {
 		
 		e.preventDefault();
 	});
-	
-
 });
 </script>

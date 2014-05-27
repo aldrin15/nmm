@@ -61,21 +61,24 @@ class Lift extends MX_Controller {
 		$id = $this->uri->segment(3);
 		
 		$data['lift_information'] = $this->lift_model->details($id);
-		
 		$data['view_file'] = 'lift_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
 	public function quick_book() {
-		$user_id 	= $this->input->get('user_id');
-		$from 		= $this->input->get('from');
-		$to 		= $this->input->get('to');
-		$seat_taken = $this->input->get('seat_taken');
-		$amount 	= $this->input->get('amount');
-		$message 	= $this->input->get('message');
-		$request 	= $this->input->get('request');
-		$date 		= date('Y-m-d', strtotime($this->input->get('date')));
+		echo $user_id 	= $this->input->get('user_id');
+		echo $from 		= $this->input->get('from');
+		echo $to 		= $this->input->get('to');
+		echo $car 		= $this->input->get('car_model');
+		echo $plate 	= $this->input->get('plate');
+		echo $seat_taken= $this->input->get('seat_taken');
+		echo $amount 	= $this->input->get('amount');
+		echo $message 	= $this->input->get('message');
+		echo $request 	= $this->input->get('request');
+		echo $start_time= $this->input->get('start_time');
+		echo $end_time 	= $this->input->get('end_time');
+		echo $date 		= date('Y-m-d', strtotime($this->input->get('date')));
 	
-		$this->lift_model->booking($user_id, $from, $to, $seat_taken, $amount, $message, $request, $date);
+		$this->lift_model->booking($user_id, $from, $to, $car, $plate, $seat_taken, $amount, $message, $request, $start_time, $end_time, $date);
 	}
 }
