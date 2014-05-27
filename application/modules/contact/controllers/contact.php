@@ -24,11 +24,18 @@ class Contact extends MX_Controller {
 				
 				if($this->form_validation->run() == TRUE):
 					modules::run('email/contactEmail', $this->input->post('name'), $this->input->post('email'), $this->input->post('message'));
+					
+					redirect('contact/successfully');
 				endif;
 			endif;
 		endif;
 	
 		$data['view_file'] = 'contact_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function successfully() {
+		$data['view_file'] = 'contact_successfull_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 }

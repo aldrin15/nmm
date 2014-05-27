@@ -25,9 +25,11 @@
 					<label for="To">To: </label>
 					<input type="text" name="to" id=""/>
 				</li>
+				<!-- 
 				<li>
 					<input type="text" name="" id="datepicker"/>
 				</li>
+				-->
 				<li>
 					<input type="submit" name="ride_submit" value="Search"/>
 				</li>
