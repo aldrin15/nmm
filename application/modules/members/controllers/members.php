@@ -127,9 +127,15 @@ class Members extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
+	public function create_lift() {
+		$data['view_file'] = 'member_create_lift_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}	
+	
 	public function settings() {
-		$post = $this->input->post();
 		$user_id = $this->session->userdata('user_id');
+		
+		$post = $this->input->post();
 		
 		if($post):
 			if(array_key_exists('settings_submit', $post)):

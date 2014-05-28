@@ -5,10 +5,12 @@
 		<li><a href="<?php echo base_url('members/index')?>">Dashboard</a></li>
 		<li><a href="<?php echo base_url('members/edit')?>">Edit Profile</a></li>
 		<li><a href="#">Manage Cars</a></li>
+		<li><a href="<?php echo base_url('members/create_lift')?>">Create a lift</a></li>
 		<li><a href="#">Balance</a></li>
 		<li><a href="#">Transactions</a></li>
 		<li><a href="#">Messages</a></li>
 		<li><a href="#">Overview</a></li>
+		<li><a href="<?php echo base_url('members/settings')?>">Settings</a></li>
 	</ul>
 </div>
 
@@ -23,7 +25,7 @@
 #user-map { margin: 20px auto; border: 1px dashed #C0C0C0; width: 800px; height: 450px; }
 
 .profile-search ul li {float:left;}
-.profile-search ul li {float:left;}
+.profile-search ul li label,.profile-search ul li input {float:left;}
 
 .from-suggestion {position:relative;}
 .from-suggestion ul {display:none; position:absolute; background:#fff; top:0; left:100px; border:1px solid #000; z-index:2; overflow-y: scroll; height:100px;}
@@ -57,24 +59,8 @@
 					<input type="text" name="to" id="to-route"/>
 				</li>
 				<li>
-					<label for="Choose">Date:</label>
-					
-					<input type="text" name="" id="datepicker" />
-				</li>
-				<li>
-					<!--<a href="#" class="chose fl"></a>-->
 					<input type="submit" name="ride_submit" value="Ride" class="chose fl"/>
-					<!-- 
-					<div class="choice-dropdown fl">
-						<img src="<?php //echo base_url('assets/images/dropdown.png')?>" width="16" height="16" alt="" />
-						
-						<ul>
-							<li><a href="#">Ride</a></li>
-							<li><a href="#">Passenger</a></li>
-						</ul>
-					</div>
-					-->
-					
+
 					<div class="clr"></div>
 				</li>
 			</ul>
