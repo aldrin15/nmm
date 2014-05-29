@@ -215,4 +215,25 @@ class Members extends MX_Controller {
 		
 		$this->db->query("INSERT INTO dates (`booking_dates`) VALUES('{$dates}')");
 	}
+	
+	public function test() {
+		$query = $this->db->query("
+			SELECT user.user_id AS id, firstname, lastname, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, 
+			STORAGE , user_car.car_model AS car, user_car.license_plate AS plate, available, amount, start_time, user_lift_post.date, 
+			GROUP_CONCAT( user_lift_preference.preference_id ORDER BY user_lift_preference.preference_id SEPARATOR  ', ' ) AS p_id,
+			GROUP_CONCAT( lift_preference.type ORDER BY lift_preference.preference_id SEPARATOR  ', ' ) AS TYPE
+			FROM (
+			 `user`
+			)
+			JOIN  `user_lift_post` ON  `user_lift_post`.`user_id` =  `user`.`user_id` 
+			JOIN  `user_car` ON  `user_car`.`user_id` =  `user`.`user_id` 
+			JOIN  `user_lift_preference` ON  `user_lift_preference`.`post_id` =  `user_lift_post`.`id`
+			JOIN  `lift_preference` ON `lift_preference`.`preference_id` = `user_lift_preference`.`preference_id`
+			WHERE  `user`.`user_id` =1
+		");
+		
+		echo '<pre>';
+		var_dump($query->result());
+		echo '</pre>';
+	}
 }

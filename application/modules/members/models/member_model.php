@@ -114,7 +114,20 @@ class Member_model extends CI_Model {
 			'date'			=> str_replace("&quot;", "\"", $this->input->post('dates'))
 		);
 		
-		$insert_post = $this->db->insert('user_lift_post', $post_data);
+		// $insert_post = $this->db->insert('user_lift_post', $post_data);
+		
+		$preference_array = array();
+		
+		for($i = 1; $i < count($this->input->post('preference')); $i++):
+			// $preference_array[] =  $i;
+			
+			$preference_data = array(
+				'user_id' => $this->session->userdata('user_id'),
+				'preference_id' => $i+1
+			);
+			
+			$insert_preference = $this->db->insert('user_lift_preference', $preference_data);
+		endfor;
 	}
 	
 	public function get_user_car($user_id) {

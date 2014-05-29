@@ -155,27 +155,27 @@
 					<label for="Preferences">Preferences:</label>
 					
 					<div class="fl">
-						<input type="checkbox" name="" id=""/>	
+						<input type="checkbox" name="preference[]" id="1"/>	
 						<span for="" class="fl">Talk</span>
 					</div>
 					<div class="fl">
-						<input type="checkbox" name="" id=""/>					
+						<input type="checkbox" name="preference[]" id="2"/>					
 						<span for="" class="fl">Music</span>
 					</div>
 					<div class="fl">
-						<input type="checkbox" name="" id=""/>
+						<input type="checkbox" name="preference[]" id="3"/>
 						<span for="" class="fl">Pet</span>
 					</div>
 					<div class="fl">
-						<input type="checkbox" name="" id=""/>					
+						<input type="checkbox" name="preference[]" id="4"/>					
 						<span for="" class="fl">Smoke</span>
 					</div>
 					<div class="fl">
-						<input type="checkbox" name="" id=""/>					
+						<input type="checkbox" name="preference[]" id="5"/>					
 						<span for="" class="fl">Baby</span>
 					</div>
 					<div class="fl">
-						<input type="checkbox" name="" id=""/>
+						<input type="checkbox" name="preference[]" id="6"/>
 						<span for="" class="fl">Only Women</span>
 					</div>
 					

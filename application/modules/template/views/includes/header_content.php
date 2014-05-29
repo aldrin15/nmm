@@ -7,25 +7,23 @@ nav ul li a {padding:0 10px;}
 
 	<header>
 		<div class="fr">
-			<div class="status">
-			Hi! 
 			<?php 
-				if($this->session->userdata('validated') == TRUE):
+			if($this->session->userdata('validated') == TRUE):
 					$firstname = $this->session->userdata('firstname');
-					
-					echo $firstname." "."<a href='".base_url('login/logout')."'>Logout</a>";
-					echo '<br />';
-					echo '<a href="'.base_url('members').'">Profile Account</a>';
-				else:
-					echo "Guest";
-				endif;
 			?>
-			</div>
-		
+				<div class="status">
+					<p class="fl">Hi! <?php echo $firstname?>&nbsp;</p> <a href="<?php echo base_url('login/logout')?>">Logout</a><br />
+					<a href="<?php echo base_url('members')?>">Profile Account</a>
+					
+					<div class="clr"></div>
+				</div>
+			<?php else:?>
 			<div class="login-register">
+				<p class="fl">Hi! Guest&nbsp;</p>
 				<a href="<?php echo base_url('login')?>">Login</a> |
 				<a href="<?php echo base_url('register')?>">Register</a>
 			</div>
+			<?php endif?>
 		</div>
 		
 		<div class="clr"></div>
