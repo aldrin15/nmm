@@ -14,7 +14,10 @@
 	</ul>
 </div>
 
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>">
 <style type="text/css">
+.error {color:#ff0000; margin-left:100px;}
+
 .create-lift {margin-left:100px;}
 .create-lift ul {list-style:none;}
 .profile-search ul li {float:left;}
@@ -66,18 +69,23 @@
 				<hr/><br />
 			<ul>
 				<li>
+					<?php echo form_error('origin', '<div class="error">', '</div>')?>
+						<div class="clr"></div>
 					<label for="Departure">From: </label>
-					<input type="text" name="departure" id=""/>
+					<input type="text" name="origin" id=""/>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
+					<?php echo form_error('destination', '<div class="error">', '</div>')?>
+						<div class="clr"></div>
 					<label for="Departure">To: </label>
-					<input type="text" name="arrival" id=""/>
+					<input type="text" name="destination" id=""/>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
+					<?php echo form_error('via', '<div class="error">', '</div>')?>
 					<label for="Via">Via</label>
 					<input type="text" name="via" id=""/>
 					
@@ -89,21 +97,29 @@
 				<hr/><br />
 			<ul>
 				<li>
+					<?php echo form_error('dates', '<div class="error">', '</div>');?>
+						<div class="clr"></div>
 					<label for="Date">Date:</label>
-					<input type="text" name="date" id=""/>
+					<div id="calendar" class="fl"></div>
+					<input type="hidden" name="dates" value="<?php echo set_value('dates')?>" class="calendar-data"/>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Time">Time:</label>
+					
+					<span class="fl">Hour&nbsp;</span>
 					<select name="hours" id="">
 						<?php for($i = 1; $i < 25; $i++):?>
 						<option value="<?php echo $i?>"><?php echo $i?></option>
 						<?php endfor?>
 					</select>
-					
+					<span class="fl">&nbsp;-&nbsp;Min&nbsp;</span>
 					<select name="minute" id="">
-						<?php for($i = 1; $i < 61; $i++):?>
+						<?php for($i = 1; $i < 10; $i++):?>
+						<option value="<?php echo '0'.$i?>"><?php echo '0'.$i?></option>
+						<?php endfor?>
+						<?php for($i = 10; $i < 51; $i++):?>
 						<option value="<?php echo $i?>"><?php echo $i?></option>
 						<?php endfor?>
 					</select>
@@ -174,14 +190,15 @@
 				<hr/><br />
 			<ul>
 				<li>
+					<?php echo form_error('seat_amount', '<div class="error">', '</div>')?>
 					<label for="Price Per Seat">Seat Amount:</label>
 					<input type="text" name="seat_amount" id=""/>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
-					<input type="checkbox" name="" id="" style="margin-top:3px;"/>
-					<label for="" style="width:150px;">Accept Cash Paymnet</label>
+					<input type="checkbox" name="accept_cash" id="" style="margin-top:3px;"/>
+					<label for="" style="width:150px;">Accept Cash Payment</label>
 					
 					<div class="clr"></div>
 				</li>
@@ -197,22 +214,57 @@
 					<div class="clr"></div>
 				</li>
 				<li style="float:none;">
-					<input type="checkbox" name="quick_booking" id=""/>
+					<input type="checkbox" name="quick_book" id=""/>
 					<label for="Quick Booking">Quick Booking</label>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<input type="checkbox" name="offer_re_route" id=""/>
-					<label for="Offer re-route">Offer re-route</label>
+					<label for="Offer re-route">Return Trip</label>
 					
 					<div class="clr"></div>
 				</li>
 			</ul>
 			
-			<input type="submit" name="create_lift" value="Create Lift"/>
+			<input type="hidden" name="user_car_id" value=""/>
+			
+			<input type="submit" name="create_lift_submit" value="Create Lift"/>
 		</form>
 	</div>
 </div>
 
 <div class="clr"></div>
+
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.7.2.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.core.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.datepicker.js')?>"></script>
+
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.multidatespicker.js')?>"></script>
+<script type="text/javascript">
+$(function() {
+	$('#calendar').click(function() {
+		var getDates		= $(this).multiDatesPicker('getDates'),
+			getDates_array	= [];
+		
+		// $(hidden_dates).empty(); //This empty the hidden field
+		
+		$.each(getDates, function(index, value) {
+			getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>');
+		});
+		
+		$('input[name="dates"]').val(getDates_array);
+	});
+		
+	//Run Calendar
+	$('#calendar').multiDatesPicker({
+		dateFormat	: "yy-mm-dd",
+		<?php
+		if(isset($_POST['dates'])):
+			$dates = str_replace("&quot;", "\"", $_POST['dates']);
+		?>
+		addDates : [<?php echo $dates?>]
+		<?php endif;?>
+	});
+});
+</script>

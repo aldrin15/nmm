@@ -19,6 +19,7 @@
 .popup-wrapper {position:relative;}
 .quick-book-popup {background:#fff; position:absolute; left:50%; margin-left:-250px; padding:20px; width:500px;}
 
+.quick-book {background:#ff0000;}
 .quick-book-popup ul {list-style:none;}
 .quick-book-popup ul li {margin-bottom:10px;}
 
@@ -66,13 +67,13 @@
 						<div><img src="<?php echo base_url('assets/images/car.jpg')?>" width="180" height="120" alt="Car"/></div>
 						<div>
 							<label for="From"><strong>From: </strong></label>
-							<span><?php echo $row['route_from']?></span>
+							<span><?php echo $row['origin']?></span>
 							
 							<div class="clr"></div>
 						</div>
 						<div>
 							<label for="To"><strong>To: </strong></label>
-							<span><?php echo $row['route_to']?></span>
+							<span><?php echo $row['destination']?></span>
 							
 							<div class="clr"></div>
 						</div>
@@ -99,8 +100,9 @@
 					</a>
 					
 					<div class="clr"></div><br />
-					
-					<a href="#" class="quick-book" data-id="<?php echo $row['user_id']?>" data-car="<?php echo $row['car_model']?>" data-plate="<?php echo $row['license_plate']?>" data-stime="<?php echo $row['start_time']?>" data-etime="<?php echo $row['end_time']?>">Quick Book</a>
+					<?php if($row['quick_book'] == 1):?>
+					<a href="#" class="quick-book" data-id="<?php echo $row['id']?>" data-car="<?php echo $row['car']?>" data-plate="<?php echo $row['plate']?>" data-stime="<?php echo $row['start_time']?>">Quick Book</a>
+					<?php endif?>
 				</li>
 				<?php endforeach?>
 			</ul>	

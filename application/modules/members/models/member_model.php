@@ -3,12 +3,11 @@
 class Member_model extends CI_Model {
 	
 	public function members($user_id, $what = '*') {
-		// $query = $this->db->get_where('user', array('user_id' => $user_id));
-		
 		$query = $this->db->select($what)
 							->from('user')
 							->join('user_address', 'user_address.user_id = user.user_id')
 							->join('user_mobile', 'user_mobile.user_id = user.user_id')
+							->join('user_car', 'user_car.user_id = user.user_id')
 							->where('user.user_id', $user_id)
 							->get();
 
@@ -95,6 +94,33 @@ class Member_model extends CI_Model {
 		$query = $this->db->query("SELECT * FROM  `user_lift_booking`  WHERE  `route_from` LIKE  '{$from}' AND  `route_to` LIKE  '{$to}' AND  `date` IS NOT NULL");
 		
 		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function create_lift() {
+		$post_data = array(
+			'user_id'		=> $this->session->userdata('user_id'),
+			'route_from'	=> $this->input->post('origin'),
+			'route_to'		=> $this->input->post('destination'),
+			'available'		=> $this->input->post('seat_available'),
+			'storage'		=> $this->input->post('storage'),
+			'remarks'		=> $this->input->post('remarks'),
+			'amount'		=> $this->input->post('seat_amount'),
+			'accept_cash'	=> $this->input->post('accept_cash'),
+			're_route'		=> $this->input->post('re_route'),
+			'quick_book'	=> $this->input->post('quick_book'),
+			'start_time'	=> $this->input->post('hours').':'.$this->input->post('minute').':00',
+			'date'			=> str_replace("&quot;", "\"", $this->input->post('dates'))
+		);
+		
+		$insert_post = $this->db->insert('user_lift_post', $post_data);
+	}
+	
+	public function get_user_car($user_id) {
+		$query = $this->db->get_where('user_car', array('user_id'=> $user_id));
+		
+		$result = $query->result();
 		if(count($result) == 0) return FALSE;
 		return $result;
 	}

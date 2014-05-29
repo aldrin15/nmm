@@ -62,8 +62,11 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function listing($what = '*') {
-		$query = $this->db->select($what)->from('user_lift_post')->get();
+	function listing($what = 'user_lift_post.user_id as id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, quick_book, start_time, user_car.car_model as car, user_car.license_plate as plate, date') {
+		$query = $this->db->select($what)
+							->from('user_lift_post')
+							->join('user_car', 'user_car.user_id = user_lift_post.user_id')
+							->get();
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
@@ -71,12 +74,19 @@ class Lift_model extends CI_Model {
 	}
 	
 	function details($id) {
-		$query = $this->db->query("
-			SELECT user_lift.lift_post_id AS id, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, available, user_lift_post.car_model as car, user_lift_post.license_plate as plate, storage, amount, start_time, end_time, date, GROUP_CONCAT( lift_preference.type ORDER BY lift_preference.type SEPARATOR  ', ' ) AS type, GROUP_CONCAT( lift_preference.preference_id ORDER BY lift_preference.preference_id SEPARATOR  ', ' ) AS p_id 
-			FROM (`user_lift`)
-			JOIN  `user_lift_post` ON  `user_lift_post`.`user_id` =  `user_lift`.`lift_post_id` 
-			JOIN  `lift_preference` ON  `lift_preference`.`preference_id` =  `user_lift`.`preference_id` 
-			WHERE  `lift_post_id` IN ('{$id}')
+		$query  = $this->db->query("
+			SELECT user.user_id AS id, firstname, lastname, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, storage, user_car.car_model AS car, user_car.license_plate AS plate, available, 
+			STORAGE , amount, start_time, user_lift_post.date, GROUP_CONCAT( lift_preference.type
+			ORDER BY lift_preference.type
+			SEPARATOR  ', ' ) AS 
+			TYPE , GROUP_CONCAT( lift_preference.preference_id
+			ORDER BY lift_preference.preference_id
+			SEPARATOR  ', ' ) AS p_id
+			FROM (`user`)
+			JOIN  `user_lift_post` ON  `user_lift_post`.`user_id` =  `user`.`user_id` 
+			JOIN  `user_car` ON  `user_car`.`user_id` =  `user`.`user_id` 
+			JOIN  `lift_preference` ON  `lift_preference`.`preference_id` =  `user`.`user_id`
+			WHERE `user`.`user_id` = {$id}
 		");
 		
 		$result = $query->result_array();

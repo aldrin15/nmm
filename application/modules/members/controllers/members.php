@@ -26,22 +26,38 @@ class Members extends MX_Controller {
 				$this->form_validation->set_rules('to', 'To', 'required');
 				
 				if($this->form_validation->run() == TRUE):
-					$ride = $this->member_model->search_location();
+					$from	= $this->input->post('from');
+					$to		= $this->input->post('to');
+					$date	= $this->input->post('date');
 					
-					$ride_data = array();
+					$where = array();
+					$query = NULL;
 					
-					foreach($ride as $details):
-						$ride_data[] = $details['id'];
-					endforeach;
+					if($from != ''):
+						$where[] = 'from='.$from;
+					endif;
 					
-					$this->session->set_userdata('ride_data', $ride_data);
+					if($to != ''):
+						$where[] = 'to='.$to;
+					endif;
 					
-					redirect('lift','refresh');
+					if($date != ''):
+						$where[] = 'date='.$date;
+					endif;
+					
+					if(count($where)) {
+						$query.= implode('&', $where);
+					}
+					
+					header("location: lift?".$query);
 				endif;
 			endif;
 		endif;
 		
 		$data['members_data'] 	= $this->member_model->members($this->session->userdata('user_id'));
+		
+		// $this->session->set_userdata('members_detailed_information', );
+		
 		$data['view_file'] 		= 'members_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -128,6 +144,23 @@ class Members extends MX_Controller {
 	}
 	
 	public function create_lift() {
+		$post = $this->input->post();
+		
+		if($post):
+			if(array_key_exists('create_lift_submit', $post)):
+				$this->form_validation->set_rules('origin', 'From', 'required');
+				$this->form_validation->set_rules('destination', 'To', 'required');
+				$this->form_validation->set_rules('via', 'Via', 'required');
+				$this->form_validation->set_rules('dates', 'Dates', 'required');
+				$this->form_validation->set_rules('seat_amount', 'Seat Amount', 'required');
+				
+				if($this->form_validation->run() == TRUE):
+					$this->member_model->create_lift();
+				endif;
+			endif;
+		endif;
+	
+		$data['user_car_data'] = $this->member_model->get_user_car($this->session->userdata('user_id'));
 		$data['view_file'] = 'member_create_lift_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}	
@@ -161,13 +194,25 @@ class Members extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
-	public function test() {
-		$city = $this->input->get('city');
+	public function calendar() {
+		$data['view_file'] = 'test_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	/*
+	 * Trying to get through ajax
+	 */
+	public function calendar_data() {
+		$date_array = $this->input->get('dates');
 		
-		$get_city = $this->member_model->cities($city);
+		$date = array();
 		
-		foreach($get_city as $row):
-			echo '<li><a href="#" data-city="'.$row->combined.'">'.$row->combined.'</a></li>';
-		endforeach;
+		for($i = 0; $i < count($date_array); $i++):
+			$date[] = $date_array[$i];
+		endfor;
+		
+		$dates = implode(', ', $date);
+		
+		$this->db->query("INSERT INTO dates (`booking_dates`) VALUES('{$dates}')");
 	}
 }
