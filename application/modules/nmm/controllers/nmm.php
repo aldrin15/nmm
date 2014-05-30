@@ -12,6 +12,7 @@ class Nmm extends MX_Controller {
 		
 		modules::run('login/index');
 		$this->load->library('form_validation');
+		$this->load->model('nmm_model');
 	}
 	
 	public function index() {
@@ -90,5 +91,18 @@ class Nmm extends MX_Controller {
 			echo '<option>'.$city[$i][0].'</option>';
 		endfor;
 		echo '</select>';
+	}
+	
+	public function auto_suggest() {
+		$city = $this->input->get('city');
+
+		$get_city = $this->nmm_model->cities($city);
+
+		if($get_city == 0):
+		else:
+			foreach($get_city as $row):
+				echo '<li><a href="#" data-city="'.$row->combined.'">'.$row->combined.'</a></li>';
+			endforeach;	
+		endif;
 	}
 }

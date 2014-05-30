@@ -81,4 +81,48 @@ class Lift extends MX_Controller {
 	
 		$this->lift_model->booking($user_id, $from, $to, $car, $plate, $seat_taken, $amount, $message, $request, $start_time, $end_time, $date);
 	}
+	
+	public function search() {
+		$post = $this->input->post();
+		
+		if($post):
+			if(array_key_exists('ride_submit', $post)):
+				$this->form_validation->set_rules('from', 'From', 'required');
+				$this->form_validation->set_rules('to', 'To', 'required');
+				
+				if($this->form_validation->run() == TRUE):
+					$from	= $this->input->post('from');
+					$to		= $this->input->post('to');
+					$date	= $this->input->post('date');
+					
+					$where = array();
+					$query = NULL;
+					
+					if($from != ''):
+						$where[] = 'from='.$from;
+					endif;
+					
+					if($to != ''):
+						$where[] = 'to='.$to;
+					endif;
+					
+					if($date != ''):
+						$where[] = 'date='.$date;
+					endif;
+					
+					if(count($where)) {
+						$query.= implode('&', $where);
+					}
+					
+					header("location: lift?".$query);
+				endif;
+			endif;
+		endif;
+		
+		$this->load->view('lift_search_view');
+	}
+	
+	public function auto_suggest_city() {
+		$this->load->view('lift_auto_suggest_view');
+	}
 }

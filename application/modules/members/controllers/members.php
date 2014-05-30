@@ -18,7 +18,7 @@ class Members extends MX_Controller {
 	}
 	
 	public function index() {
-		$post = $this->input->post();
+		/* $post = $this->input->post();
 		
 		if($post):
 			if(array_key_exists('ride_submit', $post)):
@@ -52,7 +52,7 @@ class Members extends MX_Controller {
 					header("location: lift?".$query);
 				endif;
 			endif;
-		endif;
+		endif; */
 		
 		$data['members_data'] 	= $this->member_model->members($this->session->userdata('user_id'));
 		

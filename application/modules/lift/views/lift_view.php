@@ -4,7 +4,7 @@
 <style type="text/css">
 .error {color:#ff0000;}
 
-.lift-view ul {list-style:none;}
+.lift-view ul, .lift-listing ul {list-style:none;}
 .lift-search ul li, .lift-listing ul li {float:left;}
 
 .lift-listing ul li {border:1px solid #000;}
@@ -28,6 +28,8 @@
 </style>
 
 <div class="lift-view">
+	<?php echo modules::run('lift/search')?>
+	<!-- 
 	<div class="lift-search">
 		<form action="" method="post">
 			<ul>
@@ -41,11 +43,6 @@
 					<label for="To">To: </label>
 					<input type="text" name="to" id=""/>
 				</li>
-				<!-- 
-				<li>
-					<input type="text" name="date" id="datepicker"/>
-				</li>
-				-->
 				<li>
 					<input type="submit" name="ride_submit" value="Search"/>
 				</li>
@@ -54,6 +51,7 @@
 			<div class="clr"></div>
 		</form>
 	</div>
+	-->
 	
 	<div class="lift-listing">
 		<?php if($ride_list == 0):?>

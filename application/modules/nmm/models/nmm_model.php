@@ -2,6 +2,15 @@
 
 class Nmm_model extends CI_Model {
 
+	public function cities($city) {
+	
+		$query = $this->db->query("SELECT DISTINCT `combined` FROM (`user_cities`) WHERE `combined` LIKE '%{$city}%'");
+		
+		$result = $query->result();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+
 	function test() {
 		$query = $this->db->get_where('countries', array('continent_code' => 'EU'));
 

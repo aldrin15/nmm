@@ -22,15 +22,6 @@ class Member_model extends CI_Model {
 		return $query->result();
 	}
 	
-	public function cities($city) {
-	
-		$query = $this->db->query("SELECT DISTINCT `combined` FROM (`user_cities`) WHERE `combined` LIKE '%{$city}%'");
-		
-		$result = $query->result();
-		if(count($result) == 0) return FALSE;
-		return $result;
-	}
-	
 	public function update($user_id) {
 		$about_me 	= $this->input->post('about_me');
 		$firstname 	= $this->input->post('firstname');

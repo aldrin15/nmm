@@ -23,7 +23,7 @@ class Lift_model extends CI_Model {
 		endif;
 		
 		if(count($where)):
-			$query_result = "SELECT * FROM  `user_lift_booking` WHERE  ".implode(' AND ', $where);
+			$query_result = "SELECT * FROM  `user_lift_post` WHERE  ".implode(' AND ', $where);
 			$query = $this->db->query($query_result);
 		endif;
 	
@@ -32,7 +32,7 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function search_get_location() {
+	function search_get_location($what = 'user_lift_post.id as id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, quick_book, start_time, date') {
 		$from 	= $this->input->get('from');
 		$to 	= $this->input->get('to');
 		$date 	= $this->input->get('date');
@@ -53,7 +53,7 @@ class Lift_model extends CI_Model {
 		endif;
 		
 		if(count($where)):
-			$query_result = "SELECT * FROM `user_lift_booking` WHERE ".implode(' AND ', $where);
+			$query_result = "SELECT {$what} FROM `user_lift_post` WHERE ".implode(' AND ', $where);
 			$query = $this->db->query($query_result);
 		endif;
 	
@@ -62,7 +62,7 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function listing($what = 'user_lift_post.user_id as id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, quick_book, start_time, user_car.car_model as car, user_car.license_plate as plate, date') {
+	function listing($what = 'user_lift_post.id as id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, quick_book, start_time, user_car.car_model as car, user_car.license_plate as plate, date') {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->join('user_car', 'user_car.user_id = user_lift_post.user_id')
@@ -86,7 +86,7 @@ class Lift_model extends CI_Model {
 			JOIN  `user_car` ON  `user_car`.`user_id` =  `user`.`user_id` 
 			JOIN  `user_lift_preference` ON  `user_lift_preference`.`post_id` =  `user_lift_post`.`id`
 			JOIN  `lift_preference` ON `lift_preference`.`preference_id` = `user_lift_preference`.`preference_id`
-			WHERE  `user`.`user_id` = {$id}		
+			WHERE  `user_lift_post`.`id` = {$id}		
 		");
 		
 		$result = $query->result_array();
