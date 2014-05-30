@@ -48,6 +48,7 @@ class Register_model extends CI_Model {
 				
 				$this->db->insert('user_address', $user_id);
 				$this->db->insert('user_mobile', $user_id);
+				$this->db->insert('user_additional_information', $user_id);
 			endforeach;
 			
 			return true;

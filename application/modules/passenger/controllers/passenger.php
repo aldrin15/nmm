@@ -15,7 +15,7 @@ class Passenger extends MX_Controller {
 	}
 	
 	public function index() {
-		$post = $this->input->post();
+		/* $post = $this->input->post();
 		
 		if($post):
 			if(array_key_exists('ride_submit', $post)):
@@ -30,7 +30,7 @@ class Passenger extends MX_Controller {
 			endif;
 		else:
 			$data['passenger_list'] = $this->passenger_model->listing();
-		endif;
+		endif; */
 		
 		$data['view_file'] = 'passenger_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);

@@ -67,6 +67,8 @@ class Lift_model extends CI_Model {
 							->from('user_lift_post')
 							->join('user_car', 'user_car.user_id = user_lift_post.user_id')
 							->get();
+							
+		$query = $this->db->select('*')->from('user_lift_post')->get();
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;

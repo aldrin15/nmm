@@ -17,7 +17,7 @@ $(function() {
 				'type'		: 'GET',
 				'data'		: {city: from_route.val()},
 				'success'	: function(data) {
-					$('.from-suggestion ul').empty();
+					$('.from-suggestion ul').empty().show();
 					$('.from-suggestion ul').show().append(data);
 									
 					/*
@@ -26,6 +26,7 @@ $(function() {
 					 */
 					$('.from-suggestion ul li a').click(function() {
 						$('#from-route').val($(this).attr('data-city')).keyup();
+						$('.from-suggestion ul').hide();
 					});
 				}
 			});	

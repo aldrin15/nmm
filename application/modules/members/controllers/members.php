@@ -56,8 +56,6 @@ class Members extends MX_Controller {
 		
 		$data['members_data'] 	= $this->member_model->members($this->session->userdata('user_id'));
 		
-		// $this->session->set_userdata('members_detailed_information', );
-		
 		$data['view_file'] 		= 'members_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -115,8 +113,9 @@ class Members extends MX_Controller {
 			
 		endif;
 	
-		$data['countries_list']	= $this->member_model->countries();
-		$data['view_file']		= 'member_edit_profile_view';
+		$data['members_information']	= $this->member_model->member_information($this->session->userdata('user_id'));
+		$data['countries_list']			= $this->member_model->countries();
+		$data['view_file']				= 'member_edit_profile_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	

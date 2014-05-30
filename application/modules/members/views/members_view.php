@@ -5,6 +5,11 @@
 .profile-sidebar ul {list-style:none;}
 
 .profile-details {margin-left:100px; width:800px;}
+.profile-details ul {list-style:none;}
+.profile-details ul li {margin-bottom:10px;}
+.profile-details ul li label, .profile-details ul li p {display:block; float:left;}
+
+.profile-detail-information ul li label {width:100px;}
 </style>
 
 <div class="profile-sidebar fl">
@@ -23,10 +28,53 @@
 
 <div class="profile-details fl">
 	<?php echo modules::run('lift/search')?>
-	
 	<?php foreach($members_data as $row):?>	
 	<div class="profile-detail-information">
-		
+		<ul>
+			<li>
+				<label for="Picture">Picture:</label>
+				<p></p>
+				
+				<div class="clr"></div>
+			</li>
+			<li>
+				<label for="Picture">Profile Text:</label>
+				<p></p>
+				
+				<div class="clr"></div>
+			</li>
+			<li>
+				<?php ?>
+				<label for="Name">Name:</label>
+				<p><?php echo $row['firstname'].' '.$row['lastname'];?></p>
+				
+				<div class="clr"></div>
+			</li>
+			<li>
+				<label for="Job">Job:</label>
+				<p></p>
+				
+				<div class="clr"></div>
+			</li>
+			<li>
+				<label for="Address">Address:</label>
+				<p><?php echo $row['address_no'].' '.$row['street'].' '.$row['city'].' City, '.$row['country']?></p>
+				
+				<div class="clr"></div>
+			</li>
+			<li>
+				<label for="Address">Postal Code:</label>
+				<p><?php echo $row['postal']?></p>
+				
+				<div class="clr"></div>
+			</li>
+			<li>
+				<label for="Address">Mobile number:</label>
+				<p><?php echo $row['number']?></p>
+				
+				<div class="clr"></div>
+			</li>
+		</ul>
 	</div>
 	<?php endforeach?>
 </div>

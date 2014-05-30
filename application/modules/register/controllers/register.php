@@ -12,6 +12,10 @@ class Register extends MX_Controller {
 		
 		$this->load->model('register_model');
 		$this->load->library('form_validation');
+		
+		if($this->session->userdata('user_id') == TRUE):
+			redirect('nmm');
+		endif;
 	}
 	
 	public function index() {
@@ -28,7 +32,7 @@ class Register extends MX_Controller {
 				
 				if($this->form_validation->run() == TRUE):
 					$rand 		= random_string('unique');
-					$message	= "Dear ".$this->input->post('email').",\nPlease click on below URL or paste into your browser to verify your Email Address\n\n http://localhost/nmm/register/verify/".$rand."\n"."\n\nThanks\nAdmin Team";
+					$message	= "Dear ".$this->input->post('email').",\n\nPlease click on below URL or paste into your browser to verify your Email Address\n\n ".base_url('register/verify/')."/".$rand."\n"."\n\nThanks\nAdmin Team";
 					
 					$this->register_model->insert($rand);
 					

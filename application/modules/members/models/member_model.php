@@ -5,12 +5,26 @@ class Member_model extends CI_Model {
 	public function members($user_id, $what = '*') {
 		$query = $this->db->select($what)
 							->from('user')
-							->join('user_address', 'user_address.user_id = user.user_id')
-							->join('user_mobile', 'user_mobile.user_id = user.user_id')
-							->join('user_car', 'user_car.user_id = user.user_id')
+							->join('user_address', 'user_address.user_id = user.user_id', 'left')
+							->join('user_mobile', 'user_mobile.user_id = user.user_id', 'left')
+							->join('user_car', 'user_car.user_id = user.user_id', 'left')
 							->where('user.user_id', $user_id)
 							->get();
 
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function member_information($user_id, $what = '*') {
+		$query = $this->db->select($what)
+							->from('user')
+							->join('user_additional_information', 'user_additional_information.user_id = user.user_id')
+							->join('user_address', 'user_address.user_id = user.user_id')
+							->join('user_mobile', 'user_mobile.user_id = user.user_id')
+							->where('user.user_id', $user_id)
+							->get();
+		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
@@ -34,16 +48,18 @@ class Member_model extends CI_Model {
 		$country 	= $this->input->post('country');
 		$mobile 	= $this->input->post('mobile');
 	
-		$this->db->query("UPDATE user, user_address, user_mobile 
+		$this->db->query("UPDATE user, user_additional_information, user_address, user_mobile 
 							SET user.firstname = '{$firstname}', 
-							    user.lastname = '{$lastname}', 
+							    user.lastname = '{$lastname}',
+								user_additional_information.about_me = '{$about_me}',
+								user_additional_information.job = '{$job}',
 								user_address.address_no = '{$address_no}', 
 								user_address.street = '{$street}', 
 								user_address.city = '{$city}',
 								user_address.country = '{$country}',
 								user_address.postal = '{$postal}',
 								user_mobile.number = '{$mobile}'
-							WHERE user.user_id = user_address.user_id AND user.user_id = user_mobile.user_id AND user.user_id = '{$user_id}';");
+							WHERE user.user_id AND user_additional_information.user_id AND user.user_id = user_address.user_id AND user.user_id = user_mobile.user_id  = '{$user_id}';");
 		return true;
 	}
 	
@@ -105,7 +121,7 @@ class Member_model extends CI_Model {
 			'date'			=> str_replace("&quot;", "\"", $this->input->post('dates'))
 		);
 		
-		// $insert_post = $this->db->insert('user_lift_post', $post_data);
+		$insert_post = $this->db->insert('user_lift_post', $post_data);
 		
 		$preference_array = array();
 		
@@ -113,7 +129,7 @@ class Member_model extends CI_Model {
 			// $preference_array[] =  $i;
 			
 			$preference_data = array(
-				'user_id' => $this->session->userdata('user_id'),
+				'post_id' => $this->session->userdata('user_id'),
 				'preference_id' => $i+1
 			);
 			
