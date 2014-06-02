@@ -1,3 +1,4 @@
+<?php $this->load->view('header_content')?>
 <form action="<?php echo base_url('login/process')?>" method="post">
 	<?php if(!is_null($msg)) echo $msg;?>
 	<ul>

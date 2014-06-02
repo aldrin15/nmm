@@ -2,22 +2,18 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>NMM - Home</title>
+	<meta name="description" content="NMM">
+	<meta name="keywords" content="Lift service, Wish Lift Service, Car rental">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex, nofollow">
 	
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/normalize.css')?>"/>
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/style.css')?>"/>
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/jquery-ui.css')?>"/>
+	<title>NMM</title>
+	
+	<link type="text/css" rel="stylesheet" href="assets/css/bootstrap.css"/>
+	<link type="text/css" rel="stylesheet" href="assets/css/bootstrap-responsive.css"/>
+	<link type="text/css" rel="stylesheet" href="assets/css/style.css"/>
+	
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.11.0.min.js')?>"></script>
-	
-	<style type="text/css">
-	#main-container {margin:0 auto; padding-top:10px; width:1024px;}
-	
-	header {width:1024px;}
-	.login-register, .status {float:left;}
-	.status {margin-right:10px;}
-	
-	nav ul li a:hover {text-decoration:underline;}
-	</style>
 </head>
 <body>
 <div id="main-container">

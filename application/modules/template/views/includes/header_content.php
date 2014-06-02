@@ -1,43 +1,29 @@
-<style type="text/css">
-nav {margin-bottom:20px;}
-nav ul li {float:left; border-right:1px solid #000;}
-nav ul li:last-child {border:none;}
-nav ul li a {padding:0 10px;}
-</style>
-
 	<header>
-		<div class="fr">
-			<?php 
-			if($this->session->userdata('validated') == TRUE):
-					$firstname = $this->session->userdata('firstname');
-			?>
-				<div class="status">
-					<p class="fl">Hi! <?php echo $firstname?>&nbsp;</p> <a href="<?php echo base_url('login/logout')?>">Logout</a><br />
-					<a href="<?php echo base_url('members')?>">Profile Account</a>
-					
-					<div class="clr"></div>
-				</div>
-			<?php else:?>
-			<div class="login-register">
-				<p class="fl">Hi! Guest&nbsp;</p>
-				<a href="<?php echo base_url('login')?>">Login</a> |
-				<a href="<?php echo base_url('register')?>">Register</a>
+		<div class="login-status-wrapper">
+			<div class="login-status m-center">
+				<a href="<?php echo base_url('login')?>">Log in</a> |
+				<a href="">Sign up!</a>
 			</div>
-			<?php endif?>
 		</div>
 		
-		<div class="clr"></div>
-	
-		<nav>
-			<ul>
-				<li><a href="<?php echo base_url('nmm')?>">Home</a></li>
-				<li><a href="<?php echo base_url('lift')?>">Lift</a></li>
-				<li><a href="<?php echo base_url('passenger')?>">Passenger</a></li>
-				<li><a href="<?php echo base_url('contact')?>">Contact Us</a></li>
-			</ul>
+		<div class="logo-nav m-center">
+			<div class="logo pull-left"><a href="#"><img src="assets/images/page_template/logo.jpg" width="49" height="83" alt=""/></a></div>
+			
+			<nav class="pull-right">
+				<ul>
+					<li><a href="<?php echo base_url('lift')?>">Lift</a></li>
+					<li><a href="<?php echo base_url('passenger')?>">Passenger</a></li>
+					<li><a href="<?php echo base_url('events')?>">Events</a></li>
+					<li><a href="<?php echo base_url('abroad')?>">Abroad</a></li>
+					<li><a href="<?php echo base_url('rent')?>">Rent a car</a></li>
+					<li><a href="<?php echo base_url('offer')?>">Offer / Make a wish lift</a></li>
+				</ul>
+			</nav>
 			
 			<div class="clr"></div>
-		</nav>
+			
+			<div class="line-separator"></div>
+		</div>	
 	</header>
 	
 	<div id="main-wrapper">

@@ -1,0 +1,228 @@
+@charset "utf-8";
+/*CSS DOCUMENT*/
+
+/* ==============================
+	Theme Name: NMM
+	Author: Aldrin Dio
+	Description: Customize theme
+ ============================= */
+
+* {margin:0; padding:0;} 
+html, body {background:#fdfdfb; margin:0; padding:0; width:100%;} 
+ul {list-style:none; margin:0; padding:0;}
+
+
+
+
+/* ===============
+	Font Styles
+ ============== */
+@font-face {
+    font-family: 'quicksandregular';
+    src: url('../fonts/quicksand-regular-webfont.eot');
+    src: url('../fonts/quicksand-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/quicksand-regular-webfont.woff') format('woff'),
+         url('../fonts/quicksand-regular-webfont.ttf') format('truetype'),
+         url('../fonts/quicksand-regular-webfont.svg#quicksandregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+} 
+/* ===============
+	END Font Styles
+ ============== */
+
+
+
+ 
+/* ===============
+	Page Template
+ ============== */
+#main-container {height:100%; min-height:100%; height: auto !important;}
+
+.login-status-wrapper {background:#678222; height:20px;}
+.login-status {color:#bbfb04; text-align:right;}
+.login-status a {color:#bbfb04;}
+.logo-nav {margin: 0 auto; width:1024px;}
+
+nav {margin-top:30px;}
+nav ul li {float:left; color:#050505; padding:32px 10px 0;}
+
+nav ul li:nth-child(1) {background:url('../images/page_template/menu_lift.jpg') no-repeat top center;}
+nav ul li:nth-child(2) {background:url('../images/page_template/menu_passenger.jpg') no-repeat top center;}
+nav ul li:nth-child(3) {background:url('../images/page_template/menu_event.jpg') no-repeat top center;}
+nav ul li:nth-child(4) {background:url('../images/page_template/menu_abroad.jpg') no-repeat top center;}
+nav ul li:nth-child(5) {background:url('../images/page_template/menu_rent_a_car.jpg') no-repeat top center;}
+nav ul li:nth-child(6) {background:url('../images/page_template/menu_offer.jpg') no-repeat top center;}
+
+nav ul li a {color:#050505; font-family: 'quicksandregular'; font-weight:bold; font-size:1.1em;}
+
+.line-separator {border-top:2px solid #c2c2c1; width:1024px;}
+
+footer .pull-left {text-transform:uppercase; margin-bottom:25px;}
+footer .pull-left .fl {margin-right:20px;}
+footer .pull-left a {color:#050505; font-size:.9em;}
+footer .pull-left a:hover {text-decoration:none;}
+
+footer .pull-right {text-transform:uppercase; text-align:center; margin-top:14px;}
+footer .pull-right .fl {margin-left:32px;}
+footer .pull-right .fl span:last-child {color:#678222;}
+
+.copyrights {background:#678222; color:#bbfb04; text-align:center;}
+/* ===============
+	END Page Template
+ ============== */
+
+ 
+ 
+/* ================
+	Helper Classes
+ =============== */
+.bd {border:1px solid #000;}
+.hidden 				{display: none !important; visibility: hidden; } /* Hide from both screenreaders and browsers */
+.clr 				{float:none; clear: both; }
+.fr, .fright 		{float:right;}
+.fl, .fleft 			{float:left;}
+.clear  				{clear:both}
+.border				{border:1px solid red}
+.bg					{background:#ffe0d1}
+.bold				{font-weight:bold}
+.italic				{font-style:italic}
+.normal				{font-weight:normal}
+.block				{display:block}
+.absolute			{position: absolute}
+.relative			{position: relative}
+.small				{font-size:12px}
+.xsmall				{font-size:10px}
+.fff				{color:#fff}
+.red				{color:red}
+.arial				{font-family:Arial,sans-serif}
+.textleft			{text-align:left}
+.textright   		{text-align:right}
+.textcenter			{text-align:center}
+.show				{display:block; visibility:visible}
+.dispalyTable		{display:table}
+.center				{display:table-cell; vertical-align:middle; text-align:center}
+.overflow-hidden 	{overflow:hidden;}
+.m-center 			{margin:0 auto; width:1024px;}
+
+
+
+
+/* ===================
+	Template Layout
+ ================== */
+.button-gray {
+	color:#656565;
+	font-family: 'quicksandregular';
+	font-weight:bold;
+	background-image: -ms-linear-gradient(top, #FFFFFF 0%, #CDCECE 100%); /* IE10 Consumer Preview */ 
+	background-image: -moz-linear-gradient(top, #FFFFFF 0%, #CDCECE 100%); /* Mozilla Firefox */ 
+	background-image: -o-linear-gradient(top, #FFFFFF 0%, #CDCECE 100%); /* Opera */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #CDCECE)); /* Webkit (Safari/Chrome 10) */  
+	background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #CDCECE 100%); /* Webkit (Chrome 11+) */ 
+	background-image: linear-gradient(to bottom, #FFFFFF 0%, #CDCECE 100%);	/* W3C Markup, IE10 Release Preview */
+	border: 1px solid #909090;
+	border-radius: 8px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-ms-border-radius: 8px;
+	padding:10px 8px;
+}
+.button-gray:hover {text-decoration:none; color:#656565;}
+ 
+.slideshow {margin-top:10px;}
+.slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:375px;}
+.slideshow ul li { -webkit-backface-visibility: hidden; position: absolute; display: none; width: 100%; left: 0; top: 0; }
+.slideshow ul li:first-child { position: relative; display: block; float: left; }
+.slideshow ul li img { display: block; height: 100%; float: left; width: 100%; border: 0; }
+
+.welcome {margin-left:0; width:300px;}
+.welcome a {display:block; font-size:1.3em; text-align:center; width:132px;}
+
+.carousel {margin-top:17px; width:570px;}
+.carousel .span2 {position:relative; float:left; margin-left:20px;}
+.carousel-inner .span2 {width:170px;}
+
+
+.carousel-linked-nav {float:right;}
+.carousel-linked-nav li {float:left; background:url('../images/events/bullet_nav.jpg') no-repeat; margin-left:5px; width:13px; height:13px;}
+.carousel-linked-nav li.active {background:url('../images/events/bullet_nav.jpg') no-repeat 0 -13px;}
+.carousel-linked-nav li a {display:block; width:9px; height:9px;}
+
+.events-quote .pagination {margin:0 20px 0;}
+
+.event-detail {position:absolute; color:#fff; top:0; left:0; width:100%;}
+
+.quote {text-align:center; margin-top:12px;}
+.quote .fl {margin-left:10px;}
+.quote .q-left {vertical-align:top}
+.quote .q-right {vertical-align:top; margin-top:25px;}
+.q-message p {position:relative; background: #e6e6e6; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:5px 10px; width:450px;}
+.q-message img {position:absolute; bottom:-9px; left:5px;}
+
+
+
+
+/* ===================
+	Responsive Layout
+ ================== */
+@media (max-width: 1024px) {
+	/* .login-status, .logo-nav, .line-separator {width:100%;} */
+	.line-separator {width:100%;}
+	.m-center {width:100%;}
+}
+
+@media (max-width: 920px) {
+	.welcome {text-align:center; width:100%;}
+	.welcome a {margin:0 auto;}
+	
+	.events-quote {float:none; clear:both; padding-top:20px;}
+	.carousel {width:100%;}
+	.carousel-inner .item {text-align:center;}
+	.carousel-inner .item .span2 {float:none; clear:both; display:inline-block;width:205px;}
+	
+	.event-detail p {text-align:center;}
+	
+	.carousel-linked-nav {float:none; clear:both; text-align:center;}
+	.carousel-linked-nav li {float:none; clear:both; display:inline-block;}
+	
+	.quote div {float:none; clear:both; display:inline-block;}
+}
+
+@media (max-width: 854px) {
+	.rslides{height:auto;}
+	
+	footer .pull-left {float:none; clear:both; text-align:center;}
+	footer .pull-left .fl {float:none; clear:both; vertical-align:top; display:inline-block;}
+	
+	footer .pull-right {float:none; clear:both; text-align:center;}
+	footer .pull-right .fl {float:none; clear:both; vertical-align:top; display:inline-block;}
+}
+
+@media (max-width: 720px) {
+	nav {display:none;} 
+}
+
+@media (max-width: 640px) {
+	.q-message p {width:90%;}
+}
+
+@media (max-width: 580px) {
+	.slideshow ul {height:290px;}
+}
+
+@media (max-width: 480px) {
+	.slideshow ul {height:250px;}
+	
+	footer .pull-left .fl, footer .pull-right .fl {margin:0;}
+	footer .pull-left .fl, footer .pull-right .fl  {width:90%;}
+	
+	.carousel-inner .item .span2 {margin-bottom:10px;}
+}
+
+@media (max-width: 320px) {
+	.slideshow ul {height:160px;}
+	
+	.welcome h2 {font-size:1.8em;}
+	.welcome p {font-size:.9em; margin-bottom:20px;}
+}
