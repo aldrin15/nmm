@@ -93,9 +93,9 @@ class Lift_model extends CI_Model {
 			 `user`
 			)
 			JOIN  `user_lift_post` ON  `user_lift_post`.`user_id` =  `user`.`user_id` 
-			JOIN  `user_car` ON  `user_car`.`user_id` =  `user`.`user_id` 
-			JOIN  `user_lift_preference` ON  `user_lift_preference`.`post_id` =  `user_lift_post`.`id`
-			JOIN  `lift_preference` ON `lift_preference`.`preference_id` = `user_lift_preference`.`preference_id`
+			LEFT JOIN  `user_car` ON  `user_car`.`user_id` =  `user`.`user_id` 
+			LEFT JOIN  `user_lift_preference` ON  `user_lift_preference`.`post_id` =  `user_lift_post`.`id`
+			LEFT JOIN  `lift_preference` ON `lift_preference`.`preference_id` = `user_lift_preference`.`preference_id`
 			WHERE  `user_lift_post`.`id` = {$id}		
 		");
 		
