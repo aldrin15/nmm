@@ -2,9 +2,12 @@
 <br /><br /><br />
 
 <style type="text/css">
-.error {color:#ff0000;}
+.error {color:#ff0000; margin-left:100px;}
 
 .contact ul {list-style:none;}
+.contact ul li {margin-bottom:10px;}
+.contact ul li label, .contact ul li input, .contact ul li textarea {float:left;}
+.contact ul li label {width:100px;}
 </style>
 
 <div class="contact">
@@ -16,16 +19,22 @@
 				<?php echo form_error('name', '<div class="error">', '</div>')?>
 				<label for="Name">Name:</label>
 				<input type="text" name="name" id=""/>
+				
+				<div class="clr"></div>
 			</li>
 			<li>
 				<?php echo form_error('email', '<div class="error">', '</div>')?>
 				<label for="Email">Email:</label>
 				<input type="text" name="email" id=""/>
+				
+				<div class="clr"></div>
 			</li>
 			<li>
 				<?php echo form_error('message', '<div class="error">', '</div>')?>
 				<label for="Message">Message</label>
 				<textarea name="message" id="" cols="30" rows="10"></textarea>
+				
+				<div class="clr"></div>
 			</li>
 			<li>
 				<input type="submit" name="contact_submit" value="Submit"/>

@@ -13,37 +13,7 @@
 
 
 <div class="home">
-	<div class="search-option">
-		<form action="" method="post">
-			<ul>
-				<li>
-					<?php echo form_error('from', '<div class="error">', '</div>')?>
-					<label for="From">From: </label>
-					<input type="text" name="from" id="from-route"/>
-					
-					<div class="from-suggestion">
-						<ul>
-						</ul>
-					</div>
-				</li>
-				<li>
-					<?php echo form_error('to', '<div class="error">', '</div>')?>
-					<label for="To">To: </label>
-					<input type="text" name="to" id="to-route"/>
-				</li>
-				<!-- 
-				<li>
-					<input type="text" name="date" id="datepicker"/>
-				</li>
-				-->
-				<li>
-					<input type="submit" name="ride_submit" value="Search"/>
-				</li>
-			</ul>
-			
-			<div class="clr"></div>
-		</form>
-	</div>
+	<?php echo modules::run('lift/search');?>
 </div>
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>

@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
 $(function() {
 	/*
@@ -9,25 +10,23 @@ $(function() {
 	$(from_route).keyup(function(e) {
 		e.preventDefault();
 		
-		if($(from_route).val().length < 3) {
+		if($(from_route).val().length < 2) {
 			$('.from-suggestion ul').hide().empty();
 		} else {
 			$.ajax({
-				'url'		: '<?php echo base_url('nmm/auto_suggest')?>',
+				'url'		: '<?php echo base_url('lift/auto_suggest')?>',
 				'type'		: 'GET',
 				'data'		: {city: from_route.val()},
 				'success'	: function(data) {
-					$('.from-suggestion ul').empty().show();
-					$('.from-suggestion ul').show().append(data);
-									
-					/*
-					 * Get Value from Anchor 
-					 * and Pass it to input
-					 */
-					$('.from-suggestion ul li a').click(function() {
-						$('#from-route').val($(this).attr('data-city')).keyup();
-						$('.from-suggestion ul').hide();
+					var city_array = [];
+				
+					$.each($.parseJSON(data), function(index, value) {
+						city_array.push(value.combined);
 					});
+					
+					var city = city_array;
+					
+					$('#from-route').autocomplete({source:city});
 				}
 			});	
 		}
@@ -36,24 +35,23 @@ $(function() {
 	$(to_route).keyup(function(e) {
 		e.preventDefault();
 		
-		if($(to_route).val().length < 3) {
+		if($(to_route).val().length < 2) {
 			$('.from-suggestion ul').hide().empty();
 		} else {
 			$.ajax({
-				'url'		: '<?php echo base_url('nmm/auto_suggest')?>',
+				'url'		: '<?php echo base_url('lift/auto_suggest')?>',
 				'type'		: 'GET',
 				'data'		: {city: to_route.val()},
 				'success'	: function(data) {
-					$('.from-suggestion ul').empty();
-					$('.from-suggestion ul').show().append(data);
-									
-					/*
-					 * Get Value from Anchor 
-					 * and Pass it to input
-					 */
-					$('.from-suggestion ul li a').click(function() {
-						$('#to-route').val($(this).attr('data-city')).keyup();
+					var city_array = [];
+				
+					$.each($.parseJSON(data), function(index, value) {
+						city_array.push(value.combined);
 					});
+					
+					var city = city_array;
+					
+					$('#to-route').autocomplete({source:city});
 				}
 			});	
 		}

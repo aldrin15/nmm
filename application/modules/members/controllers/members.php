@@ -142,28 +142,6 @@ class Members extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
-	public function create_lift() {
-		$post = $this->input->post();
-		
-		if($post):
-			if(array_key_exists('create_lift_submit', $post)):
-				$this->form_validation->set_rules('origin', 'From', 'required');
-				$this->form_validation->set_rules('destination', 'To', 'required');
-				$this->form_validation->set_rules('via', 'Via', 'required');
-				$this->form_validation->set_rules('dates', 'Dates', 'required');
-				$this->form_validation->set_rules('seat_amount', 'Seat Amount', 'required');
-				
-				if($this->form_validation->run() == TRUE):
-					$this->member_model->create_lift();
-				endif;
-			endif;
-		endif;
-	
-		$data['user_car_data'] = $this->member_model->get_user_car($this->session->userdata('user_id'));
-		$data['view_file'] = 'member_create_lift_view';
-		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
-	}	
-	
 	public function settings() {
 		$user_id = $this->session->userdata('user_id');
 		

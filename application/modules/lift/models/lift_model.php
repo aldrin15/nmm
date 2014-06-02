@@ -2,6 +2,14 @@
 
 class Lift_model extends CI_Model {
 	
+	function cities($city) {
+		$query = $this->db->query("SELECT DISTINCT `combined` FROM (`user_cities`) WHERE `combined` LIKE '{$city}%'");
+		
+		$result = $query->result();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
 	function search_location() {
 		$from 	= $this->input->post('from');
 		$to 	= $this->input->post('to');
@@ -65,10 +73,10 @@ class Lift_model extends CI_Model {
 	function listing($what = 'user_lift_post.id as id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, quick_book, start_time, user_car.car_model as car, user_car.license_plate as plate, date') {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
-							->join('user_car', 'user_car.user_id = user_lift_post.user_id')
+							->join('user_car', 'user_car.user_id = user_lift_post.user_id', 'left')
 							->get();
 							
-		$query = $this->db->select('*')->from('user_lift_post')->get();
+		// $query = $this->db->select('*')->from('user_lift_post')->get();
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
@@ -109,10 +117,49 @@ class Lift_model extends CI_Model {
 			'request' 			=> $request,
 			'booking_status'	=> 'Pending',
 			'start_time'		=> $start_time,
-			'end_time'			=> $end_time,
 			'date' 				=> $date
 		);
 		
-		$query = $this->db->insert('user_passenger_booking', $data);
+		$query = $this->db->insert('lift_booked', $data);
 	}
+	
+	public function create_lift() {
+		$post_data = array(
+			'user_id'		=> $this->session->userdata('user_id'),
+			'route_from'	=> $this->input->post('origin'),
+			'route_to'		=> $this->input->post('destination'),
+			'available'		=> $this->input->post('seat_available'),
+			'storage'		=> $this->input->post('storage'),
+			'remarks'		=> $this->input->post('remarks'),
+			'amount'		=> $this->input->post('seat_amount'),
+			'accept_cash'	=> $this->input->post('accept_cash'),
+			're_route'		=> $this->input->post('re_route'),
+			'quick_book'	=> $this->input->post('quick_book'),
+			'start_time'	=> $this->input->post('hours').':'.$this->input->post('minute').':00',
+			'date'			=> str_replace("&quot;", "\"", $this->input->post('dates'))
+		);
+		
+		$insert_post = $this->db->insert('user_lift_post', $post_data);
+		
+		$preference_array = array();
+		
+		for($i = 1; $i < count($this->input->post('preference')); $i++):
+			// $preference_array[] =  $i;
+			
+			$preference_data = array(
+				'post_id' => $this->session->userdata('user_id'),
+				'preference_id' => $i+1
+			);
+			
+			$insert_preference = $this->db->insert('user_lift_preference', $preference_data);
+		endfor;
+	}
+
+	public function get_user_car($user_id) {
+		$query = $this->db->get_where('user_car', array('user_id'=> $user_id));
+		
+		$result = $query->result();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}	
 }

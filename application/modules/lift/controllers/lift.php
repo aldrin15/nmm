@@ -57,6 +57,35 @@ class Lift extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
+	public function create() {
+		$post = $this->input->post();
+		
+		if($post):
+			if(array_key_exists('create_lift_submit', $post)):
+				$this->form_validation->set_rules('origin', 'From', 'required');
+				$this->form_validation->set_rules('destination', 'To', 'required');
+				$this->form_validation->set_rules('via', 'Via', 'required');
+				$this->form_validation->set_rules('dates', 'Dates', 'required');
+				$this->form_validation->set_rules('seat_amount', 'Seat Amount', 'required');
+				
+				if($this->form_validation->run() == TRUE):
+					$this->lift_model->create_lift();
+					
+					redirect('lift/create_success', 'refresh');
+				endif;
+			endif;
+		endif;
+	
+		$data['user_car_data'] = $this->lift_model->get_user_car($this->session->userdata('user_id'));
+		$data['view_file'] = 'lift_create_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function create_success() {
+		$data['view_file'] = 'lift_create_success_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
 	public function detail() {
 		$id = $this->uri->segment(3);
 		
@@ -124,5 +153,43 @@ class Lift extends MX_Controller {
 	
 	public function auto_suggest_city() {
 		$this->load->view('lift_auto_suggest_view');
+	}
+	
+	public function auto_suggest() {
+		$city = $this->input->get('city');
+
+		$get_city = $this->lift_model->cities($city);
+		
+		$city_array = array();
+		
+		foreach($get_city as $cities):
+			$city_array[] = $cities;
+		endforeach;
+		
+		echo json_encode($city_array);
+
+		// $this->output->enable_profiler(TRUE);
+		
+		/* if($get_city == 0):
+		else:
+			foreach($get_city as $row):
+				// echo '<li><a href="#" data-city="'.$row->combined.'">'.$row->combined.'</a></li>';
+				echo $row->combined;
+			endforeach;	
+		endif; */
+	}
+	
+	public function test_calendar() {
+		$prefs = array (
+		   'start_day'			=> 'saturday',
+		   'month_type'			=> 'long',
+		   'day_type'			=> 'short',
+		   'show_next_prev'		=> TRUE,
+		   'next_prev_url'   	=> base_url('lift/test_calendar')
+		);
+
+		$this->load->library('calendar', $prefs);
+
+		echo $this->calendar->generate($this->uri->segment(3), $this->uri->segment(4));
 	}
 }

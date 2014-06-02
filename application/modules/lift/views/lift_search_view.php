@@ -4,6 +4,18 @@
 .lift-search ul {list-style:none;}
 .lift-search ul li {float:left;}
 .lift-search ul li label, .lift-search ul li input {float:left;}
+
+.from-suggestion {position:relative;}
+.from-suggestion ul {display:none; position:absolute; background:#fff; top:23px; left:111px; border:1px solid #000; z-index:2; overflow-y: scroll; height:100px;}
+.from-suggestion ul li {float:none; border:1px solid #000;}
+
+.ui-autocomplete {
+	font-size: .9em;
+	max-height: 100px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+}
 </style>
 
 <div class="lift-search">
@@ -13,7 +25,7 @@
 				<?php echo form_error('from', '<div class="error">', '</div>')?>
 					<div class="clr"></div>
 				<label for="From">Search a lift From:</label>
-				<input type="text" name="from" id="from-route" autocomplete="off" />
+				<input type="text" name="from" id="from-route" autocomplete="off"/>
 				
 				<div class="from-suggestion">
 					<ul>
