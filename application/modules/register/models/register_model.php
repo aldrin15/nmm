@@ -7,6 +7,7 @@ class Register_model extends CI_Model {
 		$insert_user = array(
 			'firstname'		=> $this->input->post('firstname'),
 			'lastname'		=> $this->input->post('lastname'),
+			'gender'		=> $this->input->post('gender'),
 			'email'			=> $this->input->post('email'),
 			'password'		=> md5($this->input->post('password')),
 			'account_status'=> 'Not Activated',

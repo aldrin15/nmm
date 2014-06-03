@@ -25,6 +25,7 @@ class Register extends MX_Controller {
 			if(array_key_exists('register_submit', $post)):
 				$this->form_validation->set_rules('firstname', 'Firstname', 'required|trim');
 				$this->form_validation->set_rules('lastname', 'Lastname', 'required|trim');
+				$this->form_validation->set_rules('gender', 'Gender', 'required');
 				$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
 				$this->form_validation->set_rules('password', 'Password', 'required|trim');
 				$this->form_validation->set_rules('cpassword', 'Confirm Password', 'required|trim|matches[password]');
