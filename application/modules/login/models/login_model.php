@@ -80,4 +80,25 @@ class Login_model extends CI_Model {
 			echo "<p>This Email does not exist.</p>";
 		endif;
 	}
+	
+	function user_sessions($user_id, $ip, $last_login) {
+		$query = $this->db->get_where('user_sessions', array('user_id'=>$user_id));
+		
+		$result = $query->result();
+		
+		if(count($result) == 0):
+			$data = array(
+				'user_id' 	=> $user_id,
+				'ip'		=> $ip,
+				'last_login'=> $last_login
+			);
+			
+			$this->db->insert('user_sessions', $data);
+		else:
+			$data = array(
+				'last_login' => $last_login
+			);
+			$update = $this->db->update('user_sessions', $data, array('user_id'=>$user_id));		
+		endif;
+	}
 }

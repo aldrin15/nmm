@@ -1,12 +1,19 @@
 <?php $this->load->view('header_content')?>
-		<div class="slideshow">
-			<ul class="rslides" id="slider1">
-				<li><img src="<?php echo base_url('assets/images/slideshow/1.jpg')?>" alt=""></li>
-				<li><img src="<?php echo base_url('assets/images/slideshow/2.jpg')?>" alt=""></li>
-				<li><img src="<?php echo base_url('assets/images/slideshow/3.jpg')?>" alt=""></li>
-			</ul>
+		
+		<div class="slideshow-search" style="position:relative;">
+			<div class="slideshow">			
+				<ul class="rslides" id="slider1">
+					<li><img src="<?php echo base_url('assets/images/slideshow/1.jpg')?>" alt=""></li>
+					<li><img src="<?php echo base_url('assets/images/slideshow/2.jpg')?>" alt=""></li>
+					<li><img src="<?php echo base_url('assets/images/slideshow/3.jpg')?>" alt=""></li>
+				</ul>
+				
+				<div class="clr"></div>
+			</div>
 			
-			<div class="clr"></div>
+			<div class="search-lift" style="position:absolute; bottom:0; left:0; z-index:1000; width:100%;">
+				<?php echo modules::run('lift/search')?>
+			</div>
 		</div>
 		
 		<div class="m-center">
@@ -133,6 +140,7 @@
 		
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript">
 // You can also use "$(window).load(function() {"
 $(function () {
@@ -165,3 +173,4 @@ $(function () {
 	});
 });
 </script>
+<?php echo modules::run('lift/auto_suggest_city')?>

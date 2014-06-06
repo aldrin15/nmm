@@ -8,7 +8,7 @@
  ============================= */
 
 * {margin:0; padding:0;}
-html, body {background:#fdfdfb; margin:0; padding:0; height:100%; width:100%;} 
+html, body {background:#fdfdfb; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size:12px; margin:0; padding:0; height:100%; width:100%;} 
 ul {list-style:none; margin:0; padding:0;}
 
 
@@ -39,15 +39,16 @@ ul {list-style:none; margin:0; padding:0;}
  ============== */
 #main-container {height:100%; min-height:100%; height: auto !important;}
 
-#main-wrapper {padding-bottom:147px;}
+#main-wrapper {padding-bottom:127px;}
 
-.login-status-wrapper {background:#678222; margin-bottom:1px; height:20px;}
+.login-status-wrapper {background:#678222; margin-bottom:1px; padding-top:5px; height:20px;}
 .login-status {color:#bbfb04; text-align:right;}
 .login-status a {color:#bbfb04;}
 .logo-nav {margin: 0 auto; width:1024px;}
 
 nav {margin:30px 0 2px;}
-nav ul li {float:left; color:#050505; padding:32px 10px 0;}
+nav ul li {float:left; color:#050505;}
+nav ul li a {display:block; padding:32px 10px 0;}
 
 nav ul li:nth-child(1) {background:url('../images/page_template/menu_lift.jpg') no-repeat top center;}
 nav ul li:nth-child(2) {background:url('../images/page_template/menu_passenger.jpg') no-repeat top center;}
@@ -60,7 +61,7 @@ nav ul li a {color:#050505; font-family: 'quicksandregular'; font-weight:bold; f
 
 .line-separator {border-top:2px solid #c2c2c1; width:1024px;}
 
-footer {margin-top:-147px;}
+footer {margin-top:-127px;}
 footer .pull-left {text-transform:uppercase; margin-bottom:25px;}
 footer .pull-left .fl {margin-right:20px;}
 footer .pull-left a {color:#050505; font-size:.9em;}
@@ -70,7 +71,7 @@ footer .pull-right {text-transform:uppercase; text-align:center; margin-top:14px
 footer .pull-right .fl {margin-left:32px;}
 footer .pull-right .fl span:last-child {color:#678222;}
 
-.copyrights {background:#678222; color:#bbfb04; text-align:center;}
+.copyrights {background:#678222; color:#bbfb04; text-align:center; padding:5px 0;}
 /* ===============
 	END Page Template
  ============== */
@@ -112,7 +113,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 /* ===================
 	Template Layout
  ================== */
-.button-gray {
+.btn-gray {
 	color:#656565;
 	font-family: 'quicksandregular';
 	font-weight:bold;
@@ -129,7 +130,9 @@ footer .pull-right .fl span:last-child {color:#678222;}
 	-ms-border-radius: 8px;
 	padding:10px 8px;
 }
-.button-gray:hover {text-decoration:none; color:#656565;}
+.btn-gray:hover {text-decoration:none; color:#656565;}
+.btn-search {display:block; background: url('../images/page_template/btn_search.png') no-repeat; border:none; width:79px !important; height:31px;}
+.btn-advance {display:block; background: url('../images/page_template/btn_advance_option.png') no-repeat; border:none; width:103px !important; height:31px;}
  
 .slideshow {margin-top:10px;}
 .slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:375px;}
@@ -156,7 +159,8 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .event-detail {position:absolute; color:#fff; top:0; left:0; width:100%;}
 .event-detail p {margin-left:5px;}
 
-.quote {text-align:center; margin-top:12px;}
+.quote {text-align:center; margin:12px 0 20px;}
+.q-message span {display:block; text-align:left; margin-top:10px;}
 .quote .fl {margin-left:10px;}
 .quote .q-left {vertical-align:top}
 .quote .q-right {vertical-align:top; margin-top:25px;}
@@ -179,6 +183,68 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .register form ul li input[type="text"], .register form ul li input[type="password"] {border:1px solid #bebdbd; box-shadow: inset 0 2px 10px #e7e7e5; -webkit-box-shadow: inset 0 2px 10px #e7e7e5; -moz-box-shadow: inset 0 2px 10px #e7e7e5; width:250px;}
 
 #successful-message {border:3px solid #27f82a; text-align:center; margin-top:30px; padding:10px 0;}
+
+.lift-text {text-transform:uppercase; margin-bottom:18px;}
+.lift-view ul, .lift-listing ul {list-style:none; overflow: hidden;}
+.lift-search ul li {float:left;}
+
+.lift-listing ul {width:850px;}
+.lift-listing ul li { margin: 0 40px 33px 0; float:left; background: #f2f1f0; width:250px;}
+.lift-listing ul li:nth-child(3n+3) { margin-right: 0;}
+.lift-listing ul li p {color:#678222; padding: 5px 8px;}
+.lift-listing ul li div {margin:7px 10px}
+.lift-listing ul li div label, .lift-listing ul li div span {float:left;}
+.lift-listing ul li div label {margin-right:5px;}
+.lift-listing ul li span {color:#678222; font-size:1.1em; display:block;}
+.lift-listing ul li span, .lift-listing ul li label {float:left}
+.lift-listing ul li a {color:#000;}
+.lift-listing ul li a:hover {text-decoration:none;}
+
+.lift-detail-view .fl h4 span, .lift-detail-view .fl h5 span {color:#678222;}
+
+.lift-details ul {list-style:none;}
+.lift-details ul li {float:left; text-align:center;}
+.lift-details ul li:nth-child(1) {background:red; width:20px;}
+.lift-details ul li:nth-child(2) {background:blue; width:20px;}
+.lift-details ul li:nth-child(3) {background:yellow; width:20px;}
+.lift-details ul li:nth-child(4) {background:green; width:20px;}
+.lift-details ul li:nth-child(5) {background:pink; width:20px;}
+
+.user-information {border:1px solid #dfdede; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:10px;}
+
+.lift-information {margin:20px 0;}
+.lift-information ul li {margin-bottom:10px;}
+.lift-information ul li label, .lift-information ul li span {float:left;}
+.lift-information ul li label {width:110px;}
+
+
+.quick-book-popup {display:none;}
+
+.popup-overlay {display:none; background:url('../images/overlay.png') repeat; position:absolute; top:0; left:0; width:100%; height:100%;}
+.popup-wrapper {position:relative;}
+.quick-book-popup {background:#fff; position:absolute; left:50%; margin-left:-250px; padding:20px; width:500px;}
+
+.quick-book {background: url('../images/page_template/quick_book_bg.png') no-repeat; color:#fff !important; font-weight:bold; text-align:right; padding:3px 10px 0 0; width:110px; height:18px;}
+.quick-book-popup ul {list-style:none;}
+.quick-book-popup ul li {margin-bottom:10px;}
+
+.success-overlay {display:none; background:url('../images/overlay.png') repeat; position:absolute; top:0; left:0; width:100%; height:100%;}
+.booking-success-popup {background:#fff; position:absolute; text-align:center; left:50%; margin-top:10%; margin-left:-250px; padding:20px; width:500px;}
+
+.search-home {background:url('../images/page_template/search_bg.png') repeat; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:10px 10px 0; width:678px;}
+.search-home ul, .search ul {list-style:none;}
+.search-home ul li {float:left;}
+.search-home ul li label, .search-home ul li input, .search ul li label, .search ul li input {float:left;}
+.search-home form ul li input[type="text"] {border:1px solid #bebdbd; border-shadow: 0 0 5px #000; box-shadow: inset 0 3px 10px #e7e7e5; margin-right:8px; width:195px; height:20px;}
+.search-home form ul li #datepicker {width:137px;}
+
+.ui-autocomplete { font-size: .9em; max-height: 100px; overflow-y: auto; overflow-x: hidden; }
+
+.search {margin:0 auto; width:706px;}
+.search form ul {text-align:center;}
+.search form ul li {float:left;}
+.search form ul li input[type="text"] {border:1px solid #bebdbd; border-shadow: 0 0 5px #000; box-shadow: inset 0 3px 10px #e7e7e5; margin: 10px 8px 0 0; width:237px; height:20px;}
+.search form ul li input[type="submit"] {margin-top:10px;}
 
 
 

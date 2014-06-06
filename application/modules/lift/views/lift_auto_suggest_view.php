@@ -4,6 +4,12 @@ $(function() {
 	/*
 	 * Get Route
 	 */
+	var dateToday = new Date();
+	
+	$('#datepicker').datepicker({
+		minDate: dateToday
+	});
+	 
 	var from_route = $('#from-route'),
 		to_route = $('#to-route');
 	
@@ -26,7 +32,14 @@ $(function() {
 					
 					var city = city_array;
 					
-					$('#from-route').autocomplete({source:city});
+					$('#from-route').autocomplete({
+						source:city,
+						open: function(){
+							setTimeout(function () {
+								$('.ui-autocomplete').css('z-index', 99999999999999);
+							}, 0);
+						}
+					});
 				}
 			});	
 		}

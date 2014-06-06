@@ -1,88 +1,72 @@
 <?php $this->load->view('header_content')?>
-<br /><br /><br />
 
-<style type="text/css">
-.error {color:#ff0000;}
-
-.lift-view ul, .lift-listing ul {list-style:none;}
-.lift-search ul li, .lift-listing ul li {float:left;}
-
-.lift-listing ul li {border:1px solid #000;}
-.lift-listing ul li:hover {border:1px solid #ff0000;}
-.lift-listing ul li a {color:#000;}
-.lift-listing ul li span {display:block;}
-.lift-listing ul li span, .lift-listing ul li label {float:left}
-
-.quick-book-popup {display:none;}
-
-.popup-overlay {display:none; background:url('assets/images/overlay.png') repeat; position:absolute; top:0; left:0; width:100%; height:100%;}
-.popup-wrapper {position:relative;}
-.quick-book-popup {background:#fff; position:absolute; left:50%; margin-left:-250px; padding:20px; width:500px;}
-
-.quick-book {background:#ff0000;}
-.quick-book-popup ul {list-style:none;}
-.quick-book-popup ul li {margin-bottom:10px;}
-
-.success-overlay {display:none; background:url('assets/images/overlay.png') repeat; position:absolute; top:0; left:0; width:100%; height:100%;}
-.booking-success-popup {background:#fff; position:absolute; text-align:center; left:50%; margin-top:10%; margin-left:-250px; padding:20px; width:500px;}
-</style>
-
-<div class="lift-view">
+<div class="m-center lift-view">
 	<?php echo modules::run('lift/search')?>
 	
-	<div class="lift-listing">
+	<p class="lift-text">Upcoming lift near you:</p>
+	
+	<div class="lift-listing fl">
 		<?php if($ride_list == 0):?>
 			<div style="font-size:26px; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px; width:1024px;">No records found</div>
 		<?php else:?>
 			<ul>
 				<?php 
 				foreach($ride_list as $row):?>
-				<li>
+				<li class="column">
+					<p><?php echo $row['firstname'].' '.$row['lastname']?></p>
 					<a href="<?php echo base_url().'lift/detail/'.$row['id']?>">
-						<div><img src="<?php echo base_url('assets/images/car.jpg')?>" width="180" height="120" alt="Car"/></div>
-						<div>
-							<label for="From"><strong>From: </strong></label>
-							<span><?php echo $row['origin']?></span>
-							
-							<div class="clr"></div>
-						</div>
-						<div>
-							<label for="To"><strong>To: </strong></label>
-							<span><?php echo $row['destination']?></span>
-							
-							<div class="clr"></div>
-						</div>
-						<div>
-							<label for="Date"><strong>On &nbsp;</strong></label>
-							<span><?php echo date('M d', strtotime($row['date']))?></span>
-							<label for="at">&nbsp;<strong>at</strong>&nbsp;</label>
-							<span><?php echo date('g A', strtotime($row['start_time']))?></span>
-							
-							<div class="clr"></div>
-						</div>
-						<div>
-							<label for="Available Seats"><strong>Available Seat/s:</strong>&nbsp;</label>
-							<span><?php echo $row['available']?></span>
-							
-							<div class="clr"></div>
-						</div>
-						<div>
-							<label for="">&#128; </label>
-							<span><?php echo $row['amount']?></span>
-							
-							<div class="clr"></div>
-						</div>					
+						<img src="<?php echo base_url('assets/images/car.jpg')?>" width="250" height="169" alt="Car"/>
 					</a>
+					<div>
+						<label for="From"><strong>From: </strong></label>
+						<span><?php echo $row['origin']?></span>
+						
+						<div class="clr"></div>
+					</div>
+					<div>
+						<label for="To"><strong>To: </strong></label>
+						<span><?php echo $row['destination']?></span>
+						
+						<div class="clr"></div>
+					</div>
+					<div>
+						<label for="Date"><strong>On</strong></label>
+						<span><?php echo date('M d', strtotime($row['date']))?></span>
+						<label for="at">&nbsp;<strong>at</strong></label>
+						<span><?php echo date('g A', strtotime($row['start_time']))?></span>
+						
+						<div class="clr"></div>
+					</div>
+					<div>
+						<div class="fl" style="margin:0;">
+							<label for="Available Seats"><strong>Available Seat/s:</strong></label>
+							<span><?php echo $row['available']?></span>
+						</div>
+						<div class="fr" style="color:#678222; margin:-6px 0 0 0;">
+							<label for="" style="font-size:1.5em;">&#128; </label>
+							<span style="font-size: 1.5em;"><?php echo $row['amount']?></span>
+						</div>
+						
+						<div class="clr"></div>
+					</div>
 					
-					<div class="clr"></div><br />
+					<div class="clr"></div>
 					<?php if($row['quick_book'] == 1):?>
-					<a href="#" class="quick-book" data-id="<?php echo $row['id']?>" data-car="<?php echo $row['car']?>" data-plate="<?php echo $row['plate']?>" data-stime="<?php echo $row['start_time']?>">Quick Book</a>
+					<a href="#" class="quick-book fr" data-id="<?php echo $row['id']?>" data-car="<?php echo $row['car']?>" data-plate="<?php echo $row['plate']?>" data-stime="<?php echo $row['start_time']?>">Quick Book</a>
 					<?php endif?>
 				</li>
 				<?php endforeach?>
 			</ul>	
 		<?php endif?>
+		
+		<div class="clr"></div>
 	</div>
+	
+	<div class="ads fr">
+		<img src="<?php echo base_url('assets/images/page_template/ads.jpg')?>" width="120" height="240" alt=""/>
+	</div>
+	
+	<div class="clr"></div>
 </div>
 
 <div class="popup-overlay">
@@ -135,8 +119,19 @@
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript">
+function equalHeight(group) {
+   tallest = 0;
+   group.each(function() {
+      thisHeight = $(this).height();
+      if(thisHeight > tallest) {
+         tallest = thisHeight;
+      }
+   });
+   group.height(tallest);
+}
+
 $(function() {
-	$('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
+	equalHeight($(".column"));
 	
 	$('.quick-book').click(function(e) {
 		var user_id 	= $(this).attr('data-id'),

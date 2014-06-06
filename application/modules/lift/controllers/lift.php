@@ -14,7 +14,7 @@ class Lift extends MX_Controller {
 		$this->load->library('form_validation');
 	}
 	
-	public function index() {
+	public function index() {	
 		$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		$query = parse_url($url, PHP_URL_QUERY);
 		parse_str($query, $params);
@@ -167,16 +167,6 @@ class Lift extends MX_Controller {
 		endforeach;
 		
 		echo json_encode($city_array);
-
-		// $this->output->enable_profiler(TRUE);
-		
-		/* if($get_city == 0):
-		else:
-			foreach($get_city as $row):
-				// echo '<li><a href="#" data-city="'.$row->combined.'">'.$row->combined.'</a></li>';
-				echo $row->combined;
-			endforeach;	
-		endif; */
 	}
 	
 	public function test_calendar() {
@@ -191,5 +181,12 @@ class Lift extends MX_Controller {
 		$this->load->library('calendar', $prefs);
 
 		echo $this->calendar->generate($this->uri->segment(3), $this->uri->segment(4));
+	}
+	
+	public function insert_rating() {
+		$user_id 		= $this->input->get('user_id');
+		$rating_number 	= $this->input->get('rating_number');
+		
+		$this->lift_model->insert_rating($user_id, $rating_number);
 	}
 }

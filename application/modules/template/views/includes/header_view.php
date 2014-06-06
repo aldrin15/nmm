@@ -11,6 +11,8 @@
 	
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-responsive.css')?>"/>
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/jquery-ui.css')?>"/>
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/rating.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/style.css')?>"/>
 	
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.11.0.min.js')?>"></script>

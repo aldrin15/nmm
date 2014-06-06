@@ -23,19 +23,25 @@ class Login extends MX_Controller {
     }
     
     public function process(){
-        // Validate the user can login
         $result = $this->login_model->validate();
         
-		// Now we verify the result
-        if(!$result){
-            // If user did not validate, then show them login page again
+        if(!$result):
             $msg = '<font color=red>Invalid username and/or password.</font><br />';
             $this->index($msg);
-        }else{
-            // If user did validate, 
-            // Send them to members area
+        else:
+			$now = new DateTime();
+			
+			$user_id = $this->session->userdata('user_id');
+			$ip = gethostbyname(trim(`hostname`));
+			$last_login = $now->format('Y-m-d H:i:s');
+			
+			$this->login_model->user_sessions($user_id, $ip, $last_login);
+/* 			$test = $this->login_model->user_sessions();
+			
+			var_dump($test); */
+			
             redirect('nmm');
-        }
+        endif;
     }
 	
 	public function forgot_password($error_message = NULL) {
