@@ -70,18 +70,25 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function listing($what = 'user_lift_post.id as id, firstname, lastname, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, quick_book, start_time, user_car.car_model as car, user_car.license_plate as plate, user_lift_post.date') {
+	function listing($what = 'user_lift_post.id as id, user.user_id as user_id, firstname, lastname, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, user_lift_post.amount, quick_book, user_lift_post.start_time, user_car.car_model as car, user_car.license_plate as plate, user_lift_post.date, lift_seat_booked.seat') {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
 							->join('user_car', 'user_car.user_id = user_lift_post.user_id', 'left')
+							->join('lift_seat_booked', 'lift_seat_booked.post_id = user_lift_post.id', 'left')
+							->group_by('user_lift_post.id')
 							->get();
-							
-		// $query = $this->db->select('*')->from('user_lift_post')->get();
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
+	}
+	
+	function seat_taken($what = "*") {
+		$query = $this->db->select($what)
+							->from('lift_seat_booked')
+							->get();
+		return $query->result();
 	}
 	
 	function details($id) {
@@ -108,14 +115,28 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function booking($user_id, $from, $to, $car_model, $plate, $seat_taken, $amount, $message, $request, $start_time, $end_time, $date) {	
+	function quick_book_details($post_id) {
+		$query = $this->db->query("
+			SELECT user_lift_post.id AS id, user.user_id AS user_id, firstname, lastname, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, available, user_lift_post.amount, quick_book, user_lift_post.start_time, user_car.car_model AS car, user_car.license_plate AS plate, user_lift_post.date, GROUP_CONCAT( `lift_seat_booked`.`user_id` 
+			ORDER BY `lift_seat_booked`.`user_id` 
+			SEPARATOR ', ' ) AS taken_by, GROUP_CONCAT( `lift_seat_booked`.`seat` 
+			ORDER BY `lift_seat_booked`.`seat` 
+			SEPARATOR ', ' ) AS seats, GROUP_CONCAT( `user_media`.`media_filename` ORDER BY `user_media`.`media_filename` SEPARATOR ', ') as image
+			FROM user_lift_post
+			JOIN `user` ON `user`.`user_id` = `user_lift_post`.`user_id` 
+			LEFT JOIN `user_car` ON `user_car`.`user_id` = `user_lift_post`.`user_id` 
+			LEFT JOIN `lift_seat_booked` ON `lift_seat_booked`.`post_id` = `user_lift_post`.`id` 
+			LEFT JOIN `user_media` ON `user_media`.`user_id` = `lift_seat_booked`.`user_id` 
+			WHERE `user_lift_post`.`id` = '{$post_id}'
+		");
+		
+		return $query->result_array();
+	}
+	
+	function quick_booking($user_id, $post_id, $seat_taken, $amount, $message, $request, $start_time, $date) {
 		$data = array(
 			'user_id' 			=> $user_id,
-			'route_from' 		=> $from,
-			'route_to' 			=> $to,
-			'car_model' 		=> $car_model,
-			'license_plate' 	=> $plate,
-			'seat_taken' 		=> $seat_taken,
+			'post_id' 			=> $post_id,
 			'amount' 			=> $amount,
 			'message' 			=> $message,
 			'request' 			=> $request,
@@ -124,7 +145,15 @@ class Lift_model extends CI_Model {
 			'date' 				=> $date
 		);
 		
-		$query = $this->db->insert('lift_booked', $data);
+		$booked		= $this->db->insert('lift_booked', $data);
+		
+		$data = array(
+			'post_id' 	=> $post_id,
+			'user_id' 	=> $user_id,
+			'seat'		=> '1'
+		);
+
+		$this->db->insert('lift_seat_booked', $data);
 	}
 	
 	public function create_lift() {

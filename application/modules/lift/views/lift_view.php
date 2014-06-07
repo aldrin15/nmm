@@ -51,8 +51,10 @@
 					</div>
 					
 					<div class="clr"></div>
-					<?php if($row['quick_book'] == 1):?>
-					<a href="#" class="quick-book fr" data-id="<?php echo $row['id']?>" data-car="<?php echo $row['car']?>" data-plate="<?php echo $row['plate']?>" data-stime="<?php echo $row['start_time']?>">Quick Book</a>
+					<?php $available = $row['available'] - $row['seat']?>
+					<?php if($row['quick_book'] == 1 && $available !== 0):?>
+					<!--<a href="#" class="quick-book fr" data-toggle="modal" data-target="#quick_booking" data-id="<?php echo $row['id']?>" data-userid="<?php echo $row['user_id']?>" data-stime="<?php echo $row['start_time']?>" data-amount="<?php echo $row['amount']?>" data-available="<?php echo $row['available']?>">Quick Book</a>-->
+					<a href="#" class="quick-book fr" data-toggle="modal" data-target="#quick_booking" data-id="<?php echo $row['id']?>">Quick Book</a>
 					<?php endif?>
 				</li>
 				<?php endforeach?>
@@ -69,55 +71,80 @@
 	<div class="clr"></div>
 </div>
 
-<div class="popup-overlay">
-	<div class="popup-wrapper">
-		<div class="quick-book-popup">
-			<a href="#" class="popup-close">Close</a>
-			<form action="" method="post">
-				<ul>
-					<li>
-						<label for="Available Seats">Available Seats</label>
-						
-						<div>
-							<span>Seat 1<input type="checkbox" name="seat[]" value="1" id=""/></span>
-							<span>Seat 2<input type="checkbox" name="seat[]" value="1" id=""/></span>
-							<span>Seat 3<input type="checkbox" name="seat[]" value="1" id=""/></span>
-							<span>Seat 4<input type="checkbox" name="seat[]" value="1" id=""/></span>
-							<span>Seat 5<input type="checkbox" name="seat[]" value="1" id=""/></span>
-						</div>
-					</li>
-					<li>
-						<label for="Message">Message</label>
-						<textarea name="message" id="" cols="30" rows="10"></textarea>
-					</li>
-					<li>
-						<label for="Request">Request Route</label>
-						<textarea name="request" id="" cols="30" rows="10"></textarea>
-					</li>
-					<li><input type="submit" name="book_submit" value="Proceed"/></li>
-				</ul>
-				
-				<div class="lift-view-data">
+<!-- Quick Booking -->
+<div class="modal fade" id="quick_booking" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;" data-width="430">
+	<div class="modal-dialog">
+		<form action="" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					&nbsp;
 				</div>
-				<input type="hidden" name="user_id" value=""/>
-				<input type="hidden" name="seat" value=""/>
-				<input type="hidden" name="car_model" value=""/>
-				<input type="hidden" name="license_plate" value=""/>
-				<input type="hidden" name="start_time" value=""/>
-				<input type="hidden" name="end_time" value=""/>
+				<div class="modal-body">
+					<ul>
+						<li>
+							<label for="Available Seats">Available seat(s) :</label>
+								
+							<div class="seat-available clr"></div>
+							
+							<div class="clr"></div>
+						</li>
+						<li>
+							<label for="Total Price">Total Price</label>
+							<span class="total-amount"></span>
+							
+							<div class="clr"></div>
+						</li>
+						<li>
+							<label for="Message">Message:</label>
+								<div class="clr"></div>
+							<textarea name="message" id="" cols="30" rows="10"></textarea>
+						</li>
+						<li>
+							<label for="Request">Request reroute:</label>
+							<input type="checkbox" name="request_form" id=""/>
+						</li>
+						<li class="request_form" style="display:none;">
+							<label for="From">From</label>
+							<input type="text" name="re_origin" id="from-route"/>
+								
+								<div class="clr"></div>
+							
+							<label for="To">To</label>
+							<input type="text" name="re_destination" id="to-route"/>
+							
+								<div class="clr"></div>
+						</li>
+					</ul>
+					
+					<input type="hidden" name="post_id" value=""/>
+					<input type="hidden" name="user_id" value=""/>
+					<input type="hidden" name="car_model" value=""/>
+					<input type="hidden" name="license_plate" value=""/>
+					<input type="hidden" name="start_time" value=""/>
+				</div>
+				<div class="modal-footer">
+					<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+					<input type="submit" name="book_submit" value="Proceed" class="btn-gray"/>
+				</div>
 			</form>
-		</div>	
+		</div>
 	</div>
 </div>
 
+
+<!-- 
 <div class="success-overlay">
 	<div class="popup-wrapper">
 		<div class="booking-success-popup"><a href="#" class="success-close">Close</a> You have successfully booked. Please wait for the driver confirmation within 24 hours.</div>
 	</div>
 </div>
+-->
 
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modal.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modalmanager.js')?>"></script>
 <script type="text/javascript">
 function equalHeight(group) {
    tallest = 0;
@@ -130,33 +157,114 @@ function equalHeight(group) {
    group.height(tallest);
 }
 
+function customCheckbox(checkboxName, image_array){
+	var checkBox 	= $('input[name="'+ checkboxName +'"]'),	
+		test 		= image_array;
+	
+	$(checkBox).each(function(i, val){
+		$(this).wrap( "<span class='custom-checkbox' style='background: url(\"assets/media_uploads/"+$.trim(test[i])+"\")'></span>" );
+		if($(this).is(':checked')){
+			$(this).parent().addClass("selected");
+		} 
+	});
+
+	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
+}
+
 $(function() {
-	equalHeight($(".column"));
+	equalHeight($(".column")); //Equal Height
 	
 	$('.quick-book').click(function(e) {
-		var user_id 	= $(this).attr('data-id'),
-			car_model 	= $(this).attr('data-car'),
-			plate 		= $(this).attr('data-plate'),
-			start_time	= $(this).attr('data-stime'),
-			end_time	= $(this).attr('data-etime');
-			
-		$('.lift-view-data').empty();
-		$('textarea').val(' ');
-		$('input[name="seat[]"]').removeAttr('checked');
+		var post_id 	= $(this).attr('data-id');
 		
-		$('.popup-overlay').fadeIn().show();
-		$('.quick-book-popup').fadeIn().show();
-		$('input[name="user_id"]').attr('value', user_id);
-		$('input[name="car_model"]').attr('value', car_model);
-		$('input[name="license_plate"]').attr('value', plate);
-		$('input[name="start_time"]').attr('value', start_time);
-		$('input[name="end_time"]').attr('value', end_time);
-		
-		$(this).closest('li').find('span').each(function(index, value) {
-			$('.lift-view-data').append('<input type="hidden" value="'+$(value).text()+'" class="lift-info'+index+'"/>');
+		$('.seat-available').empty();
+
+		$.ajax({
+			url		: '<?php echo base_url('lift/quick_book_details')?>',
+			type	: 'GET',
+			data	: {post_id : post_id},
+			success	: function(data) {
+				$.each($.parseJSON(data), function(index, value) {
+					// console.log(value.user_id);
+					$('input[name="post_id"]').attr('value', value.id);
+					$('input[name="user_id"]').attr('value', value.user_id);
+					$('input[name="car_model"]').attr('value', value.car);
+					$('input[name="license_plate"]').attr('value', value.plate);
+					$('input[name="start_time"]').attr('value', value.start_time);
+					
+					var seat_taken_array = value.seats.split(",");
+					var image_array = value.image.split(",");
+					
+					//To make result array again
+					var seat_taken = 0;
+					for (var i = 0; i < seat_taken_array.length; i++) {
+						seat_taken += seat_taken_array[i] << 0;
+					}
+					
+					//Append base on array total
+					for(var i = 0; i < seat_taken; i++) {
+						$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="" /></label>');
+					}
+					
+					customCheckbox("seat[]", image_array);
+				});
+			}
 		});
+	});
+	
+	
+	/*
+	 * Auto Calculate the amount per seat
+	 */
+	var seat_amount = 0;
+	
+	$('input[name="seat[]"]').click(function() {
+		seat_amount += parseInt($(this).val());
 		
+		$('.total-amount').html('<strong>&euro; '+seat_amount+'</strong>');
+	});
+	
+	/*
+	 * Request re-route form
+	 */
+	$('input[name="request_form"]').click(function() {
+		if($(this).is(':checked')) {
+			$('.request_form').slideDown();
+		} else {
+			$('.request_form').slideUp();
+		}
+	});
+	
+	//Get Cities
+	$('body').on('keyup', '#from-route', function(e) {
 		e.preventDefault();
+		if($(this).val().length < 2) {
+			//Nothing
+		} else {
+			$.ajax({
+				url		: '<?php echo base_url('lift/auto_suggest')?>',
+				type	: 'GET',
+				data	: {city: $(this).val()},
+				success	: function(data) {
+					var city_array = [];
+				
+					$.each($.parseJSON(data), function(index, value) {
+						city_array.push(value.combined);
+					});
+					
+					var city = city_array;
+					
+					$('#from-route').autocomplete({
+						source:city,
+						open: function(){
+							setTimeout(function () {
+								$('.ui-autocomplete').css('z-index', 99999999999999);
+							}, 0);
+						}
+					});
+				}
+			});
+		}
 	});
 	
 	/*
@@ -171,16 +279,12 @@ $(function() {
 	
 	$('input[name="book_submit"]').click(function(e) {
 		var	user_id 	= $('input[name="user_id"]').attr('value'),
-			from 		= $('.lift-info0').val(),
-			to			= $('.lift-info1').val(),
-			car_model	= $('input[name="car_model"]').attr('value'),
-			plate 		= $('input[name="license_plate"]').attr('value'),
+			post_id 	= $('input[name="post_id"]').attr('value'),
 			seat_taken 	= 0,
 			amount		= $('.lift-info5').val(),
 			message		= $('textarea[name="message"]').val(),
 			request		= $('textarea[name="request"]').val(),
 			start_time	= $('input[name="start_time"]').val(),
-			end_time	= $('input[name="end_time"]').val(),
 			date		= $('.lift-info2').val(),
 			error 		= 0;
 		
@@ -200,16 +304,12 @@ $(function() {
 				url : '<?php echo base_url('lift/quick_book')?>',
 				data: {
 					user_id 	: user_id,
-					from		: from,
-					to			: to,
-					car_model	: car_model,
-					plate		: plate,
+					post_id 	: post_id,
 					message		: message,
 					request		: request,
 					amount		: amount,
 					seat_taken	: seat_taken,
 					start_time	: start_time,
-					end_time	: end_time,
 					date		: date,
 				},
 				type: 'GET',

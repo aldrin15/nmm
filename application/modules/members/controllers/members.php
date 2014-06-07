@@ -18,42 +18,6 @@ class Members extends MX_Controller {
 	}
 	
 	public function index() {
-		/* $post = $this->input->post();
-		
-		if($post):
-			if(array_key_exists('ride_submit', $post)):
-				$this->form_validation->set_rules('from', 'From', 'required');
-				$this->form_validation->set_rules('to', 'To', 'required');
-				
-				if($this->form_validation->run() == TRUE):
-					$from	= $this->input->post('from');
-					$to		= $this->input->post('to');
-					$date	= $this->input->post('date');
-					
-					$where = array();
-					$query = NULL;
-					
-					if($from != ''):
-						$where[] = 'from='.$from;
-					endif;
-					
-					if($to != ''):
-						$where[] = 'to='.$to;
-					endif;
-					
-					if($date != ''):
-						$where[] = 'date='.$date;
-					endif;
-					
-					if(count($where)) {
-						$query.= implode('&', $where);
-					}
-					
-					header("location: lift?".$query);
-				endif;
-			endif;
-		endif; */
-		
 		$data['members_data'] 	= $this->member_model->members($this->session->userdata('user_id'));
 		
 		$data['view_file'] 		= 'members_view';
@@ -98,6 +62,7 @@ class Members extends MX_Controller {
 				if($this->form_validation->run() == TRUE):
 					$config['allowed_types'] 	= 'jpg|jpeg|gif|png';
 					$config['upload_path']		= realpath(APPPATH.'../assets/media_uploads');
+					$config['file_name']		= $user_id.'_'.substr(md5(rand()), 0, 7);
 					
 					$this->upload->initialize($config);
 					$this->upload->do_upload();
@@ -191,26 +156,5 @@ class Members extends MX_Controller {
 		$dates = implode(', ', $date);
 		
 		$this->db->query("INSERT INTO dates (`booking_dates`) VALUES('{$dates}')");
-	}
-	
-	public function test() {
-		$query = $this->db->query("
-			SELECT user.user_id AS id, firstname, lastname, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, 
-			STORAGE , user_car.car_model AS car, user_car.license_plate AS plate, available, amount, start_time, user_lift_post.date, 
-			GROUP_CONCAT( user_lift_preference.preference_id ORDER BY user_lift_preference.preference_id SEPARATOR  ', ' ) AS p_id,
-			GROUP_CONCAT( lift_preference.type ORDER BY lift_preference.preference_id SEPARATOR  ', ' ) AS TYPE
-			FROM (
-			 `user`
-			)
-			JOIN  `user_lift_post` ON  `user_lift_post`.`user_id` =  `user`.`user_id` 
-			JOIN  `user_car` ON  `user_car`.`user_id` =  `user`.`user_id` 
-			JOIN  `user_lift_preference` ON  `user_lift_preference`.`post_id` =  `user_lift_post`.`id`
-			JOIN  `lift_preference` ON `lift_preference`.`preference_id` = `user_lift_preference`.`preference_id`
-			WHERE  `user`.`user_id` =1
-		");
-		
-		echo '<pre>';
-		var_dump($query->result());
-		echo '</pre>';
 	}
 }

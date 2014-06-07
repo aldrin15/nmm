@@ -14,7 +14,7 @@ class Lift extends MX_Controller {
 		$this->load->library('form_validation');
 	}
 	
-	public function index() {	
+	public function index() {
 		$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		$query = parse_url($url, PHP_URL_QUERY);
 		parse_str($query, $params);
@@ -57,6 +57,22 @@ class Lift extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
+	public function seat_taken() {
+		$listing = $this->lift_model->listing();
+		
+		foreach($listing as $row):
+			echo $row['user_id'].' ';
+			echo $row['origin'].' ';
+			echo $row['available'].'<br />';
+		endforeach;
+		
+		$seat_taken = $this->lift_model->seat_taken();
+		
+		echo '<pre>';
+		var_dump($seat_taken);
+		echo '</pre>';
+	}
+	
 	public function create() {
 		$post = $this->input->post();
 		
@@ -94,21 +110,31 @@ class Lift extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
-	public function quick_book() {
-		echo $user_id 	= $this->input->get('user_id');
-		echo $from 		= $this->input->get('from');
-		echo $to 		= $this->input->get('to');
-		echo $car 		= $this->input->get('car_model');
-		echo $plate 	= $this->input->get('plate');
-		echo $seat_taken= $this->input->get('seat_taken');
-		echo $amount 	= $this->input->get('amount');
-		echo $message 	= $this->input->get('message');
-		echo $request 	= $this->input->get('request');
-		echo $start_time= $this->input->get('start_time');
-		echo $end_time 	= $this->input->get('end_time');
-		echo $date 		= date('Y-m-d', strtotime($this->input->get('date')));
+	public function quick_book_details() {
+		$post_id = $this->input->get('post_id');
+		
+		$quick_book_data = $this->lift_model->quick_book_details($post_id);
+		
+		$quick_book_array = array();
+		
+		foreach($quick_book_data as $row):
+			$quick_book_array[]	= $row;
+		endforeach;
+		
+		echo json_encode($quick_book_array);
+	}
 	
-		$this->lift_model->booking($user_id, $from, $to, $car, $plate, $seat_taken, $amount, $message, $request, $start_time, $end_time, $date);
+	public function quick_book() {
+		$user_id 		= $this->input->get('user_id');
+		$post_id 		= $this->input->get('post_id');
+		$seat_taken		= $this->input->get('seat_taken');
+		$amount 		= $this->input->get('amount');
+		$message 		= $this->input->get('message');
+		$request 		= $this->input->get('request');
+		$start_time		= $this->input->get('start_time');
+		$date 			= date('Y-m-d', strtotime($this->input->get('date')));
+		
+		$this->lift_model->quick_booking($user_id, $post_id, $seat_taken, $amount, $message, $request, $start_time, $date);
 	}
 	
 	public function search() {
@@ -152,6 +178,9 @@ class Lift extends MX_Controller {
 	}
 	
 	public function auto_suggest_city() {
+		/*
+		 * Note: This is script view only!
+		 */
 		$this->load->view('lift_auto_suggest_view');
 	}
 	

@@ -200,6 +200,35 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .lift-listing ul li a {color:#000;}
 .lift-listing ul li a:hover {text-decoration:none;}
 
+#quick_booking ul li {margin-bottom:15px;}
+#quick_booking ul li div {position:relative;}
+#quick_booking ul li div label:first-child {margin-left:0;}
+#quick_booking ul li div label {margin-left:16px; width: 65px;}
+#quick_booking ul li label, #quick_booking form ul li span {display:block; float:left;}
+#quick_booking ul li label {width:120px;}
+
+.total-amount {font-size:1.2em;}
+#quick_booking textarea[name="message"] {resize:none; width:394px; height:114px;}
+
+.custom-checkbox{background: url("../images/page_template/blank_image.jpg") no-repeat; display: inline-block; position: relative; z-index: 1; top: 3px; width: 65px; height: 66px;}
+/*.custom-checkbox:hover{ background: url("checkbox-hover.png") no-repeat; }*/
+
+.custom-checkbox.selected{ background: url("../images/user_image.jpg") no-repeat; }
+.custom-checkbox input[type="checkbox"]{
+	margin: 0;
+	position: absolute;
+	z-index: 2;            
+	cursor: pointer;
+	outline: none;
+	opacity: 0;
+	/* CSS hacks for older browsers */
+	_noFocusLine: expression(this.hideFocus=true); 
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	-khtml-opacity: 0;
+	-moz-opacity: 0;
+}
+
 .lift-detail-view .fl h4 span, .lift-detail-view .fl h5 span {color:#678222;}
 
 .lift-details ul {list-style:none;}
