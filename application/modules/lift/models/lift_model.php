@@ -93,21 +93,23 @@ class Lift_model extends CI_Model {
 	
 	function details($id) {
 		$query = $this->db->query("
-			SELECT user.user_id AS id, firstname, lastname, last_login, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, 
-			storage, user_car.car_model AS car, user_car.license_plate AS plate, available, amount, start_time, user_lift_post.date, user_rating.user_id as rating_id,
+			SELECT user_lift_post.id AS id, user.user_id AS user_id, firstname, lastname, last_login, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, storage, available, user_lift_post.amount, quick_book, user_lift_post.start_time, user_car.car_model AS car, user_car.license_plate AS plate, user_lift_post.date, user_rating.user_id as rating_id,
+			GROUP_CONCAT( `lift_seat_booked`.`user_id` ORDER BY `lift_seat_booked`.`user_id` SEPARATOR ', ' ) AS taken_by, 
+			GROUP_CONCAT( `lift_seat_booked`.`seat` ORDER BY `lift_seat_booked`.`seat` SEPARATOR ', ' ) AS seats, 
+			GROUP_CONCAT( `user_media`.`media_filename` ORDER BY `user_media`.`media_filename` SEPARATOR ', ') as image,
 			GROUP_CONCAT( user_rating.rating_number ORDER BY user_rating.rating_number SEPARATOR  ', ' ) AS rating,
 			GROUP_CONCAT( user_lift_preference.preference_id ORDER BY user_lift_preference.preference_id SEPARATOR  ', ' ) AS p_id,
-			GROUP_CONCAT( lift_preference.type ORDER BY lift_preference.preference_id SEPARATOR  ', ' ) AS TYPE
-			FROM (
-			 `user`
-			)
-			JOIN  `user_lift_post` ON  `user_lift_post`.`user_id` =  `user`.`user_id` 
+			GROUP_CONCAT( lift_preference.type ORDER BY lift_preference.preference_id SEPARATOR  ', ' ) AS type
+			FROM user_lift_post
+			JOIN `user` ON `user`.`user_id` = `user_lift_post`.`user_id` 
 			JOIN  `user_sessions` ON `user_sessions`.`user_id` = `user`.`user_id`
-			LEFT JOIN  `user_car` ON  `user_car`.`user_id` =  `user`.`user_id` 
+			LEFT JOIN `user_car` ON `user_car`.`user_id` = `user_lift_post`.`user_id`
 			LEFT JOIN  `user_lift_preference` ON  `user_lift_preference`.`post_id` =  `user_lift_post`.`id`
 			LEFT JOIN  `lift_preference` ON `lift_preference`.`preference_id` = `user_lift_preference`.`preference_id`
 			LEFT JOIN  `user_rating` ON `user_rating`.`user_id` = `user`.`user_id`
-			WHERE  `user_lift_post`.`id` = {$id}
+			LEFT JOIN `lift_seat_booked` ON `lift_seat_booked`.`post_id` = `user_lift_post`.`id` 
+			LEFT JOIN `user_media` ON `user_media`.`user_id` = `lift_seat_booked`.`user_id` 
+			WHERE `user_lift_post`.`id` = '{$id}'
 		");
 		
 		$result = $query->result_array();

@@ -180,7 +180,7 @@ function taken_by(checkboxName, image_array){
 		test 		= image_array;
 	
 	$(checkBox).each(function(i, val){
-		$(this).wrap( "<span class='custom-checkbox' style='background: url(\"assets/media_uploads/"+$.trim(test[i])+"\")'></span>" );
+		$(this).wrap( "<span class='custom-checkbox' style='background: url(\"<?php echo base_url()?>assets/media_uploads/"+$.trim(test[i])+"\")'></span>" );
 		if($(this).is(':checked')){
 			$(this).parent().addClass("selected");
 		} 
@@ -208,7 +208,7 @@ $(function() {
 	$('.quick-book').click(function(e) {
 		var token = $(this).attr('data-hash');
 		
-		$('.seat-available').empty();
+		$('.seat-available, .seat-taken').empty();
 		
 		$.ajax({
 			url		: '<?php echo base_url('lift/quick_book_details')?>',
