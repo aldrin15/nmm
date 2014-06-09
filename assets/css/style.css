@@ -202,7 +202,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 
 #quick_booking ul li {margin-bottom:15px;}
 #quick_booking ul li div {position:relative;}
-#quick_booking ul li div label:first-child {margin-left:0;}
+#quick_booking ul li div.seat-taken label:first-child {margin-left:0;}
 #quick_booking ul li div label {margin-left:16px; width: 65px;}
 #quick_booking ul li label, #quick_booking form ul li span {display:block; float:left;}
 #quick_booking ul li label {width:120px;}

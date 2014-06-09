@@ -52,9 +52,25 @@
 					
 					<div class="clr"></div>
 					<?php $available = $row['available'] - $row['seat']?>
-					<?php if($row['quick_book'] == 1 && $available !== 0):?>
-					<!--<a href="#" class="quick-book fr" data-toggle="modal" data-target="#quick_booking" data-id="<?php echo $row['id']?>" data-userid="<?php echo $row['user_id']?>" data-stime="<?php echo $row['start_time']?>" data-amount="<?php echo $row['amount']?>" data-available="<?php echo $row['available']?>">Quick Book</a>-->
-					<a href="#" class="quick-book fr" data-toggle="modal" data-target="#quick_booking" data-id="<?php echo $row['id']?>">Quick Book</a>
+					<?php if($row['quick_book'] == 1 && $available !== 0):
+							function encrypt($action, $string) {
+							   $output = false;
+
+							   $key = 'My strong random secret key';
+
+							   // initialization vector 
+							   $iv = md5(md5($key));
+
+							   if( $action == 'encrypt' ) {
+								   $output = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $string, MCRYPT_MODE_CBC, $iv);
+								   $output = base64_encode($output);
+							   }
+							   return $output;
+							}
+							
+							$hash = encrypt('encrypt', $row['id']);
+					?>
+					<a href="#" class="quick-book fr" data-toggle="modal" data-target="#quick_booking" data-hash="<?php echo $hash?>">Quick Book</a>
 					<?php endif?>
 				</li>
 				<?php endforeach?>
@@ -85,7 +101,8 @@
 						<li>
 							<label for="Available Seats">Available seat(s) :</label>
 								
-							<div class="seat-available clr"></div>
+							<div class="seat-taken clr"></div>
+							<div class="seat-available"></div>
 							
 							<div class="clr"></div>
 						</li>
@@ -119,6 +136,7 @@
 					
 					<input type="hidden" name="post_id" value=""/>
 					<input type="hidden" name="user_id" value=""/>
+					<input type="hidden" name="amount" value=""/>
 					<input type="hidden" name="car_model" value=""/>
 					<input type="hidden" name="license_plate" value=""/>
 					<input type="hidden" name="start_time" value=""/>
@@ -157,7 +175,7 @@ function equalHeight(group) {
    group.height(tallest);
 }
 
-function customCheckbox(checkboxName, image_array){
+function taken_by(checkboxName, image_array){
 	var checkBox 	= $('input[name="'+ checkboxName +'"]'),	
 		test 		= image_array;
 	
@@ -171,29 +189,42 @@ function customCheckbox(checkboxName, image_array){
 	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
 }
 
+function check_available(checkboxName){
+	var checkBox = $('input[name="'+ checkboxName +'"]');
+	$(checkBox).each(function(){
+		$(this).wrap( "<span class='custom-checkbox'></span>" );
+		if($(this).is(':checked')){
+			$(this).parent().addClass("selected");
+		}
+	});
+	$(checkBox).click(function(){
+		$(this).parent().toggleClass("selected");
+	});
+}
+
 $(function() {
 	equalHeight($(".column")); //Equal Height
 	
 	$('.quick-book').click(function(e) {
-		var post_id 	= $(this).attr('data-id');
+		var token = $(this).attr('data-hash');
 		
 		$('.seat-available').empty();
-
+		
 		$.ajax({
 			url		: '<?php echo base_url('lift/quick_book_details')?>',
 			type	: 'GET',
-			data	: {post_id : post_id},
+			data	: {token : token},
 			success	: function(data) {
 				$.each($.parseJSON(data), function(index, value) {
-					// console.log(value.user_id);
 					$('input[name="post_id"]').attr('value', value.id);
 					$('input[name="user_id"]').attr('value', value.user_id);
+					$('input[name="amount"]').attr('value', value.amount);
 					$('input[name="car_model"]').attr('value', value.car);
 					$('input[name="license_plate"]').attr('value', value.plate);
 					$('input[name="start_time"]').attr('value', value.start_time);
 					
-					var seat_taken_array = value.seats.split(",");
-					var image_array = value.image.split(",");
+					var seat_taken_array 		= value.seats.split(","),
+						image_array 			= value.image.split(",");
 					
 					//To make result array again
 					var seat_taken = 0;
@@ -201,12 +232,19 @@ $(function() {
 						seat_taken += seat_taken_array[i] << 0;
 					}
 					
+					var availability = value.available - seat_taken;
+					
 					//Append base on array total
 					for(var i = 0; i < seat_taken; i++) {
-						$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="" /></label>');
+						$('.seat-taken').prepend('<label><input type="checkbox" name="taken[]" value="" checked="checked" disabled/></label>');
 					}
 					
-					customCheckbox("seat[]", image_array);
+					for(var j = 0; j < availability; j++) {
+						$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="1" /></label>');
+					}
+					
+					taken_by("taken[]", image_array);
+					check_available("seat[]");
 				});
 			}
 		});
@@ -235,53 +273,11 @@ $(function() {
 		}
 	});
 	
-	//Get Cities
-	$('body').on('keyup', '#from-route', function(e) {
-		e.preventDefault();
-		if($(this).val().length < 2) {
-			//Nothing
-		} else {
-			$.ajax({
-				url		: '<?php echo base_url('lift/auto_suggest')?>',
-				type	: 'GET',
-				data	: {city: $(this).val()},
-				success	: function(data) {
-					var city_array = [];
-				
-					$.each($.parseJSON(data), function(index, value) {
-						city_array.push(value.combined);
-					});
-					
-					var city = city_array;
-					
-					$('#from-route').autocomplete({
-						source:city,
-						open: function(){
-							setTimeout(function () {
-								$('.ui-autocomplete').css('z-index', 99999999999999);
-							}, 0);
-						}
-					});
-				}
-			});
-		}
-	});
-	
-	/*
-	 * Close Popup
-	 */
-	$('.popup-close').click(function() { $('.popup-overlay').hide(); });
-	$('.success-close').on('click', function(e) { 
-		$('.success-overlay').hide();
-		
-		e.preventDefault();
-	});
-	
 	$('input[name="book_submit"]').click(function(e) {
 		var	user_id 	= $('input[name="user_id"]').attr('value'),
 			post_id 	= $('input[name="post_id"]').attr('value'),
 			seat_taken 	= 0,
-			amount		= $('.lift-info5').val(),
+			amount		= $('input[name="amount"]').val(),
 			message		= $('textarea[name="message"]').val(),
 			request		= $('textarea[name="request"]').val(),
 			start_time	= $('input[name="start_time"]').val(),

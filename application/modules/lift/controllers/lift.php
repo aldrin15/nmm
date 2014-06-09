@@ -11,7 +11,7 @@ class Lift extends MX_Controller {
 		$this->_view_content 			= '';
 		
 		$this->load->model('lift_model');
-		$this->load->library('form_validation');
+		$this->load->library(array('form_validation', 'encrypt'));
 	}
 	
 	public function index() {
@@ -111,9 +111,27 @@ class Lift extends MX_Controller {
 	}
 	
 	public function quick_book_details() {
-		$post_id = $this->input->get('post_id');
+		$token = $this->input->get('token');
+
+		/*
+		 * Decrypt Data
+		 */
+		function decrypt($action, $string) {
+			$output = false;
+			$key = 'My strong random secret key';
+			// initialization vector 
+			$iv = md5(md5($key));
+
+			if( $action == 'decrypt' ){
+				$output = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($string), MCRYPT_MODE_CBC, $iv);
+				$output = rtrim($output, "");
+			}
+			return $output;
+		}
 		
-		$quick_book_data = $this->lift_model->quick_book_details($post_id);
+		$user_id = decrypt('decrypt', $token);
+		
+		$quick_book_data = $this->lift_model->quick_book_details($user_id);
 		
 		$quick_book_array = array();
 		
