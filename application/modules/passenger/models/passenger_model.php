@@ -32,11 +32,23 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
-	function listing($what = 'firstname, lastname, user_wish_lift.route_from as origin, user_wish_lift.route_to as destination, available, user_wish_lift.date_created as posted') {
-		$query = $this->db->select($what)
+	function listing() {
+		/* $query = $this->db->select($what)
 							->from('user_wish_lift')
 							->join('user', 'user.user_id = user_wish_lift.user_id')
-							->get();
+							->join('user_rating', 'user_rating.user_id = user.user_id', 'left')
+							->get(); */
+		$query = $this->db->query("
+			SELECT user_wish_lift.user_id, firstname, lastname, via, user_wish_lift.date_created AS posted, TIME, available, route_from AS origin, route_to AS destination, CONCAT( GROUP_CONCAT( user_rating.user_id
+			ORDER BY user_rating.user_id
+			SEPARATOR  ', ' ) ) AS rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number
+			ORDER BY user_rating.rating_number
+			SEPARATOR  ', ' ) ) rating
+			FROM user_wish_lift
+			JOIN  `user` ON  `user`.`user_id` =  `user_wish_lift`.`user_id` 
+			LEFT JOIN user_rating ON user_rating.user_id = user_wish_lift.user_id
+			GROUP BY user_wish_lift.id, user_rating.user_id	
+		");
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;

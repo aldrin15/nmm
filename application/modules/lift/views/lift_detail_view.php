@@ -13,45 +13,23 @@
 			<div class="user-info fl">
 				<p><?php echo $row['firstname'].' '.$row['lastname']?></p>
 				<div class="user-rating">
-					<form action="" method="post" id="rating-form">
-						<?php
-						$rating_id 		= $row['rating_id'];
-						$rating 		= explode(', ', $row['rating']);
-						$rating_sum 	= array_sum($rating);
-						$rating_count 	= count($rating);
-						$rating_data 	= $rating_sum / $rating_count;
-						$result 	= number_format($rating_data, 2);
-						?>
-						<?php if($this->session->userdata('user_id') && $rating_id == NULL):?>
-						<div class="Clear">
-							<input class="star" type="radio" name="rating" value="1" />
-							<input class="star" type="radio" name="rating" value="2" />
-							<input class="star" type="radio" name="rating" value="3" />
-							<input class="star" type="radio" name="rating" value="4" />
-							<input class="star" type="radio" name="rating" value="5" />
-							
-							<input type="submit" name="rate_submit" value="Rate!"/>
-						</div>
-						<?php elseif($this->session->userdata('user_id') && $rating_id == 1):?>
-						<div>
-							<input class="star" type="radio" name="rating" value="1" disabled="disabled" <?php echo ($result==1) ? 'checked="checked"' : ''?>/>
-							<input class="star" type="radio" name="rating" value="2" disabled="disabled" <?php echo ($result==2) ? 'checked="checked"' : ''?>/>
-							<input class="star" type="radio" name="rating" value="3" disabled="disabled" <?php echo ($result==3) ? 'checked="checked"' : ''?>/>
-							<input class="star" type="radio" name="rating" value="4" disabled="disabled" <?php echo ($result==4) ? 'checked="checked"' : ''?>/>
-							<input class="star" type="radio" name="rating" value="5" disabled="disabled" <?php echo ($result==5) ? 'checked="checked"' : ''?>/>
-						</div>
-						<?php else:?>
-						<div>
-							<input class="star" type="radio" name="rating" value="1" disabled="disabled" <?php echo ($result==1) ? 'checked="checked"' : ''?>/>
-							<input class="star" type="radio" name="rating" value="2" disabled="disabled" <?php echo ($result==2) ? 'checked="checked"' : ''?>/>
-							<input class="star" type="radio" name="rating" value="3" disabled="disabled" <?php echo ($result==3) ? 'checked="checked"' : ''?>/>
-							<input class="star" type="radio" name="rating" value="4" disabled="disabled" <?php echo ($result==4) ? 'checked="checked"' : ''?>/>
-							<input class="star" type="radio" name="rating" value="5" disabled="disabled" <?php echo ($result==5) ? 'checked="checked"' : ''?>/>
-						</div>					
-						<?php endif;?>
-						
-						<div class="clr"></div>					
-					</form>
+					<?php
+					$rating_id 		= $row['rating_id'];
+					$rating 		= explode(', ', $row['rating']);
+					$rating_sum 	= array_sum($rating);
+					$rating_count 	= count($rating);
+					$rating_data 	= $rating_sum / $rating_count;
+					$result 	= number_format($rating_data, 2);
+					?>
+					<div>
+						<input class="star" type="radio" name="rating" value="1" disabled="disabled" <?php echo ($result==1) ? 'checked="checked"' : ''?>/>
+						<input class="star" type="radio" name="rating" value="2" disabled="disabled" <?php echo ($result==2) ? 'checked="checked"' : ''?>/>
+						<input class="star" type="radio" name="rating" value="3" disabled="disabled" <?php echo ($result==3) ? 'checked="checked"' : ''?>/>
+						<input class="star" type="radio" name="rating" value="4" disabled="disabled" <?php echo ($result==4) ? 'checked="checked"' : ''?>/>
+						<input class="star" type="radio" name="rating" value="5" disabled="disabled" <?php echo ($result==5) ? 'checked="checked"' : ''?>/>
+					</div>
+					
+					<div class="clr"></div>	
 				</div>
 				<div class="user-last-login">
 					<span>Last login: <?php echo date('M d, Y H:i', strtotime($row['last_login']))?></span>
