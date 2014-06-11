@@ -50,7 +50,7 @@
 				<div class="clr"></div>
 			</li>
 			<li>
-				<input type="submit" name="register_submit" value="SIGN UP" class="button-gray"/>
+				<input type="submit" name="register_submit" value="SIGN UP" class="btn-gray"/>
 			</li>
 		</ul>
 	</form>

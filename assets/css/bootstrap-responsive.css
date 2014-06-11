@@ -122,11 +122,11 @@
   .row:after {
     clear: both;
   }
-  [class*="span"] {
+  /*[class*="span"] {
     float: left;
     min-height: 1px;
     margin-left: 30px;
-  }
+  }*/
   .container,
   .navbar-static-top .container,
   .navbar-fixed-top .container,

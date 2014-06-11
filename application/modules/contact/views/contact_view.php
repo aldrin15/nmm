@@ -1,16 +1,6 @@
 <?php $this->load->view('header_content')?>
-<br /><br /><br />
 
-<style type="text/css">
-.error {color:#ff0000; margin-left:100px;}
-
-.contact ul {list-style:none;}
-.contact ul li {margin-bottom:10px;}
-.contact ul li label, .contact ul li input, .contact ul li textarea {float:left;}
-.contact ul li label {width:100px;}
-</style>
-
-<div class="contact">
+<div class="contact m-center-content">
 	<h1>Contact Us Page</h1>
 	
 	<form action="" method="post">
@@ -41,4 +31,6 @@
 			</li>
 		</ul>
 	</form>
+	
+	<div class="clr"></div>
 </div>

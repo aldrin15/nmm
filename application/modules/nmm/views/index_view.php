@@ -17,7 +17,7 @@
 		</div>
 		
 		<div class="m-center">
-			<aside class="span4 welcome">
+			<aside class="span4 welcome fl">
 				<h2>Welcome to NMM</h2>
 
 				<p>
@@ -31,7 +31,7 @@
 				ex ea commodo consequat. 
 				</p>
 				
-				<a href="#" class="button-gray">Join us now!</a>
+				<a href="#" class="btn-gray">Join us now!</a>
 			</aside>
 			
 			<div class="events-quote fr">

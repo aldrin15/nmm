@@ -9,17 +9,17 @@
 			<div class="fl">
 				<h4>NMM</h4>
 				<ul>
-					<li><a href="#">About NMM</a></li>
-					<li><a href="#">Privacy Policy</a></li>
-					<li><a href="#">Terms & Conditions</a></li>
+					<li><a href="<?php echo base_url('about')?>">About NMM</a></li>
+					<li><a href="<?php echo base_url('privacy')?>">Privacy Policy</a></li>
+					<li><a href="<?php echo base_url('terms')?>">Terms & Conditions</a></li>
 				</ul>
 			</div>
 			<div class="fl">
 				<h4>Help</h4>
 				
 				<ul>
-					<li><a href="#">Support</a></li>
-					<li><a href="#">Contact Us</a></li>
+					<li><a href="<?php echo base_url('support')?>">Support</a></li>
+					<li><a href="<?php echo base_url('contact')?>">Contact Us</a></li>
 				</ul>
 			</div>
 			<div class="fl">
