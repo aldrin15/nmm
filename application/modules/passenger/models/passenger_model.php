@@ -33,13 +33,8 @@ class Passenger_model extends CI_Model {
 	}
 	
 	function listing() {
-		/* $query = $this->db->select($what)
-							->from('user_wish_lift')
-							->join('user', 'user.user_id = user_wish_lift.user_id')
-							->join('user_rating', 'user_rating.user_id = user.user_id', 'left')
-							->get(); */
 		$query = $this->db->query("
-			SELECT user_wish_lift.user_id, firstname, lastname, via, user_wish_lift.date_created AS posted, TIME, available, route_from AS origin, route_to AS destination, CONCAT( GROUP_CONCAT( user_rating.user_id
+			SELECT user_wish_lift.id, user_wish_lift.user_id, firstname, lastname, via, user_wish_lift.date_created AS posted, TIME, available, route_from AS origin, route_to AS destination, CONCAT( GROUP_CONCAT( user_rating.user_id
 			ORDER BY user_rating.user_id
 			SEPARATOR  ', ' ) ) AS rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number
 			ORDER BY user_rating.rating_number
@@ -49,6 +44,24 @@ class Passenger_model extends CI_Model {
 			LEFT JOIN user_rating ON user_rating.user_id = user_wish_lift.user_id
 			GROUP BY user_wish_lift.id, user_rating.user_id	
 		");
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function detail($id, $what = "user_wish_lift.id, user_wish_lift.user_id, firstname, lastname, user_wish_lift.route_from as origin, user_wish_lift.route_to as destination, storage, available, car_model AS car, license_plate as plate, last_login, CONCAT( GROUP_CONCAT( user_rating.user_id ) ) AS rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) rating, CONCAT( GROUP_CONCAT( DISTINCT user_wish_lift_preference.preference_id ) ) as p_id, CONCAT( GROUP_CONCAT( DISTINCT lift_preference.type ) ) as type, CONCAT( GROUP_CONCAT( user_wish_date_booked.route_from ) ) AS other_post_origins, CONCAT( GROUP_CONCAT( user_wish_date_booked.route_to ) ) AS other_post_destinations, CONCAT( GROUP_CONCAT( DISTINCT user_wish_date_booked.date ) ) AS other_post_dates") {
+		$query = $this->db->select($what)
+							->from('user_wish_lift')
+							->join('user', 'user.user_id = user_wish_lift.user_id')
+							->join('user_sessions', 'user_sessions.user_id = user_wish_lift.user_id')
+							->join('user_wish_date_booked', 'user_wish_date_booked.post_id = user_wish_lift.id', 'left')
+							->join('user_car', 'user_car.user_id = user_wish_lift.user_id', 'left')
+							->join('user_wish_lift_preference', 'user_wish_lift_preference.post_id = user_wish_lift.id', 'left')
+							->join('lift_preference', 'lift_preference.preference_id = user_wish_lift_preference.preference_id', 'left')
+							->join('user_rating', 'user_rating.user_id = user.user_id', 'left')
+							->where('user_wish_lift.id', $id)
+							->get();
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
@@ -85,5 +98,28 @@ class Passenger_model extends CI_Model {
 			
 			$insert_preference = $this->db->insert('user_wish_lift_preference', $preference_data);
 		endfor;
+	}
+	
+	public function test() {
+		$query = $this->db->query("
+			SELECT t1.id, t1.user_id, firstname, lastname, t1.route_from as origins, t1.route_to as destination, car_model AS car, license_plate as plate, last_login,
+			CONCAT( GROUP_CONCAT( DISTINCT user_wish_lift_preference.preference_id ) ) as p_id,
+			CONCAT( GROUP_CONCAT( DISTINCT lift_preference.type ) ) as type,
+			CONCAT( GROUP_CONCAT( DISTINCT user_wish_date_booked.route_from ) ) AS other_post_origins, 
+			CONCAT( GROUP_CONCAT( DISTINCT user_wish_date_booked.route_to ) ) AS other_post_destinations, 
+			CONCAT( GROUP_CONCAT( DISTINCT user_wish_date_booked.date ) ) AS other_post_dates
+			FROM user_wish_lift t1
+			JOIN user ON user.user_id = t1.user_id
+			JOIN user_sessions ON user_sessions.user_id = t1.user_id
+			LEFT JOIN user_car ON user_car.user_id = t1.user_id
+			LEFT JOIN user_wish_date_booked ON user_wish_date_booked.post_id = t1.id
+			LEFT JOIN user_wish_lift_preference ON user_wish_lift_preference.post_id = t1.id
+			LEFT JOIN lift_preference ON lift_preference.preference_id = user_wish_lift_preference.preference_id
+			WHERE t1.id = '1'
+		");
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
 	}
 }

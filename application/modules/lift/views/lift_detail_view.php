@@ -1,6 +1,6 @@
 <?php $this->load->view('header_content')?>
 
-<div class="lift-detail-view m-center">
+<div class="detail m-center">
 	<?php foreach($lift_information as $row):?>
 	<div class="fl">
 		<h4>From: <span><?php echo $row['origin']?></span></h4>
@@ -21,13 +21,7 @@
 					$rating_data 	= $rating_sum / $rating_count;
 					$result 	= number_format($rating_data, 2);
 					?>
-					<div>
-						<input class="star" type="radio" name="rating" value="1" disabled="disabled" <?php echo ($result==1) ? 'checked="checked"' : ''?>/>
-						<input class="star" type="radio" name="rating" value="2" disabled="disabled" <?php echo ($result==2) ? 'checked="checked"' : ''?>/>
-						<input class="star" type="radio" name="rating" value="3" disabled="disabled" <?php echo ($result==3) ? 'checked="checked"' : ''?>/>
-						<input class="star" type="radio" name="rating" value="4" disabled="disabled" <?php echo ($result==4) ? 'checked="checked"' : ''?>/>
-						<input class="star" type="radio" name="rating" value="5" disabled="disabled" <?php echo ($result==5) ? 'checked="checked"' : ''?>/>
-					</div>
+					<div class="rateit" data-rateit-value="<?php echo $result?>" data-rateit-readonly="true"></div>
 					
 					<div class="clr"></div>	
 				</div>
@@ -225,7 +219,7 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="<?php echo base_url('assets/js/rating.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.rateit.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modal.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modalmanager.js')?>"></script>
@@ -258,7 +252,7 @@ function check_available(checkboxName){
 }
 
 $(function(){ 
-	$('#rating-form :radio.star').rating();
+	$('#user-rating :radio.star').rating();
 	
 	$('.book-now').click(function() {
 		var token = $(this).attr('data-hash');

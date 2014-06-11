@@ -20,6 +20,15 @@ class Passenger extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
+	public function detail() {
+		$id = $this->uri->segment('3');
+		
+		$data['wish_lift_detail'] = $this->passenger_model->detail($id);
+		
+		$data['view_file']	= 'passenger_detail_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
 	public function create() {
 		$post = $this->input->post();
 		
@@ -44,5 +53,36 @@ class Passenger extends MX_Controller {
 	public function wish_lift_success() {
 		$data['view_file'] = 'passenger_wish_lift_success_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function test() {
+		$test = $this->passenger_model->test();
+		
+		
+		foreach($test as $row):
+			echo '<div>'.$row['id'].'</div>';
+			echo '<div>'.$row['user_id'].'</div>';
+			echo '<div>'.$row['firstname'].'</div>';
+			echo '<div>'.$row['lastname'].'</div>';
+			echo '<div>'.$row['origins'].'</div>';
+			echo '<div>'.$row['destination'].'</div>';
+			echo '<div>'.$row['car'].'</div>';
+			echo '<div>'.$row['plate'].'</div>';
+			echo '<div>'.$row['last_login'].'</div>';
+			
+			$preference_id = explode(',', $row['p_id']);
+			
+			for($i = 0; $i < count($preference_id); $i++):
+				echo $preference_id[$i];
+			endfor;
+			
+			echo '<br />';
+			
+			$other_post_date = explode(',', $row['other_post_dates']);
+			
+			for($i = 0; $i < count($other_post_date); $i++):
+				echo $other_post_date[$i].'<br />';
+			endfor;
+		endforeach;
 	}
 }

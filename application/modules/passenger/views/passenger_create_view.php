@@ -1,5 +1,4 @@
 <?php $this->load->view('header_content')?>
-<br /><br /><br />
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>">
 <style type="text/css">
