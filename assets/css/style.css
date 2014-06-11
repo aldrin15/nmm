@@ -41,7 +41,7 @@ ul {list-style:none; margin:0; padding:0;}
 
 #main-wrapper {padding-bottom:127px;}
 
-.login-status-wrapper {background:#678222; margin-bottom:1px; padding-top:5px; height:20px;}
+.login-status-wrapper {background:#678222; margin-bottom:1px; padding-top:5px; height:25px;}
 .login-status {color:#bbfb04; text-align:right;}
 .login-status a {color:#bbfb04;}
 .logo-nav {margin: 0 auto; width:1024px;}
@@ -164,7 +164,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .carousel .span2 {position:relative; float:left; margin-left:20px;}
 .carousel-inner .span2 {width:170px;}
 
-.carousel-linked-nav {float:right;}
+.carousel-linked-nav {float:right; margin:20px 10px 0 0;}
 .carousel-linked-nav li {float:left; background:url('../images/events/bullet_nav.jpg') no-repeat; margin-left:5px; width:13px; height:13px;}
 .carousel-linked-nav li.active {background:url('../images/events/bullet_nav.jpg') no-repeat 0 -13px;}
 .carousel-linked-nav li a {display:block; width:9px; height:9px;}
@@ -245,25 +245,6 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .total-amount {font-size:1.2em;}
 #quick_booking textarea[name="message"] {resize:none; width:394px; height:114px;}
 
-.custom-checkbox{background: url("../images/page_template/blank_image.jpg") no-repeat; display: inline-block; position: relative; z-index: 1; top: 3px; width: 65px; height: 66px;}
-/*.custom-checkbox:hover{ background: url("checkbox-hover.png") no-repeat; }*/
-
-.custom-checkbox.selected{ background: url("../images/user_image.jpg") no-repeat; }
-.custom-checkbox input[type="checkbox"]{
-	margin: 0;
-	position: absolute;
-	z-index: 2;            
-	cursor: pointer;
-	outline: none;
-	opacity: 0;
-	/* CSS hacks for older browsers */
-	_noFocusLine: expression(this.hideFocus=true); 
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	filter: alpha(opacity=0);
-	-khtml-opacity: 0;
-	-moz-opacity: 0;
-}
-
 .detail {margin-top:20px;}
 .detail .fl h4 span, .detail .fl h5 span {color:#678222;}
 
@@ -324,6 +305,14 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .contact ul li {margin-bottom:10px;}
 .contact ul li label, .contact ul li input, .contact ul li textarea {float:left;}
 .contact ul li label {width:100px;}
+
+.event {font-family: 'quicksandregular'; font-size:1.3em;}
+.event .span5 {margin: 0 0 20px 20px;}
+.event form ul li {margin-bottom:10px;}
+.event form ul li label, .event form ul li span.custom-radio, .event form ul li input {display:block; float:left;}
+.event form ul li label {width:100px;}
+.event form ul li span.custom-radio {margin-right:10px;}
+.event .span5 textarea{resize:none; margin-right:10px;}
 
 
 
@@ -396,3 +385,45 @@ footer .pull-right .fl span:last-child {color:#678222;}
 	
 	.welcome h2 {font-size:1.8em;}
 }
+
+
+
+
+/* ====================
+ * Checkbox and Radio
+ =================== */
+/*Customize Checkbox*/
+.custom-checkbox{background: url("../images/page_template/blank_image.jpg") no-repeat; display: inline-block; position: relative; z-index: 1; top: 3px; width: 65px; height: 66px;}
+.custom-checkbox.selected{ background: url("../images/user_image.jpg") no-repeat; }
+.custom-checkbox input[type="checkbox"]{
+	margin: 0;
+	position: absolute;
+	z-index: 2;            
+	cursor: pointer;
+	outline: none;
+	opacity: 0;
+	/* CSS hacks for older browsers */
+	_noFocusLine: expression(this.hideFocus=true); 
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	-khtml-opacity: 0;
+	-moz-opacity: 0;
+}
+
+/*Customize Radio*/
+.custom-radio{ display: inline-block; position: relative; z-index: 1; top: 3px; background: url("../images/page_template/btn_radio.png") no-repeat 0 0; width: 14px; height: 13px; }
+.custom-radio.selected{ background: url("../images/page_template/btn_radio.png") no-repeat 0 -13px; }
+.custom-radio input[type="radio"]{
+	margin: 1px;
+	position: absolute;
+	z-index: 2;            
+	cursor: pointer;
+	outline: none;
+	opacity: 0;
+	/* CSS hacks for older browsers */
+	_noFocusLine: expression(this.hideFocus=true); 
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	-khtml-opacity: 0;
+	-moz-opacity: 0;
+} 

@@ -21,7 +21,7 @@
 				<ul>
 					<li><a href="<?php echo base_url('lift')?>">Lift</a></li>
 					<li><a href="<?php echo base_url('passenger')?>">Passenger</a></li>
-					<li><a href="<?php echo base_url('events')?>">Events</a></li>
+					<li><a href="<?php echo base_url('event')?>">Events</a></li>
 					<li><a href="<?php echo base_url('abroad')?>">Abroad</a></li>
 					<li><a href="<?php echo base_url('rent')?>">Rent a car</a></li>
 					<li><a href="<?php echo base_url('offer')?>">Offer / Make a wish lift</a></li>
