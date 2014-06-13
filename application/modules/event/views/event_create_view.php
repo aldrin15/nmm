@@ -1,9 +1,8 @@
 <?php $this->load->view('header_content')?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>">
 <div class="m-center-content event">
 	<h1>Post an Event!</h1><br />
-	<form action="" method="post">
+	<form action="" method="post" enctype="multipart/form-data">
 		<p>Type of event <?php echo form_error('event_type', '<span class="error">','</span>')?></p>
 		
 		<hr/>
@@ -47,24 +46,46 @@
 		
 		<hr/>
 		
-		<div class="span5">
+		<div class="span6">
 			<ul>
 				<li>
-					<label for="Title">Title</label> <?php echo form_error('title', '<span class="error">', '</span>')?>
+					<label for="Title">Event Title</label> <?php echo form_error('title', '<span class="error">', '</span>')?>
 					<input type="text" name="title" id="" class="form-control"/>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
-					<label for="Title">Address</label> <?php echo form_error('address', '<span class="error">', '</span>')?>
-					<input type="text" name="address" id="" class="form-control"/>
+					<label for="Title">Event City and Country</label> <?php echo form_error('address', '<span class="error">', '</span>')?>
+					<div class="event-search-location-nav btn-gray fl form-control" style="cursor:pointer">Search for the location</div>
+					<div class="event-search-location fl" style="display:none; width:100%;">
+						<input type="hidden" name="city_country" value=""/>
+						<input type="text" name="city_country" id="city_country" class="form-control" placeholder="EX. City, Country"/>
+						<a href="#" class="btn-gray fr">Done</a>
+						
+						<div class="clr"></div>
+					</div>
+					
+					
+					<!-- 
+					THis is working perfectly
+					<input type="text" name="" id="" class="form-control" placeholder="Street"/><br /><br /><br />
+					<input type="text" name="city_country" id="city_country" class="form-control" placeholder="EX. City, Country"/>
+					-->
+					
+					<!-- 
+					<select name="" data-live-search="true" id="" class="select-state form-control">
+						<option value="">- Type your city -</option>
+					</select>
+					-->
+					
+					<div class="test"></div>
 					
 					<div class="clr"></div>
 				</li>
-				<li>
-					<label for="Date">Date</label> <?php echo form_error('dates', '<span class="error">', '</span>')?>
-					<input type="hidden" name="dates" id="" value="<?php echo set_value('dates')?>"/>
-					<div id="calendar" class="fl"></div>
+				<li style="position:relative; z-index:2;">
+					<label for="Date">Date</label> <?php echo form_error('date', '<span class="error">', '</span>')?>
+					<input type="hidden" name="date" value="<?php echo set_value('date')?>" id="date"/>
+					<div id="datepicker" class="fl"></div>
 					
 					<div class="clr"></div>
 				</li>
@@ -74,10 +95,10 @@
 					<div>
 						<select name="hour" class="selectpicker select-width-auto">
 							<?php for($i = 1; $i < 25; $i++):?>
-							<option><?php echo $i?></option>
+							<option value="<?php echo $i?>"><?php echo $i?></option>
 							<?php endfor?>
 						</select> -
-						<select name="minutes" class="selectpicker select-width-auto">
+						<select name="minute" class="selectpicker select-width-auto">
 							<?php for($i = 1; $i < 10; $i++):?>
 							<option value="<?php echo '0'.$i?>"><?php echo '0'.$i?></option>
 							<?php endfor?>
@@ -100,12 +121,13 @@
 			<small>Note: Please upload .jpg and .png only.</small>
 			<div class="fileinput fileinput-new input-group" data-provides="fileinput">
 			  <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
-			  <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="image"></span>
+			  <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="userfile" /></span>
 			  <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
 			</div>
 		</div>
 		
 		<p>Other Information</p>
+		
 		
 		<hr/>
 		
@@ -121,14 +143,10 @@
 	</form>
 </div>
 
-<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.7.2.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.core.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.datepicker.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.multidatespicker.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js')?>"></script>
-<script type="text/javascript" src="http://jasny.github.io/bootstrap/dist/js/jasny-bootstrap.min.js"></script>
-<!--<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-input.js')?>"></script>-->
+<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-input.js')?>"></script>
 <script type="text/javascript">
 function customRadio(radioName){
 	var radioButton = $('input[name="'+ radioName +'"]');
@@ -152,29 +170,51 @@ function customRadio(radioName){
 $(function() {
 	customRadio("event_type");
 	
-	$('#calendar').multiDatesPicker({
-		minDate: -0,
-		<?php
-		if(isset($_POST['dates']) && $_POST['dates'] !== ''):
-			$dates = str_replace("&quot;", "\"", $_POST['dates']);
-		?>
-		addDates : [<?php echo $dates?>]
-		<?php 
-		endif;?>		
-	});
+	var default_date = {date : '<?php echo set_value('date')?>'};
 	
-	$('#calendar').click(function() {
-		var getDates		= $(this).multiDatesPicker('getDates'),
-			getDates_array	= [];
-		
-		// $(hidden_dates).empty(); //This empty the hidden field		
-		$.each(getDates, function(index, value) {
-			getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>');
-		});
-		
-		$('input[name="dates"]').val(getDates_array);
+	$('#datepicker').datepicker({
+		dateFormat:'yy-mm-dd',
+		altField: '#date',
+		<?php if(isset($_POST['date'])):?>
+		defaultDate: default_date.date
+		<?php endif;?>
 	});
 	
 	$('.selectpicker').selectpicker(); //For Customize Select option
+	
+	$('.event-search-location-nav').click(function() { $('.event-search-location').slideToggle(); });
+	
+	$('.event-search-location a').click(function(e) {
+		$('.event-search-location').slideToggle();
+		
+		e.preventDefault();
+	});	
+	
+	$('#city_country').keyup(function(e) {
+		e.preventDefault();
+		
+		$.ajax({
+			url	: '<?php echo base_url('event/get_city')?>',
+			dataType: 'html',
+			data: {country : $(this).val()},
+			success: function(data) {
+				var city_country_array 	= [];
+				
+				$.each($.parseJSON(data), function(index, value) {
+					city_country_array.push(value);
+				});
+				
+				var city_country = city_country_array;
+				
+				$('#city_country').autocomplete({
+					source: city_country,
+					select: function(event, ui) { 
+						$(".event-search-location-nav").html(ui.item.value);
+						$('input[name="city_country"]').val(ui.item.value);
+					}
+				});
+			}
+		});
+	});
 });
 </script>

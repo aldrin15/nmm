@@ -10,34 +10,87 @@ class Event extends MX_Controller {
 		$this->_view_template_layout 	= "main_view";
 		$this->_view_content 			= "";
 		
-		$this->load->library('form_validation');
+		$this->load->library(array('form_validation', 'upload'));
+		$this->load->model('event_model');
 	}
 	
-	public function create() {
-		$post = $this->input->post();
-		
-		if($post):
-			if(array_key_exists('create_event_submit', $post)):
-				$this->form_validation->set_rules('event_type', 'Event Type', 'required');
-				$this->form_validation->set_rules('title', 'Title', 'required');
-				$this->form_validation->set_rules('address', 'Address', 'required');
-				$this->form_validation->set_rules('dates', 'Date/s', 'required');
-				
-				if($this->form_validation->run() == TRUE):
-					echo $this->input->post('event_type').'<br />';
-					echo $this->input->post('title').'<br />';
-					echo $this->input->post('address').'<br />';
-					echo $this->input->post('dates').'<br />';
-					echo $this->input->post('hour').'<br />';
-					echo $this->input->post('minute').'<br />';
-					echo $this->input->post('remarks').'<br />';
-					echo $this->input->post('image').'<br />';
-				endif;
-			endif;
-		endif;
-		
-		$data['view_file'] = 'event_create_view';
+	public function index() {
+		$data['event_data'] = $this->event_model->listing();
+		$data['view_file'] = 'event_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
+	public function detail() {
+		$id = $this->uri->segment(3);
+		
+		$data['event_details_data'] = $this->event_model->detail($id);
+		
+		$data['view_file'] = 'event_detail_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function create() {
+		$user_id = $this->session->userdata('user_id');
+	
+		$post = $this->input->post();
+		
+		if($post):
+			if(empty($_FILES['userfile']['name'])) {
+				$this->form_validation->set_rules('event_type', 'Event Type', 'required');
+				$this->form_validation->set_rules('title', 'Title', 'required');
+				$this->form_validation->set_rules('city_country', 'City and Country', 'required');
+				$this->form_validation->set_rules('date', 'Date/s', 'required');
+
+				$data['errors'] = $this->upload->display_errors();
+				
+				if($this->form_validation->run() == TRUE):
+					$this->event_model->create();
+					
+					redirect('event/success', 'refresh');
+				endif;
+			} else {
+				$this->form_validation->set_rules('event_type', 'Event Type', 'required');
+				$this->form_validation->set_rules('title', 'Title', 'required');
+				$this->form_validation->set_rules('city_country', 'City and Country', 'required');
+				$this->form_validation->set_rules('date', 'Date/s', 'required');
+				
+				if($this->form_validation->run() == TRUE):
+					$config['allowed_types'] 	= 'jpg|jpeg|gif|png';
+					$config['upload_path']		= realpath(APPPATH.'../assets/media_uploads/events');
+					$config['file_name']		= 'event_'.substr(md5(rand()), 0, 7);
+					
+					$this->upload->initialize($config);
+					$this->upload->do_upload();
+					
+					$image_data = $this->upload->data();
+				
+					$this->event_model->create($image_data);
+					
+					redirect('event/success', 'refresh');
+				endif;				
+			}
+		endif;
+		
+		$data['country_data']	= $this->event_model->country();
+		$data['view_file'] 	= 'event_create_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function get_city() {
+		$city 		= $this->input->get('country');
+		$get_city 	= $this->event_model->get_city($city);
+		
+		$city_array = array();
+		
+		foreach($get_city as $row):
+			$city_array[] = $row['combined'];
+		endforeach;
+		
+		echo json_encode($city_array);
+	}
+	
+	public function success() {
+		$data['view_file'] = 'event_create_success_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
 }
