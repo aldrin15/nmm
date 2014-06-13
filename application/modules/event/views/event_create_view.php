@@ -55,7 +55,7 @@
 					<div class="clr"></div>
 				</li>
 				<li>
-					<label for="Title">Event City and Country</label> <?php echo form_error('address', '<span class="error">', '</span>')?>
+					<label for="Event City and Country">Event City and Country</label> <?php echo form_error('address', '<span class="error">', '</span>')?>
 					<div class="event-search-location-nav btn-gray fl form-control" style="cursor:pointer">Search for the location</div>
 					<div class="event-search-location fl" style="display:none; width:100%;">
 						<input type="hidden" name="city_country" value=""/>
@@ -65,20 +65,11 @@
 						<div class="clr"></div>
 					</div>
 					
-					
-					<!-- 
-					THis is working perfectly
-					<input type="text" name="" id="" class="form-control" placeholder="Street"/><br /><br /><br />
-					<input type="text" name="city_country" id="city_country" class="form-control" placeholder="EX. City, Country"/>
-					-->
-					
-					<!-- 
-					<select name="" data-live-search="true" id="" class="select-state form-control">
-						<option value="">- Type your city -</option>
-					</select>
-					-->
-					
-					<div class="test"></div>
+					<div class="clr"></div>
+				</li>
+				<li>
+					<label for="Event Place">Event Place</label>
+					<input type="text" name="address" value="" id="" class="form-control"/>
 					
 					<div class="clr"></div>
 				</li>

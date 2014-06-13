@@ -64,7 +64,5 @@
 <script type="text/javascript">
 $(function() {
 	$('#datepicker').datepicker();
-	
-	$('#user-rating :radio.star').rating();
 });
 </script>

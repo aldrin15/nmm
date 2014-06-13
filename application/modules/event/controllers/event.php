@@ -25,6 +25,11 @@ class Event extends MX_Controller {
 		
 		$data['event_details_data'] = $this->event_model->detail($id);
 		
+		$event_detail = $data['event_details_data'];
+		
+		$data['event_details_lift_data'] = $this->event_model->detail_lift($event_detail);
+		$data['event_details_passenger_data'] = $this->event_model->detail_passenger($event_detail);
+		
 		$data['view_file'] = 'event_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -39,6 +44,7 @@ class Event extends MX_Controller {
 				$this->form_validation->set_rules('event_type', 'Event Type', 'required');
 				$this->form_validation->set_rules('title', 'Title', 'required');
 				$this->form_validation->set_rules('city_country', 'City and Country', 'required');
+				$this->form_validation->set_rules('address', 'Address', 'required');
 				$this->form_validation->set_rules('date', 'Date/s', 'required');
 
 				$data['errors'] = $this->upload->display_errors();
@@ -52,6 +58,7 @@ class Event extends MX_Controller {
 				$this->form_validation->set_rules('event_type', 'Event Type', 'required');
 				$this->form_validation->set_rules('title', 'Title', 'required');
 				$this->form_validation->set_rules('city_country', 'City and Country', 'required');
+				$this->form_validation->set_rules('address', 'Address', 'required');
 				$this->form_validation->set_rules('date', 'Date/s', 'required');
 				
 				if($this->form_validation->run() == TRUE):
