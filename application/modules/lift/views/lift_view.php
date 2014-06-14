@@ -3,11 +3,12 @@
 <div class="m-center lift-view">
 	<?php echo modules::run('lift/search')?>
 	
-	<p class="lift-text">Upcoming lift near you:</p>
+	<!--<p class="lift-text">Upcoming lift near you:</p>-->
+	<h3>Upcoming lift near you:</h3><br />
 	
 	<div class="lift-listing fl">
 		<?php if($ride_list == 0):?>
-			<div style="font-size:26px; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px; width:1024px;">No records found</div>
+			<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px; width:850px;"><p>There are no route that match your criteria. Try some different places</p></div>
 		<?php else:?>
 			<ul>
 				<?php 
@@ -51,27 +52,6 @@
 					</div>
 					
 					<div class="clr"></div>
-					<?php $available = $row['available'] - $row['seat']?>
-					<?php if($row['quick_book'] == 1 && $available !== 0):
-							function encrypt($action, $string) {
-							   $output = false;
-
-							   $key = 'My strong random secret key';
-
-							   // initialization vector 
-							   $iv = md5(md5($key));
-
-							   if( $action == 'encrypt' ) {
-								   $output = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $string, MCRYPT_MODE_CBC, $iv);
-								   $output = base64_encode($output);
-							   }
-							   return $output;
-							}
-							
-							$hash = encrypt('encrypt', $row['id']);
-					?>
-					<a href="#" class="quick-book fr" data-toggle="modal" data-target="#quick_booking" data-hash="<?php echo $hash?>">Quick Book</a>
-					<?php endif?>
 				</li>
 				<?php endforeach?>
 			</ul>	
@@ -163,6 +143,7 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modal.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modalmanager.js')?>"></script>
+<?php echo modules::run('lift/auto_suggest_city')?>
 <script type="text/javascript">
 function equalHeight(group) {
    tallest = 0;
@@ -175,151 +156,7 @@ function equalHeight(group) {
    group.height(tallest);
 }
 
-function taken_by(checkboxName, image_array){
-	var checkBox 	= $('input[name="'+ checkboxName +'"]'),	
-		test 		= image_array;
-	
-	$(checkBox).each(function(i, val){
-		$(this).wrap( "<span class='custom-checkbox' style='background: url(\"<?php echo base_url()?>assets/media_uploads/"+$.trim(test[i])+"\")'></span>" );
-		if($(this).is(':checked')){
-			$(this).parent().addClass("selected");
-		} 
-	});
-
-	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
-}
-
-function check_available(checkboxName){
-	var checkBox = $('input[name="'+ checkboxName +'"]');
-	$(checkBox).each(function(){
-		$(this).wrap( "<span class='custom-checkbox'></span>" );
-		if($(this).is(':checked')){
-			$(this).parent().addClass("selected");
-		}
-	});
-	$(checkBox).click(function(){
-		$(this).parent().toggleClass("selected");
-	});
-}
-
 $(function() {
 	equalHeight($(".column")); //Equal Height
-	
-	$('.quick-book').click(function(e) {
-		var token = $(this).attr('data-hash');
-		
-		$('.seat-available, .seat-taken').empty();
-		
-		$.ajax({
-			url		: '<?php echo base_url('lift/quick_book_details')?>',
-			type	: 'GET',
-			data	: {token : token},
-			success	: function(data) {
-				$.each($.parseJSON(data), function(index, value) {
-					$('input[name="post_id"]').attr('value', value.id);
-					$('input[name="user_id"]').attr('value', value.user_id);
-					$('input[name="amount"]').attr('value', value.amount);
-					$('input[name="car_model"]').attr('value', value.car);
-					$('input[name="license_plate"]').attr('value', value.plate);
-					$('input[name="start_time"]').attr('value', value.start_time);
-					
-					var seat_taken_array 		= value.seats.split(","),
-						image_array 			= value.image.split(",");
-					
-					//To make result array again
-					var seat_taken = 0;
-					for (var i = 0; i < seat_taken_array.length; i++) {
-						seat_taken += seat_taken_array[i] << 0;
-					}
-					
-					var availability = value.available - seat_taken;
-					
-					//Append base on array total
-					for(var i = 0; i < seat_taken; i++) {
-						$('.seat-taken').prepend('<label><input type="checkbox" name="taken[]" value="" checked="checked" disabled/></label>');
-					}
-					
-					for(var j = 0; j < availability; j++) {
-						$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="1" /></label>');
-					}
-					
-					taken_by("taken[]", image_array);
-					check_available("seat[]");
-				});
-			}
-		});
-	});
-	
-	
-	/*
-	 * Auto Calculate the amount per seat
-	 */
-	var seat_amount = 0;
-	
-	$('input[name="seat[]"]').click(function() {
-		seat_amount += parseInt($(this).val());
-		
-		$('.total-amount').html('<strong>&euro; '+seat_amount+'</strong>');
-	});
-	
-	/*
-	 * Request re-route form
-	 */
-	$('input[name="request_form"]').click(function() {
-		if($(this).is(':checked')) {
-			$('.request_form').slideDown();
-		} else {
-			$('.request_form').slideUp();
-		}
-	});
-	
-	$('input[name="book_submit"]').click(function(e) {
-		var	user_id 	= $('input[name="user_id"]').attr('value'),
-			post_id 	= $('input[name="post_id"]').attr('value'),
-			seat_taken 	= 0,
-			amount		= $('input[name="amount"]').val(),
-			message		= $('textarea[name="message"]').val(),
-			request		= $('textarea[name="request"]').val(),
-			start_time	= $('input[name="start_time"]').val(),
-			date		= $('.lift-info2').val(),
-			error 		= 0;
-		
-		if(!$('input[name="seat[]"]').is(':checked')) {
-			console.log('You need to check the checkbox');
-			error = 1;
-		}
-		
-		$("input[name='seat[]']:checked").each(function (index, number) {
-			seat_taken = seat_taken + parseFloat($(number).val());
-		});
-		
-		$('input[name="seat"]').attr('value', seat_taken);
-		
-		if(error === 0) {
-			$.ajax({
-				url : '<?php echo base_url('lift/quick_book')?>',
-				data: {
-					user_id 	: user_id,
-					post_id 	: post_id,
-					message		: message,
-					request		: request,
-					amount		: amount,
-					seat_taken	: seat_taken,
-					start_time	: start_time,
-					date		: date,
-				},
-				type: 'GET',
-				success: function() {
-					console.log('success');
-					$('.popup-overlay').hide();
-					$('.success-overlay').show();
-				}
-			});
-		} else {
-			return false;
-		}
-		
-		e.preventDefault();
-	});
 });
 </script>

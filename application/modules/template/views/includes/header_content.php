@@ -15,7 +15,7 @@
 		</div>
 		
 		<div class="logo-nav m-center">
-			<div class="logo pull-left"><a href="<?php echo base_url('nmm')?>"><img src="<?php echo base_url('assets/images/page_template/logo.jpg')?>" width="49" height="83" alt=""/></a></div>
+			<div class="logo pull-left"><a href="<?php echo base_url()?>"><img src="<?php echo base_url('assets/images/page_template/logo.jpg')?>" width="49" height="83" alt=""/></a></div>
 			
 			<nav class="pull-right">
 				<ul>
@@ -24,7 +24,7 @@
 					<li><a href="<?php echo base_url('event')?>">Events</a></li>
 					<li><a href="<?php echo base_url('abroad')?>">Abroad</a></li>
 					<li><a href="<?php echo base_url('rent')?>">Rent a car</a></li>
-					<li><a href="<?php echo base_url('offer')?>">Offer / Make a wish lift</a></li>
+					<li><a href="<?php echo base_url('offer_wish_lift')?>">Offer / Make a wish lift</a></li>
 				</ul>
 			</nav>
 			

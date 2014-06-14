@@ -19,10 +19,13 @@ class Lift extends MX_Controller {
 		$query = parse_url($url, PHP_URL_QUERY);
 		parse_str($query, $params);
 		
-		if(isset($params['from']) && isset($params['to'])):
-			$data['ride_list'] = $this->lift_model->search_get_location();
+		$post = $this->input->post();
+		
+		if(isset($params['from'])):
+			$from	= $params['from'];
+			$to 	= $params['to'];
 			
-			$post = $this->input->post();
+			$data['ride_list'] = $this->lift_model->search_get_location($from, $to);
 			
 			if($post):
 				if(array_key_exists('ride_submit', $post)):
@@ -35,8 +38,6 @@ class Lift extends MX_Controller {
 				endif;
 			endif;
 		else:
-			$post = $this->input->post();
-			
 			if($post):
 				if(array_key_exists('ride_submit', $post)):
 					$this->form_validation->set_rules('from', 'From', 'required');

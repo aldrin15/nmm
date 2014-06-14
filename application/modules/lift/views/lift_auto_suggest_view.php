@@ -8,7 +8,7 @@ $(function() {
 	
 	$('#datepicker').datepicker({
 		minDate: dateToday
-	});
+	}).datepicker("setDate", new Date());
 	 
 	var from_route = $('#from-route'),
 		to_route = $('#to-route');
@@ -16,7 +16,7 @@ $(function() {
 	$(from_route).keyup(function(e) {
 		e.preventDefault();
 		
-		if($(from_route).val().length < 2) {
+		if($(from_route).val().length < 1) {
 			$('.from-suggestion ul').hide().empty();
 		} else {
 			$.ajax({
@@ -48,7 +48,7 @@ $(function() {
 	$(to_route).keyup(function(e) {
 		e.preventDefault();
 		
-		if($(to_route).val().length < 2) {
+		if($(to_route).val().length < 1) {
 			$('.from-suggestion ul').hide().empty();
 		} else {
 			$.ajax({
@@ -69,5 +69,27 @@ $(function() {
 			});	
 		}
 	});
+	
+	$('input[name="ride_submit"]').click(function() {
+		var from 	= $('input[name="from"]'),
+			to		= $('input[name="to"]'),
+			error	= 0;
+		
+		if(from.val() == '') {
+			from.parent().css({border:'2px solid #ff0000'});
+			error = 1;
+		}
+		
+		if(to.val() == '') {
+			to.parent().css({border:'2px solid #ff0000'});
+			error = 1;
+		}
+		
+		if(error == 0) {
+			$(this).submit();
+		} else {
+			return false;
+		}
+	});	
 });
 </script>

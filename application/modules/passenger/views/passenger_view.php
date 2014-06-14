@@ -1,19 +1,28 @@
 <?php $this->load->view('header_content')?>
 
 <div class="passenger-view m-center">
-	<div class="passenger-search">
+	<div class="search">
 		<form action="" method="post">
 			<ul>
 				<li>
 					<?php echo form_error('from', '<div class="error">', '</div>')?>
-					<span><input type="text" name="from" id=""/></span>
+						<div class="clr"></div>
+					<span><input type="text" name="from" id="from-route" autocomplete="off"/></span>
 				</li>
 				<li>
 					<?php echo form_error('to', '<div class="error">', '</div>')?>
-					<span><input type="text" name="to" id=""/></span>
+						<div class="clr"></div>
+					<span><input type="text" name="to" id="to-route" autocomplete="off" /></span>
 				</li>
 				<li>
-					<input type="submit" name="ride_submit" value="Search" class="btn-gray"/>
+					<input type="submit" name="ride_submit" value="    Search" class="btn-search"/>
+
+					<div class="clr"></div>
+				</li>
+				<li>
+					<input type="submit" name="option" value="Advance Option" class="btn-advance" style="margin-left:5px;"/>
+					
+					<div class="clr"></div>
 				</li>
 			</ul>
 			

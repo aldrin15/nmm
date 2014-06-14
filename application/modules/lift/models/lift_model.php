@@ -11,8 +11,8 @@ class Lift_model extends CI_Model {
 	}
 	
 	function search_location() {
-		$from 	= $this->input->post('from');
-		$to 	= $this->input->post('to');
+		$from 	= mysql_real_escape_string($this->input->post('from'));
+		$to 	= mysql_real_escape_string($this->input->post('to'));
 		$date 	= $this->input->post('date');
 		
 		$where = array();
@@ -40,10 +40,10 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function search_get_location($what = 'user_lift_post.id as id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, quick_book, start_time, date') {
-		$from 	= $this->input->get('from');
-		$to 	= $this->input->get('to');
-		$date 	= $this->input->get('date');
+	function search_get_location($from, $to, $what = 'user_lift_post.id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, quick_book, start_time, date') {
+		
+		$from 	= mysql_real_escape_string($from);
+		$to		= mysql_real_escape_string($to);
 		
 		$where = array();
 		$query = NULL;
@@ -56,9 +56,9 @@ class Lift_model extends CI_Model {
 			$where[] = "`route_to` Like '{$to}'";
 		endif;
 		
-		if($date != ''):
+		/* if($date != ''):
 			$where[] = "`date` Like '{$date}'";
-		endif;
+		endif; */
 		
 		if(count($where)):
 			$query_result = "SELECT {$what} FROM `user_lift_post` WHERE ".implode(' AND ', $where);

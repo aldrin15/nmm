@@ -146,10 +146,10 @@
 $(function () {
 	$("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 });
 	
-	// invoke the carousel
+	// Invoke the carousel
 	$('#events').carousel({ interval: 3000 });
 
-	/* SLIDE ON CLICK */
+	/* Slide on Click */
 	$('.carousel-linked-nav > li > a').click(function() {
 		var item = Number($(this).attr('href').substring(1)); // grab href, remove pound sign, convert to number
 		
@@ -162,8 +162,10 @@ $(function () {
 		return false; // don't follow the link
 	});
 
-	/* AUTOPLAY NAV HIGHLIGHT */
-	// bind 'slid' function
+	/* ========================
+	 * AUTOPLAY NAV HIGHLIGHT 
+	 * Bind 'slid' function
+	 ======================= */
 	$('#events').bind('slid', function() {
 		$('.carousel-linked-nav .active').removeClass('active'); // remove active class
 		
