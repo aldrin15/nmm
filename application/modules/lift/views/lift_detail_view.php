@@ -116,7 +116,7 @@
 				$seat_taken_array = explode(', ', $row['seats']);
 				
 				for($i = 0; $i < count($seat_taken_array); $i++):
-					echo '<li><img src="'.base_url('assets/images/user_image.jpg').'" width="65" height="66" alt=""/></li>';
+					echo '<li><img src="'.base_url('assets/images/page_template/blank_image.jpg').'" width="65" height="66" alt=""/></li>';
 				endfor;
 				?>
 			</ul>
@@ -146,7 +146,7 @@
 				
 				$hash = encrypt('encrypt', $row['id']);	
 			?>
-			<a href="#" class="btn-gray" data-toggle="modal" data-target="#quick_booking" data-hash="<?php echo $hash?>">Start Booking</a>
+			<a href="#" class="quick-book btn-gray" data-toggle="modal" data-target="#quick_booking" data-hash="<?php echo $hash?>">Start Booking</a>
 			<?php endif?>
 		</div>
 		<div class="lift-map-location"></div>
@@ -157,7 +157,7 @@
 </div>
 
 <!-- Quick Booking -->
-<div class="modal fade" id="quick_booking" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;" data-width="430">
+<div class="modal fade" id="quick_booking" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
 	<div class="modal-dialog">
 		<form action="" method="post">
 			<div class="modal-content">
@@ -238,6 +238,20 @@ function taken_by(checkboxName, image_array){
 	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
 }
 
+function taken_by(checkboxName, image_array){
+	var checkBox 	= $('input[name="'+ checkboxName +'"]'),	
+		test 		= image_array;
+	
+	$(checkBox).each(function(i, val){
+		$(this).wrap( "<span class='custom-checkbox' style='background: url(\"<?php echo base_url()?>assets/media_uploads/"+$.trim(test[i])+"\")'></span>" );
+		if($(this).is(':checked')){
+			$(this).parent().addClass("selected");
+		} 
+	});
+
+	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
+}
+
 function check_available(checkboxName){
 	var checkBox = $('input[name="'+ checkboxName +'"]');
 	$(checkBox).each(function(){
@@ -251,12 +265,12 @@ function check_available(checkboxName){
 	});
 }
 
-$(function(){ 
-	$('#user-rating :radio.star').rating();
-	
-	$('.book-now').click(function() {
+$(function() { 
+	$('.quick-book').click(function(e) {
 		var token = $(this).attr('data-hash');
-
+		
+		$('.seat-available, .seat-taken').empty();
+		
 		$.ajax({
 			url		: '<?php echo base_url('lift/quick_book_details')?>',
 			type	: 'GET',
@@ -270,8 +284,17 @@ $(function(){
 					$('input[name="license_plate"]').attr('value', value.plate);
 					$('input[name="start_time"]').attr('value', value.start_time);
 					
-					var seat_taken_array 		= value.seats.split(","),
-						image_array 			= value.image.split(",");
+					if(value.seats == null) {
+						var seat_taken_array = 0;
+					} else {
+						var seat_taken_array = value.seats.split(",");
+					}
+					
+					if(value.image == null) {
+						var image_array = 0;
+					} else {
+						var	image_array = value.image.split(",");
+					}
 					
 					//To make result array again
 					var seat_taken = 0;
@@ -292,11 +315,22 @@ $(function(){
 					
 					taken_by("taken[]", image_array);
 					check_available("seat[]");
-				});			
+				});
 			}
 		});
 	});
 	
+	/*
+	 * Auto Calculate the amount per seat
+	 */
+	var seat_amount = 0;
+	
+	$('input[name="seat[]"]').click(function() {
+		seat_amount += parseInt($(this).val());
+		
+		$('.total-amount').html('<strong>&euro; '+seat_amount+'</strong>');
+	});	
+
 	$('input[name="rate_submit"]').click(function() {
 		var rating_number = [];
 		
