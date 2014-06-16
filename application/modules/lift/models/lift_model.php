@@ -163,22 +163,22 @@ class Lift_model extends CI_Model {
 			'user_id'		=> $this->session->userdata('user_id'),
 			'route_from'	=> $this->input->post('origin'),
 			'route_to'		=> $this->input->post('destination'),
+			'via'			=> $this->input->post('via'),
 			'available'		=> $this->input->post('seat_available'),
 			'storage'		=> $this->input->post('storage'),
 			'remarks'		=> $this->input->post('remarks'),
 			'amount'		=> $this->input->post('seat_amount'),
-			'accept_cash'	=> $this->input->post('accept_cash'),
 			're_route'		=> $this->input->post('re_route'),
-			'quick_book'	=> $this->input->post('quick_book'),
+			'offer_re_route'=> $this->input->post('re_route'),
 			'start_time'	=> $this->input->post('hours').':'.$this->input->post('minute').':00',
 			'date'			=> str_replace("&quot;", "\"", $this->input->post('dates'))
 		);
 		
 		$insert_post = $this->db->insert('user_lift_post', $post_data);
-		
+
 		$preference_array = array();
 		
-		for($i = 1; $i < count($this->input->post('preference')); $i++):
+		for($i = 0; $i < count($this->input->post('preference')); $i++):
 			// $preference_array[] =  $i;
 			
 			$preference_data = array(

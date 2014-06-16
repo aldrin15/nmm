@@ -238,20 +238,6 @@ function taken_by(checkboxName, image_array){
 	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
 }
 
-function taken_by(checkboxName, image_array){
-	var checkBox 	= $('input[name="'+ checkboxName +'"]'),	
-		test 		= image_array;
-	
-	$(checkBox).each(function(i, val){
-		$(this).wrap( "<span class='custom-checkbox' style='background: url(\"<?php echo base_url()?>assets/media_uploads/"+$.trim(test[i])+"\")'></span>" );
-		if($(this).is(':checked')){
-			$(this).parent().addClass("selected");
-		} 
-	});
-
-	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
-}
-
 function check_available(checkboxName){
 	var checkBox = $('input[name="'+ checkboxName +'"]');
 	$(checkBox).each(function(){

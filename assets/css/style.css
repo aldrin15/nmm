@@ -427,6 +427,44 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .offer-and-wish-lift .fr ul li:nth-child(4) {background:url('../images/image_car.png') no-repeat 0 0; margin: 150px 0 0 -20px; width:134px; height:128px;}
 .offer-and-wish-lift .fr ul li:nth-child(4) div {background:url('../images/image_car.png') no-repeat 0 -128px; width:134px; height:128px;}
 
+.create-lift ul {list-style:none; margin-bottom:30px;}
+.create-lift form ul li {margin-bottom:10px;}
+.create-lift form ul li label {width:100px;}
+.create-lift form ul li label, .create-lift-form ul li input, .create-lift-form ul li select {float:left;}
+.create-lift form ul li textarea {resize:none;}
+
+.create-lift-preference div {cursor:pointer;}
+.create-lift-preference div p {display:none; position:relative; background: url('../images/page_template/tooltip_bg.png') repeat; color:#fff; text-align:center; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; margin:-50px 0 0 -25px; padding:10px 0; width:100px;}
+.create-lift-preference div p i {position:absolute; bottom:-9px; left:45px; background: url('../images/page_template/tooltip_bg_arrow.png') no-repeat; width:10px; height:9px;}
+.create-lift-preference div input {display:none;}
+.checkbox-1 {background: url('../images/page_template/preference.png') no-repeat 0 -38px; width:45px; height:38px;}
+.checkbox-2 {background: url('../images/page_template/preference.png') no-repeat -45px -38px; width:45px; height:38px;}
+.checkbox-3 {background: url('../images/page_template/preference.png') no-repeat -90px -38px; width:45px; height:38px;}
+.checkbox-4 {background: url('../images/page_template/preference.png') no-repeat -135px -38px; width:45px; height:38px;}
+.checkbox-5 {background: url('../images/page_template/preference.png') no-repeat -180px -38px; width:45px; height:38px;}
+.checkbox-6 {background: url('../images/page_template/preference.png') no-repeat -225px -38px; width:45px; height:38px;}
+
+/* Hover */
+.checkbox-1:hover {background: url('../images/page_template/preference.png') no-repeat 0 0;}
+.checkbox-2:hover {background: url('../images/page_template/preference.png') no-repeat -45px 0;}
+.checkbox-3:hover {background: url('../images/page_template/preference.png') no-repeat -90px 0;}
+.checkbox-4:hover {background: url('../images/page_template/preference.png') no-repeat -135px 0;}
+.checkbox-5:hover {background: url('../images/page_template/preference.png') no-repeat -180px 0;}
+.checkbox-6:hover {background: url('../images/page_template/preference.png') no-repeat -225px 0;}
+
+.checkbox-1.selected {background: url('../images/page_template/preference.png') no-repeat 0 0;}
+.checkbox-2.selected {background: url('../images/page_template/preference.png') no-repeat -45px 0;}
+.checkbox-3.selected {background: url('../images/page_template/preference.png') no-repeat -90px 0;}
+.checkbox-4.selected {background: url('../images/page_template/preference.png') no-repeat -135px 0;}
+.checkbox-5.selected {background: url('../images/page_template/preference.png') no-repeat -180px 0;}
+.checkbox-6.selected {background: url('../images/page_template/preference.png') no-repeat -225px 0;}
+
+.create-lift form ul li div.fl {margin-right:10px;}
+.create-lift form ul li div input[type="checkbox"] {margin-top:3px;}
+
+.create-lift-checkbox {position: relative; background: url('../images/page_template/checkbox.png') no-repeat 0 0; display: block; top: 3px; width: 26px; height: 26px; cursor:pointer; z-index: 1;}
+.create-lift-checkbox input[type="checkbox"]{ margin: 0; position: absolute; z-index: 2; cursor: pointer; outline: none; opacity: 0; _noFocusLine: expression(this.hideFocus=true); -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; filter: alpha(opacity=0); -khtml-opacity: 0; -moz-opacity: 0; }
+.create-lift-checkbox.selected{ background: url('../images/page_template/checkbox.png') no-repeat 0 -26px; }
 
 
 

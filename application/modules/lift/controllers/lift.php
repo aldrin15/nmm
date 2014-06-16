@@ -75,6 +75,8 @@ class Lift extends MX_Controller {
 	}
 	
 	public function create() {
+		modules::run('login/is_logged_in');
+		
 		$post = $this->input->post();
 		
 		if($post):
@@ -88,11 +90,11 @@ class Lift extends MX_Controller {
 				if($this->form_validation->run() == TRUE):
 					$this->lift_model->create_lift();
 					
-					redirect('lift/create_success', 'refresh');
+					// redirect('lift/create_success', 'refresh');
 				endif;
 			endif;
 		endif;
-	
+		
 		$data['user_car_data'] = $this->lift_model->get_user_car($this->session->userdata('user_id'));
 		$data['view_file'] = 'lift_create_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
