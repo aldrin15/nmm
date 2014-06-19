@@ -10,6 +10,7 @@
 * {margin:0; padding:0;}
 html, body {background:#fdfdfb; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size:12px; margin:0; padding:0; height:100%; width:100%;} 
 ul {list-style:none; margin:0; padding:0;}
+input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset; }
 
 
 
@@ -46,18 +47,16 @@ ul {list-style:none; margin:0; padding:0;}
 .login-status a {color:#bbfb04;}
 .logo-nav {margin: 0 auto; width:1024px;}
 
-nav {margin:30px 0 2px;}
-nav ul li {float:left; color:#050505;}
-nav ul li a {display:block; padding:32px 10px 0;}
+header nav {margin:30px 0 2px;}
+header nav ul li {float:left; color:#050505;}
+header nav ul li a {display:block; color:#050505; font-family: 'quicksandregular'; font-size:1.3em; padding:32px 10px 0;}
 
-nav ul li:nth-child(1) {background:url('../images/page_template/menu_lift.jpg') no-repeat top center;}
-nav ul li:nth-child(2) {background:url('../images/page_template/menu_passenger.jpg') no-repeat top center;}
-nav ul li:nth-child(3) {background:url('../images/page_template/menu_event.jpg') no-repeat top center;}
-nav ul li:nth-child(4) {background:url('../images/page_template/menu_abroad.jpg') no-repeat top center;}
-nav ul li:nth-child(5) {background:url('../images/page_template/menu_rent_a_car.jpg') no-repeat top center;}
-nav ul li:nth-child(6) {background:url('../images/page_template/menu_offer.jpg') no-repeat top center;}
-
-nav ul li a {color:#050505; font-family: 'quicksandregular'; font-weight:bold; font-size:1.1em;}
+header nav ul li:nth-child(1) {background:url('../images/page_template/menu_lift.jpg') no-repeat top center;}
+header nav ul li:nth-child(2) {background:url('../images/page_template/menu_passenger.jpg') no-repeat top center;}
+header nav ul li:nth-child(3) {background:url('../images/page_template/menu_event.jpg') no-repeat top center;}
+header nav ul li:nth-child(4) {background:url('../images/page_template/menu_abroad.jpg') no-repeat top center;}
+header nav ul li:nth-child(5) {background:url('../images/page_template/menu_rent_a_car.jpg') no-repeat top center;}
+header nav ul li:nth-child(6) {background:url('../images/page_template/menu_offer.jpg') no-repeat top center;}
 
 .line-separator {border-top:2px solid #c2c2c1; width:1024px;}
 
@@ -209,9 +208,9 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .search form ul li input[type="text"]:focus {outline:none;}
 .search form ul li input[type="submit"] {}
 
-.welcome {margin-left:0; width:300px;}
-.welcome p {font-size:.9em; margin-bottom:20px;}
-.welcome a {display:block; font-size:1.3em; text-align:center; width:132px;}
+.welcome {margin-left:0; width:320px;}
+.welcome p {font-size:1.2em; margin-bottom:20px;}
+.welcome a {display:block; font-size:1.3em; text-align:center; margin-bottom:20px; width:132px;}
 
 .carousel {margin-top:17px; width:570px;}
 .carousel .span2 {position:relative; float:left; margin-left:20px;}
@@ -227,7 +226,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .event-detail {position:absolute; color:#fff; top:5px; left:5px; width:100%;}
 .event-detail p {margin-left:5px;}
 
-.quote {text-align:center; margin:12px 0 20px;}
+.quote {text-align:center; margin:20px 0;}
 .q-message span {display:block; text-align:left; margin-top:10px;}
 .quote .fl {margin-left:10px;}
 .quote .q-left {vertical-align:top}
@@ -236,7 +235,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .q-message img {position:absolute; bottom:-9px; left:5px;}
 
 .about .fl h1 {font-family: 'quicksandregular';}
-.about .fl p {font-family: 'quicksandregular'; font-size:1.2em; line-height:20px; margin:10px 0;}
+.about .fl p {font-family: 'quicksandregular'; font-size:1.3em; line-height:20px; margin:10px 0;}
 .about .fr ul li {cursor:pointer;}
 .about .fr ul li div {display:none;}
 
@@ -249,11 +248,18 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .about .fr ul li:nth-child(3) {background:url('../images/about_image3.png') no-repeat 0 0; margin:-51px 0 0 235px; width:144px; height:144px;}
 .about .fr ul li:nth-child(3) div {background:url('../images/about_image3.png') no-repeat 0 -144px; width:144px; height:144px;}
 
-.login-form {margin:0 auto; width:262px;}
-.login-form .username {display:block; background:url('../images/input_login.jpg') no-repeat; margin-bottom:15px; width:261px; height:37px;}
-.login-form .username input {border:none; background:none; margin-left:42px; padding-top:10px; width:200px;}
-.login-form .password {display:block; background:url('../images/input_password.jpg') no-repeat; width:261px; height:37px;}
-.login-form .password input {border:none; background:none; margin-left:42px; padding-top:10px; width:200px;}
+.login-form {text-align:center; margin:0 auto;}
+.login-form a {color:#000; text-decoration:underline;}
+.login-form .signin-with {background: url('../images/page_template/icon_line.png') repeat-x center; margin-bottom:20px; width:100%;}
+.login-form .signin-with span {background:#fff; padding:0 5px;}
+.login-form .username, .login-form .password  {display:block; border:1px solid #9b9b9b; margin-bottom:10px; padding-top:10px; height:40px;}
+.login-form .username input, .login-form .password  input {float:left; color:#9b9b9b; outline: none; border:none; background:none; margin-left:10px; width:80%;}
+.login-form .username i {float:right; display:block; background:url('../images/page_template/icon_email_medium.png') no-repeat; margin-right:10px; width:27px; height:17px;}
+.login-form .password i {float:right; display:block; background:url('../images/page_template/icon_key_medium.png') no-repeat; margin-right:10px; width:27px; height:17px;}
+
+.login-form input[type="submit"] {background: #92bd3a; color:#fff; font-weight:bold; font-size:1.5em; border:none; margin-bottom:10px; width:100%; height:40px;}
+.login-fb {border:none; background: #428bca url('../images/page_template/icon_fb_login.png') no-repeat; color:#fff; font-weight:bold; font-size:1.4em; padding-left:40px; margin-bottom:20px; width:100%; height:40px;}
+
 
 /*.forgot-form {margin:0 auto; width:312px;}*/
 .forgot-form {margin-top:20px;}
@@ -286,15 +292,17 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .lift-listing ul li a {color:#000;}
 .lift-listing ul li a:hover {text-decoration:none;}
 
-#quick_booking ul li {margin-bottom:15px;}
-#quick_booking ul li div {position:relative;}
-#quick_booking ul li div.seat-taken label:first-child {margin-left:0;}
-#quick_booking ul li div label {margin-left:16px; width: 65px;}
-#quick_booking ul li label, #quick_booking form ul li span {display:block; float:left;}
-#quick_booking ul li label {width:120px;}
+#booking ul li {margin-bottom:15px;}
+#booking ul li div {position:relative;}
+#booking ul li div.seat-taken label:first-child {margin-left:0;}
+#booking ul li div label {margin-right:16px; width: 65px;}
+#booking ul li label, #quick_booking form ul li span {display:block; float:left;}
+#booking ul li label {width:120px;}
+#booking ul li textarea {resize:none; height:100px;}
+
+.request_form input {margin-bottom:20px;}
 
 .total-amount {font-size:1.2em;}
-#quick_booking textarea[name="message"] {resize:none; width:394px; height:114px;}
 
 .detail {margin-top:20px;}
 .detail .fl h4 span, .detail .fl h5 span {color:#678222;}
@@ -315,7 +323,8 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .lift-information ul li label {width:110px;}
 
 .lift-seat-available p {text-align:center; margin-bottom:15px;}
-.lift-seat-available ul li {float:left; margin-left:7px;}
+.lift-seat-available ul {margin-left:40px;}
+.lift-seat-available ul li {display:inline-block; margin: 0 10px 10px 0;}
 
 .lift-price {text-align:right; font-size:2em; margin:20px 0;}
 
@@ -433,10 +442,10 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .create-lift form ul li label, .create-lift-form ul li input, .create-lift-form ul li select {float:left;}
 .create-lift form ul li textarea {resize:none;}
 
-.create-lift-preference div {cursor:pointer;}
-.create-lift-preference div p {display:none; position:relative; background: url('../images/page_template/tooltip_bg.png') repeat; color:#fff; text-align:center; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; margin:-50px 0 0 -25px; padding:10px 0; width:100px;}
-.create-lift-preference div p i {position:absolute; bottom:-9px; left:45px; background: url('../images/page_template/tooltip_bg_arrow.png') no-repeat; width:10px; height:9px;}
-.create-lift-preference div input {display:none;}
+.lift-preference div {cursor:pointer; margin-right:10px;}
+.lift-preference div p {display:none; position:relative; background: url('../images/page_template/tooltip_bg.png') repeat; color:#fff; text-align:center; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; margin:-50px 0 0 -25px; padding:10px 0; width:100px;}
+.lift-preference div p i {position:absolute; bottom:-9px; left:45px; background: url('../images/page_template/tooltip_bg_arrow.png') no-repeat; width:10px; height:9px;}
+.lift-preference div input {display:none;}
 .checkbox-1 {background: url('../images/page_template/preference.png') no-repeat 0 -38px; width:45px; height:38px;}
 .checkbox-2 {background: url('../images/page_template/preference.png') no-repeat -45px -38px; width:45px; height:38px;}
 .checkbox-3 {background: url('../images/page_template/preference.png') no-repeat -90px -38px; width:45px; height:38px;}
@@ -459,12 +468,81 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .checkbox-5.selected {background: url('../images/page_template/preference.png') no-repeat -180px 0;}
 .checkbox-6.selected {background: url('../images/page_template/preference.png') no-repeat -225px 0;}
 
-.create-lift form ul li div.fl {margin-right:10px;}
 .create-lift form ul li div input[type="checkbox"] {margin-top:3px;}
 
 .create-lift-checkbox {position: relative; background: url('../images/page_template/checkbox.png') no-repeat 0 0; display: block; top: 3px; width: 26px; height: 26px; cursor:pointer; z-index: 1;}
 .create-lift-checkbox input[type="checkbox"]{ margin: 0; position: absolute; z-index: 2; cursor: pointer; outline: none; opacity: 0; _noFocusLine: expression(this.hideFocus=true); -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; filter: alpha(opacity=0); -khtml-opacity: 0; -moz-opacity: 0; }
 .create-lift-checkbox.selected{ background: url('../images/page_template/checkbox.png') no-repeat 0 -26px; }
+
+
+
+
+/***** [Member] *****/
+.profile-nav ul { list-style: none; width: 170px; }
+.profile-nav ul li { cursor: pointer; background: #75ca30; border-right:1px solid #759f52;}	
+.profile-nav ul li a { display:block; color:#fff; text-transform:uppercase; border-bottom:1px solid #181e13; padding:10px; }
+.profile-nav ul li a i { float:right; display:block; background: url('tooltip_bg_arrow.png') no-repeat; margin-top:5px; width:10px; height:9px;}
+.profile-nav ul li ul { display: none; border:1px solid #919191; width:168px; }
+.profile-nav ul li ul li {background:#eff0ee; padding:0; border-top:1px solid #919191; padding:5px 10px;}
+.profile-nav ul li ul li:first-child {border-top:none;}
+.profile-nav ul li ul li a {border:none; color:#75ca30;}
+.profile-nav a { text-decoration: none; }
+
+
+
+/***** [Member View] *****/
+.profile-detail-information {margin-left:20px;}
+
+.profile-frame {border:1px solid #c2c2c1; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:10px;}
+.profile-frame img {border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px;}
+
+.profile-online-status {margin-top:10px;}
+.profile-online-status p {margin-bottom:5px;}
+.profile-online-status p:nth-child(2) img {margin-top:-2px;}
+.profile-online-status p:nth-child(3) img {margin-top:-5px;}
+
+.profile-information {font-size:1.2em; margin-left:10px;}
+.profile-information label {width:120px;}
+
+.profile-status {font-size:1.2em; border:1px solid #d7d7d6; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; margin-left:10px; padding:10px;}
+.profile-status ul li {margin-top:10px; padding-left:20px;}
+.p-checked {background: url('../images/page_template/icon_check.png') no-repeat left;}
+
+
+
+
+/***** [Member - Edit View] *****/
+.profile-edit {margin-left:10px;}
+.profile-edit input[name="update_submit"] {background:#47a447; color:#fff; text-transform:uppercase; font-size:14px; font-weight:bold; border:none; padding:5px 20px;}
+.profile-edit ul li {margin-bottom:20px;}
+.profile-edit ul li span input {outline:none; border:none; width:100%;}
+.profile-edit ul li textarea {resize:none; margin-left:10px; padding:10px; width:300px; height:180px;}
+
+.profile-upload button {text-align:center; border:none; padding:5px; width:150px; height:30px;}
+.profile-upload input {display:none;}
+
+.profile-place p {
+	color:#333;
+	background-image: -ms-linear-gradient(top, #FFFFFF 0%, #E0E0E0 100%); /* IE10 Consumer Preview */
+	background-image: -moz-linear-gradient(top, #FFFFFF 0%, #E0E0E0 100%); /* Mozilla Firefox */
+	background-image: -o-linear-gradient(top, #FFFFFF 0%, #E0E0E0 100%); /* Opera */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #E0E0E0)); /* Webkit (Safari/Chrome 10) */ 
+	background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #E0E0E0 100%); /* Webkit (Chrome 11+) */ 
+	background-image: linear-gradient(to bottom, #FFFFFF 0%, #E0E0E0 100%); /* W3C Markup, IE10 Release Preview */ 
+	font-size:14px;
+	cursor:pointer;
+	border:1px solid #ccc;
+	border-radius: 4px;
+	padding:6px 12px;
+}
+
+.profile-place p:hover {border:1px solid #adadad;}
+.place-search {display:none; background:#fff; border-radius: 2px 2px 5px 5px; border:1px solid #adadad; padding:10px;}
+.place-search input {outline:none; border-radius: 5px; border:1px solid #adadad; padding:0 5px; width:100%; height:30px;}
+
+.p-s-done {float:right; background:#47a447; color:#fff; font-size:14px; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; margin-top:5px; padding:5px 20px;}
+.p-s-done:hover {color:#fff; text-decoration:none;}
+
 
 
 
@@ -554,9 +632,9 @@ footer .pull-right .fl span:last-child {color:#678222;}
  * Checkbox and Radio
  =================== */
 /*Customize Checkbox*/
-.custom-checkbox{background: url("../images/page_template/blank_image.jpg") no-repeat; display: inline-block; position: relative; z-index: 1; top: 3px; width: 65px; height: 66px;}
-.custom-checkbox.selected{ background: url("../images/user_image.jpg") no-repeat; }
-.custom-checkbox input[type="checkbox"]{
+.lift-available {background: url("../images/page_template/blank_image.png") no-repeat; display: inline-block; position: relative; z-index: 1; top: 3px; width: 65px; height: 66px;}
+.lift-available.selected{ background: url("../images/user_image.jpg") no-repeat; }
+.lift-available input[type="checkbox"]{
 	margin: 0;
 	position: absolute;
 	z-index: 2;            

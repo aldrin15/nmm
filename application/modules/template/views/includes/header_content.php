@@ -8,8 +8,8 @@
 				<a href="<?php echo base_url('members')?>">Hi! <?php echo $firstname?></a> |
 				<a href="<?php echo base_url('login/logout')?>">Logout</a>
 				<?php else:?>
-				<a href="<?php echo base_url('login')?>">Log in</a> |
-				<a href="<?php echo base_url('register')?>">Sign up!</a>
+				<a href="<?php echo base_url('login')?>">LOGIN</a> |
+				<a href="<?php echo base_url('register')?>">REGISTER</a>
 				<?php endif?>
 			</div>
 		</div>

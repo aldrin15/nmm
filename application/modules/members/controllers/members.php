@@ -32,32 +32,27 @@ class Members extends MX_Controller {
 		
 		if($post):
 			if(empty($_FILES['userfile']['name'])) {
-				// $this->form_validation->set_rules('userfile', 'Upload Image', 'required'); This is working
-				$this->form_validation->set_rules('about_me', 'About Me', 'required');
 				$this->form_validation->set_rules('firstname', 'Firstname', 'required');
 				$this->form_validation->set_rules('lastname', 'Lastname', 'required');
-				$this->form_validation->set_rules('job', 'Job', 'required');
-				$this->form_validation->set_rules('address_no', 'Home no.', 'required');
 				$this->form_validation->set_rules('street', 'Street', 'required');
-				$this->form_validation->set_rules('postal', 'Postal', 'required');
+				$this->form_validation->set_rules('city_country', 'City and Country', 'required');
 				$this->form_validation->set_rules('mobile', 'Mobile no.', 'required');
+				$this->form_validation->set_rules('phone', 'Phone', 'required');
 
 				$data['errors'] = $this->upload->display_errors();
 				
 				if($this->form_validation->run() == TRUE):
-					$this->member_model->update($user_id);
+					$test = $this->member_model->update($user_id);
 					
 					redirect('members/edit_success', 'refresh');
 				endif;
 			} else {
-				$this->form_validation->set_rules('about_me', 'About Me', 'required');
 				$this->form_validation->set_rules('firstname', 'Firstname', 'required');
 				$this->form_validation->set_rules('lastname', 'Lastname', 'required');
-				$this->form_validation->set_rules('job', 'Job', 'required');
-				$this->form_validation->set_rules('address_no', 'Home no.', 'required');
 				$this->form_validation->set_rules('street', 'Street', 'required');
-				$this->form_validation->set_rules('postal', 'Postal', 'required');
+				$this->form_validation->set_rules('city_country', 'City and Country', 'required');
 				$this->form_validation->set_rules('mobile', 'Mobile no.', 'required');
+				$this->form_validation->set_rules('phone', 'Phone', 'required');
 				
 				if($this->form_validation->run() == TRUE):
 					$config['allowed_types'] 	= 'jpg|jpeg|gif|png';
@@ -75,7 +70,6 @@ class Members extends MX_Controller {
 					redirect('members/edit_success', 'refresh');
 				endif;				
 			}
-			
 		endif;
 	
 		$data['members_information']	= $this->member_model->member_information($this->session->userdata('user_id'));
@@ -84,22 +78,16 @@ class Members extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
-	public function get_city() {
-		$country_code 	= $this->input->get('country');
-		$get_city 		= $this->member_model->get_city($country_code);
+	public function get_location() {
+		$city = $this->member_model->get_location($this->input->get('city'));
 		
-		$city = array();
+		$city_array = array();
 		
-		foreach($get_city as $row):
-			$city_name = array($row->combined);
-			$city_name = preg_replace('/^([^,]*).*$/', '$1', $city_name);
-			
-			$city[] = $city_name;
+		foreach($city as $row):
+			$city_array[] = $row['combined'];
 		endforeach;
 		
-		for($i = 0; $i < count($city); $i++):
-			echo '<option>'.$city[$i][0].'</option>';
-		endfor;
+		echo json_encode($city_array);
 	}
 	
 	public function edit_success() {

@@ -2,25 +2,11 @@
 
 <div class="offer-and-wish-lift m-center-content">
 	<div class="span4 fl">
-		<p>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-		sed do eiusmodtempor incididunt ut labore et dolore 
-		magna aliqua. Ut enim ad minimveniam, quis nostrud 
-		exercitation ullamco laboris nisi ut aliquip ex ea commodo 
-		consequat. Duis aute irure dolor in reprehenderit in 
-		voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-		Excepteur sint occaecat cupidatat non proident, sunt in 
-		culpa qui officia deserunt mollit anim id est laborum.
-		<br /><br />
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
-		sed do eiusmodtempor incididunt ut labore et dolore 
-		magna aliqua. Ut enim ad minimveniam, quis nostrud 
-		exercitation ullamco laboris nisi ut aliquip ex ea commodo 
-		consequat. Duis aute irure dolor in reprehenderit in 
-		voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-		Excepteur sint occaecat cupidatat non proident, sunt in 
-		culpa qui officia deserunt mollit anim id est laborum.
-		</p>
+		<p>Hos Nimm Mich Mit forsøger vi konstant, at finde ny muligheder for samkørsel, så vi sammen kan hjælpe miljøet.</p><br />
+
+		<p>Biler udleder gennemsnitlig fra 120 - 160 g co2 pr km, derfor hjælper du miljøet blot ved at oprette eller ønske et enkelt lift, event eller tur til udlandet.</p><br />
+		
+		<p>Du kan vælge lige præcis den medpassager eller billist du ønsker, gennem vores rating system, specificerede krav til turen, billisten/ medpassageren, at du er sikker på turen til arbejde, besøge familien, den længe ventede tur til udlandet eller koncert er præcis som du vil have det.</p>
 	</div>
 	
 	<div class="span6 fr">

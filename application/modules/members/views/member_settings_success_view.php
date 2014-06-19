@@ -1,6 +1,6 @@
 <?php $this->load->view('header_content')?>
 
-<div class="m-center">
+<div class="m-center-content">
 	<div class="profile-sidebar fl">
 		<ul>
 			<li><a href="<?php echo base_url('members/index')?>">Dashboard</a></li>

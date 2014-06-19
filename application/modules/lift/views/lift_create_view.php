@@ -121,7 +121,7 @@
 			<li>
 				<label for="Preferences">Preferences:</label>
 				
-				<div class="create-lift-preference">
+				<div class="lift-preference">
 					<div class="fl checkbox-1">
 						<input type="checkbox" name="preference[]" value="1"/>
 						<p>Talk <i></i></p>
@@ -242,7 +242,7 @@ $(function() {
 		endif;?>
 	});
 	
-	$('.create-lift-preference div').click(function() {
+	$('.lift-preference div').click(function() {
 		var input = $('input', this);
 		
 		if(input.attr('checked')){
@@ -254,7 +254,7 @@ $(function() {
 		}
 	});
 	
-	$('.create-lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:block}); });
-	$('.create-lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
+	$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:block}); });
+	$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
 });
 </script>

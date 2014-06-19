@@ -1,57 +1,78 @@
 <?php $this->load->view('header_content')?>
 
-<div class="m-center">
-	<div class="profile-sidebar fl">
-		<ul>
-			<li><a href="<?php echo base_url('members/index')?>">Dashboard</a></li>
-			<li><a href="<?php echo base_url('members/edit')?>">Edit Profile</a></li>
-			<li><a href="#">Manage Cars</a></li>
-			<li><a href="<?php echo base_url('lift/create')?>">Create a lift</a></li>
-			<li><a href="#">Balance</a></li>
-			<li><a href="#">Transactions</a></li>
-			<li><a href="#">Messages</a></li>
-			<li><a href="#">Overview</a></li>
-			<li><a href="<?php echo base_url('members/settings')?>">Settings</a></li>
-		</ul>
-	</div>
+<style type="text/css">
+.profile-settings {margin-left:10px;}
 
-	<style type="text/css">
-	.profile-settings {margin-left:100px;}
-	.profile-settings ul {list-style:none;}
-	.profile-settings ul li {margin-bottom:10px;}
-	.profile-settings ul li label, .profile-edit ul li p {display:block; float:left;}
-	.profile-settings ul li label {width:120px;}
+.profile-settings ul {list-style:none;}
+.profile-settings ul li {margin-bottom:10px;}
+.profile-settings ul li input[type="text"], .profile-settings ul li input[type="password"] { border:none; outline:none; width:100%;}
+.profile-settings ul li input[type="submit"] {background:#47a447; color:#fff; text-transform:uppercase; font-size:14px; font-weight:bold; border:none; padding:5px 20px;}
+</style>
 
-	.error {color:#ff0000; margin-left:120px;}
-	.profile-settings ul li div .error {margin-left:0;}
-	</style>
+<div class="m-center-content">
+	<?php echo modules::run('lift/search')?>
+	
+	<?php $this->load->view('member_sidebar_view')?>
 
-	<div class="profile-settings fl">
+	<div class="profile-settings span5 fl">
 		<form action="" method="post">
 			<?php foreach($members_id as $member):?>
 			<ul>
 				<li>
 					<?php echo form_error('email', '<div class="error">','</div>')?>
 					<label for="Email">Email: </label>
-					<input type="text" name="email" value="<?php echo $member['email']?>" id=""/>
+					<span class="form-control"><input type="text" name="email" value="<?php echo $member['email']?>" id="" autocomplete="off"/></span>
 				</li>
 				<li>
 					<?php echo form_error('password', '<div class="error">','</div>')?>
 					<label for="Password">New Password: </label>
-					<input type="password" name="password" value="<?php echo set_value('password')?>" id=""/>
+					<span class="form-control"><input type="password" name="password" value="<?php echo set_value('password')?>" id="" autocomplete="off"/></span>
 				</li>
 				<li>
 					<?php echo form_error('cpassword', '<div class="error">','</div>')?>
 					<label for="Password">Confirm Password: </label>
-					<input type="password" name="cpassword" id=""/>
+					<span class="form-control"><input type="password" name="cpassword" id=""/></span>
 				</li>
 				<li>
 					<input type="submit" name="settings_submit" value="Change Settings"/>
+					
+					<div class="clr"></div>
 				</li>
 			</ul>
 			<?php endforeach?>
 		</form>
 	</div>
 	
+	<div class="profile-status span3 fl">
+		<p>Profile Status</p>
+		
+		<div class="profile-progress"></div>
+		
+		<ul>
+			<li class="p-checked" data-val="14"><p>Name</p></li>
+			<li class="p-checked" data-val="14"><p>Profile picture</p></li>
+			<li class="p-checked" data-val="14"><p>Email</p></li>
+			<li class="p-checked" data-val="14"><p>Work</p></li>
+			<li class="p-checked" data-val="14"><p>Address</p></li>
+			<li data-val="0"><p>Profile text</p></li>
+			<li data-val="0"><p>Mobile Number</p></li>
+		</ul>
+	</div>
+	
 	<div class="clr"></div>
 </div>
+
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
+<script type="text/javascript">
+$(function() {
+	var count = 0;
+	
+	$('.profile-status ul li').each(function() {
+		var percent = $(this).attr('data-val');
+		
+		count += Number(percent);
+	});
+	
+	$( ".profile-progress" ).progressbar({ value: count });
+});
+</script>

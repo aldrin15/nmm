@@ -18,17 +18,18 @@
 		
 		<div class="m-center">
 			<aside class="span4 welcome fl">
-				<h2>Welcome to NMM</h2>
+				<h3>Velkommen til Nimm Mich Mit</h3>
 
 				<p>
-				Lorem ipsum dolor sit amet, 
-				consectetur adipisicing elit,  
-				sed do eiusmod tempor incidi
-				ut labore et dolore magna
-				aliqua.Ut enim ad minim veniam,
-				quis nostrud exercitation
-				ullamco laboris nisi ut aliquip
-				ex ea commodo consequat. 
+				"Westerhagen"<br /><br />
+
+				Nimm mich mit, zeige mir den Weg.<br />
+				Nimm mich mit, eh der Wind sich dreht.<br />
+				Nimm mich mit uber den Horizont.<br />
+				Nimm mich mit, die anderen warten schon.<br /><br />
+
+				Tjen og spar penge med ligesindede,<br />
+				alt imens du hjælper miljøet.
 				</p>
 				
 				<a href="#" class="btn-gray">Join us now!</a>

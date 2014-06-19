@@ -1,161 +1,215 @@
 <?php $this->load->view('header_content')?>
 
-<div class="m-center">
-	<div class="profile-sidebar fl">
-		<ul>
-			<li><a href="<?php echo base_url('members/index')?>">Dashboard</a></li>
-			<li><a href="<?php echo base_url('members/edit')?>">Edit Profile</a></li>
-			<li><a href="#">Manage Cars</a></li>
-			<li><a href="<?php echo base_url('lift/create')?>">Create a lift</a></li>
-			<li><a href="#">Balance</a></li>
-			<li><a href="#">Transactions</a></li>
-			<li><a href="#">Messages</a></li>
-			<li><a href="#">Overview</a></li>
-			<li><a href="<?php echo base_url('members/settings')?>">Settings</a></li>
-		</ul>
-	</div>
+<div class="m-center-content">
+	<?php echo modules::run('lift/search')?>
+	
+	<?php $this->load->view('member_sidebar_view')?>
 
-	<style type="text/css">
-	.profile-edit {margin-left:100px;}
-	.profile-edit ul li {margin-bottom:10px;}
-	.profile-edit ul li label, .profile-edit ul li p {display:block; float:left;}
-	.profile-edit ul li label {width:100px;}
-
-	.error {color:#ff0000; margin-left:100px;}
-	.profile-edit ul li div .error {margin-left:0;}
-	</style>
-
-	<div class="profile-edit fl">
+	<div class="profile-edit span5 fl">
 		<?php if($this->session->flashdata('error')){echo $this->session->flashdata('error');}?>
 		<?php if($this->session->flashdata('error2')){echo $this->session->flashdata('error2');}?>
 		
 		<form action="" method="post" enctype="multipart/form-data">
 			<?php foreach($members_information as $info):?>
-			<ul style="list-style:none;">
+			<ul>
 				<li>
-					<?php echo form_error('userfile')?>
-					<label for="Picture">Picture:</label>
-					<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-					<input type="file" name="userfile" />
+					<div class="profile-upload fl">
+						<?php if($info['image'] == NULL):?>
+							<img src="<?php echo base_url('assets/image/page_template/blank_profile_large.jpg')?>" alt=""/>
+						<?php else:?>
+							<img src="<?php echo base_url('assets/media_uploads/').'/'.$info['image']?>" width="150" height="150" alt="" />
+						<?php endif?><br />
+						<button class="btn-success">Change Picture</button>
+						<input type="file" name="file" id="" />
+					</div>
+					<textarea name="about_me" id="" cols="30" rows="10" class="fl"><?php echo $info['about_me']?></textarea>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
-					<?php echo form_error('about_me', '<div class="error">','</div>')?>
-					<label for="About Me">About Me</label>
-					<textarea name="about_me" id="" cols="30" rows="10"><?php echo (isset($_POST['about_me'])) ? $_POST['about'] : $info['about_me']?></textarea>
+					<label for="Firstname">Firstname <?php echo form_error('firstname', '<span class="error">', '</span>')?></label>
+					<span class="form-control"><input type="text" name="firstname" value="<?php echo (isset($_POST['firstname'])) ? $_POST['firstname'] : $info['firstname']?>" id=""/></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
-					<label for="Fullname">Fullname: </label>
-					<div class="fl">
-						<?php echo form_error('firstname', '<div class="error">','</div>')?>
-						<label for="Firstname">Firstname:</label>
-						<input type="text" name="firstname" id="" value="<?php echo (isset($_POST['firstname'])) ? $_POST['firstname'] : $info['firstname']?>"/>
-						
+					<label for="lastname">Lastname <?php echo form_error('lastname', '<span class="error">', '</span>')?></label>
+					<span class="form-control"><input type="text" name="lastname" value="<?php echo (isset($_POST['lastname'])) ? $_POST['lastname'] : $info['lastname']?>" id=""/></span>
+					
+					<div class="clr"></div>
+				</li>
+				<li>
+					<label for="My Birthday">My Birthday</label>
 						<div class="clr"></div>
-					</div>
-					<div class="fl">
-						<?php echo form_error('lastname', '<div class="error">','</div>')?>
-						<label for="Lastname">Lastname:</label>
-						<input type="text" name="lastname" id="" value="<?php echo (isset($_POST['lastname'])) ? $_POST['lastname'] : $info['lastname']?>"/>
-						
-						<div class="clr"></div>			
-					</div>
+					<select name="" id="" class="birth-date select-width-auto">
+						<option value="1" <?php echo (date('F', strtotime($info['birthdate'])) == 'January') ? 'selected' : ''?>>January</option>
+						<option value="2" <?php echo (date('F', strtotime($info['birthdate'])) == 'February') ? 'selected' : ''?>>February</option>
+						<option value="3" <?php echo (date('F', strtotime($info['birthdate'])) == 'March') ? 'selected' : ''?>>March</option>
+						<option value="4" <?php echo (date('F', strtotime($info['birthdate'])) == 'April') ? 'selected' : ''?>>April</option>
+						<option value="5" <?php echo (date('F', strtotime($info['birthdate'])) == 'May') ? 'selected' : ''?>>May</option>
+						<option value="6" <?php echo (date('F', strtotime($info['birthdate'])) == 'June') ? 'selected' : ''?>>June</option>
+						<option value="7" <?php echo (date('F', strtotime($info['birthdate'])) == 'July') ? 'selected' : ''?>>July</option>
+						<option value="8" <?php echo (date('F', strtotime($info['birthdate'])) == 'August') ? 'selected' : ''?>>August</option>
+						<option value="9" <?php echo (date('F', strtotime($info['birthdate'])) == 'September') ? 'selected' : ''?>>September</option>
+						<option value="10" <?php echo (date('F', strtotime($info['birthdate'])) == 'October') ? 'selected' : ''?>>October</option>
+						<option value="11" <?php echo (date('F', strtotime($info['birthdate'])) == 'November') ? 'selected' : ''?>>November</option>
+						<option value="12" <?php echo (date('F', strtotime($info['birthdate'])) == 'December') ? 'selected' : ''?>>December</option>
+					</select>
 					
-					<div class="clr"></div>
-				</li>
-				<li>
-					<?php echo form_error('job', '<div class="error">','</div>')?>
-					<label for="Job">Job:</label>
-					<input type="text" name="job" id="" value="<?php echo (isset($_POST['job'])) ? $_POST['job'] : $info['job']?>"/>
+					<select name="" id="" class="birth-date select-width-auto">
+						<?php for($i = 1; $i < 32; $i++):?>
+						<option value="<?php echo $i?>" <?php echo (date('d', strtotime($info['birthdate'])) == $i) ? 'selected' : ''?>><?php echo $i?></option>
+						<?php endfor?>
+					</select>
 					
-					<div class="clr"></div>
-				</li>
-				<li>
-					<?php echo form_error('address_no', '<div class="error">','</div>')?>
-					<?php echo form_error('street', '<div class="error">','</div>')?>
-					<label for="Address:">Address:</label>
-					<div class="fl">
-						<p>Home No: </p>
-						<input type="text" name="address_no" id="" value="<?php echo (isset($_POST['address_no'])) ? $_POST['address_no'] : $info['address_no']?>"/>
-						
-						<div class="clr"></div>
-					</div>
-					<div class="fl">
-						<p>street: </p>
-						<input type="text" name="street" id="" value="<?php echo (isset($_POST['street'])) ? $_POST['street'] : $info['street']?>"/>
-						
-						<div class="clr"></div>
-					</div>
-					
-					<div class="clr"></div>
-				</li>
-				<li>
-					<?php echo form_error('postal', '<div class="error">','</div>')?>
-					<label for="Postal Code">Postal Code:</label>
-					<input type="text" name="postal" id="" value="<?php echo (isset($_POST['postal'])) ? $_POST['postal'] : $info['postal']?>"/>
-					
-					<div class="clr"></div>
-				</li>
-				<li>
-					<div>
-						<?php echo form_error('city', '<div class="error">','</div>')?>
-						<label for="Address">City:</label>
-						
-						<select name="country" id="country">
-							<?php foreach($countries_list as $country):?>
-								<option value="<?php echo $country->name?>" title="<?php echo $country->code?>"><?php echo $country->name?></option>
+					<select name="" id="" class="birth-date select-width-auto">
+						<?php
+							$current_year 	= date("Y");
+							$past_year 		= date("Y") - 49;
+							$years 			= range ($current_year, $past_year);
+							$year_selected 	= date('Y', strtotime($info['birthdate']));
+							
+							
+							foreach($years as $year):
+							?>
+								<option value="<?php echo $year?>" <?php echo ($year_selected == $year) ? 'selected' : ''?>><?php echo $year?></option>
 							<?php endforeach?>
-						</select>
-						
-						<select name="city" id="state">
-
-						</select>
-						
-						<div class="query-message">Fetching Data....</div>
-					</div>
-				</li>
-				<li>
-					<?php echo form_error('mobile', '<div class="error">','</div>')?>
-					<label for="Address">Mobile number:</label>
-					<input type="text" name="mobile" id="" value="<?php echo (isset($_POST['mobile'])) ? $_POST['mobile'] : $info['number']?>"/>
+					</select>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
-					<input type="submit" name="submit_edit" value="Edit Details"/>
+					<label for="Street">Street <?php echo form_error('street', '<span class="error">', '</span>')?></label>
+					
+					<span class="form-control"><input type="text" name="street" value="<?php echo isset($_POST['street']) ? $_POST['street'] : $info['street']?>" id=""/></span>
+					
+					<div class="clr"></div>
+				</li>
+				<li>
+					<label for="City and Country">City and Country <?php echo form_error('city_country', '<span class="error">', '</span>')?></label>
+						<div class="clr"></div>
+						
+					<div class="profile-place">
+						<p>- Choose your location -</p>
+						
+						<div class="place-search">
+							<input type="text" name="location_list" id="place-search" />
+							<input type="hidden" name="city_country" value="<?php echo $info['city'].', '.$info['country']?>" id="" />
+							
+							<a href="#" class="p-s-done">Done</a>
+							
+							<div class="clr"></div>
+						</div>
+					</div>
+					
+					<div class="clr"></div>
+				</li>
+				<li>
+					<label for="Postal">Postal Code: <?php echo form_error('postal', '<span class="error">', '</span>')?></label>
+					<span class="form-control"><input type="text" name="postal" value="<?php echo (isset($_POST['postal'])) ? $_POST['postal'] : $info['postal']?>" id=""/></span>
+					
+					<div class="clr"></div>
+				</li>
+				<li>
+					<label for="Work">Work:</label>
+					<span class="form-control"><input type="text" name="work" value="<?php echo (isset($_POST['work'])) ? $_POST['work'] : $info['job']?>" id=""/></span>
+					
+					<div class="clr"></div>
+				</li>
+				<li>
+					<label for="Mobile">Mobile:</label>
+					<span class="form-control"><input type="text" name="mobile" value="<?php echo (isset($_POST['mobile'])) ? $_POST['mobile'] : $info['number']?>" id=""/></span>
+					
+					<div class="clr"></div>
+				</li>
+				<li>
+					<label for="Mobile">Phone:</label>
+					<span class="form-control"><input type="text" name="phone" value="<?php echo (isset($_POST['phone'])) ? $_POST['phone'] : $info['phone']?>" id=""/></span>
+					
+					<div class="clr"></div>
+				</li>
+				<li>
+					<input type="submit" name="update_submit" value="Update"/>
 				</li>
 			</ul>
 			<?php endforeach?>
 		</form>
 	</div>
 	
+	<div class="profile-status span3 fl">
+		<p>Profile Status</p>
+		
+		<div class="profile-progress"></div>
+		
+		<ul>
+			<li class="p-checked" data-val="14"><p>Name</p></li>
+			<li class="p-checked" data-val="14"><p>Profile picture</p></li>
+			<li class="p-checked" data-val="14"><p>Email</p></li>
+			<li class="p-checked" data-val="14"><p>Work</p></li>
+			<li class="p-checked" data-val="14"><p>Address</p></li>
+			<li data-val="0"><p>Profile text</p></li>
+			<li data-val="0"><p>Mobile Number</p></li>
+		</ul>
+	</div>	
+	
 	<div class="clr"></div>
 </div>
 
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js')?>"></script>
 <script type="text/javascript">
 $(function() {
-	$('.query-message').hide();
-	
-	$('#country').change(function() {
-		var value = $('option:selected', this).attr('title');
+	$('.birth-date').selectpicker();
+
+	$('.profile-upload button').bind('click', function(e) {
+		$('input[type="file"]').trigger('click');
 		
-		$('.query-message').show();
+		e.preventDefault();
+	});
 	
+	$('.profile-place p').click(function() { $('.place-search').slideToggle(); });
+	
+	$('.place-search input').keyup(function() {
+		var text = $(this).val();
+		
 		$.ajax({
-			url	: '<?php echo base_url('members/get_city')?>',
-			dataType: 'html',
-			data: {country : value},
-			success: function(data) {
-				$('#state').html(data);
+			url		: '<?php echo base_url('members/get_location')?>',
+			type	: 'GET',
+			data	: {city:text},
+			success	: function(data) {
+				var cities_countries = [];
 				
-				$('.query-message').hide();
-			}, error: function() {
-				console.log('Not Found');
+				$.each($.parseJSON(data), function(index, value) {
+					cities_countries.push(value);
+				});
+				
+				var location = [],
+					location = cities_countries;
+				
+				// console.log(location);
+				
+				$("#place-search").autocomplete({
+					source: location,
+					select: function(event, ui) { 
+						$('.profile-place p').html(ui.item.value)
+						$('input[name="city_country"]').val(ui.item.value);
+					}
+				});
 			}
 		});
 	});
+	
+	$('.p-s-done').click(function(e) { $('.place-search').slideToggle(); e.preventDefault(); });
+	
+	var count = 0;
+	
+	$('.profile-status ul li').each(function() {
+		var percent = $(this).attr('data-val');
+		
+		count += Number(percent);
+	});
+	
+	$( ".profile-progress" ).progressbar({ value: count });
 })
 </script>

@@ -108,8 +108,9 @@ class Lift extends MX_Controller {
 	public function detail() {
 		$id = $this->uri->segment(3);
 		
-		$data['lift_information'] = $this->lift_model->details($id);
-		$data['view_file'] = 'lift_detail_view';
+		$data['lift_information'] 	= $this->lift_model->details($id);
+		$data['preference_data'] 	= $this->lift_model->preference($id);
+		$data['view_file'] 			= 'lift_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
@@ -134,7 +135,7 @@ class Lift extends MX_Controller {
 		
 		$user_id = decrypt('decrypt', $token);
 		
-		$quick_book_data = $this->lift_model->quick_book_details($user_id);
+		$quick_book_data = $this->lift_model->book_details($user_id);
 		
 		$quick_book_array = array();
 		
@@ -145,7 +146,7 @@ class Lift extends MX_Controller {
 		echo json_encode($quick_book_array);
 	}
 	
-	public function quick_book() {
+	public function booked() {
 		$user_id 		= $this->input->get('user_id');
 		$post_id 		= $this->input->get('post_id');
 		$seat_taken		= $this->input->get('seat_taken');
@@ -155,7 +156,7 @@ class Lift extends MX_Controller {
 		$start_time		= $this->input->get('start_time');
 		$date 			= date('Y-m-d', strtotime($this->input->get('date')));
 		
-		$this->lift_model->quick_booking($user_id, $post_id, $seat_taken, $amount, $message, $request, $start_time, $date);
+		$this->lift_model->booked($user_id, $post_id, $seat_taken, $amount, $message, $request, $start_time, $date);
 	}
 	
 	public function search() {
