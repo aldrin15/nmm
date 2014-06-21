@@ -139,10 +139,6 @@
 				$image_implode = implode(',', $image_explode);
 				$image_explode2 = explode(',', $image_implode);
 				
-				/* echo '<pre>';
-				var_dump($image_explode2);
-				echo '</pre>'; */
-				
 				if($seat_explode2[0] == 0):
 					// echo 'Data is 0';
 				else:

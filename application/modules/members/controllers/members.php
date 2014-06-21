@@ -78,6 +78,14 @@ class Members extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
+	public function car() {
+		$id = $this->session->userdata('user_id');
+		
+		$data['car_data'] = $this->member_model->car($id);
+		$data['view_file'] = 'member_car_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
 	public function get_location() {
 		$city = $this->member_model->get_location($this->input->get('city'));
 		

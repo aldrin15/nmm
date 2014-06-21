@@ -112,8 +112,18 @@ class Member_model extends CI_Model {
 		$from = $this->input->post('from');
 		$to = $this->input->post('to');
 		
-		// SELECT * FROM  `user_lift_booking` WHERE  `route_from` LIKE  'Aixirivali, Andorra' AND  `route_to` LIKE  'Arans, Andorra' 
 		$query = $this->db->query("SELECT * FROM  `user_lift_booking`  WHERE  `route_from` LIKE  '{$from}' AND  `route_to` LIKE  '{$to}' AND  `date` IS NOT NULL");
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function car($id, $what = 'user_car.car_model as car, user_car.license_plate as plate, door, seat, transmission, air_condition, fuel, year') {
+		$query = $this->db->select($what)
+							->from('user_car')
+							->where('user_id', $id)
+							->get();
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;

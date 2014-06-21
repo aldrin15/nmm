@@ -50,13 +50,13 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
-	public function detail($id, $what = "user_wish_lift.id, user_wish_lift.user_id, firstname, lastname, user_wish_lift.route_from as origin, user_wish_lift.route_to as destination, storage, available, car_model AS car, license_plate as plate, last_login, CONCAT( GROUP_CONCAT( user_rating.user_id ) ) AS rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) rating, CONCAT( GROUP_CONCAT( DISTINCT user_wish_lift_preference.preference_id ) ) as p_id, CONCAT( GROUP_CONCAT( DISTINCT lift_preference.type ) ) as type, CONCAT( GROUP_CONCAT( user_wish_date_booked.route_from ) ) AS other_post_origins, CONCAT( GROUP_CONCAT( user_wish_date_booked.route_to ) ) AS other_post_destinations, CONCAT( GROUP_CONCAT( DISTINCT user_wish_date_booked.date ) ) AS other_post_dates") {
+	public function detail($id, $what = "user_wish_lift.id, user_wish_lift.user_id, firstname, lastname, user_media.media_filename as image, user_wish_lift.route_from as origin, user_wish_lift.route_to as destination, storage, available, remarks, user_wish_lift.time, last_login, CONCAT( GROUP_CONCAT( user_rating.user_id ) ) AS rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) rating, CONCAT( GROUP_CONCAT( DISTINCT user_wish_lift_preference.preference_id ) ) as p_id, CONCAT( GROUP_CONCAT( DISTINCT lift_preference.type ) ) as type, CONCAT( GROUP_CONCAT( user_wish_date_booked.route_from ) ) AS other_post_origins, CONCAT( GROUP_CONCAT( user_wish_date_booked.route_to ) ) AS other_post_destinations, CONCAT( GROUP_CONCAT( DISTINCT user_wish_date_booked.date ) ) AS other_post_dates") {
 		$query = $this->db->select($what)
 							->from('user_wish_lift')
 							->join('user', 'user.user_id = user_wish_lift.user_id')
 							->join('user_sessions', 'user_sessions.user_id = user_wish_lift.user_id')
+							->join('user_media', 'user_media.user_id = user_wish_lift.user_id')
 							->join('user_wish_date_booked', 'user_wish_date_booked.post_id = user_wish_lift.id', 'left')
-							->join('user_car', 'user_car.user_id = user_wish_lift.user_id', 'left')
 							->join('user_wish_lift_preference', 'user_wish_lift_preference.post_id = user_wish_lift.id', 'left')
 							->join('lift_preference', 'lift_preference.preference_id = user_wish_lift_preference.preference_id', 'left')
 							->join('user_rating', 'user_rating.user_id = user.user_id', 'left')
@@ -66,6 +66,41 @@ class Passenger_model extends CI_Model {
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
+	}
+	
+	function preference($id, $what = 'post_id, CONCAT(GROUP_CONCAT(user_wish_lift_preference.preference_id)) as preference, CONCAT(GROUP_CONCAT(lift_preference.type)) as type') {
+		$query = $this->db->select($what)
+							->from('user_wish_lift_preference')
+							->join('lift_preference', 'lift_preference.preference_id = user_wish_lift_preference.preference_id')
+							->where('post_id', $id)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function get_user_info($id, $what = 'user_id, firstname, lastname, email') {
+		$query = $this->db->select($what)
+							->from('user')
+							->where('user_id', $id)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function send() {
+		$data = array(
+			'sender_id'		=> $this->session->userdata('user_id'),
+			'receiver_id'	=> $this->input->post('user_id'),
+			'subject'		=> $this->input->post('subject'),
+			'message'		=> $this->input->post('message'),
+			'date'			=> date('Y-m-d H:i:s')
+		);
+		
+		$this->db->insert('message', $data);
 	}
 	
 	public function create_wish_lift() {

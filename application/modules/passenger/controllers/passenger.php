@@ -23,10 +23,33 @@ class Passenger extends MX_Controller {
 	public function detail() {
 		$id = $this->uri->segment('3');
 		
-		$data['wish_lift_detail'] = $this->passenger_model->detail($id);
-		
-		$data['view_file']	= 'passenger_detail_view';
+		$data['wish_lift_detail'] 	= $this->passenger_model->detail($id);
+		$data['preference_data'] 	= $this->passenger_model->preference($id);
+		$data['view_file']			= 'passenger_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function detail_post() {
+		
+	}
+	
+	public function detail_user() {
+		// $id = $this->input->get('id');
+		$id = '1';
+		
+		$user_info = $this->passenger_model->get_user_info($id);
+		
+		$user_data = array();
+		
+		foreach($user_info as $row):
+			$user_data[] = $row;
+		endforeach;
+		
+		echo json_encode($user_data);
+	}
+	
+	public function send() {
+		$this->passenger_model->send();
 	}
 	
 	public function create() {

@@ -36,9 +36,6 @@ class Login extends MX_Controller {
 			$last_login = $now->format('Y-m-d H:i:s');
 			
 			$this->login_model->user_sessions($user_id, $ip, $last_login);
-/* 			$test = $this->login_model->user_sessions();
-			
-			var_dump($test); */
 			
             redirect('nmm');
         endif;
@@ -73,6 +70,7 @@ class Login extends MX_Controller {
 	
 	public function logout() {
 		$this->session->sess_destroy();
-		redirect('nmm');
+		
+		redirect($_SERVER['HTTP_REFERER']);
 	}
 }

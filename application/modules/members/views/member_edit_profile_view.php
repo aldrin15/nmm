@@ -202,6 +202,14 @@ $(function() {
 	
 	$('.p-s-done').click(function(e) { $('.place-search').slideToggle(); e.preventDefault(); });
 	
+	$(".profile-nav ul li a").click(function(e){
+		if(false == $(this).next().is(':visible')) { $('.profile-nav ul li ul').slideUp(300); }
+		
+		$(this).next().slideToggle(300);
+		
+		// e.preventDefault();
+	});	
+	
 	var count = 0;
 	
 	$('.profile-status ul li').each(function() {

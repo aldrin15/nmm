@@ -1,10 +1,5 @@
 <?php $this->load->view('header_content')?>
 
-<style type="text/css">
-.success-message {background: #8aff73; border:1px solid #368714; padding:10px; width:100%;}
-.success-message p {background: url('<?php echo base_url('assets/images/page_template')?>/icon_check_success.png') no-repeat; color:#378b15; font-size:1.3em; padding: 15px 0 0 70px; height:50px;}
-</style>
-
 <div class="m-center-content">
 	<?php echo modules::run('lift/search')?>
 	

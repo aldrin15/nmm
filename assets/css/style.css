@@ -113,6 +113,8 @@ footer .pull-right .fl span:last-child {color:#678222;}
 /* ===================
 	Template Layout
  ================== */
+.success-message {background: #8aff73; border:1px solid #368714; padding:10px; width:100%;}
+.success-message p {background: url('<?php echo base_url('assets/images/page_template')?>/icon_check_success.png') no-repeat; color:#378b15; font-size:1.3em; padding: 15px 0 0 70px; height:50px;} 
 .btn-gray {
 	color:#656565;
 	font-family: 'quicksandregular';
@@ -304,9 +306,6 @@ footer .pull-right .fl span:last-child {color:#678222;}
 
 .total-amount {font-size:1.2em;}
 
-.detail {margin-top:20px;}
-.detail .fl h4 span, .detail .fl h5 span {color:#678222;}
-
 .lift-details ul {list-style:none;}
 .lift-details ul li {float:left; text-align:center;}
 .lift-details ul li:nth-child(1) {background:red; width:20px;}
@@ -314,8 +313,6 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .lift-details ul li:nth-child(3) {background:yellow; width:20px;}
 .lift-details ul li:nth-child(4) {background:green; width:20px;}
 .lift-details ul li:nth-child(5) {background:pink; width:20px;}
-
-.user-information {border:1px solid #dfdede; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:10px;}
 
 .lift-information {margin:20px 0;}
 .lift-information ul li {margin-bottom:10px;}
@@ -354,13 +351,17 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .user-send-message {margin-top:20px;}
 .select-width-auto {width:auto !important;}
 
-#passenger-calendar .pcal-header {border:1px solid #c9c8c8; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:8px; width:268px;}
+#passenger-calendar .pcal-header {border:1px solid #c9c8c8; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:8px; width:370px; /*width:268px;*/}
 #passenger-calendar .pcal-header .prev {display:block; background:url('../images/page_template/cal_nav.png') no-repeat 0 0; width:19px; height:19px;}
 #passenger-calendar .pcal-header .next {display:block; background:url('../images/page_template/cal_nav.png') no-repeat -19px 0; width:19px; height:19px;}
-#passenger-calendar .pcal-header .pcal-month {text-align:center; font-size:1.4em; width:213px;}
-#passenger-calendar .pcal-body ul li {padding:5px;}
+#passenger-calendar .pcal-header .pcal-month {text-align:center; font-size:1.4em; width:310px; /*width:210px;*/}
+#passenger-calendar .pcal-body ul li {padding:10px;}
 #passenger-calendar .pcal-body ul li:nth-child(odd) {background:#f5f5f5;}
 
+
+
+
+/***** [Contact Us] *****/
 .contact ul {list-style:none;}
 .contact ul li {margin-bottom:10px;}
 .contact ul li label, .contact ul li input, .contact ul li textarea {float:left;}
@@ -481,7 +482,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .profile-nav ul { list-style: none; width: 170px; }
 .profile-nav ul li { cursor: pointer; background: #75ca30; border-right:1px solid #759f52;}	
 .profile-nav ul li a { display:block; color:#fff; text-transform:uppercase; border-bottom:1px solid #181e13; padding:10px; }
-.profile-nav ul li a i { float:right; display:block; background: url('tooltip_bg_arrow.png') no-repeat; margin-top:5px; width:10px; height:9px;}
+.profile-nav ul li a i { float:right; display:block; background: url('../images/page_template/tooltip_bg_arrow.png') no-repeat; margin-top:5px; width:10px; height:9px;}
 .profile-nav ul li ul { display: none; border:1px solid #919191; width:168px; }
 .profile-nav ul li ul li {background:#eff0ee; padding:0; border-top:1px solid #919191; padding:5px 10px;}
 .profile-nav ul li ul li:first-child {border-top:none;}
