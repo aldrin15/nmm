@@ -35,6 +35,7 @@ class Event extends MX_Controller {
 	}
 	
 	public function create() {
+		modules::run('login/is_logged_in');
 		$user_id = $this->session->userdata('user_id');
 	
 		$post = $this->input->post();

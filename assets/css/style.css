@@ -427,12 +427,15 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .offer-and-wish-lift .fr ul li div {display:none;}
 .offer-and-wish-lift .fr ul li:first-child {background:url('../images/image_create_lift.png') no-repeat 0 0; width:168px; height:168px;}
 .offer-and-wish-lift .fr ul li:first-child div {background:url('../images/image_create_lift.png') no-repeat 0 -168px; width:168px; height:168px;}
+.offer-and-wish-lift .fr ul li:first-child div a {display:block; width:168px; height:168px;}
 
 .offer-and-wish-lift .fr ul li:nth-child(2) {background:url('../images/image_event.png') no-repeat 0 0; margin: 150px 0 0 -40px; width:168px; height:168px;}
 .offer-and-wish-lift .fr ul li:nth-child(2) div {background:url('../images/image_event.png') no-repeat 0 -168px; width:168px; height:168px;}
+.offer-and-wish-lift .fr ul li:nth-child(2) div a  {display:block; width:168px; height:168px;}
 
 .offer-and-wish-lift .fr ul li:nth-child(3) {background:url('../images/image_wish_lift.png') no-repeat 0 0; margin-left: -40px; width:168px; height:168px;}
 .offer-and-wish-lift .fr ul li:nth-child(3) div {background:url('../images/image_wish_lift.png') no-repeat 0 -168px; width:168px; height:168px;}
+.offer-and-wish-lift .fr ul li:nth-child(3) div a {display:block; width:168px; height:168px;}
 
 .offer-and-wish-lift .fr ul li:nth-child(4) {background:url('../images/image_car.png') no-repeat 0 0; margin: 150px 0 0 -30px; width:168px; height:168px;}
 .offer-and-wish-lift .fr ul li:nth-child(4) div {background:url('../images/image_car.png') no-repeat 0 -168px; width:168px; height:168px;}

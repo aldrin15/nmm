@@ -54,6 +54,7 @@ class Passenger extends MX_Controller {
 	}
 	
 	public function create() {
+		modules::run('login/is_logged_in');
 		$post = $this->input->post();
 		
 		if($post):

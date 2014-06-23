@@ -11,10 +11,10 @@
 	
 	<div class="span6 fr">
 		<ul>
-			<li><div></div></li>
-			<li><div></div></li>
-			<li><div></div></li>
-			<li><div></div></li>
+			<li><div><a href="<?php echo base_url('lift/create')?>"></a></div></li>
+			<li><div><a href="<?php echo base_url('event/create')?>"></a></div></li>
+			<li><div><a href="<?php echo base_url('passenger/create')?>"></a></div></li>
+			<!--<li><div><a href="#"></a></div></li>-->
 		</ul>
 	</div>
 	
