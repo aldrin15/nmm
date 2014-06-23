@@ -143,12 +143,12 @@
 					// echo 'Data is 0';
 				else:
 					for($i = 0; $i < count($seat_explode2); $i++):
-						echo '<li><img src="'.base_url('assets/media_uploads').'/'.$image_explode2[$i].'" width="65" height="66" alt=""/></li>';
+						echo '<li><span></span><img src="'.base_url('assets/media_uploads').'/'.$image_explode2[$i].'" width="65" height="66" alt=""/></li>';
 					endfor;
 				endif;
 				
 				for($i = 0; $i < $available; $i++):
-					echo '<li><img src="'.base_url('assets/images/page_template/blank_image.png').'" width="65" height="66" alt=""/></li>';
+					echo '<li><span></span><img src="'.base_url('assets/images/page_template/blank_image.png').'" width="65" height="66" alt=""/></li>';
 				endfor;
 				?>
 			</ul>

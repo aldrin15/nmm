@@ -178,60 +178,65 @@
 		$other_destination_array = explode(',', $row['other_post_destinations']);
 		?>
 		<script type="text/javascript">
-		function get_data(events, month_today) {
+		function get_data(events, month_today, year) {
 			$.each(events, function(index, value) {
 				var get_month = value.substring(5, 7);
+				var get_year = value.substring(0, 4);
 				
 				if(month_today != get_month) {
+					$('.pcal-body ul').html('<li style="text-align:center;">No Posted Date</li>');
+				} else if(get_year != year) {
 					$('.pcal-body ul').html('<li style="text-align:center;">No Posted Date</li>');
 				} else if(month_today == get_month) {
 					$('.pcal-body ul').append('<li>'+value+'</li>');
 				}
 			});
 		}
+		
 		$(window).load(function() {
 			var months 	= {1:'January', 2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'},
 				prev	= 0,
 				date	= new Date(),
-				next	= date.getMonth();
-				
+				month 	= date.getMonth(),
+				year	= date.getFullYear();
+			
 			var events = [<?php for($i = 0; $i < count($other_dates_array); $i++):
 				echo '"'.$other_dates_array[$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[$i].' to '.$other_destination_array[$i].'",';
 			endfor;?>];
 		
-			$('.pcal-month').html(months[next]);
+			$('.pcal-month').html(months[month] +' '+ year);
 			
-			get_data(events, next);  //Get Data
+			get_data(events, month, year);  //Get Data
 			
 			$('.next').click(function() {
-				if(next < 11) {
-					next++ + 1;
+				if(month < 12) {
+					month++ + 1;
 					
-					$('.pcal-month').html(months[next]);
+					$('.pcal-month').html(months[month] +' '+ year);
 					
 					$('.pcal-body ul').empty()
 					
-					get_data(events, next); //Get Data
+					get_data(events, month, year); //Get Data
 				} else {
-					next = 0;
-					
-					$('.pcal-month').html(months[next]);
+					month = 0;
+					year	= year + 1;
 				}
 			});
 			
 			$('.prev').click(function() {
-				next--;
+				month--;
 				
-				$('.pcal-month').html(months[next]);
+				$('.pcal-month').html(months[month] +' '+ year);
 				
 				$('.pcal-body ul').empty();
 				
-				get_data(events, next);
+				get_data(events, month, year);
 				
-				if(next < 1) {
-					next = 12;
+				if(month < 1) {
+					month = 12;
+					year	= year - 1;
 					
-					$('.pcal-month').html(months[next]);
+					$('.pcal-month').html(months[month] +' '+ year);
 				}
 				
 			});

@@ -30,7 +30,7 @@
 		</form>
 	</div>
 
-	<div class="passenger-listing fl">
+	<div class="passenger-listing">
 		<ul>
 			<?php foreach($wish_lift_data as $wish_lift):?>
 			<li>
@@ -59,10 +59,6 @@
 		</ul>
 		
 		<div class="clr"></div>
-	</div>
-	
-	<div class="ads fr">
-		<img src="<?php echo base_url('assets/images/page_template/ads.jpg')?>" width="120" height="240" alt=""/>
 	</div>
 	
 	<div class="clr"></div>

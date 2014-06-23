@@ -6,7 +6,7 @@
 	<!--<p class="lift-text">Upcoming lift near you:</p>-->
 	<h3>Upcoming lift near you:</h3><br />
 	
-	<div class="lift-listing fl">
+	<div class="lift-listing">
 		<?php if($ride_list == 0):?>
 			<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px; width:850px;"><p>There are no route that match your criteria. Try some different places</p></div>
 		<?php else:?>
@@ -58,10 +58,6 @@
 		<?php endif?>
 		
 		<div class="clr"></div>
-	</div>
-	
-	<div class="ads fr">
-		<img src="<?php echo base_url('assets/images/page_template/ads.jpg')?>" width="120" height="240" alt=""/>
 	</div>
 	
 	<div class="clr"></div>
