@@ -25,7 +25,7 @@
 			<div class="fl">
 				<h4>Connect</h4>
 				
-				<a href="#"><img src="<?php echo base_url('assets/images/page_template/icon_facebook.jpg')?>" width="28" height="28" alt="Like us on Facebook" title="Like us on Facebook"/></a>
+				<a href="#"><img src="<?php echo base_url('assets/images/page_template/icon_fb.jpg')?>" width="28" height="28" alt="Like us on Facebook" title="Like us on Facebook"/></a>
 			</div>
 			
 			<div class="clr"></div>
