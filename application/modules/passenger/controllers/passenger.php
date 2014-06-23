@@ -23,19 +23,16 @@ class Passenger extends MX_Controller {
 	public function detail() {
 		$id = $this->uri->segment('3');
 		
-		$data['wish_lift_detail'] 	= $this->passenger_model->detail($id);
-		$data['preference_data'] 	= $this->passenger_model->preference($id);
+		$data['wish_lift_detail'] 		= $this->passenger_model->detail($id);
+		$data['preference_data'] 		= $this->passenger_model->preference($id);
+		$data['dates_available_data'] 	= $this->passenger_model->dates($id); 
+		
 		$data['view_file']			= 'passenger_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
-	public function detail_post() {
-		
-	}
-	
 	public function detail_user() {
-		// $id = $this->input->get('id');
-		$id = '1';
+		$id = $this->input->get('id');
 		
 		$user_info = $this->passenger_model->get_user_info($id);
 		
@@ -50,6 +47,10 @@ class Passenger extends MX_Controller {
 	
 	public function send() {
 		$this->passenger_model->send();
+	}
+	
+	public function invite_me() {
+		$this->passenger_model->invite_me();
 	}
 	
 	public function create() {

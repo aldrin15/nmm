@@ -35,6 +35,9 @@
 .send-message-to:hover {border:1px solid #adadad; text-decoration:none;}
 
 .passenger-message textarea {resize:none;}
+.error-field {border:1px solid #ff0000;}
+
+#invite_lift input[type="text"]{outline:none;}
 </style>
 
 <?php foreach($wish_lift_detail as $row):?>
@@ -337,7 +340,9 @@
 				<div class="modal-body">
 					<ul>
 						<li>
+							<label for="Pick a date">Pick a Date <span class="date-error"></span></label>
 							<div id="available-dates"></div>
+							<input type="hidden" name="dates" value=""/>
 						</li>
 						<li>
 							<label for="Price">Price of per seat(s)</label>
@@ -352,7 +357,21 @@
 				<div class="modal-footer">
 					<input type="submit" name="book_submit" value="Invite Lift" class="btn btn-default"/>
 				</div>
-			</form>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="modal fade" id="invite_lift_success" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				&nbsp;
+			</div>
+			<div class="modal-body">
+				<p style="text-align:center; font-size:1.5em;">You have success fully sent your invite</p>
+			</div>
 		</div>
 	</div>
 </div>
@@ -412,8 +431,7 @@ $(function() {
 	
 	$('select[name="passenger-action"]').change(function() {
 		var choices = $(this).val();
-		
-		// console.log($(this).val());
+		var id = $('option:selected', this).attr('data-id');
 		
 		if(choices == 'Invite Me') {
 			var authenticated = '<?php echo $this->session->userdata('validated')?>';
@@ -424,12 +442,61 @@ $(function() {
 				window.location.href = "<?php echo base_url('login')?>";
 			}
 			
-			// var test = $(this).find('option:selected').attr('data-id')
+			$('#available-dates').click(function() {
+				var getDates		= $(this).multiDatesPicker('getDates'),
+					getDates_array	= [];
+				
+				$.each(getDates, function(index, value) {
+					getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>');
+				});
+				
+				$('input[name="dates"]').val(getDates_array);
+			});
 			
-			$.ajax({
-				url 	: '<?php echo base_url('login/is_logged_in')?>',
-				success : function(data) {
-					// console.log(data);
+			$('input[name="book_submit"]').click(function(e) {
+				e.preventDefault();
+				var dates	= $('input[name="dates"]'),
+					price 	= $('input[name="price"]'),
+					remarks	= $('textarea[name="remarks"]'),
+					error = 0;
+					
+				$('*').removeClass('error-field');
+				$('.date-error').html(' ')
+				
+				if(dates.val() == '') {
+					dates.addClass('error-field');
+					$('.date-error').html('Please choose date(s)').css({color:'#ff0000'});
+					error = 1;
+				}
+				
+				if(price.val() == '') {
+					price.addClass('error-field');
+					error = 1;
+				}
+				
+				if(remarks.val() == '') {
+					remarks.addClass('error-field');
+					error = 1;
+				}
+				
+				if(error == 0) {
+					$.ajax({
+						url		: '<?php echo base_url('passenger/invite_me')?>',
+						type	: 'POST',
+						data	: {
+							post_id : id,
+							dates	: dates.val(),
+							price	: price.val(),
+							remarks	: remarks.val()
+						},
+						success	: function(data) {
+							// console.log('success');
+							$('#invite_lift').modal('hide');
+							$('#invite_lift_success').modal({dynamic:true});
+						}
+					});
+				} else {
+					return false;
 				}
 			});
 		}
@@ -439,7 +506,17 @@ $(function() {
 		}
 	});
 	
-	var dateArray = ["2014-6-21", "2014-6-23", "2014-6-24"];
+	<?php 
+	$date_array = array();
+		
+	foreach($dates_available_data as $test):
+		$date_array[] = '"'.date('Y-n-d', strtotime($test['date'])).'"';
+	endforeach;
+	
+	$a = implode(',', $date_array);
+	?>	
+
+	var dateArray = [<?php echo $a?>];
 	
 	function date_array(date) {
 		var fulldate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
