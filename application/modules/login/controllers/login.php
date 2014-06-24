@@ -21,6 +21,18 @@ class Login extends MX_Controller {
 		$data['view_file']	= 'login_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
     }
+	
+	public function check_user() {
+		$email = $this->input->get('email');
+		
+		$user_data = $this->login_model->check_user($email);
+		
+		if($user_data != 0):
+			echo "Success";
+		else:
+			echo "Denied";
+		endif;
+	}
     
     public function process(){
         $result = $this->login_model->validate();

@@ -101,4 +101,15 @@ class Login_model extends CI_Model {
 			$update = $this->db->update('user_sessions', $data, array('user_id'=>$user_id));		
 		endif;
 	}
+	
+	function check_user($email, $what = 'email') {
+		$query = $this->db->select($what)
+							->from('user')
+							->where('email', $email)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
 }
