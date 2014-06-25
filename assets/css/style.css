@@ -280,6 +280,8 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .lift-text {text-transform:uppercase; margin-bottom:18px;}
 .lift-view ul, .lift-listing ul {list-style:none; overflow: hidden;}
 .lift-search ul li {float:left;}
+.btn-create-lift {color:#000; text-align:center; padding-top:6px; margin-top:13px;}
+.btn-create-lift:hover {text-decoration:none;}
 
 .lift-listing ul {width:850px;}
 .lift-listing ul li { float:left; background: #f2f1f0; border-radius:5px; margin: 0 40px 33px 0; width:250px;}

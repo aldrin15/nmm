@@ -108,9 +108,10 @@ class Lift extends MX_Controller {
 	public function detail() {
 		$id = $this->uri->segment(3);
 		
-		$data['lift_information'] 	= $this->lift_model->details($id);
-		$data['preference_data'] 	= $this->lift_model->preference($id);
-		$data['view_file'] 			= 'lift_detail_view';
+		$data['lift_information'] 		= $this->lift_model->details($id);
+		$data['preference_data'] 		= $this->lift_model->preference($id);
+		$data['dates_available_data'] 	= $this->lift_model->dates($id); 
+		$data['view_file'] 				= 'lift_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	

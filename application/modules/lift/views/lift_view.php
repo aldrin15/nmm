@@ -4,7 +4,13 @@
 	<?php echo modules::run('lift/search')?>
 	
 	<!--<p class="lift-text">Upcoming lift near you:</p>-->
-	<h3>Upcoming lift near you:</h3><br />
+	<h3 class="fl">Upcoming lift near you:</h3>
+	<?php 
+	if($this->session->userdata('validated') == true):
+		echo '<a href="'.base_url('lift/create').'" class="btn-create-lift fr btn-advance">Create Lift</a>';
+	endif;
+	?>
+	<br />
 	
 	<div class="lift-listing">
 		<?php if($ride_list == 0):?>
