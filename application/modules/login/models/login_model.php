@@ -32,6 +32,29 @@ class Login_model extends CI_Model {
         return false;	
 	}
 	
+	function fb_validate($email) {
+		$user_email = $this->security->xss_clean($email);
+		
+		$query = $this->db->get_where('user', array('email'=>$user_email));
+		
+		if($query->num_rows == 1):
+			$row = $query->row();
+			
+			$data = array(
+				'user_id' => $row->user_id,
+				'username' => $row->email,
+				'firstname' => $row->firstname,
+				'validated' => true
+			);
+			
+			$this->session->set_userdata($data);
+			
+			return true;
+		endif;
+		
+		return false;
+	}
+	
 	function forgot_account() {
 		$this->load->library('email');
 		$query = $this->db->get_where('user', array('email' => $this->input->post('email')));
@@ -103,6 +126,17 @@ class Login_model extends CI_Model {
 	}
 	
 	function check_user($email, $what = 'email') {
+		$query = $this->db->select($what)
+							->from('user')
+							->where('email', $email)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function check_user_login($email, $what = 'email') {
 		$query = $this->db->select($what)
 							->from('user')
 							->where('email', $email)

@@ -15,22 +15,24 @@ class Login extends MX_Controller {
 	}
 	
     public function index($msg = NULL){
-        // Load our view to be displayed
-        // to the user
-		$data['msg']		= $msg;
-		$data['view_file']	= 'login_view';
-		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+		$is_logged_in = $this->session->userdata('validated');
+		
+		if(!isset($is_logged_in) || $is_logged_in !== true):
+			$data['msg']		= $msg;
+			$data['view_file']	= 'login_view';
+			echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+		endif;
     }
 	
 	public function check_user() {
 		$email = $this->input->get('email');
 		
-		$user_data = $this->login_model->check_user($email);
-		
-		if($user_data != 0):
-			echo "Success";
-		else:
+		$result = $this->login_model->fb_validate($email);
+			
+		if(!$result):
 			echo "Denied";
+		else:
+			echo "Success";
 		endif;
 	}
     
@@ -43,8 +45,8 @@ class Login extends MX_Controller {
         else:
 			$now = new DateTime();
 			
-			$user_id = $this->session->userdata('user_id');
-			$ip = gethostbyname(trim(`hostname`));
+			$user_id	= $this->session->userdata('user_id');
+			$ip 		= gethostbyname(trim(`hostname`));
 			$last_login = $now->format('Y-m-d H:i:s');
 			
 			$this->login_model->user_sessions($user_id, $ip, $last_login);
@@ -78,7 +80,7 @@ class Login extends MX_Controller {
 			
 			die();
 		}
-	}	
+	}
 	
 	public function logout() {
 		$this->session->sess_destroy();

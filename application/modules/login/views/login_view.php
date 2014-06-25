@@ -63,10 +63,10 @@ var fbLogin = function () {
 					data	: {email:response.email},
 					success	: function(data) {
 						console.log(data);
-						if(data == 'Success') {
-							//You're login
-						} else {
+						if(data == 'Denied') {
 							window.location.href = '<?php echo base_url('register')?>?email='+response.email+'&firstname='+response.first_name+'&lastname='+response.last_name+'&gender='+response.gender;
+						} else {
+							window.location.href = '<?php echo base_url('nmm')?>';
 						}
 					}
 				});
