@@ -55,12 +55,25 @@ class Passenger_model extends CI_Model {
 							->from('user_wish_lift')
 							->join('user', 'user.user_id = user_wish_lift.user_id')
 							->join('user_sessions', 'user_sessions.user_id = user_wish_lift.user_id')
-							->join('user_media', 'user_media.user_id = user_wish_lift.user_id')
+							->join('user_media', 'user_media.user_id = user_wish_lift.user_id', 'left')
 							->join('user_wish_date_booked', 'user_wish_date_booked.post_id = user_wish_lift.id', 'left')
 							->join('user_wish_lift_preference', 'user_wish_lift_preference.post_id = user_wish_lift.id', 'left')
 							->join('lift_preference', 'lift_preference.preference_id = user_wish_lift_preference.preference_id', 'left')
 							->join('user_rating', 'user_rating.user_id = user.user_id', 'left')
 							->where('user_wish_lift.id', $id)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function get_user_lift_post($what = 'user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.date') {
+		$id = $this->session->userdata('user_id');
+		
+		$query = $this->db->select($what)
+							->from('user_lift_post')
+							->where('user_id', $id)
 							->get();
 		
 		$result = $query->result_array();
@@ -132,7 +145,7 @@ class Passenger_model extends CI_Model {
 			'route_from'	=> $this->input->post('origin'),
 			'route_to'		=> $this->input->post('destination'),
 			'via'			=> $this->input->post('via'),
-			'date'			=> str_replace("&quot;", "\"", $this->input->post('dates')),
+			//'date'			=> str_replace("&quot;", "\"", $this->input->post('dates')),
 			'time'			=> $this->input->post('hours').':'.$this->input->post('minute').':00',
 			'available'		=> $this->input->post('seat_available'),
 			'storage'		=> $this->input->post('storage'),
@@ -144,17 +157,32 @@ class Passenger_model extends CI_Model {
 		
 		$insert_post = $this->db->insert('user_wish_lift', $post_data);
 		
+		$post_id = $this->db->insert_id();
+		
 		$preference_array = array();
 		
 		for($i = 1; $i < count($this->input->post('preference'))+1; $i++):
-			// $preference_array[] =  $i;
-			
 			$preference_data = array(
-				'post_id' => $this->session->userdata('user_id'),
+				'post_id' => $post_id,
 				'preference_id' => $i
 			);
 			
 			$insert_preference = $this->db->insert('user_wish_lift_preference', $preference_data);
+		endfor;
+
+		// $dates = '';
+		$date = explode(',', $this->input->post('dates'));
+		
+		for($i = 0; $i < count($date); $i++):
+			$date_data = array(
+				'post_id' 	=> $post_id,
+				'user_id' 	=> $this->session->userdata('user_id'),
+				'route_from'=> $this->input->post('origin'),
+				'route_to'	=> $this->input->post('destination'),
+				'date'		=> $date[$i]
+			);
+
+			$insert_date = $this->db->insert('user_wish_date_booked', $date_data);		
 		endfor;
 	}
 }

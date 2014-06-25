@@ -31,6 +31,12 @@ class Passenger extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
+	public function get_user_lift_post() {
+		$a = $this->passenger_model->get_user_lift_post();
+		
+		var_dump($a);
+	}
+	
 	public function detail_user() {
 		$id = $this->input->get('id');
 		

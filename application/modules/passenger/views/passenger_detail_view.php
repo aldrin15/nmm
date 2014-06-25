@@ -1,44 +1,6 @@
 <?php $this->load->view('header_content')?>
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>"/>
-<style type="text/css">
-.passenger-detail-information .fl h3 span {color:#678222;}
-.passenger-detail-information .fl h3 {line-height: .5em;}
-
-.passenger-user {border:1px solid #dfdede; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:10px;}
-.p-u-heading {margin-bottom:10px;}
-.passenger-profile-img {margin-right:10px;}
-.passenger-profile-img img {border-radius: 7px;}
-
-.passenger-info {font-size:1.4em;}
-.passenger-info ul li {margin-bottom:5px;}
-
-.send-message-to {
-	float:left;
-	display:block;
-	background-image: -ms-linear-gradient(top, #FFFFFF 0%, #E0E0E0 100%); /* IE10 Consumer Preview */
-	background-image: -moz-linear-gradient(top, #FFFFFF 0%, #E0E0E0 100%); /* Mozilla Firefox */
-	background-image: -o-linear-gradient(top, #FFFFFF 0%, #E0E0E0 100%); /* Opera */
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(1, #E0E0E0)); /* Webkit (Safari/Chrome 10) */ 
-	background-image: -webkit-linear-gradient(top, #FFFFFF 0%, #E0E0E0 100%); /* Webkit (Chrome 11+) */ 
-	background-image: linear-gradient(to bottom, #FFFFFF 0%, #E0E0E0 100%); /* W3C Markup, IE10 Release Preview */ 
-	color:#333;
-	border:1px solid #ccc;
-	border-radius:4px;
-	-webkit-border-radius:4px;
-	-moz-border-radius:4px;
-	-ms-border-radius:4px;
-	margin-right:10px;
-	padding:4px 12px;
-	width:135px;
-}
-.send-message-to:hover {border:1px solid #adadad; text-decoration:none;}
-
-.passenger-message textarea {resize:none;}
-.error-field {border:1px solid #ff0000;}
-
-#invite_lift input[type="text"]{outline:none;}
-</style>
 
 <?php foreach($wish_lift_detail as $row):?>
 <div class="passenger-detail-information m-center-content">
@@ -328,7 +290,27 @@
 	</div>
 </div>
 
-<!-- Quick Booking -->
+<div class="modal fade" id="select-lift" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
+	<div class="modal-dialog">
+		<form action="" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<p>Select one of the lift that you created</p>
+				</div>
+				<div class="modal-body">
+					<ul>
+						<li>
+							<input type="radio" name="" id=""/>
+							<span>Makati, Philippines to Pasay, Philippines</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
 <div class="modal fade" id="invite_lift" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
 	<div class="modal-dialog">
 		<form action="" method="post">
@@ -437,83 +419,44 @@ $(function() {
 			var authenticated = '<?php echo $this->session->userdata('validated')?>';
 			
 			if(authenticated == 1) {
-				$('#invite_lift').modal({dynamic:true});
+				$('#select-lift').modal({dynamic:true});
+				
+				$.ajax({
+					url : ''
+				});
 			} else {
 				window.location.href = "<?php echo base_url('login')?>";
 			}
-			
-			$('#available-dates').click(function() {
-				var getDates		= $(this).multiDatesPicker('getDates'),
-					getDates_array	= [];
-				
-				$.each(getDates, function(index, value) {
-					getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>');
-				});
-				
-				$('input[name="dates"]').val(getDates_array);
-			});
-			
-			$('input[name="book_submit"]').click(function(e) {
-				e.preventDefault();
-				var dates	= $('input[name="dates"]'),
-					price 	= $('input[name="price"]'),
-					remarks	= $('textarea[name="remarks"]'),
-					error = 0;
-					
-				$('*').removeClass('error-field');
-				$('.date-error').html(' ')
-				
-				if(dates.val() == '') {
-					dates.addClass('error-field');
-					$('.date-error').html('Please choose date(s)').css({color:'#ff0000'});
-					error = 1;
-				}
-				
-				if(price.val() == '') {
-					price.addClass('error-field');
-					error = 1;
-				}
-				
-				if(remarks.val() == '') {
-					remarks.addClass('error-field');
-					error = 1;
-				}
-				
-				if(error == 0) {
-					$.ajax({
-						url		: '<?php echo base_url('passenger/invite_me')?>',
-						type	: 'POST',
-						data	: {
-							post_id : id,
-							dates	: dates.val(),
-							price	: price.val(),
-							remarks	: remarks.val()
-						},
-						success	: function(data) {
-							// console.log('success');
-							$('#invite_lift').modal('hide');
-							$('#invite_lift_success').modal({dynamic:true});
-						}
-					});
-				} else {
-					return false;
-				}
-			});
 		}
 		
 		if(choices == 'Create Lift') {
-			//Data
+			<?php //foreach($wish_lift_detail as $row):?>
+			/*
+			$.ajax({
+				url : '<?php echo base_url('lift/create')?>',
+				type: 'GET',
+				data: {
+					origin : '<?php echo $row['origins']?>',
+					destination : '<?php echo $row['destination']?>',
+				}
+			});
+			*/
+			<?php //endforeach?>
 		}
 	});
 	
 	<?php 
-	$date_array = array();
+	if(!empty($dates_available_data)):
+		$date_array = array();
+			
+		foreach($dates_available_data as $test):
+			$date_array[] = '"'.date('Y-n-d', strtotime($test['date'])).'"';
+		endforeach;
 		
-	foreach($dates_available_data as $test):
-		$date_array[] = '"'.date('Y-n-d', strtotime($test['date'])).'"';
-	endforeach;
-	
-	$a = implode(',', $date_array);
+		$a = implode(',', $date_array);
+	else:
+		$a = 0;
+	endif;
 	?>	
 
 	var dateArray = [<?php echo $a?>];
