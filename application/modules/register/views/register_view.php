@@ -9,20 +9,21 @@
 			<ul>
 				<li>
 					<label for="firstname">Firstname <?php echo form_error('firstname', '<span class="error">', '</span>')?></label>
-					<input type="text" name="firstname" id="" value="<?php echo set_value('firstname')?>" class="form-control"/>
+					<!--<input type="text" name="firstname" id="" value="<?php //echo set_value('firstname')?>" class="form-control"/>-->
+					<input type="text" name="firstname" id="" value="<?php echo (isset($_GET['firstname']) ? $_GET['firstname'] : set_value('firstname'))?>" class="form-control"/>
 				</li>
 				<li>
 					<label for="lastname">Lastname <?php echo form_error('lastname', '<span class="error">', '</span>')?></label>
-					<input type="text" name="lastname" id="" value="<?php echo set_value('lastname')?>" class="form-control"/>
+					<input type="text" name="lastname" id="" value="<?php echo (isset($_GET['lastname']) ? $_GET['lastname'] : set_value('lastname'))?>" class="form-control"/>
 				</li>
 				<li>
 					<label for="Gender">Gender <?php echo form_error('gender', '<span class="error">', '</span>')?></label>
 					
 					<div>
-						<input type="radio" name="gender" value="Male" id=""/>
+						<input type="radio" name="gender" value="Male" id="" <?php echo (isset($_GET['gender']) == "male" ? 'checked="checked"' : "")?>/>
 						<label for="Male">Male</label>
 						
-						<input type="radio" name="gender" value="Female" id=""/>
+						<input type="radio" name="gender" value="Female" id="" <?php echo (isset($_GET['gender']) == "female" ? 'checked="checked"' : "")?>/>
 						<label for="Female">Female</label>
 						
 						<div class="clr"></div>
