@@ -1,6 +1,12 @@
 <?php $this->load->view('header_content')?>
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>"/>
+<style type="text/css">
+.s-l-header span {display:block; float:left; padding:5px 0;}
+.s-l-body span {display:block; float:left; padding:5px 0;}
+.s-l-body div:nth-child(even) {background:#f5f5f5;}
+.s-l-body div span:first-child {text-align:center;}
+</style>
 
 <?php foreach($wish_lift_detail as $row):?>
 <div class="passenger-detail-information m-center-content">
@@ -139,8 +145,13 @@
 		</div>
 		<?php
 		$other_dates_array = explode(',', $row['other_post_dates']);
-		$other_origin_array = explode(',', $row['other_post_origins']);
-		$other_destination_array = explode(',', $row['other_post_destinations']);
+		$other_origin_array = explode('-', $row['other_post_origins']);
+		$other_destination_array = explode('-', $row['other_post_destinations']);
+		
+		
+		/* echo '<pre>';
+		var_dump($other_origin_array);
+		echo '</pre>'; */
 		?>
 		<script type="text/javascript">
 		function get_data(events, month_today, year) {
@@ -166,7 +177,7 @@
 				year	= date.getFullYear();
 			
 			var events = [<?php for($i = 0; $i < count($other_dates_array); $i++):
-				echo '"'.$other_dates_array[$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[$i].' to '.$other_destination_array[$i].'",';
+				echo '"'.$other_dates_array[$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>From</strong> <span style=\"color:#678222\">'.$other_origin_array[$i].'</span> <strong>To</strong> <span style=\"color:#678222\">'.$other_destination_array[$i].'</span>",';
 			endfor;?>];
 		
 			$('.pcal-month').html(months[month] +' '+ year);
@@ -296,15 +307,30 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<p>Select one of the lift that you created</p>
+					<h4>Select one of the lift that you created</h4>
 				</div>
 				<div class="modal-body">
-					<ul>
-						<li>
-							<input type="radio" name="" id=""/>
-							<span>Makati, Philippines to Pasay, Philippines</span>
-						</li>
-					</ul>
+					<div class="err-msg"></div>
+					<form action="" method="post">						
+						<ul>
+							<li class="s-l-header">
+								<span class="span1">&nbsp;</span>
+								<span class="span3">Routes</span>
+								<span class="span2">Dates</span>
+								
+								<div class="clr"></div>
+								
+								<hr style="margin:5px 0;"/>
+							</li>
+							<li class="s-l-body">
+							</li>
+							<li>
+								<br />
+								<input type="submit" name="choose_lift" value="Choose" class="fr btn btn-default"/>
+								<div class="clr"></div>
+							</li>
+						</ul>
+					</form>
 				</div>
 			</div>
 		</form>
@@ -421,8 +447,21 @@ $(function() {
 			if(authenticated == 1) {
 				$('#select-lift').modal({dynamic:true});
 				
+				$('#select-lift ul li.s-l-body').empty();
+				
 				$.ajax({
-					url : ''
+					url 	: '<?php echo base_url('passenger/get_user_lift_post')?>',
+					data	: {id:id},
+					success : function(data) {
+						if($.parseJSON(data) == 'empty') {
+							$('#select-lift ul li.s-l-body').append('<div><p style="font-size:1.5em; text-align:center; padding:20px 0;">No date matched on your lift post</p> <a href="#" class="btn-create-lift btn-advance" style="display:block; margin:0 auto;">Create Lift</a></div>');
+							$('#select-lift input[name="choose_lift"], .s-l-header').remove();
+						} else {
+							$.each($.parseJSON(data), function(i, val) {
+								$('#select-lift ul li.s-l-body').append('<div><span class="span1"><input type="radio" name="lift_created[]" value="'+val.post_id+'" id="" value=""/></span> <span class="span3">'+val.origins+' from '+val.destination+'</span><span class="span2">'+val.dates+'</span><div class="clr"></div></div>');
+							});
+						}
+					}
 				});
 			} else {
 				window.location.href = "<?php echo base_url('login')?>";
@@ -444,32 +483,73 @@ $(function() {
 			<?php //endforeach?>
 		}
 	});
-	
-	<?php 
-	if(!empty($dates_available_data)):
-		$date_array = array();
-			
-		foreach($dates_available_data as $test):
-			$date_array[] = '"'.date('Y-n-d', strtotime($test['date'])).'"';
-		endforeach;
-		
-		$a = implode(',', $date_array);
-	else:
-		$a = 0;
-	endif;
-	?>	
-
-	var dateArray = [<?php echo $a?>];
-	
-	function date_array(date) {
-		var fulldate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
-		
-		return ($.inArray(fulldate, dateArray) > -1 ? [true, ''] : [false, '']);
-	}
-	
-	$('#available-dates').multiDatesPicker({
-		minDate: '0',
-		beforeShowDay : date_array
-	});
 });
 </script>
+
+<!-- 
+var authenticated = '<?php echo $this->session->userdata('validated')?>';
+			
+			if(authenticated == 1) {
+				$('#invite_lift').modal({dynamic:true});
+			} else {
+				window.location.href = "<?php echo base_url('login')?>";
+			}
+			
+			$('#available-dates').click(function() {
+				var getDates		= $(this).multiDatesPicker('getDates'),
+					getDates_array	= [];
+				
+				$.each(getDates, function(index, value) {
+					getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>');
+				});
+				
+				$('input[name="dates"]').val(getDates_array);
+			});
+			
+			$('input[name="book_submit"]').click(function(e) {
+				e.preventDefault();
+				var dates	= $('input[name="dates"]'),
+					price 	= $('input[name="price"]'),
+					remarks	= $('textarea[name="remarks"]'),
+					error = 0;
+					
+				$('*').removeClass('error-field');
+				$('.date-error').html(' ')
+				
+				if(dates.val() == '') {
+					dates.addClass('error-field');
+					$('.date-error').html('Please choose date(s)').css({color:'#ff0000'});
+					error = 1;
+				}
+				
+				if(price.val() == '') {
+					price.addClass('error-field');
+					error = 1;
+				}
+				
+				if(remarks.val() == '') {
+					remarks.addClass('error-field');
+					error = 1;
+				}
+				
+				if(error == 0) {
+					$.ajax({
+						url		: '<?php echo base_url('passenger/invite_me')?>',
+						type	: 'POST',
+						data	: {
+							post_id : id,
+							dates	: dates.val(),
+							price	: price.val(),
+							remarks	: remarks.val()
+						},
+						success	: function(data) {
+							// console.log('success');
+							$('#invite_lift').modal('hide');
+							$('#invite_lift_success').modal({dynamic:true});
+						}
+					});
+				} else {
+					return false;
+				}
+			});
+-->

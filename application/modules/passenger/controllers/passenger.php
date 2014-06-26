@@ -25,16 +25,71 @@ class Passenger extends MX_Controller {
 		
 		$data['wish_lift_detail'] 		= $this->passenger_model->detail($id);
 		$data['preference_data'] 		= $this->passenger_model->preference($id);
-		$data['dates_available_data'] 	= $this->passenger_model->dates($id); 
 		
 		$data['view_file']			= 'passenger_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
 	public function get_user_lift_post() {
-		$a = $this->passenger_model->get_user_lift_post();
+		$lift_post_data = $this->passenger_model->get_user_lift_post();
+		$wish_date_data = $this->passenger_model->dates($this->input->get('id'));
+	
+		$date_array = array();
+		$lift_post_array = array();
+	
+		for($i = 0; $i < count($lift_post_data); $i++):
+			$lift_post_array[] = $lift_post_data[$i]['dates'];
+		endfor;
 		
-		var_dump($a);
+		$b = implode(',', $lift_post_array);
+		$c = explode(',', $b);
+		
+		for($i = 0; $i < count($c); $i++):
+			$date_array[] = $c[$i];
+		endfor;
+		
+		for($i = 0; $i < count($wish_date_data); $i++):
+			$date_array[] = $wish_date_data[$i]['dates'];
+		endfor;
+		
+		$get_date 			= array_unique(array_diff_assoc($date_array, array_unique($date_array)));
+		$get_date 			= array_values($get_date);
+		$pass_date_array 	= array();
+		
+		for($i = 0; $i < count($get_date); $i++):
+			$pass_date_array[] = $get_date[$i];
+		endfor;
+		
+		$date_result = $this->passenger_model->return_user_lift_post($pass_date_array);
+		
+		$result = array_filter($date_result);
+		
+		if($result == null):
+			echo json_encode("empty");
+		else:
+			echo json_encode($result);
+		endif;
+	}
+	
+	public function get_user_lift_dates() {
+		$id = $this->input->get('id');
+		
+		$lift_date_data = $this->passenger_model->get_user_lift_dates($id);
+		$wish_date_date = $this->passenger_model->dates($id);
+		
+		$date_array = array();
+		
+		foreach($lift_date_data as $row):
+			$date_array[] = $row['dates'];
+		endforeach;
+		
+		foreach($wish_date_date as $row):
+			$date_array[] = $row['dates'];
+		endforeach;
+		
+		$result = array_unique(array_diff_assoc($date_array, array_unique($date_array)));
+		
+		echo json_encode($result);
 	}
 	
 	public function detail_user() {

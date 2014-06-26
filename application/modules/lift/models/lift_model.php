@@ -186,22 +186,36 @@ class Lift_model extends CI_Model {
 			're_route'		=> $this->input->post('re_route'),
 			'offer_re_route'=> $this->input->post('re_route'),
 			'start_time'	=> $this->input->post('hours').':'.$this->input->post('minute').':00',
-			'date'			=> str_replace("&quot;", "\"", $this->input->post('dates'))
+			// 'date'			=> str_replace("&quot;", "\"", $this->input->post('dates'))
 		);
 		
 		$insert_post = $this->db->insert('user_lift_post', $post_data);
 
+		$post_id = $this->db->insert_id();
+		
 		$preference_array = array();
 		
 		for($i = 0; $i < count($this->input->post('preference')); $i++):
-			// $preference_array[] =  $i;
-			
 			$preference_data = array(
 				'post_id' => $this->session->userdata('user_id'),
 				'preference_id' => $i+1
 			);
 			
 			$insert_preference = $this->db->insert('user_lift_preference', $preference_data);
+		endfor;
+		
+		$date = explode(',', $this->input->post('dates'));
+		
+		for($i = 0; $i < count($date); $i++):
+			$date_data = array(
+				'post_id' 	=> $post_id,
+				'user_id' 	=> $this->session->userdata('user_id'),
+				'route_from'=> $this->input->post('origin'),
+				'route_to'	=> $this->input->post('destination'),
+				'date'		=> str_replace("&quot;", "", $date[$i])
+			);
+
+			$insert_date = $this->db->insert('user_lift_dates', $date_data);		
 		endfor;
 	}
 

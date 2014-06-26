@@ -90,7 +90,7 @@ class Lift extends MX_Controller {
 				if($this->form_validation->run() == TRUE):
 					$this->lift_model->create_lift();
 					
-					// redirect('lift/create_success', 'refresh');
+					redirect('lift/create_success', 'refresh');
 				endif;
 			endif;
 		endif;

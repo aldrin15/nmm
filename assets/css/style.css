@@ -357,7 +357,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 #passenger-calendar .pcal-header .prev {display:block; background:url('../images/page_template/cal_nav.png') no-repeat 0 0; width:19px; height:19px;}
 #passenger-calendar .pcal-header .next {display:block; background:url('../images/page_template/cal_nav.png') no-repeat -19px 0; width:19px; height:19px;}
 #passenger-calendar .pcal-header .pcal-month {text-align:center; font-size:1.4em; width:310px; /*width:210px;*/}
-#passenger-calendar .pcal-body ul li {padding:10px;}
+#passenger-calendar .pcal-body ul li {word-break:break-all; padding:10px; width:370px;}
 #passenger-calendar .pcal-body ul li:nth-child(odd) {background:#f5f5f5;}
 
 .passenger-detail-information .fl h3 span {color:#678222;}
