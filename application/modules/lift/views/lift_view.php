@@ -12,6 +12,8 @@
 	?>
 	<br />
 	
+	<div class="clr"></div>
+	
 	<div class="lift-listing">
 		<?php if($ride_list == 0):?>
 			<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px; width:850px;"><p>There are no route that match your criteria. Try some different places</p></div>

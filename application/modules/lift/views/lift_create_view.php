@@ -1,25 +1,6 @@
 <?php $this->load->view('header_content')?>
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>">
-<script type="text/javascript">
-.custom-checkbox{background: url("blank_image.jpg") no-repeat; display: inline-block; position: relative; z-index: 1; top: 3px; width: 65px; height: 66px;}
-.custom-checkbox.selected{ background: url("user_image.jpg") no-repeat; }
-.custom-checkbox input[type="checkbox"]{
-	margin: 0;
-	position: absolute;
-	z-index: 2;            
-	cursor: pointer;
-	outline: none;
-	opacity: 0;
-	/* CSS hacks for older browsers */
-	_noFocusLine: expression(this.hideFocus=true); 
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	filter: alpha(opacity=0);
-	-khtml-opacity: 0;
-	-moz-opacity: 0;
-}
-}
-</script>
 
 <div class="create-lift m-center-content">
 	<?php //echo modules::run('lift/search')?>
@@ -34,24 +15,55 @@
 			<hr/><br />
 		<ul>
 			<li class="span5">
-				<?php echo form_error('origin', '<div class="error">', '</div>')?>
-					<div class="clr"></div>
 				<label for="Departure">From: </label>
-				<input type="text" name="origin" id="" class="form-control" />
+				<?php echo form_error('origin', '<div class="fl error">', '</div>')?>
+				
+				<div class="clr"></div>
+				
+				<div class="lift-place">
+					<p>- Choose your location -</p>
+					
+					<div class="lift-search">
+						<span><input type="text" name="from" id="lift-route" autocomplete="off"/></span>
+						
+						<input type="hidden" name="origin" value="" id="" />
+						
+						<a href="#" class="l-s-done">Done</a>
+						
+						<div class="clr"></div>
+					</div>
+				</div>
 				
 				<div class="clr"></div>
 			</li>
 			<li class="span5">
-				<?php echo form_error('destination', '<div class="error">', '</div>')?>
-					<div class="clr"></div>
 				<label for="Departure">To: </label>
-				<input type="text" name="destination" id="" class="form-control"/>
+				<?php echo form_error('destination', '<div class="error">', '</div>')?>
+				
+					<div class="clr"></div>
+				
+				<div class="lift-place">
+					<p>- Choose your location -</p>
+					
+					<div class="lift-search">
+						<span><input type="text" name="to" id="to-route" autocomplete="off"/></span>
+						
+						<input type="hidden" name="destination" value="" id="" />
+						
+						<a href="#" class="l-s-done">Done</a>
+						
+						<div class="clr"></div>
+					</div>
+				</div>
 				
 				<div class="clr"></div>
 			</li>
 			<li class="span5">
-				<?php echo form_error('via', '<div class="error">', '</div>')?>
 				<label for="Via">Via</label>
+				<?php echo form_error('via', '<div class="error">', '</div>')?>
+				
+				<div class="clr"></div>
+				
 				<input type="text" name="via" id="" class="form-control"/>
 				
 				<div class="clr"></div>
@@ -74,7 +86,7 @@
 				<label for="Time">Time:</label>
 				
 				<span>Hour</span>
-				<select name="hours" id="" class="hour-choice" data-width="50px">
+				<select name="hours" id="" class="time-dropdown select-width-auto">
 					<?php for($i = 1; $i < 25; $i++):?>
 					<option value="<?php echo $i?>"><?php echo $i?></option>
 					<?php endfor?>
@@ -82,7 +94,7 @@
 				
 				<span>Minute</span>
 				
-				<select name="minute" id="" class="minute-choice" data-width="60px">
+				<select name="minute" id="" class="time-dropdown select-width-auto">
 					<?php for($i = 1; $i < 10; $i++):?>
 					<option value="<?php echo '0'.$i?>"><?php echo '0'.$i?></option>
 					<?php endfor?>
@@ -160,9 +172,12 @@
 			<hr/><br />
 		<ul>
 			<li class="span5">
-				<?php echo form_error('seat_amount', '<div class="error">', '</div>')?>
 				<label for="Price Per Seat">Seat Amount:</label>
-				<input type="text" name="seat_amount" id="" class="form-control"/>
+				<?php echo form_error('seat_amount', '<div class="fl error">', '</div>')?>
+				
+				<div class="clr"></div>
+				
+				<input type="text" name="seat_amount" id="" value="<?php echo set_value('seat_amount')?>" class="form-control"/>
 				
 				<div class="clr"></div>
 			</li>
@@ -194,6 +209,7 @@
 <div class="clr"></div>
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.7.2.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.core.js')?>"></script>
@@ -212,7 +228,62 @@ function checkbox(checkboxName){
 }
 
 $(function() {
-	$('.hour-choice, .minute-choice, .seat-available-choice, .storage-choice').selectpicker();
+	$('.time-dropdown, .seat-available-choice, .storage-choice').selectpicker();
+	
+	$('ul li div.lift-place p').click(function() { $(this).parent().children('.lift-search').slideToggle(); });
+	$('ul li div.lift-place .lift-search a.l-s-done').click(function(e) { $(this).parent().slideToggle(); e.preventDefault(); });
+	
+	$('.lift-place input').keyup(function(e) {
+		if($(this).attr('name') == 'from') {
+			$.ajax({
+				'url'		: '<?php echo base_url('lift/auto_suggest')?>',
+				'type'		: 'GET',
+				'data'		: {city: $('.lift-place input[name="from"]').val()},
+				'success'	: function(data) {
+					var city_array = [];
+				
+					$.each($.parseJSON(data), function(index, value) {
+						city_array.push(value.combined);
+					});
+					
+					var city = city_array;
+					
+					$('#lift-route').autocomplete({
+						source:city,
+						select: function(event, ui) { 
+							$(this).parent().parent().parent().children('p').html(ui.item.value);
+							$('input[name="origin"]').val(ui.item.value);
+						}
+					});
+				}
+			});	
+		} else {
+			$.ajax({
+				'url'		: '<?php echo base_url('lift/auto_suggest')?>',
+				'type'		: 'GET',
+				'data'		: {city: $('.lift-place input[name="to"]').val()},
+				'success'	: function(data) {
+					var city_array = [];
+				
+					$.each($.parseJSON(data), function(index, value) {
+						city_array.push(value.combined);
+					});
+					
+					var city = city_array;
+					
+					$('#to-route').autocomplete({
+						source:city,
+						select: function(event, ui) { 
+							$(this).parent().parent().parent().children('p').html(ui.item.value);
+							$('input[name="destination"]').val(ui.item.value);
+						}
+					});
+				}
+			});	
+		}
+
+	});
+	
 	checkbox("re_route");
 	checkbox("offer_re_route");
 

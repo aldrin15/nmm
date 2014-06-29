@@ -459,8 +459,64 @@ $(function() {
 						} else {
 							$.each($.parseJSON(data), function(i, val) {
 								$('#select-lift ul li.s-l-body').append('<div><span class="span1"><input type="radio" name="lift_created[]" value="'+val.post_id+'" id="" value=""/></span> <span class="span3">'+val.origins+' from '+val.destination+'</span><span class="span2">'+val.dates+'</span><div class="clr"></div></div>');
+								console.log(val.dates);
 							});
 						}
+						
+						$('input[name="choose_lift"]').click(function(e) {
+							e.preventDefault();
+							var error = 0;
+							
+							if($('input[name="lift_created[]"]').is(":checked") != true) {
+								$('.err-msg').html('You need to choose one of your lift created').css({background:'#FF1B43', color:'#fff', fontSize:'1.3em', fontWeight:'bold', textAlign:'center', border:'1px solid #ff0000', padding:'5px 0'});
+								error = 1;
+							}
+							
+							if(error == 0) {
+								$('#select-lift').modal('hide');
+								$('#invite_lift').modal({dynamic:true});
+								
+								$.ajax({
+									url		: '<?php echo base_url('passenger/get_selected_lift_data')?>',
+									data	: {id : $('input[name="lift_created[]"]:checked').val()},
+									success : function(data) {
+										console.log(data);
+									}
+								});
+								
+								/* $('input[name="lift_created[]"]:checked').val()
+								
+								
+								<?php 
+								if(!empty($dates_available_data)):
+									$date_array = array();
+
+									foreach($dates_available_data as $test):
+										$date_array[] = '"'.date('Y-n-d', strtotime($test['date'])).'"';
+									endforeach;
+
+									$a = implode(',', $date_array);
+								else:
+									$a = 0;
+								endif;
+								?>	
+
+								var dateArray = [<?php echo $a?>];
+								
+								function date_array(date) {
+									var fulldate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+									
+									return ($.inArray(fulldate, dateArray) > -1 ? [true, ''] : [false, '']);
+								}
+								
+								$('#available-dates').multiDatesPicker({
+									minDate: '0',
+									beforeShowDay : date_array
+								}); */
+							} else {
+								return false;
+							}
+						});
 					}
 				});
 			} else {

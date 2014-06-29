@@ -7,7 +7,7 @@
 	<div class="m-center">
 		<div class="pull-left">
 			<div class="fl">
-				<h4>NMM</h4>
+				<h5>NMM</h5>
 				<ul>
 					<li><a href="<?php echo base_url('about')?>">About NMM</a></li>
 					<li><a href="<?php echo base_url('privacy')?>">Privacy Policy</a></li>
@@ -15,7 +15,7 @@
 				</ul>
 			</div>
 			<div class="fl">
-				<h4>Help</h4>
+				<h5>Help</h5>
 				
 				<ul>
 					<li><a href="<?php echo base_url('support')?>">Support</a></li>
@@ -23,7 +23,7 @@
 				</ul>
 			</div>
 			<div class="fl">
-				<h4>Connect</h4>
+				<h5>Connect</h5>
 				
 				<a href="#"><img src="<?php echo base_url('assets/images/page_template/icon_fb.jpg')?>" width="28" height="28" alt="Like us on Facebook" title="Like us on Facebook"/></a>
 			</div>

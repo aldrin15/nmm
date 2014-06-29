@@ -85,7 +85,7 @@ class Lift extends MX_Controller {
 				$this->form_validation->set_rules('destination', 'To', 'required');
 				$this->form_validation->set_rules('via', 'Via', 'required');
 				$this->form_validation->set_rules('dates', 'Dates', 'required');
-				$this->form_validation->set_rules('seat_amount', 'Seat Amount', 'required');
+				$this->form_validation->set_rules('seat_amount', 'Seat Amount', 'required|numeric');
 				
 				if($this->form_validation->run() == TRUE):
 					$this->lift_model->create_lift();
@@ -110,9 +110,70 @@ class Lift extends MX_Controller {
 		
 		$data['lift_information'] 		= $this->lift_model->details($id);
 		$data['preference_data'] 		= $this->lift_model->preference($id);
-		$data['dates_available_data'] 	= $this->lift_model->dates($id); 
+		// $data['dates_available_data'] 	= $this->lift_model->dates($id); 
 		$data['view_file'] 				= 'lift_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function get_lift_post() {
+		$id = $this->input->get('id');
+		
+		/*
+		 * Decrypt Data
+		 */
+		function decrypt($action, $string) {
+			$output = false;
+			$key = 'My strong random secret key';
+			// initialization vector 
+			$iv = md5(md5($key));
+
+			if( $action == 'decrypt' ){
+				$output = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($string), MCRYPT_MODE_CBC, $iv);
+				$output = rtrim($output, "");
+			}
+			return $output;
+		}
+		
+		$post_id = decrypt('decrypt', $id);
+		
+		$data['lift_dates_data'] = $this->lift_model->get_lift_post($post_id);
+		
+		echo json_encode($data['lift_dates_data']);
+	}
+	
+	function get_lift_booked() {
+		$id = $this->input->get('id');
+		$date = $this->input->get('date');
+		
+		if(isset($_GET['date'])):
+			/*
+			 * Decrypt Data
+			 */
+			function decrypt($action, $string) {
+				$output = false;
+				$key = 'My strong random secret key';
+				// initialization vector 
+				$iv = md5(md5($key));
+
+				if( $action == 'decrypt' ){
+					$output = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($string), MCRYPT_MODE_CBC, $iv);
+					$output = rtrim($output, "");
+				}
+				return $output;
+			}
+			
+			$post_id = decrypt('decrypt', $id);
+		
+			$data['lift_seat_booked'] = $this->lift_model->lift_seat_booked($post_id, $date);
+			
+			if($data['lift_seat_booked'] == false):
+				echo json_encode(array('message'=>'empty'));
+			else:
+				echo json_encode($data['lift_seat_booked']);
+			endif;
+		else:
+			echo json_encode(array('message'=>'empty'));
+		endif;		
 	}
 	
 	public function quick_book_details() {
@@ -147,7 +208,7 @@ class Lift extends MX_Controller {
 		echo json_encode($quick_book_array);
 	}
 	
-	public function booked() {
+	/* public function booked() {
 		$user_id 		= $this->input->get('user_id');
 		$post_id 		= $this->input->get('post_id');
 		$seat_taken		= $this->input->get('seat_taken');
@@ -158,7 +219,7 @@ class Lift extends MX_Controller {
 		$date 			= date('Y-m-d', strtotime($this->input->get('date')));
 		
 		$this->lift_model->booked($user_id, $post_id, $seat_taken, $amount, $message, $request, $start_time, $date);
-	}
+	} */
 	
 	public function search() {
 		$post = $this->input->post();

@@ -69,10 +69,11 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function listing($what = 'user_lift_post.id as id, user.user_id as user_id, firstname, lastname, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model as car, user_car.license_plate as plate, user_lift_post.date, lift_seat_booked.seat') {
+	function listing($what = 'user_lift_post.id as id, user.user_id as user_id, firstname, lastname, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, user_lift_post.amount, user_lift_post.start_time, user_lift_dates.date, user_car.car_model as car, user_car.license_plate as plate, lift_seat_booked.seat') {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
+							->join('user_lift_dates', ' user_lift_dates.post_id = user_lift_post.id')
 							->join('user_car', 'user_car.user_id = user_lift_post.user_id', 'left')
 							->join('lift_seat_booked', 'lift_seat_booked.post_id = user_lift_post.id', 'left')
 							->group_by('user_lift_post.id')
@@ -90,7 +91,7 @@ class Lift_model extends CI_Model {
 		return $query->result();
 	}
 	
-	function details($id, $what = "user_lift_post.id, user.user_id AS user_id, firstname, lastname, last_login, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, storage, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model AS car, user_car.license_plate AS plate, remarks, CONCAT( GROUP_CONCAT(  `user_media`.`media_filename` ) ) AS image, CONCAT( GROUP_CONCAT( lift_seat_booked.seat ) ) AS seats, CONCAT( GROUP_CONCAT(user_rating.rating_number) ) AS rating, user_lift_post.date, user_rating.user_id as rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) AS rating, CONCAT( GROUP_CONCAT( user_lift_dates.route_from ) ) AS other_post_origins, CONCAT( GROUP_CONCAT( user_lift_dates.route_to ) ) AS other_post_destinations, CONCAT( GROUP_CONCAT( DISTINCT user_lift_dates.date ) ) AS other_post_dates") {
+	function details($id, $what = "user_lift_post.id, user.user_id AS user_id, firstname, lastname, last_login, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, storage, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model AS car, user_car.license_plate AS plate, remarks, CONCAT( GROUP_CONCAT(  `user_media`.`media_filename` ) ) AS image, CONCAT( GROUP_CONCAT( lift_seat_booked.seat ) ) AS seats, CONCAT( GROUP_CONCAT(user_rating.rating_number) ) AS rating, user_lift_dates.date, user_rating.user_id as rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) AS rating, CONCAT( GROUP_CONCAT( user_lift_dates.route_from ) ) AS other_post_origins, CONCAT( GROUP_CONCAT( user_lift_dates.route_to ) ) AS other_post_destinations, CONCAT( GROUP_CONCAT( DISTINCT user_lift_dates.date ) ) AS other_post_dates") {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
@@ -120,7 +121,35 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function dates($id, $what = 'user_lift_dates.date') {	
+	function get_lift_post($id, $what = 'user_lift_post.id, user_lift_post.user_id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.via, user_lift_post.available, user_lift_post.amount, user_lift_post.re_route, user_lift_post.start_time as time, user_media.media_filename as image, user_lift_dates.date') {
+		$query = $this->db->select($what)
+							->from('user_lift_post')
+							->join('user', 'user.user_id = user_lift_post.user_id')
+							->join('user_lift_dates', 'user_lift_dates.post_id = user_lift_post.id')
+							->join('user_media', 'user_media.user_id = user.user_id')
+							->where('user_lift_post.id', $id)
+							->get();
+							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function lift_seat_booked($id, $date, $what = 'lift_seat_booked.seat as seats, lift_seat_booked.date, media_filename as image') {	
+		$array = array('post_id' => $id, 'date' => date('Y-m-d', strtotime($date[0])));
+		
+		$query = $this->db->select($what)
+							->from('lift_seat_booked')
+							->join('user_media', 'user_media.user_id = lift_seat_booked.user_id')
+							->where($array)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	/* function dates($id, $what = 'user_lift_dates.date') {	
 		$query = $this->db->select($what)
 					->from('user_lift_dates')
 					->where('post_id', $id)
@@ -129,11 +158,11 @@ class Lift_model extends CI_Model {
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
-	}
+	} */
 	
 	function book_details($post_id) {
 		$query = $this->db->query("
-			SELECT user_lift_post.id AS id, user.user_id AS user_id, firstname, lastname, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model AS car, user_car.license_plate AS plate, user_lift_post.date, 
+			SELECT user_lift_post.id AS id, user.user_id AS user_id, firstname, lastname, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model AS car, user_car.license_plate AS plate, 
 			GROUP_CONCAT( `lift_seat_booked`.`user_id` ORDER BY `lift_seat_booked`.`user_id` SEPARATOR ', ' ) AS taken_by, 
 			GROUP_CONCAT( `lift_seat_booked`.`seat` ORDER BY `lift_seat_booked`.`seat` SEPARATOR ', ' ) AS seats, 
 			GROUP_CONCAT( `user_media`.`media_filename` ORDER BY `user_media`.`media_filename` SEPARATOR ', ') as image
@@ -186,7 +215,6 @@ class Lift_model extends CI_Model {
 			're_route'		=> $this->input->post('re_route'),
 			'offer_re_route'=> $this->input->post('re_route'),
 			'start_time'	=> $this->input->post('hours').':'.$this->input->post('minute').':00',
-			// 'date'			=> str_replace("&quot;", "\"", $this->input->post('dates'))
 		);
 		
 		$insert_post = $this->db->insert('user_lift_post', $post_data);

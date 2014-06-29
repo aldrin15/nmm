@@ -71,8 +71,16 @@ class Passenger extends MX_Controller {
 		endif;
 	}
 	
-	public function get_user_lift_dates() {
-		$id = $this->input->get('id');
+	public function get_selected_lift_data() {
+		$lift_date_data = $this->passenger_model->get_selected_lift($this->input->get('id'));
+		
+		$date_array = array();
+		
+		foreach($lift_date_data as $row):
+			$date_array[] = $row['dates'];
+		endforeach;
+		
+		/* 
 		
 		$lift_date_data = $this->passenger_model->get_user_lift_dates($id);
 		$wish_date_date = $this->passenger_model->dates($id);
@@ -89,7 +97,7 @@ class Passenger extends MX_Controller {
 		
 		$result = array_unique(array_diff_assoc($date_array, array_unique($date_array)));
 		
-		echo json_encode($result);
+		echo json_encode($result); */
 	}
 	
 	public function detail_user() {

@@ -95,6 +95,16 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
+	function get_selected_lift($id, $what = '') {
+		$query = $this->db->select($what)
+							->from('user_lift_dates')
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
 	function dates($id, $what = 'user_wish_date_booked.post_id, user_wish_date_booked.route_from as origins, user_wish_date_booked.route_to as destination, user_wish_date_booked.date as dates') {	
 		$query = $this->db->select($what)
 					->from('user_wish_date_booked')

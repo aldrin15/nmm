@@ -1,5 +1,16 @@
 <?php $this->load->view('header_content')?>
 
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>"/>
+<style type="text/css">
+.ui-datepicker {width:100%;}
+.ui-widget-content {background:none;}
+.ui-datepicker-calendar td {border:none;}
+.ui-datepicker td span, .ui-datepicker td a {padding:10px 5px;}
+.ui-widget-header .ui-state-highlight {border:none;}
+.ui-state-highlight {border:none}
+.ui-widget-header {background:#fff;}
+.ui-datepicker .ui-datepicker-header {padding:.5em 0;}
+</style>
 <div class="detail m-center-content">
 	<?php foreach($lift_information as $row):?>
 	<div class="fl span5">
@@ -26,7 +37,7 @@
 					<div class="clr"></div>	
 				</div>
 				<div class="user-last-login">
-					<span>Last login: <?php echo date('M d, Y H:i', strtotime($row['last_login']))?></span>
+					<span>Last login: <?php echo date('M d, Y H:i A', strtotime($row['last_login']))?></span>
 				</div>
 				<div class="user-contacts">
 					<p>Email phone shown after booking confirmed</p>
@@ -118,7 +129,7 @@
 		<div class="social-share"></div>
 		
 		<div class="lift-calendar">
-			<div id="passenger-calendar">
+			<div id="passenger-calendar" style="margin-top:15px;">
 				<div class="pcal-header">
 					<a href="#" class="prev fl"></a>
 					<div class="pcal-month fl"></div>
@@ -131,7 +142,6 @@
 				
 				<div class="pcal-body">
 					<ul>
-						<li>No Posted Date</li>
 					</ul>
 				</div>
 			</div>
@@ -145,12 +155,9 @@
 				$.each(events, function(index, value) {
 					var get_month = value.substring(5, 7);
 					var get_year = value.substring(0, 4);
+					var this_month = (month_today < 9 ? "0"+month_today:month_today);
 					
-					if(month_today != get_month) {
-						$('.pcal-body ul').html('<li style="text-align:center;">No Posted Date</li>');
-					} else if(get_year != year) {
-						$('.pcal-body ul').html('<li style="text-align:center;">No Posted Date</li>');
-					} else if(month_today == get_month) {
+					if(this_month == get_month && get_year == year) {
 						$('.pcal-body ul').append('<li>'+value+'</li>');
 					}
 				});
@@ -160,7 +167,7 @@
 				var months 	= {1:'January', 2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'},
 					prev	= 0,
 					date	= new Date(),
-					month 	= date.getMonth(),
+					month 	= date.getMonth()+1,
 					year	= date.getFullYear();
 				
 				var events = [<?php for($i = 0; $i < count($other_dates_array); $i++):
@@ -207,21 +214,22 @@
 			</script>
 		</div>
 		
+		<!-- 
 		<div class="lift-seat-available">
 			<?php 
-			$seat_taken = explode(',', $row['seats']);
+			/* $seat_taken = explode(',', $row['seats']);
 			
 			if($seat_taken == 0):
 				$available = $row['available'];
 			else:
 				$available = $row['available'] - array_sum($seat_taken);
-			endif;
+			endif; */
 			?>
-			<center><h4><?php echo $available?> more seat(s) available</h4></center>
+			<center><h4><?php //echo $available?> more seat(s) available</h4></center>
 			
 			<ul>
 				<?php
-				$seat_explode = explode(',', $row['seats']);
+				/* $seat_explode = explode(',', $row['seats']);
 				$seat_implode = implode(',', $seat_explode);
 				$seat_explode2 = explode(',', $seat_implode);
 				
@@ -239,18 +247,21 @@
 				
 				for($i = 0; $i < $available; $i++):
 					echo '<li><span></span><img src="'.base_url('assets/images/page_template/blank_image.png').'" width="65" height="66" alt=""/></li>';
-				endfor;
+				endfor; */
 				?>
 			</ul>
 			
 			<div class="clr"></div>
 		</div>
+		
 		<div class="lift-price">
-			<p>&#128;<?php echo $row['amount']?> / seat</p>
+			<p>&#128;<?php //echo $row['amount']?> / seat</p>
 		</div>
+		-->
+		
 		<div class="btn-book-now">
 			<?php
-			if($available !== 0):
+			//if($available !== 0):
 				function encrypt($action, $string) {
 				   $output = false;
 
@@ -268,8 +279,8 @@
 				
 				$hash = encrypt('encrypt', $row['id']);	
 			?>
-			<a href="#" class="quick-book btn-gray" data-toggle="modal" data-target="#booking" data-hash="<?php echo $hash?>">Start Booking</a>
-			<?php endif?>
+			<a href="#" class="quick-book btn-gray" data-toggle="modal" data-target="#choose-date" data-hash="<?php echo $hash?>">Start Booking</a>
+			<?php //endif?>
 		</div>
 	</div>
 	
@@ -316,7 +327,7 @@
 				if (status == google.maps.DirectionsStatus.OK) {
 					directionsDisplay.setDirections(response);
 				} else {
-					alert("directions response "+status);
+					// alert("directions response "+status);
 				}
 			});
 		}
@@ -326,7 +337,54 @@
 	<?php endforeach?>
 </div>
 
-<!-- Quick Booking -->
+<div class="modal fade" id="choose-date" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
+	<div class="modal-dialog" style="width:450px">
+		<form action="" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					&nbsp;
+				</div>
+				<div class="modal-body">
+					<ul>
+						<li>
+							<div class="err-msg-cal"></div>
+							<label for="Calendar">Choose date to see available seats</label>
+							<div id="choose-date-cal"></div>
+							<input type="hidden" name="chose_dates" name=""/>	
+						</li>
+						<li>
+							<label for="Available Seats" style="width:300px">Available seat(s) : <span class="a-error"></span></label>
+									<div class="clr"></div>
+							<div class="seat-taken fl"></div>
+							<div class="seat-available"></div>
+							<input type="hidden" name="get_seat"/>
+							<input type="hidden" name="amount" value=""/>
+							
+							<div class="clr"></div>
+						</li>
+						<li>
+							<label for="Price Per Seat">Price Per Seat:</label>
+							<span class="lift-price-per-seat"></span>
+							
+							<div class="clr"></div>
+						</li>
+						<li>
+							<label for="Total Price">Total Price</label>
+							<span class="total-amount"></span>
+							
+							<div class="clr"></div>
+						</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn btn-default step-next">Next</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <div class="modal fade" id="booking" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
 	<div class="modal-dialog" style="width:450px">
 		<form action="" method="post">
@@ -377,14 +435,17 @@
 					
 					<input type="hidden" name="post_id" value=""/>
 					<input type="hidden" name="user_id" value=""/>
-					<input type="hidden" name="amount" value=""/>
+					
 					<input type="hidden" name="car_model" value=""/>
 					<input type="hidden" name="license_plate" value=""/>
 					<input type="hidden" name="start_time" value=""/>
 				</div>
 				<div class="modal-footer">
-					<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-					<input type="submit" name="book_submit" value="Proceed" class="btn-gray"/>
+				<div class="modal-footer">
+					<a href="#" class="btn btn-default fl step-back">Go Back</a>
+					<input type="submit" name="book_submit" value="Proceed" class="btn btn-default"/>
+					
+					<div class="clr"></div>
 				</div>
 			</form>
 		</div>
@@ -395,22 +456,10 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modal.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modalmanager.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.core.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.multidatespicker.js')?>"></script>
 <script type="text/javascript" language="javascript">
-function taken_by(checkboxName, image_array){
-	var checkBox 	= $('input[name="'+ checkboxName +'"]'),	
-		test 		= image_array;
-	
-	$(checkBox).each(function(i, val){
-		$(this).wrap( "<span class='lift-available' style='background: url(\"<?php echo base_url()?>assets/media_uploads/"+$.trim(test[i])+"\")'></span>" );
-		if($(this).is(':checked')){
-			$(this).parent().addClass("selected");
-		} 
-	});
-
-	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
-}
-
-function check_available(checkboxName){
+function check_available(checkboxName, image){
 	var checkBox = $('input[name="'+ checkboxName +'"]');
 	$(checkBox).each(function(){
 		$(this).wrap( "<span class='lift-available'></span>" );
@@ -420,6 +469,12 @@ function check_available(checkboxName){
 	});
 	$(checkBox).click(function(){
 		$(this).parent().toggleClass("selected");
+		if($(this).is(':checked')){
+			// $(this).parent().css({background:"<?php echo base_url('assets/images')?>/\"+image+\""});
+			$(this).parent().css({background:"url(<?php echo base_url('assets/media_uploads')?>/"+image+")", top:'0'});
+		} else {
+			$(this).parent().css({background:'<?php echo base_url('assets/images')?>/blank_image.png'});
+		}
 	});
 }
 
@@ -439,82 +494,130 @@ $(function() {
 	$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
 
 	$('.quick-book').click(function(e) {
-		var token = $(this).attr('data-hash');
-		
-		$('.seat-available, .seat-taken').empty();
-		
+		var id = $(this).attr('data-hash');
 		$.ajax({
-			url		: '<?php echo base_url('lift/quick_book_details')?>',
-			type	: 'GET',
-			data	: {token : token},
+			url		: '<?php echo base_url('lift/get_lift_post')?>',
+			data	: {id:id},
 			success	: function(data) {
-				$.each($.parseJSON(data), function(index, value) {
-					$('input[name="post_id"]').attr('value', value.id);
-					$('input[name="user_id"]').attr('value', value.user_id);
-					// $('input[name="amount"]').attr('value', value.amount);
-					$('input[name="car_model"]').attr('value', value.car);
-					$('input[name="license_plate"]').attr('value', value.plate);
-					$('input[name="start_time"]').attr('value', value.start_time);
+				// console.log(data);
+				var date_array 	= [],
+					seat_array  = [],
+					image_array	= []
+					amount_array= [];
+				
+				$.each($.parseJSON(data), function(i, val) {
+					date_array.push(val.date);
+					seat_array.push(val.available);
+					image_array.push(val.image);
+					amount_array.push(val.amount);
+				});
 					
-					if(value.seats == null) {
-						var seat_taken_array = 0;
-					} else {
-						var seat_taken_array = value.seats.split(",");
-					}
+				function date(date) {
+					var month 		= date.getMonth()+1;
+						real_month 	= (month < 9 ? "0"+month:month)
+						day			= date.getDate(),
+						year		= date.getFullYear(),
+						fullyear	= year+'-'+real_month+'-'+day;
 					
-					if(value.image == null) {
-						var image_array = 0;
-					} else {
-						var	image_array = value.image.split(",");
-					}
-					
-					//To make result array again
-					var seat_taken = 0;
-					for (var i = 0; i < seat_taken_array.length; i++) {
-						seat_taken += seat_taken_array[i] << 0;
-					}
-					
-					var availability = value.available - seat_taken;
-					
-					//Append base on array total
-					for(var i = 0; i < seat_taken; i++) {
-						$('.seat-taken').prepend('<label><input type="checkbox" name="taken[]" value="" checked="checked" disabled/></label>');
-					}
-					
-					for(var j = 0; j < availability; j++) {
-						$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="1" /></label>');
-					}
-					
-					taken_by("taken[]", image_array);
-					check_available("seat[]");
-					route("request_form");
-					
- 					/* ====================================
-					 * Auto Calculate the amount per seat
-					 =================================== */
-					var seat_amount = 0;
-					
-					$('input[name="seat[]"]').click(function() {
-						if($(this).is(':checked')) {
-							seat_amount += parseInt($(this).val());
-						} else {
-							seat_amount -= parseInt($(this).val());
-						}
+					return ($.inArray(fullyear, date_array) > -1 ? [true, ''] : [false, '']);
+				}
+				
+				$('#choose-date-cal').multiDatesPicker({
+					minDate : 0,
+					beforeShowDay : date,
+					onSelect: function(dateText, inst) {
+						// console.log(image_array[0]);
+						var getDates = $(this).multiDatesPicker('getDates'),
+							on_off = $('input[name="chose_dates"]').val(getDates);
+							$('.total-amount').empty();
 						
-						$('.total-amount').html('<strong>&euro; '+seat_amount+'</strong>');
-						$('input[name="amount"]').attr('value', seat_amount);
-					});
-					
-					/* ======================
-					 * Request re-route form
-					 ===================== */
-					$('input[name="request_form"]').click(function() {
-						if($(this).is(':checked')) {
-							$('.request_form').slideDown();
+						if(on_off.val() != '') {
+							$('.seat-taken, .seat-available').empty();
+							$('.lift-price-per-seat').empty();
+							$('.lift-price-per-seat').html(amount_array[0]);
+							
+							$.ajax({
+								url		: '<?php echo base_url('lift/get_lift_booked')?>',
+								data	: {id:id, date:getDates},
+								success	: function(data) {
+									// console.log(data);
+									// console.log(seat_array);
+									// console.log(image_array[0]);
+									var user_image_array= [],
+										seat_taken		= 0;
+									
+									$.each($.parseJSON(data), function(index, value) {
+										seat_taken += value.seats << 0;
+										user_image_array.push(value.image);
+									});
+									
+									var user_image = [];
+									var availability = seat_array[0] - seat_taken;
+									
+									for(var i = 0; i < user_image_array.length; i++) {
+										$('.seat-taken').append("<span style='display:inline-block; background: url(\"<?php echo base_url('assets/media_uploads')?>/"+user_image_array[i]+"\") no-repeat; margin-right:16px; width:65px; height:66px;'></span>");
+									}
+									
+									for(var j = 0; j < availability; j++) {
+										$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="'+amount_array[0]+'" /></label>');
+									}
+									
+									/* if(value.image == null) {
+										var user_image = 0;
+									} else {
+										var	user_image = value.image.split(",");
+									} */
+									
+									check_available("seat[]", image_array[0]);
+									
+									/* ====================================
+									 * Auto Calculate the amount per seat
+									 =================================== */
+									var seat_amount = 0;
+									
+									$('input[name="seat[]"]').click(function() {
+										if($(this).is(':checked')) {
+											seat_amount += parseInt($(this).val());
+										} else {
+											seat_amount -= parseInt($(this).val());
+										}
+										
+										$('.total-amount').html('<strong>&euro; '+seat_amount+'</strong>');
+										$('input[name="amount"]').attr('value', seat_amount);
+									});
+								}
+							});
 						} else {
-							$('.request_form').slideUp();
+							console.log('Wala Laman');
+							$('.seat-taken, .seat-available').empty();
 						}
-					});
+					}
+				});
+				
+				
+				$('.step-next').click(function() {
+					var error = 0;
+					
+					$('.err-msg-cal').empty();
+					
+					if($('input[name="chose_dates"]').val() == '') {
+						$('.err-msg-cal').html('You need to choose at least one of the dates available').css({background:'#FF1B43', color:'#fff', fontSize:'1.2em', fontWeight:'bold', textAlign:'center', border:'1px solid #ff0000', padding:'5px 0'});
+						error = 1;
+					}
+					
+					if(error == 0) {
+						$('.step-next').click(function() {
+							$('#choose-date').modal('hide');
+							$('#booking').modal({dynamic:true});
+							
+							$('.step-back').click(function() {
+								$('#booking').modal('hide');
+								$('#choose-date').modal({dynamic:true});
+							});
+						});
+					} else {
+						return false;
+					}
 				});
 			}
 		});
@@ -532,7 +635,6 @@ $(function() {
 			error 		= 0;
 		
 		if(!$('input[name="seat[]"]').is(':checked')) {
-			// console.log('You need to check the checkbox');
 			$('.a-error').addClass('error').html('You need to choose seats');
 			error = 1;
 		}
@@ -558,7 +660,6 @@ $(function() {
 				},
 				type: 'GET',
 				success: function() {
-					console.log('success');
 					$('#booking').modal('hide');
 				}
 			});
