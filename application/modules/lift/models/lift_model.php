@@ -121,12 +121,11 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function get_lift_post($id, $what = 'user_lift_post.id, user_lift_post.user_id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.via, user_lift_post.available, user_lift_post.amount, user_lift_post.re_route, user_lift_post.start_time as time, user_media.media_filename as image, user_lift_dates.date') {
+	function get_lift_post($id, $what = 'user_lift_post.id, user_lift_post.user_id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.via, user_lift_post.available, user_lift_post.amount, user_lift_post.re_route, user_lift_post.start_time as time, user_lift_dates.date') {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
 							->join('user_lift_dates', 'user_lift_dates.post_id = user_lift_post.id')
-							->join('user_media', 'user_media.user_id = user.user_id')
 							->where('user_lift_post.id', $id)
 							->get();
 							
@@ -136,7 +135,7 @@ class Lift_model extends CI_Model {
 	}
 	
 	function lift_seat_booked($id, $date, $what = 'lift_seat_booked.seat as seats, lift_seat_booked.date, media_filename as image') {	
-		$array = array('post_id' => $id, 'date' => date('Y-m-d', strtotime($date[0])));
+		$array = array('post_id' => $id, 'date' => date('Y-m-d', strtotime($date)));
 		
 		$query = $this->db->select($what)
 							->from('lift_seat_booked')
@@ -149,16 +148,16 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	/* function dates($id, $what = 'user_lift_dates.date') {	
+	function get_user_image($what = 'media_filename as image') {
 		$query = $this->db->select($what)
-					->from('user_lift_dates')
-					->where('post_id', $id)
-					->get();
-		
+							->from('user_media')
+							->where('user_id', $this->session->userdata('user_id'))
+							->get();
+							
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
-	} */
+	}
 	
 	function book_details($post_id) {
 		$query = $this->db->query("

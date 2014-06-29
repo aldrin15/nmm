@@ -1,7 +1,8 @@
 <?php $this->load->view('header_content')?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>"/>
+<!--<link rel="stylesheet" type="text/css" href="<?php //echo base_url('assets/css/mdp.css')?>"/>-->
 <style type="text/css">
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {background:#00ff00;}
 .ui-datepicker {width:100%;}
 .ui-widget-content {background:none;}
 .ui-datepicker-calendar td {border:none;}
@@ -502,13 +503,13 @@ $(function() {
 				// console.log(data);
 				var date_array 	= [],
 					seat_array  = [],
-					image_array	= []
+					// image_array	= [],
 					amount_array= [];
 				
 				$.each($.parseJSON(data), function(i, val) {
 					date_array.push(val.date);
 					seat_array.push(val.available);
-					image_array.push(val.image);
+					// image_array.push(val.image);
 					amount_array.push(val.amount);
 				});
 					
@@ -522,12 +523,12 @@ $(function() {
 					return ($.inArray(fullyear, date_array) > -1 ? [true, ''] : [false, '']);
 				}
 				
-				$('#choose-date-cal').multiDatesPicker({
+				$('#choose-date-cal').datepicker({
 					minDate : 0,
+					dateFormat: 'mm/dd/yy',
 					beforeShowDay : date,
 					onSelect: function(dateText, inst) {
-						// console.log(image_array[0]);
-						var getDates = $(this).multiDatesPicker('getDates'),
+						var getDates = $('#choose-date-cal').datepicker().val(),
 							on_off = $('input[name="chose_dates"]').val(getDates);
 							$('.total-amount').empty();
 						
@@ -543,32 +544,42 @@ $(function() {
 									// console.log(data);
 									// console.log(seat_array);
 									// console.log(image_array[0]);
-									var user_image_array= [],
-										seat_taken		= 0;
+									var user_image_array	= [],
+										user_image_length 	= [],
+										seat_taken			= 0;
 									
 									$.each($.parseJSON(data), function(index, value) {
 										seat_taken += value.seats << 0;
-										user_image_array.push(value.image);
+									
+										if(value.image == null) {
+											user_image_array = 0;
+										} else {
+											user_image_array.push(value.image);
+										}
 									});
 									
-									var user_image = [];
-									var availability = seat_array[0] - seat_taken;
+									var image_length	= user_image_array.length;
+									var user_image		= [];
+									var availability	= seat_array[0] - seat_taken;
 									
-									for(var i = 0; i < user_image_array.length; i++) {
+									for(var i = 0; i < image_length; i++) {
 										$('.seat-taken').append("<span style='display:inline-block; background: url(\"<?php echo base_url('assets/media_uploads')?>/"+user_image_array[i]+"\") no-repeat; margin-right:16px; width:65px; height:66px;'></span>");
+									}
+									
+									for(var i = 0; i < user_image_length; i++) {
+										console.log(user_image_array);
+										// $('.seat-taken').append("<span style='display:inline-block; background: url(\"<?php echo base_url('assets/media_uploads')?>/"+user_image_array[i]+"\") no-repeat; margin-right:16px; width:65px; height:66px;'></span>");
 									}
 									
 									for(var j = 0; j < availability; j++) {
 										$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="'+amount_array[0]+'" /></label>');
 									}
 									
-									/* if(value.image == null) {
-										var user_image = 0;
-									} else {
-										var	user_image = value.image.split(",");
-									} */
+									<?php foreach($get_user_image as $image):?>
+									var image = '<?php echo $image['image']?>';
+									<?php endforeach?>
 									
-									check_available("seat[]", image_array[0]);
+									check_available("seat[]", image);
 									
 									/* ====================================
 									 * Auto Calculate the amount per seat

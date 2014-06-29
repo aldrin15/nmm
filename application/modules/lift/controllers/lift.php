@@ -110,7 +110,8 @@ class Lift extends MX_Controller {
 		
 		$data['lift_information'] 		= $this->lift_model->details($id);
 		$data['preference_data'] 		= $this->lift_model->preference($id);
-		// $data['dates_available_data'] 	= $this->lift_model->dates($id); 
+		$data['get_user_image'] 		= $this->lift_model->get_user_image();
+		
 		$data['view_file'] 				= 'lift_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -146,9 +147,7 @@ class Lift extends MX_Controller {
 		$date = $this->input->get('date');
 		
 		if(isset($_GET['date'])):
-			/*
-			 * Decrypt Data
-			 */
+			/* Decrypt Data */
 			function decrypt($action, $string) {
 				$output = false;
 				$key = 'My strong random secret key';
@@ -164,7 +163,7 @@ class Lift extends MX_Controller {
 			
 			$post_id = decrypt('decrypt', $id);
 		
-			$data['lift_seat_booked'] = $this->lift_model->lift_seat_booked($post_id, $date);
+			$data['lift_seat_booked']	= $this->lift_model->lift_seat_booked($post_id, $date);
 			
 			if($data['lift_seat_booked'] == false):
 				echo json_encode(array('message'=>'empty'));
