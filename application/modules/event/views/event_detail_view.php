@@ -33,6 +33,9 @@
 		
 		<div id="lift">
 			<div class="lift-listing">
+				<?php if($event_details_lift_data == null):?>
+					<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px;"><p>There are no route that matches in this event area</p></div>
+				<?php else:?>
 				<ul>
 					<?php foreach($event_details_lift_data as $row): ?>
 					<li class="column">
@@ -78,7 +81,8 @@
 						<a href="#" class="quick-book fr">Quick Book</a>
 					</li>
 					<?php endforeach?>
-				</ul>
+				</ul>	
+				<?php endif?>
 				
 				<div class="clr"></div>
 			</div>

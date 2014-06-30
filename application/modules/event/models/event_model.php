@@ -24,7 +24,7 @@ class Event_model extends CI_Model {
 		return $result;
 	}
 	
-	public function detail_lift($event_detail, $what = 'user_lift_post.user_id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, via, available, amount, date') {
+	public function detail_lift($event_detail, $what = 'user_lift_post.user_id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, via, available, amount') {
 		$city_country_array = array();
 		
 		foreach($event_detail as $row):
@@ -38,7 +38,8 @@ class Event_model extends CI_Model {
 		
 		$query = $this->db->select($what)
 							->from('user_lift_post')
-							->like('route_to', $city_country[0][0], 'after')
+							->join('user_lift_dates', 'user_lift_dates.post_id = user_lift_post.id')
+							->like('user_lift_post.route_to', $city_country[0][0], 'after')
 							->get();
 		
 		$result = $query->result_array();
@@ -62,7 +63,7 @@ class Event_model extends CI_Model {
 							->from('user_wish_lift')
 							->join('user', 'user.user_id = user_wish_lift.user_id', 'left')
 							->join('user_rating', 'user_rating.user_id = user_wish_lift.user_id', 'left')
-							->like('route_to', $passenger[0][0], 'after')
+							->like('user_wish_lift.route_to', $passenger[0][0], 'after')
 							->get();
 		
 		$result = $query->result_array();
