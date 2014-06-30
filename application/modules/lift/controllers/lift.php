@@ -175,6 +175,14 @@ class Lift extends MX_Controller {
 		endif;		
 	}
 	
+	public function insert_ride() {
+		$this->lift_model->booked_user();
+		/* $post = $this->input->post();
+		
+		if($post):
+		endif; */
+	}
+	
 	public function quick_book_details() {
 		$token = $this->input->get('token');
 

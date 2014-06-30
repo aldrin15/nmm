@@ -159,6 +159,21 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
+	function booked_user() {
+		for($i = 0; $i < $this->input->post('get_seat'); $i++):
+			$data = array(
+				'post_id'		=> $this->input->post('id'),
+				'user_id'		=> $this->session->userdata('user_id'),
+				'seat'			=> '1',
+				'reroute_from'	=> $this->input->post('reroute_from'),
+				'reroute_to'	=> $this->input->post('reroute_to'),
+				'date'			=> date('Y-m-d', strtotime($this->input->post('date')))
+			);
+			
+			$query = $this->db->insert('lift_seat_booked', $data);
+		endfor;
+	}
+	
 	function book_details($post_id) {
 		$query = $this->db->query("
 			SELECT user_lift_post.id AS id, user.user_id AS user_id, firstname, lastname, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model AS car, user_car.license_plate AS plate, 

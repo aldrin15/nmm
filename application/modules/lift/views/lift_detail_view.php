@@ -262,7 +262,7 @@
 		
 		<div class="btn-book-now">
 			<?php
-			//if($available !== 0):
+			if($this->session->userdata('user_id') == true):
 				function encrypt($action, $string) {
 				   $output = false;
 
@@ -281,7 +281,7 @@
 				$hash = encrypt('encrypt', $row['id']);	
 			?>
 			<a href="#" class="quick-book btn-gray" data-toggle="modal" data-target="#choose-date" data-hash="<?php echo $hash?>">Start Booking</a>
-			<?php //endif?>
+			<?php endif?>
 		</div>
 	</div>
 	
@@ -289,11 +289,14 @@
 	
 	<div class="lift-map-location">
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-		<style type="text/css">#map_canvas {margin-top:30px; width:100%; height:280px;}</style>
+		<style type="text/css">
+		#ride-location {width:100%; height:280px;}
+		#ride-location div {margin-top:90px;}
+		#ride-location p, #ride-location i {display:inline-block; font-size:3em; vertical-align:text-bottom;}
+		#ride-location i {background:url('<?php echo base_url('assets/images/gmap_marker.png')?>') no-repeat; width:49px; height:77px;}
+		</style>
 		<script type="text/javascript">
-		$(window).load(function() {
-			initialize();
-		});
+		$(window).load(function() { initialize(); });
 		
 		var directionDisplay;
 		var directionsService = new google.maps.DirectionsService();
@@ -306,7 +309,7 @@
 				zoom: 6,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
-			map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+			map = new google.maps.Map(document.getElementById("ride-location"), myOptions);
 			directionsDisplay.setMap(map);
 			
 			calcRoute();
@@ -314,9 +317,8 @@
 
 		function calcRoute() {
 			var request = {
-				// origin: "Pasay, Philippines", //from
-				origin: "<?php echo $row['origin']?>", //from
-				destination: "<?php echo $row['destination']?>",//to
+				origin: "<?php echo $row['origin']?>",
+				destination: "<?php echo $row['destination']?>",
 				waypoints: [{
 					location: "Makati, Philippines",//via
 					stopover:false
@@ -329,11 +331,14 @@
 					directionsDisplay.setDirections(response);
 				} else {
 					// alert("directions response "+status);
+					console.log('Google cannot locate this address');
+					$('#ride-location').empty();
+					$('#ride-location').html("<div><p>Google cannot locate this address!</p> <i></i> <div class='clr'></div></div>").css({border:'3px solid #088132', textAlign:'center', marginTop:'30px'});
 				}
 			});
 		}
 		</script>
-		<div id="map_canvas" > </div>
+		<div id="ride-location" > </div>
 	</div>
 	<?php endforeach?>
 </div>
@@ -359,8 +364,6 @@
 									<div class="clr"></div>
 							<div class="seat-taken fl"></div>
 							<div class="seat-available"></div>
-							<input type="hidden" name="get_seat"/>
-							<input type="hidden" name="amount" value=""/>
 							
 							<div class="clr"></div>
 						</li>
@@ -379,7 +382,7 @@
 					</ul>
 				</div>
 				<div class="modal-footer">
-					<a href="#" class="btn btn-default step-next">Next</a>
+					<a href="javascript:void(0)" class="btn btn-default step-next">Next</a>
 				</div>
 			</form>
 		</div>
@@ -396,14 +399,6 @@
 				</div>
 				<div class="modal-body">
 					<ul>
-						<li>
-							<label for="Available Seats" style="width:300px">Available seat(s) : <span class="a-error"></span></label>
-								
-							<div class="seat-taken clr"></div>
-							<div class="seat-available"></div>
-							
-							<div class="clr"></div>
-						</li>
 						<li>
 							<label for="Total Price">Total Price</label>
 							<span class="total-amount"></span>
@@ -430,23 +425,34 @@
 							<label for="To">To</label>
 							<input type="text" name="re_destination" id="to-route" class="form-control"/>
 							
-								<div class="clr"></div>
+							<div class="clr"></div>
 						</li>
 					</ul>
-					
-					<input type="hidden" name="post_id" value=""/>
-					<input type="hidden" name="user_id" value=""/>
-					
-					<input type="hidden" name="car_model" value=""/>
-					<input type="hidden" name="license_plate" value=""/>
-					<input type="hidden" name="start_time" value=""/>
 				</div>
 				<div class="modal-footer">
-				<div class="modal-footer">
+					<input type="hidden" name="get_seat"/>
+					<input type="hidden" name="amount" value=""/>
+					<input type="hidden" name="date" value=""/>
 					<a href="#" class="btn btn-default fl step-back">Go Back</a>
 					<input type="submit" name="book_submit" value="Proceed" class="btn btn-default"/>
-					
+
 					<div class="clr"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="successful" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
+	<div class="modal-dialog" style="width:450px">
+		<form action="" method="post">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					&nbsp;
+				</div>
+				<div class="modal-body">
+					<p>You have successfully booked</p>
 				</div>
 			</form>
 		</div>
@@ -462,6 +468,7 @@
 <script type="text/javascript" language="javascript">
 function check_available(checkboxName, image){
 	var checkBox = $('input[name="'+ checkboxName +'"]');
+	
 	$(checkBox).each(function(){
 		$(this).wrap( "<span class='lift-available'></span>" );
 		if($(this).is(':checked')){
@@ -536,6 +543,7 @@ $(function() {
 							$('.seat-taken, .seat-available').empty();
 							$('.lift-price-per-seat').empty();
 							$('.lift-price-per-seat').html(amount_array[0]);
+							$('input[name="date"]').val(getDates)
 							
 							$.ajax({
 								url		: '<?php echo base_url('lift/get_lift_booked')?>',
@@ -566,40 +574,42 @@ $(function() {
 										$('.seat-taken').append("<span style='display:inline-block; background: url(\"<?php echo base_url('assets/media_uploads')?>/"+user_image_array[i]+"\") no-repeat; margin-right:16px; width:65px; height:66px;'></span>");
 									}
 									
-									for(var i = 0; i < user_image_length; i++) {
-										console.log(user_image_array);
-										// $('.seat-taken').append("<span style='display:inline-block; background: url(\"<?php echo base_url('assets/media_uploads')?>/"+user_image_array[i]+"\") no-repeat; margin-right:16px; width:65px; height:66px;'></span>");
-									}
-									
 									for(var j = 0; j < availability; j++) {
 										$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="'+amount_array[0]+'" /></label>');
 									}
 									
-									<?php foreach($get_user_image as $image):?>
-									var image = '<?php echo $image['image']?>';
-									<?php endforeach?>
+									<?php if($get_user_image == null):?>
+										var image = '0';
+									<?php else:
+										foreach($get_user_image as $image):?>
+											var image = '<?php echo $image['image']?>';
+									<?php endforeach;
+									endif?>
 									
 									check_available("seat[]", image);
 									
 									/* ====================================
 									 * Auto Calculate the amount per seat
 									 =================================== */
-									var seat_amount = 0;
+									var seat_amount = 0
+										seat_numer	= 0;
 									
 									$('input[name="seat[]"]').click(function() {
 										if($(this).is(':checked')) {
 											seat_amount += parseInt($(this).val());
+											seat_numer += parseInt(1);
 										} else {
 											seat_amount -= parseInt($(this).val());
+											seat_numer -= parseInt(1);
 										}
 										
 										$('.total-amount').html('<strong>&euro; '+seat_amount+'</strong>');
 										$('input[name="amount"]').attr('value', seat_amount);
+										$('input[name="get_seat"]').attr('value', seat_numer);
 									});
 								}
 							});
 						} else {
-							console.log('Wala Laman');
 							$('.seat-taken, .seat-available').empty();
 						}
 					}
@@ -607,7 +617,9 @@ $(function() {
 				
 				
 				$('.step-next').click(function() {
-					var error = 0;
+					var get_seat	= $('input[name="get_seat"]').val(),
+						amount		= $('input[name="amount"]').val(),
+						error		= 0;
 					
 					$('.err-msg-cal').empty();
 					
@@ -616,15 +628,46 @@ $(function() {
 						error = 1;
 					}
 					
+					/* Request re-route form */
+					$('input[name="request_form"]').click(function() {
+						if($(this).is(':checked')) {
+							$('.request_form').slideDown();
+						} else {
+							$('.request_form').slideUp();
+						}
+					});
+					
 					if(error == 0) {
-						$('.step-next').click(function() {
-							$('#choose-date').modal('hide');
-							$('#booking').modal({dynamic:true});
+						$('#choose-date').modal('hide');
+						$('#booking').modal({dynamic:true});
+						
+						$('.step-back').click(function() {
+							$('#booking').modal('hide');
+							$('#choose-date').modal({dynamic:true});
+						});
+						
+						$('input[name="book_submit"]').click(function(e) {
+							e.preventDefault();
 							
-							$('.step-back').click(function() {
-								$('#booking').modal('hide');
-								$('#choose-date').modal({dynamic:true});
-							});
+							$.ajax({
+								url		: '<?php echo base_url('lift/insert_ride')?>',
+								type	: 'POST',
+								data	: {
+									id			:'<?php echo $this->uri->segment(3)?>', 
+									get_seat	:get_seat,
+									date		:$('input[name="date"]').val(), 
+									reroute_from:$('input[name="re_origin"]').val(), 
+									reroute_to	:$('input[name="re_destination"]').val()
+								},
+								success	: function() {
+									$('#booking').modal('hide');
+									$('#successful').modal({dynamic:true});
+									
+									$('#successful').on('hidden', function () {
+										location.reload();
+									})
+								}
+							}); 
 						});
 					} else {
 						return false;
@@ -634,7 +677,7 @@ $(function() {
 		});
 	});
 	
-	$('input[name="book_submit"]').click(function(e) {
+	/* $('input[name="book_submit"]').click(function(e) {
 		var	user_id 	= $('input[name="user_id"]').attr('value'),
 			post_id 	= $('input[name="post_id"]').attr('value'),
 			seat_taken 	= 0,
@@ -679,7 +722,7 @@ $(function() {
 		}
 		
 		e.preventDefault();
-	});
+	}); */
 
 	$('input[name="rate_submit"]').click(function() {
 		var rating_number = [];
