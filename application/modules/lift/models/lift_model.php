@@ -216,7 +216,7 @@ class Lift_model extends CI_Model {
 		endfor;
 	}
 	
-	public function create_lift() {
+	function create_lift() {
 		$post_data = array(
 			'user_id'		=> $this->session->userdata('user_id'),
 			'route_from'	=> $this->input->post('origin'),
@@ -260,8 +260,33 @@ class Lift_model extends CI_Model {
 			$insert_date = $this->db->insert('user_lift_dates', $date_data);		
 		endfor;
 	}
+	
+	function get_wish($id, $what = 'user_wish_lift.route_from AS origin, user_wish_lift.route_to AS destination, via, time, CONCAT( GROUP_CONCAT( user_wish_lift_preference.preference_id ) ) AS preference_id, CONCAT( GROUP_CONCAT( type ) ) as type') {
+		$query = $this->db->select($what)
+							->from('user_wish_lift')
+							->join('user_wish_lift_preference', 'user_wish_lift_preference.post_id = user_wish_lift.id', 'left')
+							->join('lift_preference', 'lift_preference.preference_id = user_wish_lift_preference.preference_id')
+							->where('user_wish_lift.id', $id)
+							->group_by('user_wish_lift_preference.post_id')
+							->get();
+							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function get_wish_date($id, $what = 'date') {
+		$query = $this->db->select($what)
+							->from('user_wish_date_booked')
+							->where('post_id', $id)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
 
-	public function get_user_car($user_id) {
+	function get_user_car($user_id) {
 		$query = $this->db->get_where('user_car', array('user_id'=> $user_id));
 		
 		$result = $query->result();
@@ -269,7 +294,7 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	public function insert_rating($user_id, $rating_number) {
+	function insert_rating($user_id, $rating_number) {
 		$data = array(
 			'user_id' => $user_id,
 			'rating_number' => $rating_number

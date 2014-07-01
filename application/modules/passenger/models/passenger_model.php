@@ -68,8 +68,18 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
-	function get_user_lift_post($what = 'user_lift_dates.post_id, user_lift_dates.route_from AS origins, user_lift_dates.route_to AS destination, CONCAT( GROUP_CONCAT( user_lift_dates.date ) ) AS dates') {
+	function get_user_lift_post($what = '*') {
 		$id = $this->session->userdata('user_id');
+		
+		$query = $this->db->select($what)
+							->from('user_lift_dates')
+							->where('user_id', $id)
+							->group_by('post_id')
+							->get();
+	}
+	
+	//function get_user_lift_post($what = 'user_lift_dates.post_id, user_lift_dates.route_from AS origins, user_lift_dates.route_to AS destination, CONCAT( GROUP_CONCAT( user_lift_dates.date ) ) AS dates') {
+		/* $id = $this->session->userdata('user_id');
 
 		$query = $this->db->select($what)
 							->from('user_lift_dates')
@@ -79,8 +89,8 @@ class Passenger_model extends CI_Model {
 				
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
-		return $result;
-	}
+		return $result; */		
+	//}
 	
 	// function get_user_lift_dates($id, $what = 'user_lift_dates.post_id, CONCAT( GROUP_CONCAT( user_lift_dates.date ) ) as dates') {
 	function get_user_lift_dates($id, $what = 'user_lift_dates.post_id, user_lift_dates.date as dates') {
@@ -117,14 +127,19 @@ class Passenger_model extends CI_Model {
 	}
 	
 	function return_user_lift_post($date, $what = 'user_lift_dates.post_id, user_lift_dates.route_from as origins, user_lift_dates.route_to as destination, user_lift_dates.date as dates') {
-		$query = $this->db->select($what)
-							->from('user_lift_dates')
-							->where_in('date', $date)
-							->get();
-							
-		$result = $query->result_array();
-		if(count($result) == 0) return FALSE;
-		return $result;
+		if($date == null):
+		else:
+			if($date != ''):
+				$query = $this->db->select($what)
+									->from('user_lift_dates')
+									->where_in('date', $date)
+									->get();
+									
+				$result = $query->result_array();
+				if(count($result) == 0) return FALSE;
+				return $result;
+			endif;
+		endif;
 	}
 	
 	function preference($id, $what = 'post_id, CONCAT(GROUP_CONCAT(user_wish_lift_preference.preference_id)) as preference, CONCAT(GROUP_CONCAT(lift_preference.type)) as type') {

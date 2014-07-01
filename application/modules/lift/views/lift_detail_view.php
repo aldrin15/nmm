@@ -1,6 +1,5 @@
 <?php $this->load->view('header_content')?>
 
-<!--<link rel="stylesheet" type="text/css" href="<?php //echo base_url('assets/css/mdp.css')?>"/>-->
 <style type="text/css">
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {background:#00ff00;}
 .ui-datepicker {width:100%;}

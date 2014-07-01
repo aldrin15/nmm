@@ -77,6 +77,14 @@ class Lift extends MX_Controller {
 	public function create() {
 		modules::run('login/is_logged_in');
 		
+		if($this->uri->segment(3) != ''):
+			$data['get_wish_data'] = $this->lift_model->get_wish($this->uri->segment(3));
+			$data['get_wish_date'] = $this->lift_model->get_wish_date($this->uri->segment(3));
+		else:
+			$data['get_wish_data'] = '';
+			$data['get_wish_date'] = '';
+		endif;
+		
 		$post = $this->input->post();
 		
 		if($post):
@@ -177,10 +185,6 @@ class Lift extends MX_Controller {
 	
 	public function insert_ride() {
 		$this->lift_model->booked_user();
-		/* $post = $this->input->post();
-		
-		if($post):
-		endif; */
 	}
 	
 	public function quick_book_details() {
@@ -214,19 +218,6 @@ class Lift extends MX_Controller {
 		
 		echo json_encode($quick_book_array);
 	}
-	
-	/* public function booked() {
-		$user_id 		= $this->input->get('user_id');
-		$post_id 		= $this->input->get('post_id');
-		$seat_taken		= $this->input->get('seat_taken');
-		$amount 		= $this->input->get('amount');
-		$message 		= $this->input->get('message');
-		$request 		= $this->input->get('request');
-		$start_time		= $this->input->get('start_time');
-		$date 			= date('Y-m-d', strtotime($this->input->get('date')));
-		
-		$this->lift_model->booked($user_id, $post_id, $seat_taken, $amount, $message, $request, $start_time, $date);
-	} */
 	
 	public function search() {
 		$post = $this->input->post();
@@ -287,20 +278,6 @@ class Lift extends MX_Controller {
 		endforeach;
 		
 		echo json_encode($city_array);
-	}
-	
-	public function test_calendar() {
-		$prefs = array (
-		   'start_day'			=> 'saturday',
-		   'month_type'			=> 'long',
-		   'day_type'			=> 'short',
-		   'show_next_prev'		=> TRUE,
-		   'next_prev_url'   	=> base_url('lift/test_calendar')
-		);
-
-		$this->load->library('calendar', $prefs);
-
-		echo $this->calendar->generate($this->uri->segment(3), $this->uri->segment(4));
 	}
 	
 	public function insert_rating() {

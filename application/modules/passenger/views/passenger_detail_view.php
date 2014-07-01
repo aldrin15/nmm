@@ -45,12 +45,14 @@
 					</li>
 					<li class="passenger-message">
 						<a href="#" class="send-message-to" data-toggle="modal" data-target="#message" data-id="<?php echo $row['user_id']?>">Send message</a>
-						
+						<?php if($row['user_id'] == $this->session->userdata('user_id')):?>
+						<?php else:?>
 						<select name="passenger-action" class="selectpicker select-width-auto">
 							<option>- Invite Me / Create Lift -</option>
 							<option data-id="<?php echo $row['id']?>">Invite Me</option>
-							<option>Create Lift</option>
+							<option data-id="<?php echo $row['id']?>">Create Lift</option>
 						</select>
+						<?php endif?>
 					</li>
 				</ul>
 				
@@ -139,7 +141,7 @@
 			
 			<div class="pcal-body">
 				<ul>
-					<li>No Posted Date</li>
+					<!--<li>No Posted Date</li>-->
 				</ul>
 			</div>
 		</div>
@@ -454,7 +456,9 @@ $(function() {
 					data	: {id:id},
 					success : function(data) {
 						if($.parseJSON(data) == 'empty') {
-							$('#select-lift ul li.s-l-body').append('<div><p style="font-size:1.5em; text-align:center; padding:20px 0;">No date matched on your lift post</p> <a href="#" class="btn-create-lift btn-advance" style="display:block; margin:0 auto;">Create Lift</a></div>');
+							<?php foreach($wish_lift_detail as $row):?>
+							$('#select-lift ul li.s-l-body').append('<div><p style="font-size:1.5em; text-align:center; padding:20px 0;">No date matched on your lift post</p> <a href="<?php echo base_url('lift/create')?>/<?php echo $row['id']?>" class="btn-create-lift btn-advance" style="display:block; margin:0 auto;">Create Lift</a></div>');
+							<?php endforeach?>
 							$('#select-lift input[name="choose_lift"], .s-l-header').remove();
 						} else {
 							$.each($.parseJSON(data), function(i, val) {
@@ -525,18 +529,7 @@ $(function() {
 		}
 		
 		if(choices == 'Create Lift') {
-			<?php //foreach($wish_lift_detail as $row):?>
-			/*
-			$.ajax({
-				url : '<?php echo base_url('lift/create')?>',
-				type: 'GET',
-				data: {
-					origin : '<?php echo $row['origins']?>',
-					destination : '<?php echo $row['destination']?>',
-				}
-			});
-			*/
-			<?php //endforeach?>
+			window.location.href = '<?php echo base_url('lift/create')?>/'+id;
 		}
 	});
 });

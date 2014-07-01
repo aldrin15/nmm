@@ -26,7 +26,7 @@ class Passenger extends MX_Controller {
 		$data['wish_lift_detail'] 		= $this->passenger_model->detail($id);
 		$data['preference_data'] 		= $this->passenger_model->preference($id);
 		
-		$data['view_file']			= 'passenger_detail_view';
+		$data['view_file']				= 'passenger_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
@@ -62,7 +62,11 @@ class Passenger extends MX_Controller {
 		
 		$date_result = $this->passenger_model->return_user_lift_post($pass_date_array);
 		
-		$result = array_filter($date_result);
+		if($date_result != ''):
+			$result = array_filter($date_result);
+		else:
+			$result = 0;
+		endif;
 		
 		if($result == null):
 			echo json_encode("empty");

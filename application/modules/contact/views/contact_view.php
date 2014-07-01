@@ -3,31 +3,28 @@
 <div class="contact m-center-content">
 	<h1>Contact Us Page</h1>
 	
-	<form action="" method="post">
+	<form action="" method="post" class="span5">
 		<ul>
 			<li>
-				<?php echo form_error('name', '<div class="error">', '</div>')?>
-				<label for="Name">Name:</label>
-				<input type="text" name="name" id=""/>
+				<label for="Name">Name: <?php echo form_error('name', '<span class="error">', '</span>')?></label>
+				<input type="text" name="name" id="" class="form-control"/>
 				
 				<div class="clr"></div>
 			</li>
 			<li>
-				<?php echo form_error('email', '<div class="error">', '</div>')?>
-				<label for="Email">Email:</label>
-				<input type="text" name="email" id=""/>
+				<label for="Email">Email: <?php echo form_error('email', '<span class="error">', '</span>')?></label>
+				<input type="text" name="email" id="" class="form-control"/>
 				
 				<div class="clr"></div>
 			</li>
 			<li>
-				<?php echo form_error('message', '<div class="error">', '</div>')?>
-				<label for="Message">Message</label>
-				<textarea name="message" id="" cols="30" rows="10"></textarea>
+				<label for="Message">Message <?php echo form_error('message', '<span class="error">', '</span>')?></label>
+				<textarea name="message" id="" cols="30" rows="10" class="form-control"></textarea>
 				
 				<div class="clr"></div>
 			</li>
 			<li>
-				<input type="submit" name="contact_submit" value="Submit"/>
+				<input type="submit" name="contact_submit" value="Submit" class="btn btn-default"/>
 			</li>
 		</ul>
 	</form>
