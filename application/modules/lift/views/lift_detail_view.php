@@ -147,8 +147,13 @@
 			</div>
 			<?php
 			$other_dates_array = explode(',', $row['other_post_dates']);
-			$other_origin_array = explode(',', $row['other_post_origins']);
-			$other_destination_array = explode(',', $row['other_post_destinations']);
+			$other_origin_array = explode('-', $row['other_post_origins']);
+			$other_destination_array = explode('-', $row['other_post_destinations']);
+			
+			/* echo '<pre>';
+			var_dump($other_origin_array);
+			var_dump($other_destination_array);
+			echo '</pre>'; */
 			?>
 			<script type="text/javascript">
 			function get_data(events, month_today, year) {
@@ -261,7 +266,7 @@
 		
 		<div class="btn-book-now">
 			<?php
-			if($this->session->userdata('user_id') == true):
+			if($row['user_id'] != $this->session->userdata('user_id')):
 				function encrypt($action, $string) {
 				   $output = false;
 

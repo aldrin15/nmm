@@ -11,6 +11,7 @@
 .ui-state-highlight {border:none}
 .ui-widget-header {background:#fff;}
 .ui-datepicker .ui-datepicker-header {padding:.5em 0;}
+.ui-menu .ui-menu-item {background:#fff;}
 </style>
 <div class="create-lift m-center-content">
 	<h2>Create your own lift</h2><br /><br />
@@ -25,10 +26,6 @@
 		foreach((array)$get_wish_data as $value):
 			$row[] = $value;
 		endforeach;
-		
-		/* echo '<pre>';
-		var_dump($row);
-		echo '</pre>'; */
 		?>
 			
 		<?php if($get_wish_data != ''):?>
@@ -467,17 +464,29 @@ $(function() {
 			$dates_array[] = '"'.$row['date'].'"';
 		endforeach;
 	?>
-		var passenger_date = [<?php echo implode(',', $dates_array)?>];
+	var passenger_date = [<?php echo implode(',', $dates_array)?>];
+	
+	function choices(date) {
+		var month 		= date.getMonth()+1;
+			real_month 	= (month < 9 ? "0"+month:month)
+			day			= date.getDate(),
+			year		= date.getFullYear(),
+			fullyear	= year+'-'+real_month+'-'+day;
+	
+		return ($.inArray(fullyear, passenger_date) > -1) ? [true, ''] : [false, '']
+	}
+	<?php else:?>
+	$('.lift-preference div').click(function() {
+		var input = $('input', this);
 		
-		function choices(date) {
-			var month 		= date.getMonth()+1;
-				real_month 	= (month < 9 ? "0"+month:month)
-				day			= date.getDate(),
-				year		= date.getFullYear(),
-				fullyear	= year+'-'+real_month+'-'+day;
-		
-			return ($.inArray(fullyear, passenger_date) > -1) ? [true, ''] : [false, '']
+		if(input.attr('checked')){
+		   input.attr('checked', false);
+		   $(this).removeClass('selected');
+		} else{
+		   input.attr('checked', true);
+		   $(this).addClass('selected');
 		}
+	});
 	<?php endif?>
 	
 	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", <?php echo ($get_wish_date != '') ? 'beforeShowDay:choices' : '' ?>});

@@ -45,8 +45,7 @@
 					</li>
 					<li class="passenger-message">
 						<a href="#" class="send-message-to" data-toggle="modal" data-target="#message" data-id="<?php echo $row['user_id']?>">Send message</a>
-						<?php if($row['user_id'] == $this->session->userdata('user_id')):?>
-						<?php else:?>
+						<?php if($row['user_id'] != $this->session->userdata('user_id')):?>
 						<select name="passenger-action" class="selectpicker select-width-auto">
 							<option>- Invite Me / Create Lift -</option>
 							<option data-id="<?php echo $row['id']?>">Invite Me</option>
@@ -261,7 +260,8 @@
 					if (status == google.maps.DirectionsStatus.OK) {
 						directionsDisplay.setDirections(response);
 					} else {
-						alert("directions response "+status);
+						// alert("directions response "+status);
+						console.log("Google can't find the map");
 					}
 				});
 			}
@@ -317,8 +317,8 @@
 						<ul>
 							<li class="s-l-header">
 								<span class="span1">&nbsp;</span>
-								<span class="span3">Routes</span>
-								<span class="span2">Dates</span>
+								<span class="span3"><strong>Routes</strong></span>
+								<span class="span2"><strong>Dates</strong></span>
 								
 								<div class="clr"></div>
 								
@@ -462,7 +462,7 @@ $(function() {
 							$('#select-lift input[name="choose_lift"], .s-l-header').remove();
 						} else {
 							$.each($.parseJSON(data), function(i, val) {
-								$('#select-lift ul li.s-l-body').append('<div><span class="span1"><input type="radio" name="lift_created[]" value="'+val.post_id+'" id="" value=""/></span> <span class="span3">'+val.origins+' from '+val.destination+'</span><span class="span2">'+val.dates+'</span><div class="clr"></div></div>');
+								$('#select-lift ul li.s-l-body').append('<div><span class="span1"><input type="radio" name="lift_created[]" value="'+val.user_id+'" data-id="<?php echo $this->uri->segment(3)?>" id="" value=""/></span> <span class="span3">'+val.origins+' from '+val.destination+'</span><span class="span2">'+val.dates+'</span><div class="clr"></div></div>');
 								console.log(val.dates);
 							});
 						}
@@ -482,41 +482,82 @@ $(function() {
 								
 								$.ajax({
 									url		: '<?php echo base_url('passenger/get_selected_lift_data')?>',
-									data	: {id : $('input[name="lift_created[]"]:checked').val()},
+									data	: { id:$('input[name="lift_created[]"]:checked').val(), post:$('input[name="lift_created[]"]:checked').attr('data-id') },
 									success : function(data) {
-										console.log(data);
+										var dateArray = [];
+										
+										$.each($.parseJSON(data), function(i, val) {
+											dateArray.push(val);
+										});
+										
+										$('#available-dates').multiDatesPicker({ beforeShowDay : dates });
+										
+										$('#available-dates').click(function() {
+											var getDates		= $(this).multiDatesPicker('getDates'),
+												getDates_array	= [];
+											
+											$.each(getDates, function(index, value) {
+												getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>');
+											});
+											
+											$('input[name="dates"]').val(getDates_array);
+										});
+										
+										function dates(date) {				
+											var fullyear = date.getFullYear() + "-" +
+												("0" + (date.getMonth() + 1)).slice(-2) + "-" +
+												("0" + date.getDate()).slice(-2);
+												
+											return ($.inArray(fullyear, dateArray) > -1 ? [true, ''] : [false, '']);
+										}
+										
+										$('input[name="book_submit"]').click(function(e) {
+											e.preventDefault();
+											var dates	= $('input[name="dates"]'),
+												price 	= $('input[name="price"]'),
+												remarks	= $('textarea[name="remarks"]'),
+												error = 0;
+												
+											$('*').removeClass('error-field');
+											$('.date-error').html(' ')
+											
+											if(dates.val() == '') {
+												dates.addClass('error-field');
+												$('.date-error').html('Please choose date(s)').css({color:'#ff0000'});
+												error = 1;
+											}
+											
+											if(price.val() == '') {
+												price.addClass('error-field');
+												error = 1;
+											}
+											
+											if(remarks.val() == '') {
+												remarks.addClass('error-field');
+												error = 1;
+											}
+											
+											if(error == 0) {
+												$.ajax({
+													url		: '<?php echo base_url('passenger/invite_me')?>',
+													type	: 'POST',
+													data	: {
+														post_id : id,
+														dates	: dates.val(),
+														price	: price.val(),
+														remarks	: remarks.val()
+													},
+													success	: function(data) {
+														$('#invite_lift').modal('hide');
+														$('#invite_lift_success').modal({dynamic:true});
+													}
+												});
+											} else {
+												return false;
+											}
+										});
 									}
 								});
-								
-								/* $('input[name="lift_created[]"]:checked').val()
-								
-								
-								<?php 
-								if(!empty($dates_available_data)):
-									$date_array = array();
-
-									foreach($dates_available_data as $test):
-										$date_array[] = '"'.date('Y-n-d', strtotime($test['date'])).'"';
-									endforeach;
-
-									$a = implode(',', $date_array);
-								else:
-									$a = 0;
-								endif;
-								?>	
-
-								var dateArray = [<?php echo $a?>];
-								
-								function date_array(date) {
-									var fulldate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
-									
-									return ($.inArray(fulldate, dateArray) > -1 ? [true, ''] : [false, '']);
-								}
-								
-								$('#available-dates').multiDatesPicker({
-									minDate: '0',
-									beforeShowDay : date_array
-								}); */
 							} else {
 								return false;
 							}
@@ -534,71 +575,3 @@ $(function() {
 	});
 });
 </script>
-
-<!-- 
-var authenticated = '<?php echo $this->session->userdata('validated')?>';
-			
-			if(authenticated == 1) {
-				$('#invite_lift').modal({dynamic:true});
-			} else {
-				window.location.href = "<?php echo base_url('login')?>";
-			}
-			
-			$('#available-dates').click(function() {
-				var getDates		= $(this).multiDatesPicker('getDates'),
-					getDates_array	= [];
-				
-				$.each(getDates, function(index, value) {
-					getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>');
-				});
-				
-				$('input[name="dates"]').val(getDates_array);
-			});
-			
-			$('input[name="book_submit"]').click(function(e) {
-				e.preventDefault();
-				var dates	= $('input[name="dates"]'),
-					price 	= $('input[name="price"]'),
-					remarks	= $('textarea[name="remarks"]'),
-					error = 0;
-					
-				$('*').removeClass('error-field');
-				$('.date-error').html(' ')
-				
-				if(dates.val() == '') {
-					dates.addClass('error-field');
-					$('.date-error').html('Please choose date(s)').css({color:'#ff0000'});
-					error = 1;
-				}
-				
-				if(price.val() == '') {
-					price.addClass('error-field');
-					error = 1;
-				}
-				
-				if(remarks.val() == '') {
-					remarks.addClass('error-field');
-					error = 1;
-				}
-				
-				if(error == 0) {
-					$.ajax({
-						url		: '<?php echo base_url('passenger/invite_me')?>',
-						type	: 'POST',
-						data	: {
-							post_id : id,
-							dates	: dates.val(),
-							price	: price.val(),
-							remarks	: remarks.val()
-						},
-						success	: function(data) {
-							// console.log('success');
-							$('#invite_lift').modal('hide');
-							$('#invite_lift_success').modal({dynamic:true});
-						}
-					});
-				} else {
-					return false;
-				}
-			});
--->

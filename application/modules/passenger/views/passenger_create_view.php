@@ -1,19 +1,17 @@
 <?php $this->load->view('header_content')?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>">
 <style type="text/css">
-.error {color:#ff0000; margin-left:100px;}
-
-.create-lift ul {list-style:none;}
-.profile-search ul li {float:left;}
-
-.create-lift-form h3 {padding:10px 0;}
-.create-lift-form ul li {margin-bottom:10px;}
-.create-lift-form ul li label {width:100px;}
-.create-lift-form ul li label, .create-lift-form ul li input, .create-lift-form ul li select {float:left;}
-
-.create-lift-form ul li div.fl {margin-right:10px;}
-.create-lift-form ul li div input[type="checkbox"] {margin-top:3px;}
+#calendar {width:360px;}
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {background:#00ff00;}
+.ui-datepicker {width:100%;}
+.ui-widget-content {background:none;}
+.ui-datepicker-calendar td {border:none;}
+.ui-datepicker td span, .ui-datepicker td a {padding:10px 5px;}
+.ui-widget-header .ui-state-highlight {border:none;}
+.ui-state-highlight {border:none}
+.ui-widget-header {background:#fff;}
+.ui-datepicker .ui-datepicker-header {padding:.5em 0;}
+.ui-menu .ui-menu-item {background:#fff;}
 </style>
 
 <div class="m-center-content">

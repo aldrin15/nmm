@@ -68,7 +68,7 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
-	function get_user_lift_post($what = '*') {
+	function get_user_lift_post($what = 'user_id, route_from as origins, route_to as destination, date as dates') {
 		$id = $this->session->userdata('user_id');
 		
 		$query = $this->db->select($what)
@@ -76,6 +76,10 @@ class Passenger_model extends CI_Model {
 							->where('user_id', $id)
 							->group_by('post_id')
 							->get();
+							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
 	}
 	
 	//function get_user_lift_post($what = 'user_lift_dates.post_id, user_lift_dates.route_from AS origins, user_lift_dates.route_to AS destination, CONCAT( GROUP_CONCAT( user_lift_dates.date ) ) AS dates') {
@@ -92,7 +96,6 @@ class Passenger_model extends CI_Model {
 		return $result; */		
 	//}
 	
-	// function get_user_lift_dates($id, $what = 'user_lift_dates.post_id, CONCAT( GROUP_CONCAT( user_lift_dates.date ) ) as dates') {
 	function get_user_lift_dates($id, $what = 'user_lift_dates.post_id, user_lift_dates.date as dates') {
 		
 		$query = $this->db->select($what)
@@ -105,9 +108,10 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
-	function get_selected_lift($id, $what = '') {
+	function get_selected_lift($id, $what = 'user_lift_dates.date as dates') {	
 		$query = $this->db->select($what)
 							->from('user_lift_dates')
+							->where('user_id', $id)
 							->get();
 		
 		$result = $query->result_array();
@@ -115,10 +119,10 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
-	function dates($id, $what = 'user_wish_date_booked.post_id, user_wish_date_booked.route_from as origins, user_wish_date_booked.route_to as destination, user_wish_date_booked.date as dates') {	
+	function dates($post, $what = 'user_wish_date_booked.post_id, user_wish_date_booked.route_from as origins, user_wish_date_booked.route_to as destination, user_wish_date_booked.date as dates') {			
 		$query = $this->db->select($what)
 					->from('user_wish_date_booked')
-					->where('post_id', $id)
+					->where('post_id', $post)
 					->get();
 		
 		$result = $query->result_array();
@@ -126,12 +130,15 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
-	function return_user_lift_post($date, $what = 'user_lift_dates.post_id, user_lift_dates.route_from as origins, user_lift_dates.route_to as destination, user_lift_dates.date as dates') {
+	function return_user_lift_post($date, $what = 'user_lift_dates.user_id, user_lift_dates.route_from AS origins, user_lift_dates.route_to AS destination, user_lift_dates.date AS dates') {	
+		$id = $this->session->userdata('user_id');
+		
 		if($date == null):
 		else:
 			if($date != ''):
 				$query = $this->db->select($what)
 									->from('user_lift_dates')
+									->where('user_id', $id)
 									->where_in('date', $date)
 									->get();
 									

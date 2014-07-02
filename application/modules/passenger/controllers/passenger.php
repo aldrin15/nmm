@@ -34,9 +34,6 @@ class Passenger extends MX_Controller {
 		$lift_post_data = $this->passenger_model->get_user_lift_post();
 		$wish_date_data = $this->passenger_model->dates($this->input->get('id'));
 	
-		$date_array = array();
-		$lift_post_array = array();
-	
 		for($i = 0; $i < count($lift_post_data); $i++):
 			$lift_post_array[] = $lift_post_data[$i]['dates'];
 		endfor;
@@ -55,15 +52,15 @@ class Passenger extends MX_Controller {
 		$get_date 			= array_unique(array_diff_assoc($date_array, array_unique($date_array)));
 		$get_date 			= array_values($get_date);
 		$pass_date_array 	= array();
-		
-		for($i = 0; $i < count($get_date); $i++):
-			$pass_date_array[] = $get_date[$i];
-		endfor;
+	
+		foreach($get_date as $key=>$val):
+			$pass_date_array[] = $get_date[$key];
+		endforeach;
 		
 		$date_result = $this->passenger_model->return_user_lift_post($pass_date_array);
 		
 		if($date_result != ''):
-			$result = array_filter($date_result);
+			$result = array_filter($date_result);			
 		else:
 			$result = 0;
 		endif;
@@ -72,11 +69,15 @@ class Passenger extends MX_Controller {
 			echo json_encode("empty");
 		else:
 			echo json_encode($result);
-		endif;
+		endif;		
 	}
 	
 	public function get_selected_lift_data() {
-		$lift_date_data = $this->passenger_model->get_selected_lift($this->input->get('id'));
+		$id = $this->input->get('id');
+		$post = $this->input->get('post');
+		
+		$lift_date_data = $this->passenger_model->get_selected_lift($id);
+		$wish_date_data = $this->passenger_model->dates($post);
 		
 		$date_array = array();
 		
@@ -84,24 +85,13 @@ class Passenger extends MX_Controller {
 			$date_array[] = $row['dates'];
 		endforeach;
 		
-		/* 
-		
-		$lift_date_data = $this->passenger_model->get_user_lift_dates($id);
-		$wish_date_date = $this->passenger_model->dates($id);
-		
-		$date_array = array();
-		
-		foreach($lift_date_data as $row):
-			$date_array[] = $row['dates'];
-		endforeach;
-		
-		foreach($wish_date_date as $row):
+		foreach($wish_date_data as $row):
 			$date_array[] = $row['dates'];
 		endforeach;
 		
 		$result = array_unique(array_diff_assoc($date_array, array_unique($date_array)));
 		
-		echo json_encode($result); */
+		echo json_encode($result);
 	}
 	
 	public function detail_user() {
