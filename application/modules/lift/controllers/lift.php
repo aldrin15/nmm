@@ -12,6 +12,9 @@ class Lift extends MX_Controller {
 		
 		$this->load->model('lift_model');
 		$this->load->library(array('form_validation', 'encrypt'));
+	
+		$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$this->session->set_userdata('refered_from', $url);
 	}
 	
 	public function index() {

@@ -12,6 +12,9 @@ class Passenger extends MX_Controller {
 		
 		$this->load->model('passenger_model');
 		$this->load->library('form_validation');
+		
+		$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$this->session->set_userdata('refered_from', $url);
 	}
 	
 	public function index() {

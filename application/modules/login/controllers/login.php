@@ -12,6 +12,9 @@ class Login extends MX_Controller {
 		
 		$this->load->library('form_validation');
         $this->load->model('login_model');
+		
+		$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$this->session->set_userdata('referred_from', $url);
 	}
 	
     public function index($msg = NULL){
@@ -51,7 +54,7 @@ class Login extends MX_Controller {
 			
 			$this->login_model->user_sessions($user_id, $ip, $last_login);
 			
-            redirect('nmm');
+            redirect($this->session->userdata('refered_from'));
         endif;
     }
 	
@@ -75,11 +78,11 @@ class Login extends MX_Controller {
 	public function is_logged_in() {
 		$is_logged_in = $this->session->userdata('validated');
 		
-		if(!isset($is_logged_in) || $is_logged_in !== true) {
-			redirect('login/index', 'refresh');
+		if($is_logged_in != true):
+			redirect('login/index');
 			
 			die();
-		}
+		endif;
 	}
 	
 	public function logout() {

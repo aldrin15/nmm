@@ -13,8 +13,18 @@ class Register extends MX_Controller {
 		$this->load->model('register_model');
 		$this->load->library('form_validation');
 		
-		if($this->session->userdata('user_id') == TRUE):
-			redirect('nmm');
+		$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$this->session->set_userdata('refered_from', $url);
+		
+		$is_logged_in = $this->session->userdata('validated');
+		
+		if($is_logged_in == true):
+			echo '<script type="text/javascript">
+				alert("You are still already logged in");
+				window.location.href = "http://localhost/nmm/"
+			</script>';
+			
+			die();
 		endif;
 	}
 	

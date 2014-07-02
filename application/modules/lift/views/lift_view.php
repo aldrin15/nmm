@@ -10,7 +10,6 @@
 		echo '<a href="'.base_url('lift/create').'" class="btn-create-lift fr btn-advance">Create Lift</a>';
 	endif;
 	?>
-	<br />
 	
 	<div class="clr"></div>
 	
@@ -88,7 +87,5 @@ function equalHeight(group) {
    group.height(tallest);
 }
 
-$(function() {
-	equalHeight($(".column")); //Equal Height
-});
+$(function() { equalHeight($(".column")); //Equal Height });
 </script>

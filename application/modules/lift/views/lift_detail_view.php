@@ -1,7 +1,8 @@
 <?php $this->load->view('header_content')?>
 
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>"/>
 <style type="text/css">
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {background:#00ff00;}
+/* .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {background:#00ff00;} */
 .ui-datepicker {width:100%;}
 .ui-widget-content {background:none;}
 .ui-datepicker-calendar td {border:none;}
@@ -10,6 +11,11 @@
 .ui-state-highlight {border:none}
 .ui-widget-header {background:#fff;}
 .ui-datepicker .ui-datepicker-header {padding:.5em 0;}
+
+.user-info .name {font-size:1.3em;}
+.user-information {border:1px solid #dbdada; border-radius:7px; -webkit-border-radius:7px; -moz-border-radius:7px; -ms-border-radius:7px; padding:10px;}
+.profile-image {margin-right:10px;}
+.profile-image img {border-radius:7px; -webkit-border-radius:7px; -moz-border-radius:7px; -ms-border-radius:7px;}
 </style>
 <div class="detail m-center-content">
 	<?php foreach($lift_information as $row):?>
@@ -20,9 +26,9 @@
 
 		<div class="user-information">
 			<p>Lift Offered by:</p>
-			<div class="profile-image fl"><img src="<?php echo base_url('assets/images/user.jpg')?>" width="160" height="160" alt="Car"/></div>
+			<div class="profile-image fl"><img src="<?php echo base_url('assets/media_uploads').'/'.$row['image']?>" width="160" height="160" alt="Car"/></div>
 			<div class="user-info fl">
-				<p><?php echo $row['firstname'].' '.$row['lastname']?></p>
+				<p class="name"><strong><?php echo $row['firstname'].' '.$row['lastname']?></strong></p><br />
 				<div class="user-rating">
 					<?php
 					$rating_id 		= $row['rating_id'];
@@ -51,6 +57,12 @@
 		
 		<div class="lift-information">
 			<ul>
+				<li>
+					<label for="Date">Date:</label>
+					<span>: <?php echo date('M d', strtotime($row['date']))?> | <?php echo date('H:m A', strtotime($row['start_time']))?></span>
+					
+					<div class="clr"></div>
+				</li>
 				<li>
 					<label for="From">From</label>
 					<span>: <?php echo $row['origin']?></span>
@@ -265,6 +277,7 @@
 		-->
 		
 		<div class="btn-book-now">
+			<br />
 			<?php
 			if($row['user_id'] != $this->session->userdata('user_id')):
 				function encrypt($action, $string) {
@@ -284,7 +297,7 @@
 				
 				$hash = encrypt('encrypt', $row['id']);	
 			?>
-			<a href="#" class="quick-book btn-gray" data-toggle="modal" data-target="#choose-date" data-hash="<?php echo $hash?>">Start Booking</a>
+			<a href="#" class="quick-book btn btn-default" data-toggle="modal" data-target="#choose-date" data-hash="<?php echo $hash?>">Start Booking</a>
 			<?php endif?>
 		</div>
 	</div>
@@ -523,14 +536,14 @@ $(function() {
 					// image_array.push(val.image);
 					amount_array.push(val.amount);
 				});
+				
+				console.log(date_array);
 					
 				function date(date) {
-					var month 		= date.getMonth()+1;
-						real_month 	= (month < 9 ? "0"+month:month)
-						day			= date.getDate(),
-						year		= date.getFullYear(),
-						fullyear	= year+'-'+real_month+'-'+day;
-					
+					var fullyear = date.getFullYear() + "-" +
+						("0" + (date.getMonth() + 1)).slice(-2) + "-" +
+						("0" + date.getDate()).slice(-2);
+			
 					return ($.inArray(fullyear, date_array) > -1 ? [true, ''] : [false, '']);
 				}
 				

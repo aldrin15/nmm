@@ -69,14 +69,19 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function listing($what = 'user_lift_post.id as id, user.user_id as user_id, firstname, lastname, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, user_lift_post.amount, user_lift_post.start_time, user_lift_dates.date, user_car.car_model as car, user_car.license_plate as plate, lift_seat_booked.seat') {
+	function listing($what = 'user_lift_post.id as id, user.user_id as user_id, firstname, lastname, user_media.media_filename as image, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, user_lift_post.amount, user_lift_post.start_time, user_lift_dates.date, user_car.car_model as car, user_car.license_plate as plate, lift_seat_booked.seat') {
+		$today 		= getdate();
+		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
+		$date 		= date('Y-m-d', strtotime($get_date));
+		
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
+							->join('user_media', 'user_media.user_id = user_lift_post.user_id', 'left')
 							->join('user_lift_dates', ' user_lift_dates.post_id = user_lift_post.id')
 							->join('user_car', 'user_car.user_id = user_lift_post.user_id', 'left')
 							->join('lift_seat_booked', 'lift_seat_booked.post_id = user_lift_post.id', 'left')
-							->group_by('user_lift_post.id')
+							->where('user_lift_dates.date', $date)
 							->get();
 		
 		$result = $query->result_array();
@@ -91,7 +96,7 @@ class Lift_model extends CI_Model {
 		return $query->result();
 	}
 	
-	function details($id, $what = "user_lift_post.id, user.user_id AS user_id, firstname, lastname, last_login, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, storage, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model AS car, user_car.license_plate AS plate, remarks, CONCAT( GROUP_CONCAT(  `user_media`.`media_filename` ) ) AS image, CONCAT( GROUP_CONCAT( lift_seat_booked.seat ) ) AS seats, CONCAT( GROUP_CONCAT(user_rating.rating_number) ) AS rating, user_lift_dates.date, user_rating.user_id as rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) AS rating, CONCAT( GROUP_CONCAT( user_lift_dates.route_from SEPARATOR '-') ) AS other_post_origins, CONCAT( GROUP_CONCAT( user_lift_dates.route_to SEPARATOR '-') ) AS other_post_destinations, CONCAT( GROUP_CONCAT( DISTINCT user_lift_dates.date) ) AS other_post_dates") {
+	function details($id, $what = "user_lift_post.id, user.user_id AS user_id, firstname, lastname, last_login, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, storage, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model AS car, user_car.license_plate AS plate, remarks, user_media.media_filename AS image, CONCAT( GROUP_CONCAT( lift_seat_booked.seat ) ) AS seats, CONCAT( GROUP_CONCAT(user_rating.rating_number) ) AS rating, user_lift_dates.date, user_rating.user_id as rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) AS rating, CONCAT( GROUP_CONCAT( user_lift_dates.route_from SEPARATOR '-') ) AS other_post_origins, CONCAT( GROUP_CONCAT( user_lift_dates.route_to SEPARATOR '-') ) AS other_post_destinations, CONCAT( GROUP_CONCAT( DISTINCT user_lift_dates.date) ) AS other_post_dates") {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
@@ -99,7 +104,7 @@ class Lift_model extends CI_Model {
 							->join('user_car', 'user_car.user_id = user_lift_post.user_id', 'left')
 							->join('lift_seat_booked', 'lift_seat_booked.post_id = user_lift_post.id', 'left')
 							->join('user_lift_dates', 'user_lift_dates.post_id = user_lift_post.id', 'left')
-							->join('user_media', 'user_media.user_id = lift_seat_booked.user_id', 'left')
+							->join('user_media', 'user_media.user_id = user_lift_post.user_id', 'left')
 							->join('user_rating', 'user_rating.user_id = user.user_id', 'left')
 							->where('user_lift_post.id', $id)
 							->get();
