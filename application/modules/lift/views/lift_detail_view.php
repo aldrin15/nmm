@@ -99,7 +99,25 @@
 					
 					<div class="lift-preference">
 						<?php 
-						$preference_array = array();
+						$preference = explode(',', $row['preference']);
+						$preference_type = array();
+						
+						foreach($preference_data as $type):
+							$preference_type[] = $type;
+						endforeach;
+						
+						if($preference !== 0):
+							for($i = 0; $i < count($preference); $i++):
+								$num = $i + 1;
+								echo '<div class="fl checkbox-'.$num.' selected"><p>'.$preference_type[$i]['type'].'<i></i></p></div>';
+							endfor;
+						else:
+							echo '<div>: None</div>';
+						endif;
+						?>
+					
+						<?php 
+						/* $preference_array = array();
 						$preference_type_array = array();
 
 						foreach($preference_data as $preference):
@@ -120,7 +138,7 @@
 							endfor;
 						else:
 							echo '<div>: None</div>';
-						endif;
+						endif; */
 						?>
 					</div>
 					
@@ -158,14 +176,15 @@
 				</div>
 			</div>
 			<?php
-			$other_dates_array = explode(',', $row['other_post_dates']);
-			$other_origin_array = explode('-', $row['other_post_origins']);
-			$other_destination_array = explode('-', $row['other_post_destinations']);
+			$other_dates_array			= array();
+			$other_origin_array 		= array();
+			$other_destination_array 	= array();
 			
-			/* echo '<pre>';
-			var_dump($other_origin_array);
-			var_dump($other_destination_array);
-			echo '</pre>'; */
+			foreach($get_user_lift_dates as $val):
+				$other_origin_array[] 		= explode('-', $val['origins']);
+				$other_destination_array[] 	= explode('-', $val['destination']);
+				$other_dates_array[] 		= explode(',', $val['dates']);
+			endforeach;
 			?>
 			<script type="text/javascript">
 			function get_data(events, month_today, year) {
@@ -187,8 +206,8 @@
 					month 	= date.getMonth()+1,
 					year	= date.getFullYear();
 				
-				var events = [<?php for($i = 0; $i < count($other_dates_array); $i++):
-					echo '"'.$other_dates_array[$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[$i].' to '.$other_destination_array[$i].'",';
+				var events = [<?php for($i = 0; $i < count($other_dates_array[0]); $i++):
+					echo '"'.$other_dates_array[0][$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[0][$i].' to '.$other_destination_array[0][$i].'",';
 				endfor;?>];
 			
 				$('.pcal-month').html(months[month] +' '+ year);
@@ -230,51 +249,6 @@
 			});
 			</script>
 		</div>
-		
-		<!-- 
-		<div class="lift-seat-available">
-			<?php 
-			/* $seat_taken = explode(',', $row['seats']);
-			
-			if($seat_taken == 0):
-				$available = $row['available'];
-			else:
-				$available = $row['available'] - array_sum($seat_taken);
-			endif; */
-			?>
-			<center><h4><?php //echo $available?> more seat(s) available</h4></center>
-			
-			<ul>
-				<?php
-				/* $seat_explode = explode(',', $row['seats']);
-				$seat_implode = implode(',', $seat_explode);
-				$seat_explode2 = explode(',', $seat_implode);
-				
-				$image_explode = explode(',', $row['image']);
-				$image_implode = implode(',', $image_explode);
-				$image_explode2 = explode(',', $image_implode);
-				
-				if($seat_explode2[0] == 0):
-					// echo 'Data is 0';
-				else:
-					for($i = 0; $i < count($seat_explode2); $i++):
-						echo '<li><span></span><img src="'.base_url('assets/media_uploads').'/'.$image_explode2[$i].'" width="65" height="66" alt=""/></li>';
-					endfor;
-				endif;
-				
-				for($i = 0; $i < $available; $i++):
-					echo '<li><span></span><img src="'.base_url('assets/images/page_template/blank_image.png').'" width="65" height="66" alt=""/></li>';
-				endfor; */
-				?>
-			</ul>
-			
-			<div class="clr"></div>
-		</div>
-		
-		<div class="lift-price">
-			<p>&#128;<?php //echo $row['amount']?> / seat</p>
-		</div>
-		-->
 		
 		<div class="btn-book-now">
 			<br />
@@ -371,12 +345,6 @@
 				<div class="modal-body">
 					<ul>
 						<li>
-							<div class="err-msg-cal"></div>
-							<label for="Calendar">Choose date to see available seats</label>
-							<div id="choose-date-cal"></div>
-							<input type="hidden" name="chose_dates" name=""/>	
-						</li>
-						<li>
 							<label for="Available Seats" style="width:300px">Available seat(s) : <span class="a-error"></span></label>
 									<div class="clr"></div>
 							<div class="seat-taken fl"></div>
@@ -385,13 +353,13 @@
 							<div class="clr"></div>
 						</li>
 						<li>
-							<label for="Price Per Seat">Price Per Seat:</label>
+							<label for="Price Per Seat" style="font-size:1.5em"><strong>Price Per Seat:</strong></label>
 							<span class="lift-price-per-seat"></span>
 							
 							<div class="clr"></div>
 						</li>
 						<li>
-							<label for="Total Price">Total Price</label>
+							<label for="Total Price" style="font-size:1.5em"><strong>Total Price:</strong></label>
 							<span class="total-amount"></span>
 							
 							<div class="clr"></div>
@@ -482,7 +450,7 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modalmanager.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.core.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.multidatespicker.js')?>"></script>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
 function check_available(checkboxName, image){
 	var checkBox = $('input[name="'+ checkboxName +'"]');
 	
@@ -495,7 +463,6 @@ function check_available(checkboxName, image){
 	$(checkBox).click(function(){
 		$(this).parent().toggleClass("selected");
 		if($(this).is(':checked')){
-			// $(this).parent().css({background:"<?php echo base_url('assets/images')?>/\"+image+\""});
 			$(this).parent().css({background:"url(<?php echo base_url('assets/media_uploads')?>/"+image+")", top:'0'});
 		} else {
 			$(this).parent().css({background:'<?php echo base_url('assets/images')?>/blank_image.png'});
@@ -514,122 +481,84 @@ function route(checkboxName){
 	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
 }
 
-$(function() { 
+$(function() {
 	$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });
 	$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
-
+	
 	$('.quick-book').click(function(e) {
+		$('.seat-taken, .seat-available').empty();
+		
 		var id = $(this).attr('data-hash');
+		
 		$.ajax({
 			url		: '<?php echo base_url('lift/get_lift_post')?>',
 			data	: {id:id},
 			success	: function(data) {
-				// console.log(data);
-				var date_array 	= [],
-					seat_array  = [],
-					// image_array	= [],
-					amount_array= [];
+				var date_array 		= [],
+					seat_array  	= [],
+					amount_array	= [],
+					seat_taken 		= 0,
+					seat_amount		= 0,
+					seat_number		= 0,
+					seat_taken_array;	
 				
 				$.each($.parseJSON(data), function(i, val) {
 					date_array.push(val.date);
 					seat_array.push(val.available);
-					// image_array.push(val.image);
 					amount_array.push(val.amount);
+					
+					if(val.seat == null){
+						seat_taken = 0;
+					} else {
+						// seat_taken.push(val.seat);
+						// seat_taken += val.seat << 0;
+						// seat_taken.push(val.seat);
+						// seat_taken_array.push(val.seat);
+						seat_taken_array = val.seat.split(',')
+					}
 				});
 				
-				console.log(date_array);
-					
-				function date(date) {
-					var fullyear = date.getFullYear() + "-" +
-						("0" + (date.getMonth() + 1)).slice(-2) + "-" +
-						("0" + date.getDate()).slice(-2);
-			
-					return ($.inArray(fullyear, date_array) > -1 ? [true, ''] : [false, '']);
+				seat_taken = seat_taken_array.length;
+				
+				var availability	= seat_array - seat_taken;
+				
+				for(var j = 0; j < availability; j++) {
+					$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="'+amount_array[0]+'" /></label>');
 				}
 				
-				$('#choose-date-cal').datepicker({
-					minDate : 0,
-					dateFormat: 'mm/dd/yy',
-					beforeShowDay : date,
-					onSelect: function(dateText, inst) {
-						var getDates = $('#choose-date-cal').datepicker().val(),
-							on_off = $('input[name="chose_dates"]').val(getDates);
-							$('.total-amount').empty();
-						
-						if(on_off.val() != '') {
-							$('.seat-taken, .seat-available').empty();
-							$('.lift-price-per-seat').empty();
-							$('.lift-price-per-seat').html(amount_array[0]);
-							$('input[name="date"]').val(getDates)
-							
-							$.ajax({
-								url		: '<?php echo base_url('lift/get_lift_booked')?>',
-								data	: {id:id, date:getDates},
-								success	: function(data) {
-									// console.log(data);
-									// console.log(seat_array);
-									// console.log(image_array[0]);
-									var user_image_array	= [],
-										user_image_length 	= [],
-										seat_taken			= 0;
-									
-									$.each($.parseJSON(data), function(index, value) {
-										seat_taken += value.seats << 0;
-									
-										if(value.image == null) {
-											user_image_array = 0;
-										} else {
-											user_image_array.push(value.image);
-										}
-									});
-									
-									var image_length	= user_image_array.length;
-									var user_image		= [];
-									var availability	= seat_array[0] - seat_taken;
-									
-									for(var i = 0; i < image_length; i++) {
-										$('.seat-taken').append("<span style='display:inline-block; background: url(\"<?php echo base_url('assets/media_uploads')?>/"+user_image_array[i]+"\") no-repeat; margin-right:16px; width:65px; height:66px;'></span>");
-									}
-									
-									for(var j = 0; j < availability; j++) {
-										$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="'+amount_array[0]+'" /></label>');
-									}
-									
-									<?php if($get_user_image == null):?>
-										var image = '0';
-									<?php else:
-										foreach($get_user_image as $image):?>
-											var image = '<?php echo $image['image']?>';
-									<?php endforeach;
-									endif?>
-									
-									check_available("seat[]", image);
-									
-									/* ====================================
-									 * Auto Calculate the amount per seat
-									 =================================== */
-									var seat_amount = 0
-										seat_numer	= 0;
-									
-									$('input[name="seat[]"]').click(function() {
-										if($(this).is(':checked')) {
-											seat_amount += parseInt($(this).val());
-											seat_numer += parseInt(1);
-										} else {
-											seat_amount -= parseInt($(this).val());
-											seat_numer -= parseInt(1);
-										}
-										
-										$('.total-amount').html('<strong>&euro; '+seat_amount+'</strong>');
-										$('input[name="amount"]').attr('value', seat_amount);
-										$('input[name="get_seat"]').attr('value', seat_numer);
-									});
-								}
-							});
-						} else {
-							$('.seat-taken, .seat-available').empty();
-						}
+				var user_image;
+				<?php if($get_user_image == null):?>
+					var image = '0';
+				<?php else:
+					foreach($get_user_image as $image):?>
+						var image = '<?php echo $image['image']?>';
+						var user_image = '<?php echo $image['image']?>';
+				<?php endforeach;
+				endif?>
+				
+				for(var i = 0; i < seat_taken; i++) {
+					$('.seat-taken').append("<span style='display:inline-block; background: url(\"<?php echo base_url('assets/media_uploads')?>/"+user_image+"\") no-repeat; margin-right:16px; width:65px; height:66px;'></span>");
+				}
+				
+				check_available("seat[]", image);
+				
+				$('.lift-price-per-seat').html(amount_array);
+				
+				/* ====================================
+				 * Auto Calculate the amount per seat
+				 =================================== */
+				$('input[name="seat[]"]').click(function() {
+					if($(this).is(':checked')) {
+						seat_amount += parseInt($(this).val());
+						seat_number += parseInt(1);
+					} else {
+						seat_amount -= parseInt($(this).val());
+						seat_number -= parseInt(1);
 					}
+					
+					$('.total-amount').html('<strong>&euro; '+seat_amount+'</strong>');
+					$('input[name="amount"]').attr('value', seat_amount);
+					$('input[name="get_seat"]').attr('value', seat_number);
 				});
 				
 				
@@ -637,11 +566,13 @@ $(function() {
 					var get_seat	= $('input[name="get_seat"]').val(),
 						amount		= $('input[name="amount"]').val(),
 						error		= 0;
-					
+						
+						
+					route("request_form");
 					$('.err-msg-cal').empty();
 					
-					if($('input[name="chose_dates"]').val() == '') {
-						$('.err-msg-cal').html('You need to choose at least one of the dates available').css({background:'#FF1B43', color:'#fff', fontSize:'1.2em', fontWeight:'bold', textAlign:'center', border:'1px solid #ff0000', padding:'5px 0'});
+					if(!$('input[name="seat[]"]').is(':checked')) {
+						$('.a-error').addClass('error').html('You need to choose seats');
 						error = 1;
 					}
 					
@@ -693,73 +624,5 @@ $(function() {
 			}
 		});
 	});
-	
-	/* $('input[name="book_submit"]').click(function(e) {
-		var	user_id 	= $('input[name="user_id"]').attr('value'),
-			post_id 	= $('input[name="post_id"]').attr('value'),
-			seat_taken 	= 0,
-			amount		= $('input[name="amount"]').val(),
-			message		= $('textarea[name="message"]').val(),
-			request		= $('textarea[name="request"]').val(),
-			start_time	= $('input[name="start_time"]').val(),
-			date		= $('.lift-info2').val(),
-			error 		= 0;
-		
-		if(!$('input[name="seat[]"]').is(':checked')) {
-			$('.a-error').addClass('error').html('You need to choose seats');
-			error = 1;
-		}
-		
-		$("input[name='seat[]']:checked").each(function (index, number) {
-			seat_taken = seat_taken + parseFloat($(number).val());
-		});
-		
-		$('input[name="seat"]').attr('value', seat_taken);
-		
-		if(error === 0) {
-			$.ajax({
-				url : '<?php echo base_url('lift/booked')?>',
-				data: {
-					user_id 	: user_id,
-					post_id 	: post_id,
-					message		: message,
-					request		: request,
-					amount		: amount,
-					seat_taken	: seat_taken,
-					start_time	: start_time,
-					date		: date,
-				},
-				type: 'GET',
-				success: function() {
-					$('#booking').modal('hide');
-				}
-			});
-		} else {
-			return false;
-		}
-		
-		e.preventDefault();
-	}); */
-
-	$('input[name="rate_submit"]').click(function() {
-		var rating_number = [];
-		
-		$('#rating-form input[type="radio"]').each(function() {
-			if(this.checked) {
-				rating_number.push(this.value);
-			}
-		});
-		
-		$.ajax({
-			url : '<?php echo base_url('lift/insert_rating')?>',
-			type : 'GET',
-			data : {user_id : '<?php echo $this->session->userdata('user_id')?>', rating_number: rating_number.toString()},
-			success : function(data) {
-				console.log('Successfully voted');
-			}
-		});
-		
-		return false;
-	});
-});
+})
 </script>

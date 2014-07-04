@@ -72,10 +72,52 @@ class Members extends MX_Controller {
 			}
 		endif;
 	
-		$data['members_information']	= $this->member_model->member_information($this->session->userdata('user_id'));
+		$data['members_information']	= $this->member_model->member_information($this->session->userdata('user_id'));		
 		$data['countries_list']			= $this->member_model->countries();
 		$data['view_file']				= 'member_edit_profile_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function inbox() {
+		$data['user_inbox_data']	= $this->member_model->inbox();
+		$data['view_file']			= 'member_inbox_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function inbox_detail() {
+		$id = $this->uri->segment(3);
+		$data['user_inbox_data']	= $this->member_model->inbox_detail($id);
+		
+		$data['view_file'] 			= 'member_inbox_detail_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function sent() {
+		$data['user_sent_data']	= $this->member_model->sent();
+		$data['view_file']			= 'member_sent_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function sent_detail() {
+		$id = $this->uri->segment(3);
+		$data['user_sent_data']	= $this->member_model->sent_detail($id);
+		
+		$data['view_file'] 			= 'member_sent_detail_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function inbox_delete() {
+		$this->member_model->inbox_delete();
+		
+		echo 'success';
+	}
+	
+	public function message_delete() {
+		$id = $this->uri->segment(3);
+		
+		$this->member_model->message_delete($id);
+		
+		echo 'Success';
 	}
 	
 	public function car() {
@@ -83,6 +125,38 @@ class Members extends MX_Controller {
 		
 		$data['car_data'] = $this->member_model->car($id);
 		$data['view_file'] = 'member_car_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function overview() {
+		$data['rides_data'] = $this->member_model->rides_list();
+		$data['passenger_data'] = $this->member_model->passenger_list();
+		
+		$data['view_file'] = 'member_overview_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function overview_ride_detail() {
+		$id = $this->uri->segment(3);
+		
+		exit;
+		
+		$data['ride_detail_data'] = $this->member_model->ride_detail($id);
+		
+		echo '<pre>';
+		var_dump($data['ride_detail_data']);
+		echo '</pre>';
+		
+		exit;
+		
+		$data['view_file'] = 'member_overview_ride_detail_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function overview_ride_edit() {
+		$id = $this->uri->segment(3);
+		
+		$data['view_file'] = 'member_overview_ride_edit_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	

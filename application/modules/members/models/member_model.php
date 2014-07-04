@@ -22,16 +22,123 @@ class Member_model extends CI_Model {
 	public function member_information($user_id, $what = 'firstname, lastname, about_me, job, birthdate, street, city, country, postal, user_media.media_filename as image, number, phone') {
 		$query = $this->db->select($what)
 							->from('user')
-							->join('user_additional_information', 'user_additional_information.user_id = user.user_id')
-							->join('user_address', 'user_address.user_id = user.user_id')
+							->join('user_additional_information', 'user_additional_information.user_id = user.user_id', 'left')
+							->join('user_address', 'user_address.user_id = user.user_id', 'left')
 							->join('user_media', 'user_media.user_id = user.user_id', 'left')
-							->join('user_mobile', 'user_mobile.user_id = user.user_id')
+							->join('user_mobile', 'user_mobile.user_id = user.user_id', 'left')
 							->where('user.user_id', $user_id)
 							->get();
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
+	}
+	
+	public function rides_list($what = 'user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_dates.date') {
+		$id = $this->session->userdata('user_id');
+		
+		$query = $this->db->select($what)
+							->from('user_lift_post', 'user_lift_post.user_id = user.user_id')
+							->join('user', 'user.user_id = user_lift_post.user_id')
+							->join('user_lift_dates', 'user_lift_dates.user_id = user_lift_post.user_id')
+							->where('user_lift_post.user_id', $id)
+							->get();
+							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function ride_detail($id, $what = 'user_lift_post.route_from as origins, user_lift_post.route_to as destination, via, available, storage, remarks, amount, re_route, offer_re_route, start_time') {
+		$query = $this->db->select($what)
+							->from('user_lift_post')
+							->join('user_lift_dates', 'user_lift_dates.user_id = user_lift_post.user_id')
+							->where('user_lift_post.id', $id)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function passenger_list($what = 'user_wish_lift.id, user_wish_lift.route_from as origins, user_wish_lift.route_to as destination, time') {
+		$id = $this->session->userdata('user_id');
+		
+		$query = $this->db->select($what)
+							->from('user_wish_lift', 'user_wish_lift.user_id = user.user_id')
+							->join('user', 'user.user_id = user_wish_lift.user_id')
+							->where('user_wish_lift.user_id', $id)
+							->get();
+							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function inbox($what = 'message_id, subject, message, date') {
+		$id = $this->session->userdata('user_id');
+		
+		$query = $this->db->select($what)
+							->from('message')
+							->where('receiver_id', $id)
+							->get();
+				
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function inbox_detail($id, $what = 'message_id, firstname, lastname, media_filename as image, subject, message, message.date') {
+		$query = $this->db->select($what)
+							->from('message')
+							->where('message_id', $id)
+							->join('user', 'user.user_id = message.sender_id')
+							->join('user_media', 'user_media.user_id = user.user_id')
+							->get();
+				
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function sent($what = 'message_id, subject, message, date') {
+		$id = $this->session->userdata('user_id');
+		
+		$query = $this->db->select($what)
+							->from('message')
+							->where('sender_id', $id)
+							->get();
+				
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function sent_detail($id, $what = 'message_id, firstname, lastname, media_filename as image, subject, message, message.date') {
+		$query = $this->db->select($what)
+							->from('message')
+							->join('user', 'user.user_id = message.receiver_id')
+							->join('user_media', 'user_media.user_id = user.user_id', 'left')
+							->where('message_id', $id)
+							->get();
+				
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function inbox_delete() {
+		$id = $this->input->post('id');
+		
+		foreach($id as $row):
+			$this->db->where_in('message_id', $row)->delete('message');
+		endforeach;
+	}
+
+	public function message_delete($id) {
+		$this->db->where_in('message_id', $id)->delete('message');
+		
+		redirect('members/inbox');
 	}
 	
 	public function countries($what = '*') {

@@ -9,7 +9,7 @@
 	
 	<title>NMM</title>
 	
-	<!--<link type="text/css" rel="stylesheet" href="<?php //echo base_url('assets/css/bootstrap.css')?>"/>-->
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-responsive.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-modal.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.css')?>"/>
@@ -18,6 +18,7 @@
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/jquery-ui.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/rateit.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/style.css')?>"/>
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/editor.css')?>"/>
 	
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.11.0.min.js')?>"></script>
 	<script type="text/javascript">

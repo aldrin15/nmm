@@ -69,7 +69,7 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function listing($what = 'user_lift_post.id as id, user.user_id as user_id, firstname, lastname, user_media.media_filename as image, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, user_lift_post.amount, user_lift_post.start_time, user_lift_dates.date, user_car.car_model as car, user_car.license_plate as plate, lift_seat_booked.seat') {
+	function listing($what = 'user_lift_post.id as id, user.user_id as user_id, firstname, lastname, user_media.media_filename as image, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model as car, user_car.license_plate as plate, user_lift_post.date') {
 		$today 		= getdate();
 		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
 		$date 		= date('Y-m-d', strtotime($get_date));
@@ -78,10 +78,8 @@ class Lift_model extends CI_Model {
 							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
 							->join('user_media', 'user_media.user_id = user_lift_post.user_id', 'left')
-							->join('user_lift_dates', ' user_lift_dates.post_id = user_lift_post.id')
 							->join('user_car', 'user_car.user_id = user_lift_post.user_id', 'left')
-							->join('lift_seat_booked', 'lift_seat_booked.post_id = user_lift_post.id', 'left')
-							->where('user_lift_dates.date', $date)
+							->where('user_lift_post.date', $date)
 							->get();
 		
 		$result = $query->result_array();
@@ -96,14 +94,13 @@ class Lift_model extends CI_Model {
 		return $query->result();
 	}
 	
-	function details($id, $what = "user_lift_post.id, user.user_id AS user_id, firstname, lastname, last_login, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, storage, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model AS car, user_car.license_plate AS plate, remarks, user_media.media_filename AS image, CONCAT( GROUP_CONCAT( lift_seat_booked.seat ) ) AS seats, CONCAT( GROUP_CONCAT(user_rating.rating_number) ) AS rating, user_lift_dates.date, user_rating.user_id as rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) AS rating, CONCAT( GROUP_CONCAT( user_lift_dates.route_from SEPARATOR '-') ) AS other_post_origins, CONCAT( GROUP_CONCAT( user_lift_dates.route_to SEPARATOR '-') ) AS other_post_destinations, CONCAT( GROUP_CONCAT( DISTINCT user_lift_dates.date) ) AS other_post_dates") {
+	function details($id, $what = "user_lift_post.id, user_lift_post.user_id as post_user_id, user.user_id AS user_id, firstname, lastname, last_login, user_lift_post.route_from AS origin, user_lift_post.route_to AS destination, storage, preference, available, user_lift_post.amount, user_lift_post.start_time, user_lift_post.date, user_car.car_model AS car, user_car.license_plate AS plate, remarks, user_media.media_filename AS image, CONCAT( GROUP_CONCAT(user_rating.rating_number) ) AS rating, user_rating.user_id as rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) AS rating") {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
 							->join('user_sessions', 'user_sessions.user_id =  user.user_id')
 							->join('user_car', 'user_car.user_id = user_lift_post.user_id', 'left')
 							->join('lift_seat_booked', 'lift_seat_booked.post_id = user_lift_post.id', 'left')
-							->join('user_lift_dates', 'user_lift_dates.post_id = user_lift_post.id', 'left')
 							->join('user_media', 'user_media.user_id = user_lift_post.user_id', 'left')
 							->join('user_rating', 'user_rating.user_id = user.user_id', 'left')
 							->where('user_lift_post.id', $id)
@@ -114,11 +111,9 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function preference($id, $what = 'post_id, CONCAT(GROUP_CONCAT(user_lift_preference.preference_id)) as preference, CONCAT(GROUP_CONCAT(lift_preference.type)) as type') {
+	function preference($id, $what = 'type') {
 		$query = $this->db->select($what)
-							->from('user_lift_preference')
-							->join('lift_preference', 'lift_preference.preference_id = user_lift_preference.preference_id')
-							->where('post_id', $id)
+							->from('lift_preference')
 							->get();
 		
 		$result = $query->result_array();
@@ -126,11 +121,25 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function get_lift_post($id, $what = 'user_lift_post.id, user_lift_post.user_id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.via, user_lift_post.available, user_lift_post.amount, user_lift_post.re_route, user_lift_post.start_time as time, user_lift_dates.date') {
+	function get_user_lift_dates($user_id) {
+		$query = $this->db->query("
+			SELECT CONCAT( GROUP_CONCAT( route_from
+			SEPARATOR  '-' ) ) AS origins, CONCAT( GROUP_CONCAT( route_to SEPARATOR '-' ) ) AS destination, CONCAT( GROUP_CONCAT( DATE ) ) AS dates
+			FROM user_lift_post
+			WHERE user_id = {$user_id}
+			GROUP BY user_id
+		");
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function get_lift_post($id, $what = 'user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.via, user_lift_post.available, user_lift_post.amount, user_lift_post.re_route, user_lift_post.start_time as time, CONCAT( GROUP_CONCAT( lift_seat_booked.seat ) ) as seat') {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
-							->join('user_lift_dates', 'user_lift_dates.post_id = user_lift_post.id')
+							->join('lift_seat_booked', 'lift_seat_booked.post_id = user_lift_post.id', 'left')
 							->where('user_lift_post.id', $id)
 							->get();
 							
@@ -222,47 +231,27 @@ class Lift_model extends CI_Model {
 	}
 	
 	function create_lift() {
-		$post_data = array(
-			'user_id'		=> $this->session->userdata('user_id'),
-			'route_from'	=> $this->input->post('origin'),
-			'route_to'		=> $this->input->post('destination'),
-			'via'			=> $this->input->post('via'),
-			'available'		=> $this->input->post('seat_available'),
-			'storage'		=> $this->input->post('storage'),
-			'remarks'		=> $this->input->post('remarks'),
-			'amount'		=> $this->input->post('seat_amount'),
-			're_route'		=> $this->input->post('re_route'),
-			'offer_re_route'=> $this->input->post('re_route'),
-			'start_time'	=> $this->input->post('hours').':'.$this->input->post('minute').':00',
-		);
-		
-		$insert_post = $this->db->insert('user_lift_post', $post_data);
-
-		$post_id = $this->db->insert_id();
-		
-		$preference_array = array();
-		
-		for($i = 0; $i < count($this->input->post('preference')); $i++):
-			$preference_data = array(
-				'post_id' => $this->session->userdata('user_id'),
-				'preference_id' => $i+1
-			);
-			
-			$insert_preference = $this->db->insert('user_lift_preference', $preference_data);
-		endfor;
-		
 		$date = explode(',', $this->input->post('dates'));
+		$preference_array = implode(',', $this->input->post('preference'));
 		
 		for($i = 0; $i < count($date); $i++):
-			$date_data = array(
-				'post_id' 	=> $post_id,
-				'user_id' 	=> $this->session->userdata('user_id'),
-				'route_from'=> $this->input->post('origin'),
-				'route_to'	=> $this->input->post('destination'),
-				'date'		=> str_replace("&quot;", "", $date[$i])
+			$post_data = array(
+				'user_id'		=> $this->session->userdata('user_id'),
+				'route_from'	=> $this->input->post('origin'),
+				'route_to'		=> $this->input->post('destination'),
+				'via'			=> $this->input->post('via'),
+				'available'		=> $this->input->post('seat_available'),
+				'storage'		=> $this->input->post('storage'),
+				'preference'	=> $preference_array,
+				'remarks'		=> $this->input->post('remarks'),
+				'amount'		=> $this->input->post('seat_amount'),
+				're_route'		=> $this->input->post('re_route'),
+				'offer_re_route'=> $this->input->post('re_route'),
+				'start_time'	=> $this->input->post('hours').':'.$this->input->post('minute').':00',
+				'date'			=> str_replace("&quot;", "", $date[$i])
 			);
-
-			$insert_date = $this->db->insert('user_lift_dates', $date_data);		
+			
+			$insert_post = $this->db->insert('user_lift_post', $post_data);
 		endfor;
 	}
 	

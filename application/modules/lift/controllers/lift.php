@@ -94,7 +94,7 @@ class Lift extends MX_Controller {
 			if(array_key_exists('create_lift_submit', $post)):
 				$this->form_validation->set_rules('origin', 'From', 'required');
 				$this->form_validation->set_rules('destination', 'To', 'required');
-				$this->form_validation->set_rules('via', 'Via', 'required');
+				// $this->form_validation->set_rules('via', 'Via', 'required');
 				$this->form_validation->set_rules('dates', 'Dates', 'required');
 				$this->form_validation->set_rules('seat_amount', 'Seat Amount', 'required|numeric');
 				
@@ -120,7 +120,12 @@ class Lift extends MX_Controller {
 		$id = $this->uri->segment(3);
 		
 		$data['lift_information'] 		= $this->lift_model->details($id);
-		$data['preference_data'] 		= $this->lift_model->preference($id);
+		
+		foreach($data['lift_information'] as $row):
+			$user_id = $row['post_user_id'];
+			$data['get_user_lift_dates']	= $this->lift_model->get_user_lift_dates($user_id);
+		endforeach;
+		$data['preference_data']		= $this->lift_model->preference($id);
 		$data['get_user_image'] 		= $this->lift_model->get_user_image();
 		
 		$data['view_file'] 				= 'lift_detail_view';

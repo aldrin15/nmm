@@ -3,7 +3,6 @@
 <div class="m-center lift-view">
 	<?php echo modules::run('lift/search')?>
 	
-	<!--<p class="lift-text">Upcoming lift near you:</p>-->
 	<h3 class="fl">Upcoming lift near you:</h3>
 	<?php 
 	if($this->session->userdata('validated') == true):
@@ -87,5 +86,5 @@ function equalHeight(group) {
    group.height(tallest);
 }
 
-$(function() { equalHeight($(".column")); //Equal Height });
+$(function() { equalHeight($(".column")); });
 </script>

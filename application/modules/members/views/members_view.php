@@ -7,8 +7,16 @@
 	
 	<?php foreach($members_data as $row):?>	
 	<div class="span8 profile-detail-information fl">
-		<div class="profile-name"><h3><?php echo $row['firstname'].' '.$row['lastname']?></h3></div>
-		<div class="profile-address"><p><?php echo $row['city'].', '.$row['country']?></p></div>
+		<div class="fl span4">
+			<div class="profile-name"><h3><?php echo $row['firstname'].' '.$row['lastname']?></h3></div>
+			<div class="profile-address"><p><?php echo $row['city'].', '.$row['country']?></p></div>
+		</div>
+		
+		<div class="fr span2">
+			<a href="<?php echo base_url('members/edit')?>" class="fr btn btn-default" style="margin-top:10px;">Edit Profile</a>
+		</div>
+		
+		<div class="clr"></div>
 		
 		<hr/>
 		
