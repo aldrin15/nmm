@@ -115,31 +115,6 @@
 							echo '<div>: None</div>';
 						endif;
 						?>
-					
-						<?php 
-						/* $preference_array = array();
-						$preference_type_array = array();
-
-						foreach($preference_data as $preference):
-							$preference_array[] 		= $preference['preference'];
-							$preference_type_array[]	= $preference['type'];
-						endforeach;
-						
-						$implode = implode(',', $preference_array);
-						$explode = explode(',', $implode);
-						
-						$implode2 = implode(',', $preference_type_array);
-						$explode2 = explode(',', $implode2);
-						
-						if($explode !== 0):
-							for($i = 0; $i < count($explode); $i++):
-								$num = $i + 1;
-								echo '<div class="fl checkbox-'.$num.' selected"><p>'.$explode2[$i].'<i></i></p></div>';
-							endfor;
-						else:
-							echo '<div>: None</div>';
-						endif; */
-						?>
 					</div>
 					
 					<div class="clr"></div>
@@ -253,26 +228,28 @@
 		<div class="btn-book-now">
 			<br />
 			<?php
-			if($row['user_id'] != $this->session->userdata('user_id')):
-				function encrypt($action, $string) {
-				   $output = false;
+			if($this->session->userdata('user_id') == true):
+				if($row['user_id'] != $this->session->userdata('user_id')):
+					function encrypt($action, $string) {
+					   $output = false;
 
-				   $key = 'My strong random secret key';
+					   $key = 'My strong random secret key';
 
-				   // initialization vector 
-				   $iv = md5(md5($key));
+					   // initialization vector 
+					   $iv = md5(md5($key));
 
-				   if( $action == 'encrypt' ) {
-					   $output = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $string, MCRYPT_MODE_CBC, $iv);
-					   $output = base64_encode($output);
-				   }
-				   return $output;
-				}
-				
-				$hash = encrypt('encrypt', $row['id']);	
+					   if( $action == 'encrypt' ) {
+						   $output = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $string, MCRYPT_MODE_CBC, $iv);
+						   $output = base64_encode($output);
+					   }
+					   return $output;
+					}
+					
+					$hash = encrypt('encrypt', $row['id']);	
 			?>
 			<a href="#" class="quick-book btn btn-default" data-toggle="modal" data-target="#choose-date" data-hash="<?php echo $hash?>">Start Booking</a>
-			<?php endif?>
+			<?php endif;
+			endif?>
 		</div>
 	</div>
 	
@@ -515,10 +492,9 @@ $(function() {
 						// seat_taken.push(val.seat);
 						// seat_taken_array.push(val.seat);
 						seat_taken_array = val.seat.split(',')
+						seat_taken = seat_taken_array.length;
 					}
 				});
-				
-				seat_taken = seat_taken_array.length;
 				
 				var availability	= seat_array - seat_taken;
 				

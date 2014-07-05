@@ -88,12 +88,12 @@ class Admin_model extends CI_Model{
 		return $query->result_array();	
 	}
 	
-	function inbox($id, $what = 'admin.Fullname, message.message_id, message.subject, user.firstname, user.lastname, message.date, message.is_read'){
+	function inbox($id, $what = 'user_admin.display_name, message.message_id, message.subject, user.firstname, user.lastname, message.date, message.is_read'){
 		$query = $this->db->select($what)
 							->from('message')
-							->join('admin', 'admin.admin_id = message.receiver_id')
+							->join('user_admin', 'user_admin.id = message.receiver_id')
 							->join('user', 'user.user_id = message.sender_id')
-							->where('admin.admin_id', $id)
+							->where('message.user_role', 'admin')
 							->get();
 	
 		$result = $query->result_array();
@@ -101,10 +101,10 @@ class Admin_model extends CI_Model{
 		return $result;
 	}
 	
-	function mail_detail($id, $what = 'admin.fullname, message.message_id, message.message, message.subject, user.firstname, user.lastname'){
+	function mail_detail($id, $what = 'user_admin.display_name, message.message_id, message.message, message.subject, user.firstname, user.lastname'){
 		$query = $this->db->select($what)
 							->from('message')
-							->join('admin', 'admin.admin_id = message.receiver_id')
+							->join('user_admin', 'user_admin.id = message.receiver_id')
 							->join('user', 'user.user_id = message.sender_id')
 							->where('message_id', $id)
 							->get();

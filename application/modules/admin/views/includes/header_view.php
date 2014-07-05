@@ -1,39 +1,29 @@
-  <section id="container" >
-      <!--header start-->
-      <header class="header white-bg">
-            <div class="sidebar-toggle-box">
-                 <a href="<?php echo base_url('admin/dashboard')?>"><img alt="Logo" src="<?php echo base_url('assets/img/logo.png')?>" height="60" width="35"></a>
-            </div>
-            <!--logo start-->
-          <a href="<?php echo base_url('admin/dashboard')?>" class="logo"> Nimm&nbsp;Mich&nbsp;Mit</a>
-            <!--logo end-->
-            <div class="top-nav ">
-                <!--search & user info start-->
-                <ul class="nav pull-right top-menu">
-                    <li>
-                        <input type="text" class="form-control search" placeholder="Search">
-                    </li>
-                    <!-- user login dropdown start-->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt="" src="<?php echo base_url('assets/img/avatar1_small.jpg')?>">
-                            <span class="username">Ivan G.</span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu extended logout">
-                            <div class="log-arrow-up"></div>
-                            <li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>
-                            <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
-							
-							<?php foreach($new_email as $newmail): ?>
-                            <li><a href="<?php echo base_url('admin/inbox')?>"><i class="icon-envelope"><div class="notify-mail"><div class="badge bg-important"><?php echo $newmail['new_mail']?></div></div></i> Messages</a></li>
-                            <?php endforeach?>
-							<li><a href="#"><i class="icon-key"></i> Log Out</a></li>
-                        </ul>
-                    </li>
-                    <!-- user login dropdown end -->
-                </ul>
-                <!--search & user info end-->
-            </div>
-        </header>
-      <!--header end-->
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Admin</title>
+	
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/admin/css/style.css')?>"/>
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css')?>" />
+    
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/admin/plugins/font-awesome/css/font-awesome.css')?>" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/admin/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.css')?>" media="screen" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/admin/css/owl.carousel.css')?>" />
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/admin/plugins/advanced-datatable/media/css/demo_page.css')?>" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/admin/plugins/advanced-datatable/media/css/demo_table.css')?>" />
+	
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/admin/css/style.css')?>">
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/admin/css/style-responsive.css')?>" />
+	
+	<script type="text/javascript" src="<?php echo base_url('assets/admin/js/jquery.js')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/admin/js/bootstrap.min.js')?>"></script>
+	
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<section id="container" >

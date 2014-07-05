@@ -41,16 +41,27 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach($rides_data as $row):?>
+									<?php if($rides_data == null):?>
 									<tr class="">
-										<td><?php echo $row['origins']?></td>
-										<td><?php echo $row['destination']?></td>
-										<td><?php echo date('F d - H:i A', strtotime($row['time']))?></td>
-										<td><a class="edit" href="<?php echo base_url('members/overview_ride_detail')?>/<?php echo $row['id']?>/<?php echo $row['date']?>">View</a></td>
-										<td><a class="edit" href="<?php echo base_url('members/overview_ride_edit')?>/<?php echo $row['id']?>">Edit</a></td>
-										<td><a class="delete" href="javascript:;">Delete</a></td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
 									</tr>
-									<?php endforeach?>
+									<?php else:?>
+									<tr class="">
+										<?php foreach($rides_data as $row):?>
+											<td><?php echo $row['origins']?></td>
+											<td><?php echo $row['destination']?></td>
+											<td><?php echo date('F d - H:i A', strtotime($row['time']))?></td>
+											<td><a class="edit" href="<?php echo base_url('members/overview_ride_detail')?>/<?php echo $row['id']?>/<?php echo $row['date']?>">View</a></td>
+											<td><a class="edit" href="<?php echo base_url('members/overview_ride_edit')?>/<?php echo $row['id']?>">Edit</a></td>
+											<td><a class="delete" href="javascript:;">Delete</a></td>
+										<?php endforeach?>
+									</tr>
+									<?php endif?>
 								</tbody>
 							</table>
 						</div>
@@ -75,16 +86,27 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach($passenger_data as $row):?>
+									<?php if($passenger_data == null):?>
 									<tr class="">
-										<td><?php echo $row['origins']?></td>
-										<td><?php echo $row['destination']?></td>
-										<td><?php echo date('F d - H:i A', strtotime($row['time']))?></td>
-										<td><a class="edit" href="<?php echo base_url('members/overview_passenger_detail')?>/<?php echo $row['id']?>">View</a></td>
-										<td><a class="edit" href="<?php echo base_url('members/overview_passenger_edit')?>/<?php echo $row['id']?>">Edit</a></td>
-										<td><a class="delete" href="javascript:;">Delete</a></td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
 									</tr>
-									<?php endforeach?>
+									<?php else:?>
+										<?php foreach($passenger_data as $row):?>
+										<tr class="">
+											<td><?php echo $row['origins']?></td>
+											<td><?php echo $row['destination']?></td>
+											<td><?php echo date('F d - H:i A', strtotime($row['time']))?></td>
+											<td><a class="edit" href="<?php echo base_url('members/overview_passenger_detail')?>/<?php echo $row['id']?>">View</a></td>
+											<td><a class="edit" href="<?php echo base_url('members/overview_passenger_edit')?>/<?php echo $row['id']?>">Edit</a></td>
+											<td><a class="delete" href="javascript:;">Delete</a></td>
+										</tr>
+										<?php endforeach?>
+									<?php endif?>
 								</tbody>
 							</table>
 						</div>

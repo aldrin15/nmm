@@ -43,7 +43,7 @@ class Member_model extends CI_Model {
 							->join('user_lift_dates', 'user_lift_dates.user_id = user_lift_post.user_id')
 							->where('user_lift_post.user_id', $id)
 							->get();
-							
+		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;

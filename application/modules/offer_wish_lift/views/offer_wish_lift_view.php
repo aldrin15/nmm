@@ -9,12 +9,32 @@
 		<p>Du kan vælge lige præcis den medpassager eller billist du ønsker, gennem vores rating system, specificerede krav til turen, billisten/ medpassageren, at du er sikker på turen til arbejde, besøge familien, den længe ventede tur til udlandet eller koncert er præcis som du vil have det.</p>
 	</div>
 	
-	<div class="span6 fr">
+	<div class="span5 fr">
 		<ul>
-			<li><div><a href="<?php echo base_url('lift/create')?>"></a></div></li>
-			<li><div><a href="<?php echo base_url('event/create')?>"></a></div></li>
-			<li><div><a href="<?php echo base_url('passenger/create')?>"></a></div></li>
-			<!--<li><div><a href="#"></a></div></li>-->
+			<li>
+				<a href="<?php echo base_url('lift/create')?>">
+					<p>Create an Event</p>
+					<div><span></span></div>
+					
+					<p class="clr"></p>
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo base_url('event/create')?>">
+					<div><span></span></div>
+					<p>Create a Ride</p>
+					
+					<p class="clr"></p>
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo base_url('passenger/create')?>">
+					<p>Create a Wish Lift</p>
+					<div><span></span></div>
+					
+					<p class="clr"></p>
+				</a>
+			</li>
 		</ul>
 	</div>
 	
@@ -23,7 +43,8 @@
 
 <script type="text/javascript">
 $(function() {
-	$('.offer-and-wish-lift .fr ul li').mouseover(function() { $('div', this).stop(true, true).fadeIn().show(); });
-	$('.offer-and-wish-lift .fr ul li').mouseleave(function() { $('div', this).fadeOut(); });
+	// $('.offer-and-wish-lift .fr ul li').mouseleave(function() { $('span', this).stop(true, true).fadeIn(function() {$(this).css({display:'block'});}); });
+	$('.offer-and-wish-lift .fr ul li').mouseover(function() { $('span', this).fadeOut(); });
+	$('.offer-and-wish-lift .fr ul li').mouseleave(function() { $('span', this).stop(true,true).fadeIn(); });
 });
 </script>
