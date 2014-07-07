@@ -10,7 +10,7 @@
 			
 			<nav class="pull-right">
 				<ul>
-					<li><a href="<?php echo base_url('lift')?>">Lift</a></li>
+					<li><a href="<?php echo base_url('rides')?>">Lift</a></li>
 					<li><a href="<?php echo base_url('passenger')?>">Passenger</a></li>
 					<li><a href="<?php echo base_url('event')?>">Events</a></li>
 					<li><a href="<?php echo base_url('abroad')?>">Abroad</a></li>

@@ -38,7 +38,9 @@
 |
 */
 
-$route['default_controller'] = "nmm";
+$route['default_controller'] 	= "nmm";
+$route['rides'] 				= "lift/index";
+$route['rides/detail/(:any)'] 	= "lift/detail/5";
 $route['404_override'] = '';
 
 

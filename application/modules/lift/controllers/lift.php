@@ -14,7 +14,18 @@ class Lift extends MX_Controller {
 		$this->load->library(array('form_validation', 'encrypt'));
 	
 		$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-		$this->session->set_userdata('refered_from', $url);
+		$url_path = parse_url($url, PHP_URL_PATH);
+		$url_id = pathinfo($url_path, PATHINFO_BASENAME);
+		
+		foreach($this->router->routes as $key => $row):
+			$method = '/nmm/'.str_replace('(:any)', $url_id, $key);
+			
+			if($method == $_SERVER['REQUEST_URI']):
+				$url = 'http://'.$_SERVER['HTTP_HOST'].$method;
+				
+				$this->session->set_userdata('refered_from', $url);
+			endif;
+		endforeach;
 	}
 	
 	public function index() {

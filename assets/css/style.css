@@ -53,7 +53,7 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset; }
 .login ul {position:absolute; background:#fff600; border-radius:0px 0px 5px 5px; text-align:left; z-index:10;}
 .login ul li {border-bottom:1px solid #ccbe45;}
 .login ul li:nth-child(4) {border:none;}
-.login ul li a {display:block; color:#000; padding:4px 10px;}
+.login ul li a {display:block; color:#000; padding:4px 30px 4px 10px;}
 .login ul li a:hover {text-decoration:none;}
 
 .try-it-free {background:#fff600; color:#000 !important; border-radius:2px; padding:2px 5px;}
