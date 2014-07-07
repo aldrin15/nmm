@@ -11,7 +11,7 @@ class Lift extends MX_Controller {
 		$this->_view_content 			= '';
 		
 		$this->load->model('lift_model');
-		$this->load->library(array('form_validation', 'encrypt'));
+		$this->load->library(array('form_validation', 'encrypt', 'pagination'));
 	
 		$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$url_path = parse_url($url, PHP_URL_PATH);
@@ -64,9 +64,50 @@ class Lift extends MX_Controller {
 					endif;
 				endif;
 			else:
-				$data['ride_list'] = $this->lift_model->listing();
+				$data['ride_count'] 	= $this->lift_model->ride_count();
+				$ride_count				= $data['ride_count'];
+				
+				$config 				= array();
+				$config["base_url"] 	= base_url('rides/index');
+				$config["total_rows"] 	= $ride_count[0]['rides'];
+				$config["per_page"] 	= 12;
+				$config["uri_segment"] 	= 3;
+				
+				$config['full_tag_open']	= '<ul class="pagination">';
+				$config['cur_tag_open'] 	= '<li class="active"><a href="javascript:void(0)">';
+				$config['cur_tag_close'] 	= '</a></li>';
+				$config['num_tag_open'] 	= '<li>';
+				$config['num_tag_close'] 	= '</li>';
+				$config['prev_link'] 		= '&laquo;';
+				$config['prev_tag_open'] 	= '<li>';
+				$config['prev_tag_close'] 	= '</li>';
+				$config['next_link'] 		= '&raquo;';
+				$config['next_tag_open'] 	= '<li>';
+				$config['next_tag_close'] 	= '</li>';
+				$config['full_tag_close'] 	= '</ul>';
+				
+				$this->pagination->initialize($config);
+				
+				$page 				= ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+				
+				$data["ride_list"] 	= $this->lift_model->listing($config["per_page"], $page);
+				$data["ride_links"] = $this->pagination->create_links();
 			endif;
 		endif;
+		
+		/* $config['base_url'] 	= base_url('rides');
+		$config['total_rows'] 	= 30; //count($data['ride_list'])
+		$config['per_page'] 	= 5;
+
+		$this->pagination->initialize($config); 
+
+		// echo $this->pagination->create_links();
+		
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data["results"] = $this->Countries->fetch_countries($config["per_page"], $page);
+        $data["links"] = $this->pagination->create_links();
+ 
+        $this->load->view("example1", $data); */
 		
 		$data['view_file'] = 'lift_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);

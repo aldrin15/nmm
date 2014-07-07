@@ -69,7 +69,7 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function listing($what = 'user_lift_post.id as id, user.user_id as user_id, firstname, lastname, user_media.media_filename as image, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model as car, user_car.license_plate as plate, user_lift_post.date') {
+	function listing($limit, $start, $what = 'user_lift_post.id as id, user.user_id as user_id, firstname, lastname, user_media.media_filename as image, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, user_lift_post.amount, user_lift_post.start_time, user_car.car_model as car, user_car.license_plate as plate, user_lift_post.date') {
 		$today 		= getdate();
 		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
 		$date 		= date('Y-m-d', strtotime($get_date));
@@ -79,6 +79,22 @@ class Lift_model extends CI_Model {
 							->join('user', 'user.user_id = user_lift_post.user_id')
 							->join('user_media', 'user_media.user_id = user_lift_post.user_id', 'left')
 							->join('user_car', 'user_car.user_id = user_lift_post.user_id', 'left')
+							->where('user_lift_post.date', $date)
+							->limit($limit, $start)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function ride_count($what = 'COUNT(id) as rides') {
+		$today 		= getdate();
+		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
+		$date 		= date('Y-m-d', strtotime($get_date));
+		
+		$query = $this->db->select($what)
+							->from('user_lift_post')
 							->where('user_lift_post.date', $date)
 							->get();
 		

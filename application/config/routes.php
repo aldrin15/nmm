@@ -41,6 +41,8 @@
 $route['default_controller'] 	= "nmm";
 $route['rides'] 				= "lift/index";
 $route['rides/detail/(:any)'] 	= "lift/detail/5";
+$route['rides/index'] 			= "lift/index/";
+$route['rides/index/(:any)'] 	= "lift/index/5";
 $route['404_override'] = '';
 
 
