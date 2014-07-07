@@ -28,6 +28,7 @@
     document.createElement('nav');
     document.createElement('header'); 
     document.createElement('footer');
+	$(function() {$('.login a:first-child').hover(function() {$('.login ul').stop(true, false).fadeIn().show();}, function() {$('.login ul').fadeOut();});})
 	</script>
 </head>
 <body>

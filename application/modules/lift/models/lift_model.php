@@ -295,4 +295,14 @@ class Lift_model extends CI_Model {
 		);
 		$this->db->insert('user_rating', $data);
 	}
+	
+	function rides($what = 'COUNT(id) as rides') {
+		$query = $this->db->select($what)
+							->from('user_lift_post')
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
 }

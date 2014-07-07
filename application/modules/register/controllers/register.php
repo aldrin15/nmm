@@ -32,26 +32,24 @@ class Register extends MX_Controller {
 		$post = $this->input->post();
 		
 		if($post):
-			if(array_key_exists('register_submit', $post)):
-				$this->form_validation->set_rules('firstname', 'Firstname', 'required|trim');
-				$this->form_validation->set_rules('lastname', 'Lastname', 'required|trim');
-				$this->form_validation->set_rules('gender', 'Gender', 'required');
-				$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
-				$this->form_validation->set_rules('password', 'Password', 'required|trim');
-				$this->form_validation->set_rules('cpassword', 'Confirm Password', 'required|trim|matches[password]');
-				$this->form_validation->set_rules('terms_condition', 'Terms and Condition', 'required');
+			$this->form_validation->set_rules('firstname', 'Firstname', 'required|trim');
+			$this->form_validation->set_rules('lastname', 'Lastname', 'required|trim');
+			$this->form_validation->set_rules('gender', 'Gender', 'required');
+			$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
+			$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|trim');
+			$this->form_validation->set_rules('cpassword', 'Confirm Password', 'required|min_length[6]|trim|matches[password]');
+			$this->form_validation->set_rules('terms_condition', 'Terms and Condition', 'required');
+			$this->form_validation->set_rules('account_type', 'Membership Type', 'required');
+			
+			if($this->form_validation->run() == TRUE):
+				$rand 		= random_string('unique');
+				$message	= "Dear ".$this->input->post('email').",\n\nPlease click on below URL or paste into your browser to verify your Email Address\n\n ".base_url('register/verify/')."/".$rand."\n"."\n\nThanks\nAdmin Team";
 				
-				if($this->form_validation->run() == TRUE):
-					$rand 		= random_string('unique');
-					$message	= "Dear ".$this->input->post('email').",\n\nPlease click on below URL or paste into your browser to verify your Email Address\n\n ".base_url('register/verify/')."/".$rand."\n"."\n\nThanks\nAdmin Team";
-					
-					$this->register_model->insert($rand);
-					
-					modules::run('email/sendEmailVerification', $this->input->post('email'), $message);
-					
-					redirect('register/successful', 'refresh');
-				endif;
+				$this->register_model->insert($rand);
 				
+				modules::run('email/sendEmailVerification', $this->input->post('email'), $message);
+				
+				redirect('register/successful', 'refresh');
 			endif;
 		endif;
 	

@@ -9,7 +9,6 @@
 			<ul>
 				<li>
 					<label for="firstname">Firstname <?php echo form_error('firstname', '<span class="error">', '</span>')?></label>
-					<!--<input type="text" name="firstname" id="" value="<?php //echo set_value('firstname')?>" class="form-control"/>-->
 					<input type="text" name="firstname" id="" value="<?php echo (isset($_GET['firstname']) ? $_GET['firstname'] : set_value('firstname'))?>" class="form-control"/>
 				</li>
 				<li>
@@ -17,14 +16,14 @@
 					<input type="text" name="lastname" id="" value="<?php echo (isset($_GET['lastname']) ? $_GET['lastname'] : set_value('lastname'))?>" class="form-control"/>
 				</li>
 				<li>
-					<label for="Gender">Gender <?php echo form_error('gender', '<span class="error">', '</span>')?></label>
+					<label for="Gender" class="err-gender">Gender <?php echo form_error('gender', '<span class="error">', '</span>')?></label>
 					
 					<div>
-						<input type="radio" name="gender" value="Male" id="" <?php echo (isset($_GET['gender']) == "male" ? 'checked="checked"' : "")?>/>
-						<label for="Male">Male</label>
+						<input type="radio" name="gender" value="Male" class="fl" id="" <?php echo (isset($_GET['gender']) == "male" ? 'checked="checked"' : "")?>/>
+						<span>Male</span>
 						
 						<input type="radio" name="gender" value="Female" id="" <?php echo (isset($_GET['gender']) == "female" ? 'checked="checked"' : "")?>/>
-						<label for="Female">Female</label>
+						<span>Female</span>
 						
 						<div class="clr"></div>
 					</div>
@@ -42,6 +41,29 @@
 					<input type="password" name="cpassword" id="" value="<?php echo set_value('cpassword')?>" class="form-control"/>
 				</li>
 				<li>
+					<br /><h4 class="err-type">Choose Membership Type <?php echo form_error('account_type', '<span class="error">', '</span>')?></h4>
+					<hr/>
+					
+					<ul>
+						<li>
+							<input type="radio" name="account_type" value="1" id=""/>
+							<span>Try it free</span>
+						</li>
+						<li>
+							<input type="radio" name="account_type" value="2" id=""/>
+							<span>Monthly</span>
+						</li>
+						<li>
+							<input type="radio" name="account_type" value="3" id=""/>
+							<span>6 Months</span>
+						</li>
+						<li>
+							<input type="radio" name="account_type" value="4" id=""/>
+							<span>One Year</span>
+						</li>
+					</ul>
+				</li>
+				<li>
 					<?php echo form_error('terms_condition', '<span class="error">', '</span>')?><br />
 					<input type="checkbox" name="terms_condition" id=""/>
 					<label for="Terms and Condition">Terms and Condition</label>
@@ -55,3 +77,86 @@
 		</form>	
 	</div>
 </div>
+
+<script type="text/javascript">
+function customRadio(radioName){
+	var radioButton = $('input[name="'+ radioName +'"]');
+	$(radioButton).each(function(){
+		$(this).wrap( "<span class='custom-radio'></span>" );
+		if($(this).is(':checked')){
+			$(this).parent().addClass("selected");
+		}
+	});
+	$(radioButton).click(function(){
+		if($(this).is(':checked')){
+			$(this).parent().addClass("selected");
+		}
+		$(radioButton).not(this).each(function(){
+			$(this).parent().removeClass("selected");
+		});
+	});
+}
+
+$(function() {
+	customRadio("account_type");
+	customRadio("gender");
+	
+	$('input[name="firstname"]').on('focus', function(){
+		var $this = $(this);
+		if($this.val() == 'ex. John'){
+			$this.val('');
+		}
+	}).on('blur', function(){
+		var $this = $(this);
+		if($this.val() == ''){
+			$this.val('ex. John');
+		}
+	});
+
+	$('input[name="register_submit"]').click(function() {
+		var firstname	= $('input[name="firstname"]'),
+			lastname	= $('input[name="lastname"]'),
+			gender		= $('input[name="gender"]'),
+			email		= $('input[name="email"]'),
+			password	= $('input[name="password"]'),
+			cpassword	= $('input[name="cpassword"]'),
+			acc_type	= $('input[name="account_type"]'),
+			terms		= $('input[name="terms_condition"]'),
+			error 		= 0;
+		
+		$('*').removeClass('error');
+		
+		if(firstname.val() == '') { firstname.css({border:'1px solid #ff0000'}); error = 1; }
+		if(lastname.val() == '') { lastname.css({border:'1px solid #ff0000'}); error = 1; }
+		if(gender.is(':checked')) {} else {
+			$('.err-gender').html('Gender <span class="error">You need to choose your gender</span>');
+			error = 1;
+		}
+		if(email.val() == '') { email.css({border:'1px solid #ff0000'}); error = 1; }
+		if(password.val() == '') { password.css({border:'1px solid #ff0000'}); error = 1; }
+		
+		if(cpassword.val() == '') {
+			cpassword.css({border:'1px solid #ff0000'});
+			error = 1;
+		} else {
+			if(password.val() != cpassword.val()) {
+				cpassword.css({border:'1px solid #ff0000'});
+				error = 1;
+			}
+		}
+		
+		if(acc_type.is(':checked')) {
+		} else {
+			$('.err-type').html('Choose Membership Type <small class="error">Membership type is required</small>');
+			error = 1;
+		}
+		
+		if(error == 0) {
+			//console.log('Success');
+			$(this).attr('disabled', 'disabled');
+		} else {
+			return false;
+		}
+	});
+});
+</script>

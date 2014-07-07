@@ -294,4 +294,12 @@ class Lift extends MX_Controller {
 		
 		$this->lift_model->insert_rating($user_id, $rating_number);
 	}
+	
+	public function rides_count() {
+		$data['rides'] 		= $this->lift_model->rides();
+		
+		foreach($data['rides'] as $row):
+			echo $row['rides'];
+		endforeach;
+	}
 }

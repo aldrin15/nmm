@@ -34,7 +34,7 @@
 		<div class="pull-right">
 			<div class="fl">
 				<img src="<?php echo base_url('assets/images/page_template/icon_car.jpg')?>" width="38" height="32" alt=""/><br />
-				<span><strong>8,888,888</strong></span><br />
+				<span><strong><?php echo modules::run('lift/rides_count')?></strong></span><br />
 				<span>Lift today</span>
 			</div>
 			<div class="fl">
