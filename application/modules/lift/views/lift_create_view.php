@@ -1,7 +1,7 @@
 <?php $this->load->view('header_content')?>
 
 <style type="text/css">
-#calendar {width:360px;}
+#calendar, #return-trip-calendar {width:360px;}
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {background:#00ff00;}
 .ui-datepicker {width:100%;}
 .ui-widget-content {background:none;}
@@ -167,7 +167,7 @@
 			</li>
 		</ul>	
 		<?php else:?>
-		<ul>
+		<ul class="ride-trip">
 			<li class="span5">
 				<label for="Departure">From: </label>
 				<?php echo form_error('origin', '<div class="fl error">', '</div>')?>
@@ -178,7 +178,7 @@
 					<p>- Choose your location -</p>
 					
 					<div class="lift-search">
-						<span><input type="text" name="from" id="lift-route" autocomplete="off"/></span>
+						<span><input type="text" name="from" id="lift-route" autocomplete="off" /></span>
 						
 						<input type="hidden" name="origin" value="" id="" />
 						
@@ -352,7 +352,163 @@
 				
 				<div class="clr"></div>
 			</li>
-		</ul>		
+		</ul>
+		
+		
+		<div id="return-trip" style="display:none;">
+			<h4>Return Ride</h4>
+				<hr/>
+			<ul class="return-trip">
+				<li class="span5">
+					<label for="Departure">From: </label>
+									
+					<div class="clr"></div>
+					
+					<div class="lift-place">
+						<p>- Choose your location -</p>
+						
+						<div class="lift-search">
+							<span><input type="text" name="from" id="rlift-route" autocomplete="off"/></span>
+							
+							<input type="hidden" name="origin" value="" id="" />
+							
+							<a href="#" class="l-s-done">Done</a>
+							
+							<div class="clr"></div>
+						</div>
+					</div>
+					
+					<div class="clr"></div>
+				</li>
+				<li class="span5">
+					<label for="Departure">To: </label>
+					
+						<div class="clr"></div>
+					
+					<div class="lift-place">
+						<p>- Choose your location -</p>
+						
+						<div class="lift-search">
+							<span><input type="text" name="to" id="rto-route" autocomplete="off"/></span>
+							
+							<input type="hidden" name="destination" value="" id="" />
+							
+							<a href="#" class="l-s-done">Done</a>
+							
+							<div class="clr"></div>
+						</div>
+					</div>
+					
+					<div class="clr"></div>
+				</li>
+				<li class="span5">
+					<label for="Via">Via</label>
+					
+					<div class="clr"></div>
+					
+					<input type="text" name="via" id="" class="form-control"/>
+					
+					<div class="clr"></div>
+				</li>
+			</ul>
+			
+			<h4>Date and Time of Lift</h4>
+			<hr/><br />
+			
+			<ul>
+				<li>
+					<label for="Date">Date:</label>
+					<div id="return-trip-calendar" class="fl"></div>
+					<input type="hidden" name="return_dates" value="<?php echo set_value('dates')?>" class="calendar-data"/>
+					
+					<div class="clr"></div>
+				</li>
+				<li>
+					<label for="Time">Time:</label>
+					
+					<span>Hour</span>
+					<select name="return_hours" id="" class="time-dropdown select-width-auto">
+						<?php for($i = 1; $i < 25; $i++):?>
+						<option value="<?php echo $i?>"><?php echo $i?></option>
+						<?php endfor?>
+					</select>
+					
+					<span>Minute</span>
+					
+					<select name="return_minute" id="" class="time-dropdown select-width-auto">
+						<?php for($i = 1; $i < 10; $i++):?>
+						<option value="<?php echo '0'.$i?>"><?php echo '0'.$i?></option>
+						<?php endfor?>
+						<?php for($i = 10; $i < 61; $i++):?>
+						<option value="<?php echo $i?>"><?php echo $i?></option>
+						<?php endfor?>
+					</select>
+					
+					<div class="clr"></div>
+				</li>
+			</ul>
+			
+			<h4>Car Preference</h4>
+				<hr/><br />
+			<ul>
+				<li>
+					<label for="Seat Available">Seat Available</label>
+					<select name="return_seat_available" id="" class="seat-available-choice" data-width="50px">
+						<?php for($i = 1; $i < 12; $i++):?>
+						<option value="<?php echo $i?>"><?php echo $i?></option>
+						<?php endfor?>
+					</select>
+					
+					<div class="clr"></div>
+				</li>
+				<li>
+					<label for="Storage">Storage</label>
+					<select name="return_storage" id="" class="storage-choice" data-width="100px">
+						<option value="Small">Small</option>
+						<option value="Medium">Medium</option>
+						<option value="Large">Large</option>
+					</select>
+					
+					<div class="clr"></div>
+				</li>
+				<li>
+					<label for="Preferences">Preferences:</label>
+					
+					<div class="lift-preference">
+						<div class="fl checkbox-1">
+							<input type="checkbox" name="return_preference[]" value="1"/>
+							<p>Talk <i></i></p>
+						</div>
+						<div class="fl checkbox-2">
+							<input type="checkbox" name="return_preference[]" value="2"/>
+							<p>Music <i></i></p>
+						</div>
+						<div class="fl checkbox-3">
+							<input type="checkbox" name="return_preference[]" value="3"/>
+							<p>Pet <i></i></p>
+						</div>
+						<div class="fl checkbox-4">
+							<input type="checkbox" name="return_preference[]" value="4"/>
+							<p>Smoke <i></i></p>
+						</div>
+						<div class="fl checkbox-5">
+							<input type="checkbox" name="return_preference[]" value="5"/>
+							<p>Baby <i></i></p>
+						</div>
+						<div class="fl checkbox-6">
+							<input type="checkbox" name="return_preference[]" value="6"/>
+							<p>Women Only <i></i></p>
+						</div>
+					</div>
+					
+					<div class="clr"></div>
+				</li>
+				<li class="span5">
+					<label for="Remarks">Remarks:</label>
+					<textarea name="return_remarks" id="" cols="30" rows="10" class="form-control"></textarea>
+				</li>
+			</ul>
+		</div>
 		<?php endif?>
 		
 		
@@ -386,8 +542,19 @@ function checkbox(checkboxName){
 $(function() {
 	$('.time-dropdown, .seat-available-choice, .storage-choice').selectpicker();
 	
-	$('ul li div.lift-place p').click(function() { $(this).parent().children('.lift-search').slideToggle(); });
-	$('ul li div.lift-place .lift-search a.l-s-done').click(function(e) { $(this).parent().slideToggle(); e.preventDefault(); });
+	$('.ride-trip li div.lift-place p').click(function() { $(this).parent().children('.lift-search').slideToggle(); });
+	$('.ride-trip li div.lift-place .lift-search a.l-s-done').click(function(e) { $(this).parent().slideToggle(); e.preventDefault(); });
+	
+	$('.return-trip li div.lift-place p').click(function() { $(this).parent().children('.lift-search').slideToggle(); });
+	$('.return-trip li div.lift-place .lift-search a.l-s-done').click(function(e) { $(this).parent().slideToggle(); e.preventDefault(); });
+	
+	$('input[name="offer_re_route"]').click(function() {
+		if($(this).is(':checked')) {
+			$('#return-trip').slideDown().show();
+		} else {
+			$('#return-trip').slideUp();
+		}
+	});
 	
 	$('.lift-place input').keyup(function(e) {
 		if($(this).attr('name') == 'from') {
@@ -437,7 +604,6 @@ $(function() {
 				}
 			});	
 		}
-
 	});
 	
 	checkbox("re_route");
@@ -447,13 +613,18 @@ $(function() {
 		var getDates		= $(this).multiDatesPicker('getDates'),
 			getDates_array	= [];
 		
-		// $(hidden_dates).empty(); //This empty the hidden field
-		
-		$.each(getDates, function(index, value) {
-			getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>');
-		});
+		$.each(getDates, function(index, value) { getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>'); });
 		
 		$('input[name="dates"]').val(getDates_array);
+	});
+
+	$('#return-trip-calendar').click(function() {
+		var getDates		= $(this).multiDatesPicker('getDates'),
+			getDates_array	= [];
+		
+		$.each(getDates, function(index, value) { getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>'); });
+		
+		$('input[name="return_dates"]').val(getDates_array);
 	});
 	
 	<?php
@@ -488,8 +659,8 @@ $(function() {
 		}
 	});
 	<?php endif?>
-	
 	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", <?php echo ($get_wish_date != '') ? 'beforeShowDay:choices' : '' ?>});
+	$('#return-trip-calendar').multiDatesPicker({dateFormat	: "yy-mm-dd"});
 	$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });
 	$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
 });

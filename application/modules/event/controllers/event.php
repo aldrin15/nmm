@@ -27,10 +27,9 @@ class Event extends MX_Controller {
 		
 		$event_detail = $data['event_details_data'];
 		
-		$data['event_details_lift_data'] = $this->event_model->detail_lift($event_detail);
-		$data['event_details_passenger_data'] = $this->event_model->detail_passenger($event_detail);
-		
-		$data['view_file'] = 'event_detail_view';
+		$data['event_details_lift_data']		= $this->event_model->detail_lift($event_detail);
+		$data['event_details_passenger_data']	= $this->event_model->detail_passenger($event_detail);		
+		$data['view_file'] 						= 'event_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	

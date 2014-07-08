@@ -9,7 +9,7 @@
 			<li><a href="javascript:void(0)" class="login-fb">Login with Facebook</a></li>
 			<li class="signin-with"><span>Or Sign with your email address</span></li>
 			<li><span class="username"><input type="text" name="username" value="<?php echo (isset($_POST['username'])) ? $_POST['username'] : 'Email Address'?>" id=""/><i></i></span></li>
-			<li><span class="password"><input type="text" name="password" value="<?php echo (isset($_POST['password'])) ? $_POST['password'] : 'Password'?>" id=""/><i></i></span></li>
+			<li><span class="password"><input type="password" name="password" value="<?php echo (isset($_POST['password'])) ? $_POST['password'] : 'Password'?>" id=""/><i></i></span></li>
 			<li><input type="submit" name="login_submit" value="LOGIN" /></li>
 			<li><a href="<?php echo base_url('login/forgot_password')?>">Forgot Password</a></li>
 		</ul>
@@ -30,11 +30,11 @@ $(function() {
 	
 	$('form ul li input[name="password"]').focus(function() {
 		if($(this).val() == 'Password') {
-			$(this).attr('type', 'password').css({color:'#000'}).val('');
+			$(this).css({color:'#000'}).val('');
 		}
 	}).blur(function() {
 		if($(this).val() == '') {
-			$(this).attr('type', 'text').css({color:'#9b9b9b'}).val('Password');
+			$(this).css({color:'#9b9b9b'}).val('Password');
 		}
 	});
 	

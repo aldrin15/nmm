@@ -1,5 +1,13 @@
 <?php $this->load->view('header_content')?>
 
+<style type="text/css">
+.event-posted-image {border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; border:1px solid #bbbaba; padding:10px}
+.event-posted-image img {margin-right:10px;}
+.event-posted-remarks {padding-top:10px;}
+
+.event-posted-details p {margin-bottom:10px;}
+</style>
+
 <div class="m-center-content">
 	<?php foreach($event_details_data as $row):?>
 	<div class="event-posted">
@@ -7,16 +15,19 @@
 			<img src="<?php echo base_url('assets/media_uploads/events'.'/'.$row['image'])?>" width="220" height="135" alt="" class="fl"/>
 			
 			<div class="event-posted-details fl">
-				<p><?php echo date('F d Y', strtotime($row['date']))?></p>
+				<p style="font-size: 1.5em; font-weight: bold;">On <?php echo date('F d, H:i A', strtotime($row['date']))?></p>
 				<p><?php echo $row['title']?></p>
 				<p><?php echo $row['address']?></p>
 				<p>Posted by: <?php echo $row['firstname'].' '.$row['lastname']?></p>
 			</div>
 			
+			<!-- <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="button_count"></div>-->
+			
 			<div class="clr"></div>
 		</div>
 		
 		<div class="event-posted-remarks">
+			<h4>Event Description:</h4>
 			<?php echo $row['remarks']?>
 		</div>
 	</div>
@@ -90,8 +101,17 @@
 		
 		<div id="passenger" style="display:none;">
 			<div class="passenger-listing">
+				<?php
+					$event_details_passenger = array_keys( $event_details_passenger_data, true);
+					
+					if($event_details_passenger[0] == 0):
+				?>
+					<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px;"><p>There are no route that matches in this event area</p></div>
+				<?php
+				else:
+					foreach($event_details_passenger_data as $wish_lift):
+				?>
 				<ul>
-					<?php foreach($event_details_passenger_data as $wish_lift):?>
 					<li>
 						<a href="<?php echo base_url('passenger/detail/'.$wish_lift['id'])?>">
 							<img src="<?php echo base_url('assets/images/user.jpg')?>" width="150" height="150" alt="User"/>
@@ -114,9 +134,11 @@
 							</div>
 						</a>
 					</li>
-					<?php endforeach?>
 				</ul>
-				
+				<?php 
+					endforeach;
+				endif;
+				?>
 				<div class="clr"></div>
 			</div>
 		</div>
