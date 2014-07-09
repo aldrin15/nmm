@@ -19,9 +19,8 @@
 			<?php foreach($members_id as $member):?>
 			<ul>
 				<li>
-					<?php echo form_error('email', '<div class="error">','</div>')?>
-					<label for="Email">Email: </label>
-					<span class="form-control"><input type="text" name="email" value="<?php echo $member['email']?>" id="" autocomplete="off"/></span>
+					<label for="">Email: </label>
+					<span><?php echo $member['email']?></span>
 				</li>
 				<li>
 					<?php echo form_error('password', '<div class="error">','</div>')?>

@@ -10,11 +10,11 @@
 			
 			<nav class="pull-right">
 				<ul>
-					<li><a href="<?php echo base_url('rides')?>">Lift</a></li>
-					<li><a href="<?php echo base_url('passenger')?>">Passenger</a></li>
-					<li><a href="<?php echo base_url('event')?>">Events</a></li>
-					<li><a href="<?php echo base_url('abroad')?>">Abroad</a></li>
-					<li><a href="<?php echo base_url('offer_wish_lift')?>">Offer / Make a wish lift</a></li>
+					<li><a href="<?php echo base_url('rides')?>"><i class="fa fa-car <?php echo ($this->uri->segment(1) == 'rides') ? 'selected' : ''?>"></i><span>Lift</span></a></li>
+					<li><a href="<?php echo base_url('passenger')?>"><i class="fa fa-group <?php echo ($this->uri->segment(1) == 'passenger') ? 'selected' : ''?>"></i><span>Passenger</span></a></li>
+					<li><a href="<?php echo base_url('event')?>"><i class="fa fa-calendar <?php echo ($this->uri->segment(1) == 'event') ? 'selected' : ''?>"></i><span>Events</span></a></li>
+					<li><a href="<?php echo base_url('abroad')?>"><i class="fa fa fa-globe <?php echo ($this->uri->segment(1) == 'abroad') ? 'selected' : ''?>"></i><span>Abroad</span></a></li>
+					<li><a href="<?php echo base_url('offer_wish_lift')?>"><i class="fa fa-pencil-square-o <?php echo ($this->uri->segment(1) == 'offer_wish_lift') ? 'selected' : ''?>"></i><span>Ride/ Wish Lift</span></a></li>
 				</ul>
 			</nav>
 			

@@ -62,16 +62,21 @@ class Login extends MX_Controller {
 		$post = $this->input->post();
 		
 		if($post):
-			if(array_key_exists('forgot_submit', $post)):
-				$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+			$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 				
-				if($this->form_validation->run() == TRUE):
-					$this->login_model->forgot_account();
-				endif;
+			if($this->form_validation->run() == TRUE):
+				$this->login_model->forgot_account();
+				
+				redirect('login/forgot_password_success', 'refresh');
 			endif;
 		endif;
 
 		$data['view_file'] = 'login_forgot_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function forgot_password_success() {
+		$data['view_file'] = 'login_forgot_success_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	

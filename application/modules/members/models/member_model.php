@@ -2,10 +2,11 @@
 
 class Member_model extends CI_Model {
 	
-	public function members($user_id, $what = 'firstname, lastname, email, city, country, user_media.media_filename as image, number, user_car.car_model as car, user_car.license_plate as plate, last_login, user.date, COUNT(user_lift_post.user_id) as created') {
+	public function members($user_id, $what = 'firstname, lastname, email, about_me, birthdate, job, city, country, user_media.media_filename as image, number, user_car.car_model as car, user_car.license_plate as plate, last_login, user.date, COUNT(user_lift_post.user_id) as created') {
 		$query = $this->db->select($what)
 							->from('user')
 							->join('user_address', 'user_address.user_id = user.user_id', 'left')
+							->join('user_additional_information', 'user_additional_information.user_id = user.user_id', 'left')
 							->join('user_sessions', 'user_sessions.user_id = user.user_id', 'left')
 							->join('user_media', 'user_media.user_id = user.user_id', 'left')
 							->join('user_mobile', 'user_mobile.user_id = user.user_id', 'left')
@@ -154,6 +155,7 @@ class Member_model extends CI_Model {
 		$firstname 	= $this->input->post('firstname');
 		$lastname 	= $this->input->post('lastname');
 		$job 		= $this->input->post('work');
+		$birthdate 	= $this->input->post('year').'-'.$this->input->post('month').'-'.$this->input->post('day');
 		$address_no = $this->input->post('address_no');
 		$street 	= $this->input->post('street');
 		$postal 	= $this->input->post('postal');
@@ -167,7 +169,8 @@ class Member_model extends CI_Model {
 							    user.lastname = '{$lastname}',
 								user_additional_information.about_me = '{$about_me}',
 								user_additional_information.job = '{$job}',
-								user_address.address_no = '{$address_no}', 
+								user_additional_information.birthdate = '{$birthdate}',
+								user_address.address_no = '{$address_no}',
 								user_address.street = '{$street}', 
 								user_address.city = '{$city}',
 								user_address.country = '{$country}',
@@ -235,5 +238,20 @@ class Member_model extends CI_Model {
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
+	}
+	
+	public function car_update($id) {
+		$data = array(
+			'car_model'			=> $this->input->post('model'),
+			'license_plate' 	=> $this->input->post('plate'),
+			'door' 				=> $this->input->post('door'),
+			'seat' 				=> $this->input->post('seat'),
+			'transmission' 		=> $this->input->post('model'),
+			'air_condition'		=> $this->input->post('air_con'),
+			'fuel'				=> $this->input->post('fuel'),
+			'year'				=> $this->input->post('year')
+		);
+		
+		$this->db->update('user_car', $data);
 	}
 }

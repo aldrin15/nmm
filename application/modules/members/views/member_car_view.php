@@ -77,23 +77,10 @@
 			</ul>
 		</div>
 	</div>
-	<?php endforeach?>
 	
-	<div class="profile-status span3 fl">
-		<p>Profile Status</p>
-		
-		<div class="profile-progress"></div>
-		
-		<ul>
-			<li class="p-checked" data-val="14"><p>Name</p></li>
-			<li class="p-checked" data-val="14"><p>Profile picture</p></li>
-			<li class="p-checked" data-val="14"><p>Email</p></li>
-			<li class="p-checked" data-val="14"><p>Work</p></li>
-			<li class="p-checked" data-val="14"><p>Address</p></li>
-			<li data-val="0"><p>Profile text</p></li>
-			<li data-val="0"><p>Mobile Number</p></li>
-		</ul>
-	</div>	
+	<?php echo modules::run('members/status')?>
+	
+	<?php endforeach?>	
 
 	<div class="clr"></div>
 </div>

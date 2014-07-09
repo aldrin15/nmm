@@ -9,7 +9,7 @@
 	<div class="span8 profile-detail-information fl">
 		<div class="fl span4">
 			<div class="profile-name"><h3><?php echo $row['firstname'].' '.$row['lastname']?></h3></div>
-			<div class="profile-address"><p><?php echo $row['city'].', '.$row['country']?></p></div>
+			<div class="profile-address"><p><?php echo ($row['city'] != '' && $row['country']) ? $row['city'].', '.$row['country'] : ''?></p></div>
 		</div>
 		
 		<div class="fr span2">
@@ -22,7 +22,7 @@
 		
 		<div class="profile-image-contact fl">
 			<div class="profile-frame">
-				<img src="<?php echo base_url('assets/media_uploads').'/'.$row['image']?>" width="160" height="160" alt=""/>
+				<img src="<?php echo ($row['image'] != '') ? base_url('assets/media_uploads').'/'.$row['image'] : base_url('assets/images/page_template/no_photo.jpg')?>" width="160" height="160" alt=""/>
 			</div>
 			
 			<div class="profile-online-status">
@@ -47,13 +47,17 @@
 				</li>
 				<li>
 					<label for="Age">Age</label>
-					<span>:</span>
+					<span>: <?php 
+						$birthday = new DateTime($row['birthdate']);
+						$interval = $birthday->diff(new DateTime);
+						echo $interval->y;
+					?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="work">Work</label>
-					<span>:</span>
+					<span>: <?php echo $row['job']?></span>
 					
 					<div class="clr"></div>
 				</li>
@@ -83,21 +87,7 @@
 				</li>
 			</ul>		
 		</div>
-		<div class="profile-status span3 fl">
-			<p>Profile Status</p>
-			
-			<div class="profile-progress"></div>
-			
-			<ul>
-				<li class="p-checked" data-val="14"><p>Name</p></li>
-				<li class="p-checked" data-val="14"><p>Profile picture</p></li>
-				<li class="p-checked" data-val="14"><p>Email</p></li>
-				<li class="p-checked" data-val="14"><p>Work</p></li>
-				<li class="p-checked" data-val="14"><p>Address</p></li>
-				<li data-val="0"><p>Profile text</p></li>
-				<li data-val="0"><p>Mobile Number</p></li>
-			</ul>
-		</div>
+		<?php echo modules::run('members/status')?>
 		
 		<div class="clr"></div>
 	</div>

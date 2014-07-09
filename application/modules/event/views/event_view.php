@@ -11,7 +11,7 @@
 			<?php foreach($event_data as $row):?>
 			<li>
 				<a href="<?php echo base_url('event/detail'.'/'.$row['id'])?>">
-					<img src="<?php echo base_url('assets/images/event_image.jpg')?>" width="220" height="135" alt=""/>
+					<img src="<?php echo base_url('assets/media_uploads/events').'/'.$row['image']?>" width="220" height="135" alt=""/>
 					<div class="event-details">
 						<div class="event-date">
 							<?php

@@ -16,16 +16,13 @@ class Register extends MX_Controller {
 		$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$this->session->set_userdata('refered_from', $url);
 		
+		/* 
 		$is_logged_in = $this->session->userdata('validated');
-		
 		if($is_logged_in == true):
-			echo '<script type="text/javascript">
-				alert("You are still already logged in");
-				window.location.href = "http://localhost/nmm/"
-			</script>';
+			//echo '<script type="text/javascript">alert("You are still already logged in"); window.location.href = "http://localhost/nmm/"</script>';
 			
 			die();
-		endif;
+		endif; */
 	}
 	
 	public function index() {
@@ -47,7 +44,7 @@ class Register extends MX_Controller {
 				
 				$this->register_model->insert($rand);
 				
-				modules::run('email/sendEmailVerification', $this->input->post('email'), $message);
+				modules::run('email/sendEmailVerification', $this->input->post('lastname'), $message);
 				
 				redirect('register/successful', 'refresh');
 			endif;
@@ -65,9 +62,19 @@ class Register extends MX_Controller {
 	public function verify() {
 		$code = $this->uri->segment(3);
 		
-		$this->register_model->verify($code);
+		$data['verification'] = $this->register_model->verify($code);
 		
-		$data['view_file'] = 'register_successfully_verify';
-		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+		var_dump($data['verification']);
+		
+		/* $is_logged_in = $this->session->userdata('validated');
+		
+		if($is_logged_in == true):
+			redirect('nmm');
+		else:
+			$data['view_file'] = 'register_successfully_verify';
+			echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+			
+			die();
+		endif; */
 	}
 }

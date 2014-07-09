@@ -128,6 +128,23 @@ class Members extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
+	public function car_edit() {
+		$id = $this->session->userdata('user_id');
+		
+		$this->form_validation->set_rules('model', 'Car Model', 'required');
+		$this->form_validation->set_rules('plate', 'Plate', 'required');
+		$this->form_validation->set_rules('year', 'Year', 'required');
+		$this->form_validation->set_rules('fuel', 'Fuel', 'required');
+		
+		if($this->form_validation->run() == TRUE):
+			$this->member_model->car_update($id);
+		endif;
+		
+		$data['car_data'] = $this->member_model->car($id);
+		$data['view_file'] = 'member_car_edit_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
 	public function overview() {
 		$data['rides_data'] = $this->member_model->rides_list();
 		$data['passenger_data'] = $this->member_model->passenger_list();
@@ -226,5 +243,11 @@ class Members extends MX_Controller {
 		$dates = implode(', ', $date);
 		
 		$this->db->query("INSERT INTO dates (`booking_dates`) VALUES('{$dates}')");
+	}
+	
+	public function status() {
+		$data['members_data'] 	= $this->member_model->members($this->session->userdata('user_id'));
+		
+		$this->load->view('member_status_view', $data);
 	}
 }

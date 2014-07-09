@@ -28,6 +28,8 @@
 			<section class="wrapper">
 				<section class="panel">
 					<div class="panel-body">
+						<a href="<?php echo base_url('lift/create')?>" class="fr btn btn-default">Post Ride</a>
+							<div class="clr"></div>
 						<div class="adv-table editable-table ">
 							<table class="table table-striped table-hover table-bordered" id="ride-table">
 								<thead>
@@ -73,6 +75,8 @@
 			<section class="wrapper">
 				<section class="panel">
 					<div class="panel-body">
+						<a href="<?php echo base_url('passenger/create')?>" class="fr btn btn-default">Post Wish Lift</a>
+							<div class="clr"></div>
 						<div class="adv-table editable-table ">
 							<table class="table table-striped table-hover table-bordered" id="passenger-table">
 								<thead>

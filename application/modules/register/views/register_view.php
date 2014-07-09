@@ -9,36 +9,36 @@
 			<ul>
 				<li>
 					<label for="firstname">Firstname <?php echo form_error('firstname', '<span class="error">', '</span>')?></label>
-					<input type="text" name="firstname" id="" value="<?php echo (isset($_GET['firstname']) ? $_GET['firstname'] : set_value('firstname'))?>" class="form-control"/>
+					<input type="text" name="firstname" id="" value="<?php echo (isset($_GET['firstname']) ? $_GET['firstname'] : set_value('firstname'))?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>
 					<label for="lastname">Lastname <?php echo form_error('lastname', '<span class="error">', '</span>')?></label>
-					<input type="text" name="lastname" id="" value="<?php echo (isset($_GET['lastname']) ? $_GET['lastname'] : set_value('lastname'))?>" class="form-control"/>
+					<input type="text" name="lastname" id="" value="<?php echo (isset($_GET['lastname']) ? $_GET['lastname'] : set_value('lastname'))?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>
 					<label for="Gender" class="err-gender">Gender <?php echo form_error('gender', '<span class="error">', '</span>')?></label>
 					
 					<div>
-						<input type="radio" name="gender" value="Male" class="fl" id="" <?php echo (isset($_GET['gender']) == "male" ? 'checked="checked"' : "")?>/>
+						<input type="radio" name="gender" value="Male" class="fl" id="" <?php echo (isset($_GET['gender']) == "male" ? 'checked="checked"' : (isset($_POST['gender'])) ? set_value('gender') : "")?>/>
 						<span>Male</span>
 						
-						<input type="radio" name="gender" value="Female" id="" <?php echo (isset($_GET['gender']) == "female" ? 'checked="checked"' : "")?>/>
+						<input type="radio" name="gender" value="Female" id="" <?php echo (isset($_GET['gender']) == "female" ? 'checked="checked"' : (isset($_POST['gender'])) ? set_value('gender') : "")?>/>
 						<span>Female</span>
 						
 						<div class="clr"></div>
 					</div>
 				</li>
 				<li>
-					<label for="email">Email: <?php echo form_error('email', '<span class="error">', '</span>')?></label>
-					<input type="text" name="email" id="" <?php echo set_value('email')?> class="form-control"/>
+					<label for="email" class="err-mail">Email: <?php echo form_error('email', '<span class="error">', '</span>')?></label>
+					<input type="text" name="email" id="" value="<?php echo isset($_GET['email']) ? $_GET['email'] : set_value('email')?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>
-					<label for="Password">Password <?php echo form_error('password', '<span class="error">', '</span>')?></label>
-					<input type="password" name="password" id="" value="<?php echo set_value('password')?>" class="form-control"/>
+					<label for="Password" class="err-pass">Password <?php echo form_error('password', '<span class="error">', '</span>')?></label>
+					<input type="password" name="password" id="" value="<?php echo set_value('password')?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>
 					<label for="Confirm Password">Confirm Password <?php echo form_error('cpassword', '<span class="error">', '</span>')?></label>
-					<input type="password" name="cpassword" id="" value="<?php echo set_value('cpassword')?>" class="form-control"/>
+					<input type="password" name="cpassword" id="" value="<?php echo set_value('cpassword')?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>
 					<br /><h4 class="err-type">Choose Membership Type <?php echo form_error('account_type', '<span class="error">', '</span>')?></h4>
@@ -46,19 +46,19 @@
 					
 					<ul>
 						<li>
-							<input type="radio" name="account_type" value="1" id=""/>
+							<input type="radio" name="account_type[]" value="1" id=""/>
 							<span>Try it free</span>
 						</li>
 						<li>
-							<input type="radio" name="account_type" value="2" id=""/>
+							<input type="radio" name="account_type[]" value="2" id=""/>
 							<span>Monthly</span>
 						</li>
 						<li>
-							<input type="radio" name="account_type" value="3" id=""/>
+							<input type="radio" name="account_type[]" value="3" id=""/>
 							<span>6 Months</span>
 						</li>
 						<li>
-							<input type="radio" name="account_type" value="4" id=""/>
+							<input type="radio" name="account_type[]" value="4" id=""/>
 							<span>One Year</span>
 						</li>
 					</ul>
@@ -66,7 +66,7 @@
 				<li>
 					<?php echo form_error('terms_condition', '<span class="error">', '</span>')?><br />
 					<input type="checkbox" name="terms_condition" id=""/>
-					<label for="Terms and Condition">Terms and Condition</label>
+					<label for="Terms and Condition" class="err-terms"><a href="<?php echo base_url('terms')?>">Terms and Condition</a></label>
 					
 					<div class="clr"></div>
 				</li>
@@ -98,20 +98,8 @@ function customRadio(radioName){
 }
 
 $(function() {
-	customRadio("account_type");
+	customRadio("account_type[]");
 	customRadio("gender");
-	
-	$('input[name="firstname"]').on('focus', function(){
-		var $this = $(this);
-		if($this.val() == 'ex. John'){
-			$this.val('');
-		}
-	}).on('blur', function(){
-		var $this = $(this);
-		if($this.val() == ''){
-			$this.val('ex. John');
-		}
-	});
 
 	$('input[name="register_submit"]').click(function() {
 		var firstname	= $('input[name="firstname"]'),
@@ -120,40 +108,81 @@ $(function() {
 			email		= $('input[name="email"]'),
 			password	= $('input[name="password"]'),
 			cpassword	= $('input[name="cpassword"]'),
-			acc_type	= $('input[name="account_type"]'),
-			terms		= $('input[name="terms_condition"]'),
-			error 		= 0;
+			acc_type	= $('input[name="account_type[]"]'),
+			terms		= $('input[name="terms_condition"]');	
+	
+		$('*').removeClass('error error-bd');
+		var error = 0;
+		var regx = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 		
-		$('*').removeClass('error');
+		if(firstname.val() == "") {
+			firstname.addClass('error-bd');
+			error = 1;
+		}
 		
-		if(firstname.val() == '') { firstname.css({border:'1px solid #ff0000'}); error = 1; }
-		if(lastname.val() == '') { lastname.css({border:'1px solid #ff0000'}); error = 1; }
-		if(gender.is(':checked')) {} else {
+		if(lastname.val() == "") {
+			lastname.addClass('error-bd');
+			error = 1;
+		}
+		
+		if(gender.is(':checked')){
+			$('.err-gender').html('Gender');
+		} else {
 			$('.err-gender').html('Gender <span class="error">You need to choose your gender</span>');
 			error = 1;
 		}
-		if(email.val() == '') { email.css({border:'1px solid #ff0000'}); error = 1; }
-		if(password.val() == '') { password.css({border:'1px solid #ff0000'}); error = 1; }
 		
-		if(cpassword.val() == '') {
-			cpassword.css({border:'1px solid #ff0000'});
+		if(email.val() == '') {
+			email.addClass('error-bd');
 			error = 1;
 		} else {
-			if(password.val() != cpassword.val()) {
-				cpassword.css({border:'1px solid #ff0000'});
+			if(!regx.test(email.val())) {
+				$('.err-mail').html('Email: <span class="error">Please enter valid e-mail address</span>'); 
+				error = 1;
+			} else {
+				$('.err-mail').html("Email:");
+			}
+		}
+		
+		if(password.val() == '') { 
+			password.addClass('error-bd');
+			error = 1; 
+		}
+
+		if(password.val().length < 6) {
+			$('.err-pass').html('Password <span class="error">Please enter at least 6 characters</span>');
+			password.addClass('error-bd');
+			error = 1;
+		}  else {
+			$('.err-pass').html('Password');
+		}
+		
+		if(cpassword.val() == '') {
+			cpassword.addClass('error-bd');
+			error = 1;
+		} else {
+			if(cpassword.val() != password.val()) {
+				cpassword.addClass('error-bd');
 				error = 1;
 			}
 		}
 		
 		if(acc_type.is(':checked')) {
+			$('.err-type').html('Choose Membership Type');
 		} else {
 			$('.err-type').html('Choose Membership Type <small class="error">Membership type is required</small>');
 			error = 1;
 		}
 		
+		if(terms.is(':checked')) {
+			$('.err-terms').html('<a href="<?php echo base_url('terms')?>">Terms and Condition</a>');
+		} else {
+			$('.err-terms').html('<a href="<?php echo base_url('terms')?>">Terms and Condition</a> <span class="error">You need to agree with Terms and Condition</span>');
+			error = 1;
+		}
+		
 		if(error == 0) {
-			//console.log('Success');
-			$(this).attr('disabled', 'disabled');
+			console.log('success');
 		} else {
 			return false;
 		}

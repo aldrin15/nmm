@@ -15,14 +15,14 @@
 				<li>
 					<div class="profile-upload fl">
 						<?php if($info['image'] == NULL):?>
-							<img src="<?php echo base_url('assets/image/page_template/blank_profile_large.jpg')?>" alt=""/>
+							<img src="<?php echo base_url('assets/images/page_template/no_photo.jpg')?>" width="150" height="150" alt=""/>
 						<?php else:?>
 							<img src="<?php echo base_url('assets/media_uploads/').'/'.$info['image']?>" width="150" height="150" alt="" />
 						<?php endif?><br />
 						<button class="btn-success">Change Picture</button>
 						<input type="file" name="file" id="" />
 					</div>
-					<textarea name="about_me" id="" cols="30" rows="10" class="fl"><?php echo $info['about_me']?></textarea>
+					<textarea name="about_me" id="" cols="30" rows="10" class="fl" style="resize:none;"><?php echo ($info['about_me'] == '') ? 'Write something about yourself' : $info['about_me']?></textarea>
 					
 					<div class="clr"></div>
 				</li>
@@ -41,7 +41,23 @@
 				<li>
 					<label for="My Birthday">My Birthday</label>
 						<div class="clr"></div>
-					<select name="" id="" class="birth-date select-width-auto">
+					<?php if($info['birthdate'] == '0000-00-00'):?>
+					<select name="month" id="" class="birth-date select-width-auto">
+						<option value="1">January</option>
+						<option value="2">February</option>
+						<option value="3">March</option>
+						<option value="4">April</option>
+						<option value="5">May</option>
+						<option value="6">June</option>
+						<option value="7">July</option>
+						<option value="8">August</option>
+						<option value="9">September</option>
+						<option value="10">October</option>
+						<option value="11">November</option>
+						<option value="12">December</option>
+					</select>
+					<?php else:?>
+					<select name="month" id="" class="birth-date select-width-auto">
 						<option value="1" <?php echo (date('F', strtotime($info['birthdate'])) == 'January') ? 'selected' : ''?>>January</option>
 						<option value="2" <?php echo (date('F', strtotime($info['birthdate'])) == 'February') ? 'selected' : ''?>>February</option>
 						<option value="3" <?php echo (date('F', strtotime($info['birthdate'])) == 'March') ? 'selected' : ''?>>March</option>
@@ -55,14 +71,21 @@
 						<option value="11" <?php echo (date('F', strtotime($info['birthdate'])) == 'November') ? 'selected' : ''?>>November</option>
 						<option value="12" <?php echo (date('F', strtotime($info['birthdate'])) == 'December') ? 'selected' : ''?>>December</option>
 					</select>
+					<?php endif?>
 					
-					<select name="" id="" class="birth-date select-width-auto">
-						<?php for($i = 1; $i < 32; $i++):?>
-						<option value="<?php echo $i?>" <?php echo (date('d', strtotime($info['birthdate'])) == $i) ? 'selected' : ''?>><?php echo $i?></option>
-						<?php endfor?>
+					<select name="day" id="" class="birth-date select-width-auto">
+						<?php 
+						for($i = 1; $i < 32; $i++):
+							if($info['birthdate'] == '0000-00-00'):?>
+							<option value="<?php echo $i?>"><?php echo $i?></option>
+						<?php else:?>
+							<option value="<?php echo $i?>" <?php echo (date('d', strtotime($info['birthdate'])) == $i) ? 'selected' : ''?>><?php echo $i?></option>
+						<?php 
+							endif;
+						endfor?>
 					</select>
 					
-					<select name="" id="" class="birth-date select-width-auto">
+					<select name="year" id="" class="birth-date select-width-auto">
 						<?php
 							$current_year 	= date("Y");
 							$past_year 		= date("Y") - 49;
@@ -90,10 +113,10 @@
 						<div class="clr"></div>
 						
 					<div class="profile-place">
-						<p>- Choose your location -</p>
+						<p><?php echo ($info['city'] != '' && $info['country']) ? $info['city'].', '.$info['country'] : '- Choose your location -'?></p>
 						
 						<div class="place-search">
-							<input type="text" name="location_list" id="place-search" />
+							<input type="text" name="location_list" id="place-search" autocomplete="off"/>
 							<input type="hidden" name="city_country" value="<?php echo $info['city'].', '.$info['country']?>" id="" />
 							
 							<a href="#" class="p-s-done">Done</a>

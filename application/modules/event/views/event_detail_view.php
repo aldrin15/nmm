@@ -1,5 +1,28 @@
 <?php $this->load->view('header_content')?>
 
+<script type="text/javascript">
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '262187797300693', // App ID
+      channelUrl : 'http://nmm-nmm.de/nmm', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+
+    // Additional initialization code here
+};
+
+// Load the SDK Asynchronously
+(function(d){
+ var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+ if (d.getElementById(id)) {return;}
+ js = d.createElement('script'); js.id = id; js.async = true;
+ js.src = "https://connect.facebook.net/en_US/all.js";
+ ref.parentNode.insertBefore(js, ref);
+}(document));
+</script>
+
 <style type="text/css">
 .event-posted-image {border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; border:1px solid #bbbaba; padding:10px}
 .event-posted-image img {margin-right:10px;}
@@ -21,7 +44,17 @@
 				<p>Posted by: <?php echo $row['firstname'].' '.$row['lastname']?></p>
 			</div>
 			
-			<!-- <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="button_count"></div>-->
+			<div id="shareBtn" class="fr btn btn-success clearfix"><i class="fa fa-share"></i> Share with Facebook</div>
+			<script type="text/javascript">
+			document.getElementById('shareBtn').onclick = function() {
+				FB.ui({method: 'feed',
+					picture		: 'http://nmm-nmm.de/nmm/assets/images/fb_share_logo.png',
+					link		: "http://nmm-nmm.de/nmm/",
+					caption		: "<?php echo $row['title']?> at <?php echo $row['address']?>",
+					description	: "<?php echo preg_replace( "/\r|\n/", "", $row['remarks'])?>",
+				}, function(response){});
+			}
+			</script>
 			
 			<div class="clr"></div>
 		</div>

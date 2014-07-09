@@ -27,7 +27,7 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset; }
          url('../fonts/quicksand-regular-webfont.svg#quicksandregular') format('svg');
     font-weight: normal;
     font-style: normal;
-} 
+}
 /* ===============
 	END Font Styles
  ============== */
@@ -59,16 +59,16 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset; }
 .try-it-free {background:#fff600; color:#000 !important; border-radius:2px; padding:2px 5px;}
 .try-it-free:hover {text-decoration:none;}
 
-header nav {margin:30px 0 2px;}
-header nav ul li {float:left; color:#050505;}
-header nav ul li a {display:block; color:#050505; font-family: 'quicksandregular'; font-size:1.3em; padding:32px 10px 0;}
-
-header nav ul li:nth-child(1) {background:url('../images/page_template/menu_lift.jpg') no-repeat top center;}
-header nav ul li:nth-child(2) {background:url('../images/page_template/menu_passenger.jpg') no-repeat top center;}
-header nav ul li:nth-child(3) {background:url('../images/page_template/menu_event.jpg') no-repeat top center;}
-header nav ul li:nth-child(4) {background:url('../images/page_template/menu_abroad.jpg') no-repeat top center;}
-header nav ul li:nth-child(5) {background:url('../images/page_template/menu_rent_a_car.jpg') no-repeat top center;}
-header nav ul li:nth-child(6) {background:url('../images/page_template/menu_offer.jpg') no-repeat top center;}
+header nav {margin:15px 0 2px;}
+header nav ul li {float:left; font-size:2.3em; text-align:center; cursor:pointer; margin:0 15px;}
+header nav ul li a:hover {color:#000;}
+header nav ul li a i {color:#6b8221;}
+header nav ul li a:hover i {color:#86b509;}
+header nav ul li a i.selected {color:#86b509;}
+header nav ul li a {display:block; color:#050505; font-family: 'quicksandregular';}
+header nav ul li a {padding:0 10px;}
+header nav ul li a:hover {text-decoration:none;}
+header nav ul li a span {display:block; font-size:.5em; font-family: 'quicksandregular' !important;}
 
 .line-separator {border-top:2px solid #c2c2c1; width:1024px;}
 
@@ -94,6 +94,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 	Helper Classes
  =============== */
 .error {color:#ff0000;}
+.error-bd {border:1px solid #ff0000;}
 .bd {border:1px solid #000;}
 .hidden 				{display: none !important; visibility: hidden; } /* Hide from both screenreaders and browsers */
 .clr 				{float:none; clear: both; }
@@ -181,7 +182,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 }
  
 .slideshow {margin-top:10px;}
-.slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:375px;}
+.slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:400px;}
 .slideshow ul li { -webkit-backface-visibility: hidden; position: absolute; display: none; width: 100%; left: 0; top: 0; }
 .slideshow ul li:first-child { position: relative; display: block; float: left; }
 .slideshow ul li img { display: block; height: 100%; float: left; width: 100%; border: 0; }
@@ -609,6 +610,8 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .profile-edit {margin-left:10px;}
 .profile-edit input[name="update_submit"] {background:#47a447; color:#fff; text-transform:uppercase; font-size:14px; font-weight:bold; border:none; padding:5px 20px;}
 .profile-edit ul li {margin-bottom:20px;}
+.profile-edit ul li input {text-transform:capitalize;} {margin-bottom:20px;}
+.dropdown-menu ul li {margin-bottom:0;}
 .profile-edit ul li span input {outline:none; border:none; width:100%;}
 .profile-edit ul li textarea {resize:none; margin-left:10px; padding:10px; width:300px; height:180px;}
 
@@ -744,8 +747,8 @@ footer .pull-right .fl span:last-child {color:#678222;}
 }
 
 /*Customize Radio*/
-.custom-radio{ display: inline-block; position: relative; z-index: 1; top: 3px; background: url("../images/page_template/btn_radio.png") no-repeat 0 0; margin-right:5px; width: 14px; height: 13px; }
-.custom-radio.selected{ background: url("../images/page_template/btn_radio.png") no-repeat 0 -13px; }
+.custom-radio{ display: inline-block; position: relative; z-index: 1; top: 3px; background: url("../images/page_template/btn-choose.jpg") no-repeat 0 0; margin-right:5px; width: 14px; height: 13px; }
+.custom-radio.selected{ background: url("../images/page_template/btn-choose.jpg") no-repeat 0 -13px; }
 .custom-radio input[type="radio"]{
 	margin: 1px;
 	position: absolute;

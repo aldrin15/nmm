@@ -80,20 +80,14 @@ class Login_model extends CI_Model {
 			
 			$this->db->update('user', $data, array('email' => $email));
 			
-			$config['protocol'] 	= 'smtp';
-			$config['mailpath'] 	= '/usr/sbin/sendmail';
-			$config['charset'] 		= 'iso-8859-1';
-			$config['smtp_host']    = 'ssl://smtp.gmail.com';
-			$config['smtp_port']    = '465';
-			$config['smtp_user']    = 'damingalam99@gmail.com';
-			$config['smtp_pass']    = '!123qweasd';
-			$config['newline']    	= "\r\n";
-			$config['wordwrap'] 	= TRUE;
+			$config['mailpath'] = "/usr/sbin/sendmail";
+			$config['protocol'] = "sendmail";
+			$config['mailtype'] = "html";				
 
-			$this->email->initialize($config);
-			$this->email->from('admin@nmm.com', 'Admin Team');
-			$this->email->to($email); 
-			$this->email->subject('Email Verification');
+			$this->email->initialize($config);		
+			$this->email->from('admin@nmm.com', 'Admin Team');		
+			$this->email->to($email); 		
+			$this->email->subject('Forgot Password');		
 			$this->email->message("Dear ".$firstname."\n\nHere is your new password for NMM.\n\nPassword: ".$newpassword."\n\nIf you have any problems or questions, don't hesitate to contact admin@nmm.com for assistance.\n\nThank you");
 
 			$this->email->send();
