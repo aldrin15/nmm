@@ -9,32 +9,19 @@
 	<div class="fl demo-videos">
 		<img src="<?php echo base_url('assets/images/demo_video.jpg')?>" width="563" height="269" alt=""/>
 		
-		<ul>
-			<li>
-				<h5>Rides & Bookings</h5>
-				<p><a href="javascript:void(0)">Menu with subtopic</a></p>
-				<p><a href="javascript:void(0)">For the driver</a></p>
-				<p><a href="javascript:void(0)">Menu with subtopic</a></p>
-				<p><a href="javascript:void(0)">Rules for Rides & Booking</a></p>
-				<p><a href="javascript:void(0)">Payment</a></p>
-				<p><a href="javascript:void(0)">Tax & legislation</a></p>
-				<p><a href="javascript:void(0)">General questions</a></p>
-			</li>
-			<!-- 
-			<li>
-				<h5>Car Rental</h5>
-				<p><a href="javascript:void(0)">Menu with subtopic</a></p>
-				<p><a href="javascript:void(0)">For the Car owner</a></p>
-				<p><a href="javascript:void(0)">For the hirer</a></p>
-				<p><a href="javascript:void(0)">Accidents</a></p>
-				<p><a href="javascript:void(0)">Insurance</a></p>
-				<p><a href="javascript:void(0)">Rules & responsibility</a></p>
-			</li>
-			<li>
-				<h5>Most popular</h5>
-			</li>
-			-->
-		</ul>
+		<div class="support-sub-links">
+			<ul>
+				<li>
+					<h5>Rides & Bookings</h5>
+					<p><a href="<?php echo base_url('support/menu_subtopic')?>">Menu with subtopic</a></p>
+					<p><a href="<?php echo base_url('support/driver')?>">For the driver</a></p>
+					<p><a href="<?php echo base_url('support/rules')?>">Rules for Rides & Booking</a></p>
+					<p><a href="<?php echo base_url('support/payment')?>">Payment</a></p>
+					<p><a href="<?php echo base_url('support/tax')?>">Tax & legislation</a></p>
+					<p><a href="<?php echo base_url('support/faq')?>">General questions</a></p>
+				</li>
+			</ul>
+		</div>
 		
 		<div class="clr"></div>
 	</div>
