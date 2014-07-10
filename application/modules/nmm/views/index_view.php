@@ -121,19 +121,7 @@
 				
 					<div class="clr"></div>
 				
-				<div class="quote">
-					<div class="q-left fl"><img src="<?php echo base_url('assets/images/quote/quote_left.jpg')?>" width="34" height="28" alt=""/></div>
-					<div class="q-message fl">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-							<img src="<?php echo base_url('assets/images/quote/arrow_bottom.jpg')?>" width="12" height="9" alt=""/>
-						</p>
-						<span>John Doe</span>
-					</div>
-					<div class="q-right fl"><img src="<?php echo base_url('assets/images/quote/quote_right.jpg')?>" width="34" height="28" alt=""/></div>
-					
-					<div class="clr"></div>
-				</div>
+				<?php echo modules::run('feedback')?>
 			</div>
 		</div>
 		

@@ -217,12 +217,12 @@ footer .pull-right .fl span:last-child {color:#678222;}
 	padding:10px;
 	width:660px;
 }
-.search form ul {text-align:center;}
-.search form ul li {float:left;}
-.search form ul li span {display:block; background:#fff; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; border:1px solid #bebdbd; border-shadow: 0 0 5px #000; box-shadow: inset 0 3px 10px #e7e7e5; margin-right:8px; padding:0 5px; width:185px; height:35px;}
-.search form ul li input[type="text"] {border:none; margin-top:10px; width:170px;}
-.search form ul li input[type="text"]:focus {outline:none;}
-.search form ul li input[type="submit"] {}
+.search ul {/* text-align:center; */}
+.search ul li {float:left;}
+.search ul li span {display:block; background:#fff; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; border:1px solid #bebdbd; border-shadow: 0 0 5px #000; box-shadow: inset 0 3px 10px #e7e7e5; margin-right:8px; padding:0 5px; width:185px; height:35px;}
+.search ul li input[type="text"] {border:none; margin-top:10px; width:170px;}
+.search ul li input[type="text"]:focus {outline:none;}
+.search ul li input[type="submit"] {}
 
 .welcome {margin-left:0; width:320px;}
 .welcome p {font-size:1.2em; margin-bottom:20px;}

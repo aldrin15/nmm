@@ -13,21 +13,26 @@ class Lift_model extends CI_Model {
 	function search_location() {
 		$from 	= mysql_real_escape_string($this->input->post('from'));
 		$to 	= mysql_real_escape_string($this->input->post('to'));
-		$date 	= $this->input->post('date');
+		$date 	= date('Y-m-d', strtotime($this->input->post('date')));
+		$price 	= $this->input->post('price');
 		
 		$where = array();
 		$query = NULL;
 		
 		if($from != ''):
-			$where[] = "`route_from` Like '{$from}'";
+			$where[] = "route_from Like '{$from}'";
 		endif;
 		
 		if($to != ''):
-			$where[] = "`route_to` Like '{$to}'";
+			$where[] = "route_to Like '{$to}'";
 		endif;
 		
 		if($date != ''):
-			$where[] = "`date` Like  '{$date}'";
+			$where[] = "date = '{$date}'";
+		endif;
+		
+		if($price != ''):
+			$where[] = "amount BETWEEN 0 AND '{$price}'";
 		endif;
 		
 		if(count($where)):

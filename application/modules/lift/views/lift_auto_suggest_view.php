@@ -4,6 +4,8 @@ $(function() {
 	/*
 	 * Get Route
 	 */
+	 
+	$('#search-calendar').datepicker();
 	var dateToday = new Date();
 	
 	$('#datepicker').datepicker({
@@ -73,6 +75,8 @@ $(function() {
 	$('input[name="ride_submit"]').click(function() {
 		var from 	= $('input[name="from"]'),
 			to		= $('input[name="to"]'),
+			date	= $('input[name="date"]'),
+			price	= $('input[name="price"]'),
 			error	= 0;
 		
 		if(from.val() == '') {
