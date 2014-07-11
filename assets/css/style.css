@@ -182,7 +182,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 }
  
 .slideshow {margin-top:10px;}
-.slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:400px;}
+.slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:500px;}
 .slideshow ul li { -webkit-backface-visibility: hidden; position: absolute; display: none; width: 100%; left: 0; top: 0; }
 .slideshow ul li:first-child { position: relative; display: block; float: left; }
 .slideshow ul li img { display: block; height: 100%; float: left; width: 100%; border: 0; }
@@ -228,7 +228,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .welcome p {font-size:1.2em; letter-spacing:.2em; margin-bottom:20px;}
 .welcome a {display:block; font-size:1.3em; text-align:center; margin-bottom:20px; width:132px;}
 
-.carousel {margin:17px auto 90px; width:100%;}
+.carousel {margin:80px auto 130px; width:100%;}
 .carousel .span2 {position:relative; float:left; margin-left:20px;}
 .carousel-inner .span2 {width:235px;}
 

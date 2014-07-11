@@ -13,19 +13,31 @@ class Members extends MX_Controller {
 		$this->load->model('member_model');
 		$this->load->library(array('form_validation', 'upload'));
 		$this->load->helper('form');
-		
-		modules::run('login/is_logged_in');
 	}
 	
 	public function index() {
+		modules::run('login/is_logged_in');
+		
 		$data['members_data'] 	= $this->member_model->members($this->session->userdata('user_id'));
 		
 		$data['view_file'] 		= 'members_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
-	public function edit() {
+	public function profile_view() {
+		$id = $this->uri->segment(3);
+		
+		$data['profile_data']	= $this->member_model->get_profile($id);
+		$data['rides_data']		= $this->member_model->rides_list($id);
+		$data['passenger_data'] = $this->member_model->passenger_list($id);
+		
+		$data['view_file']		= 'member_profile_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
 	
+	public function edit() {
+		modules::run('login/is_logged_in');
+		
 		$user_id = $this->session->userdata('user_id');
 	
 		$post = $this->input->post();
@@ -79,12 +91,16 @@ class Members extends MX_Controller {
 	}
 	
 	public function inbox() {
+		modules::run('login/is_logged_in');
+		
 		$data['user_inbox_data']	= $this->member_model->inbox();
 		$data['view_file']			= 'member_inbox_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
 	public function inbox_detail() {
+		modules::run('login/is_logged_in');
+		
 		$id = $this->uri->segment(3);
 		$data['user_inbox_data']	= $this->member_model->inbox_detail($id);
 		
@@ -93,12 +109,16 @@ class Members extends MX_Controller {
 	}
 	
 	public function sent() {
+		modules::run('login/is_logged_in');
+		
 		$data['user_sent_data']	= $this->member_model->sent();
 		$data['view_file']			= 'member_sent_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
 	public function sent_detail() {
+		modules::run('login/is_logged_in');
+		
 		$id = $this->uri->segment(3);
 		$data['user_sent_data']	= $this->member_model->sent_detail($id);
 		
@@ -121,6 +141,8 @@ class Members extends MX_Controller {
 	}
 	
 	public function car() {
+		modules::run('login/is_logged_in');
+		
 		$id = $this->session->userdata('user_id');
 		
 		$data['car_data'] = $this->member_model->car($id);
@@ -129,6 +151,8 @@ class Members extends MX_Controller {
 	}
 	
 	public function car_edit() {
+		modules::run('login/is_logged_in');
+		
 		$id = $this->session->userdata('user_id');
 		
 		$this->form_validation->set_rules('model', 'Car Model', 'required');
@@ -146,6 +170,8 @@ class Members extends MX_Controller {
 	}
 	
 	public function overview() {
+		modules::run('login/is_logged_in');
+		
 		$data['rides_data'] = $this->member_model->rides_list();
 		$data['passenger_data'] = $this->member_model->passenger_list();
 		
@@ -154,6 +180,8 @@ class Members extends MX_Controller {
 	}
 	
 	public function overview_ride_detail() {
+		modules::run('login/is_logged_in');
+		
 		$id = $this->uri->segment(3);
 		
 		exit;
@@ -171,6 +199,8 @@ class Members extends MX_Controller {
 	}
 	
 	public function overview_ride_edit() {
+		modules::run('login/is_logged_in');
+		
 		$id = $this->uri->segment(3);
 		
 		$data['view_file'] = 'member_overview_ride_edit_view';
@@ -190,11 +220,15 @@ class Members extends MX_Controller {
 	}
 	
 	public function edit_success() {
+		modules::run('login/is_logged_in');
+		
 		$data['view_file'] = 'member_edit_profile_success_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
 	public function settings() {
+		modules::run('login/is_logged_in');
+		
 		$user_id = $this->session->userdata('user_id');
 		
 		$post = $this->input->post();
@@ -219,12 +253,9 @@ class Members extends MX_Controller {
 	}
 	
 	public function settings_success() {
+		modules::run('login/is_logged_in');
+		
 		$data['view_file'] = 'member_settings_success_view';
-		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
-	}
-	
-	public function calendar() {
-		$data['view_file'] = 'test_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	

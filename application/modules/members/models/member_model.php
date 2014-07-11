@@ -35,13 +35,34 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function rides_list($what = 'user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_dates.date') {
-		$id = $this->session->userdata('user_id');
+	public function get_profile($id, $what = 'firstname, lastname, job, birthdate, media_filename as image, city, country, car_model as car, COUNT(user_lift_post.user_id) as created_rides, last_login, user.date as date_registered') {
+		$query = $this->db->select($what)
+							->from('user')
+							->join('user_address', 'user_address.user_id = user.user_id', 'left')
+							->join('user_additional_information', 'user_additional_information.user_id = user.user_id', 'left')
+							->join('user_sessions', 'user_sessions.user_id = user.user_id')
+							->join('user_media', 'user_media.user_id = user.user_id', 'left')
+							->join('user_car', 'user_car.user_id = user.user_id', 'left')
+							->join('user_lift_post', 'user_lift_post.user_id = user.user_id', 'left')
+							->where('user.user_id', $id)
+							->get();
+							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function rides_list($uri_id, $what = 'user_lift_post.id, user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_dates.date') {
+		if($this->session->userdata('validated') == false):
+			$id = $uri_id;
+		else:
+			$id = $this->session->userdata('user_id');
+		endif;
 		
 		$query = $this->db->select($what)
 							->from('user_lift_post', 'user_lift_post.user_id = user.user_id')
 							->join('user', 'user.user_id = user_lift_post.user_id')
-							->join('user_lift_dates', 'user_lift_dates.user_id = user_lift_post.user_id')
+							->join('user_lift_dates', 'user_lift_dates.user_id = user_lift_post.user_id', 'left')
 							->where('user_lift_post.user_id', $id)
 							->get();
 		
@@ -62,8 +83,12 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function passenger_list($what = 'user_wish_lift.id, user_wish_lift.route_from as origins, user_wish_lift.route_to as destination, time') {
-		$id = $this->session->userdata('user_id');
+	public function passenger_list($uri_id, $what = 'user_wish_lift.id, user_wish_lift.route_from as origins, user_wish_lift.route_to as destination, time') {
+		if($this->session->userdata('validated') == false):
+			$id = $uri_id;
+		else:
+			$id = $this->session->userdata('user_id');
+		endif;
 		
 		$query = $this->db->select($what)
 							->from('user_wish_lift', 'user_wish_lift.user_id = user.user_id')

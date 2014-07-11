@@ -63,55 +63,6 @@
 			
 			<div class="clr"></div>
 			
-			<div class="home-features">
-				<h3>All the features you want</h3>
-				
-				<ul>
-					<li><i></i>You can create your own lift<br /> or you can wish for a lift. <div class="clr"></div></li>
-					<li><i></i>You can create an Events. <div class="clr"></li>
-					<li><i></i>You can invite people/friends<br /> for a ride. <div class="clr"></li>
-					<li><i></i>You can share it via Facebook. <div class="clr"></li>
-				</ul>
-				
-				<div class="clr"></div>
-			</div>
-			
-			<div class="subscription">
-				<h3>Start by choosing your plan</h3>
-				
-				<div class="span2">
-					<a href="javascript:void(0)">
-						<span>14 DAYS FREE TRIAL</span>
-						<span>FREE</span>
-					</a>
-				</div>
-				<div class="span2">
-					<a href="javascript:void(0)">
-						<span>MONTHLY</span>
-						<span>3.99</span>
-						<span>EURO</span>
-					</a>
-				</div>
-				<div class="span2">
-					<a href="javascript:void(0)">
-						<span>6 MONTHS</span>
-						<span>12.99</span>
-						<span>EURO</span>
-					</a>
-				</div>
-				<div class="span2">
-					<a href="javascript:void(0)">
-						<span>12 MONTHS</span>
-						<span>18.99</span>
-						<span>EURO</span>
-					</a>
-				</div>
-				
-				<span class="clr" style="display:block;"></span>
-			</div>
-			
-			<?php echo modules::run('feedback')?>
-			
 			<div id="events" class="carousel slide">
 				<!-- Carousel items -->
 				<div class="carousel-inner">
@@ -211,6 +162,57 @@
 					<li><a href="#2"></a></li>
 					<li><a href="#3"></a></li>
 				</ul>
+				
+				<div class="clr"></div>
+			</div>
+			
+			<div class="home-features">
+				<h3>All the features you want</h3>
+				
+				<ul>
+					<li><i></i>You can create your own lift<br /> or you can wish for a lift. <div class="clr"></div></li>
+					<li><i></i>You can create an Events. <div class="clr"></li>
+					<li><i></i>You can invite people/friends<br /> for a ride. <div class="clr"></li>
+					<li><i></i>You can share it via Facebook. <div class="clr"></li>
+				</ul>
+				
+				<div class="clr"></div>
+			</div>
+			
+			<?php echo modules::run('feedback')?>
+			
+			<div class="subscription">
+				<h3>Start by choosing your plan</h3>
+				
+				<div class="span2">
+					<a href="javascript:void(0)">
+						<span>14 DAYS FREE TRIAL</span>
+						<span>FREE</span>
+					</a>
+				</div>
+				<div class="span2">
+					<a href="javascript:void(0)">
+						<span>MONTHLY</span>
+						<span>3.99</span>
+						<span>EURO</span>
+					</a>
+				</div>
+				<div class="span2">
+					<a href="javascript:void(0)">
+						<span>6 MONTHS</span>
+						<span>12.99</span>
+						<span>EURO</span>
+					</a>
+				</div>
+				<div class="span2">
+					<a href="javascript:void(0)">
+						<span>12 MONTHS</span>
+						<span>18.99</span>
+						<span>EURO</span>
+					</a>
+				</div>
+				
+				<span class="clr" style="display:block;"></span>
 			</div>
 		</div>
 		

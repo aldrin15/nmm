@@ -28,7 +28,7 @@
 			<p>Lift Offered by:</p>
 			<div class="profile-image fl"><img src="<?php echo base_url('assets/media_uploads').'/'.$row['image']?>" width="160" height="160" alt="Car"/></div>
 			<div class="user-info fl">
-				<p class="name"><strong><?php echo $row['firstname'].' '.$row['lastname']?></strong></p><br />
+				<p class="name"><strong><a href="<?php echo base_url('members/profile_view/').'/'.$row['user_id']?>"><?php echo $row['firstname'].' '.$row['lastname']?></a></strong></p><br />
 				<div class="user-rating">
 					<?php
 					$rating_id 		= $row['rating_id'];

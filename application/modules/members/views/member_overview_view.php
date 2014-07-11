@@ -129,7 +129,13 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/DT_bootstrap.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/editable-table.js')?>"></script>
 <script type="text/javascript">
-$(document).ready(function() { 
+$(document).ready(function() {
+	$('.m-row').click(function() {
+		var id = $(this).attr('data-id');
+		
+		window.location.href="<?php echo base_url('members/inbox_detail/')?>/"+id;	
+	});
+
 	$('#ride-table, #passenger-table').dataTable();
 	
 	$('.overview-tab-menu a').click(function() {
