@@ -224,23 +224,23 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .search ul li input[type="text"]:focus {outline:none;}
 .search ul li input[type="submit"] {}
 
-.welcome {margin-left:0; width:320px;}
-.welcome p {font-size:1.2em; margin-bottom:20px;}
+.welcome {margin-left:0; width:390px;}
+.welcome p {font-size:1.2em; letter-spacing:.2em; margin-bottom:20px;}
 .welcome a {display:block; font-size:1.3em; text-align:center; margin-bottom:20px; width:132px;}
 
-.carousel {margin-top:17px; width:570px;}
+.carousel {margin:17px auto 90px; width:100%;}
 .carousel .span2 {position:relative; float:left; margin-left:20px;}
-.carousel-inner .span2 {width:170px;}
+.carousel-inner .span2 {width:235px;}
 
-.carousel-linked-nav {float:right; margin:20px 10px 0 0;}
+.carousel-linked-nav {margin:20px auto 40px; width:100px;}
 .carousel-linked-nav li {float:left; background:url('../images/events/bullet_nav.jpg') no-repeat; margin-left:5px; width:13px; height:13px;}
 .carousel-linked-nav li.active {background:url('../images/events/bullet_nav.jpg') no-repeat 0 -13px;}
 .carousel-linked-nav li a {display:block; width:9px; height:9px;}
 
 .events-quote .pagination {margin:0 20px 0;}
 
-.event-detail {position:absolute; color:#fff; top:5px; left:5px; width:100%;}
-.event-detail p {margin-left:5px;}
+.event-detail {position:absolute; background:#000; color:#fff; top:0; left:0; width:199px;}
+.event-detail p {padding:5px 5px;}
 
 .quote {text-align:center; margin:20px 0;}
 .q-message span {display:block; text-align:left; margin-top:10px;}
