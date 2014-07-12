@@ -279,4 +279,14 @@ class Member_model extends CI_Model {
 		
 		$this->db->update('user_car', $data);
 	}
+	
+	public function count_user($what = 'COUNT(user.user_id) as users') {
+		$query = $this->db->select($what)
+							->from('user')
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
 }

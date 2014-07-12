@@ -281,4 +281,12 @@ class Members extends MX_Controller {
 		
 		$this->load->view('member_status_view', $data);
 	}
+	
+	public function member_count() {
+		$count_data = $this->member_model->count_user();
+		
+		foreach($count_data as $count):
+			echo $count['users'];
+		endforeach;
+	}
 }

@@ -17,7 +17,7 @@
 		<div class="passenger-user">
 			<p class="p-u-heading">Passenger:</p>
 			
-			<div class="passenger-profile-img fl"><img src="<?php echo base_url('assets/media_uploads').'/'.$row['image']?>" width="160" height="160" alt="Car"/></div>
+			<div class="passenger-profile-img fl"><img src="<?php echo ($row['image'] != '') ? base_url('assets/media_uploads').'/'.$row['image'] : base_url('assets/images/page_template/blank_profile_large.jpg')?>" width="160" height="160" alt="Car"/></div>
 			
 			<div class="passenger-info fl">
 				<ul>

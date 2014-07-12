@@ -39,8 +39,8 @@
 			</div>
 			<div class="fl">
 				<img src="<?php echo base_url('assets/images/page_template/icon_people.jpg')?>" width="49" height="32" alt=""/><br />
-				<span><strong>8,888,888</strong></span><br />
-				<span>member in DE</span>
+				<span><strong><?php echo modules::run('members/member_count')?></strong></span><br />
+				<span>member in NMM</span>
 			</div>
 			<div class="fl">
 				<img src="<?php echo base_url('assets/images/page_template/icon_leave.jpg')?>" width="28" height="32" alt=""/><br />
