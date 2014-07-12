@@ -35,12 +35,12 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 			<li>
 				<?php echo form_error('from', '<div class="error">', '</div>')?>
 					<div class="clr"></div>
-				<span><input type="text" name="from" id="from-route" value="From" autocomplete="off"/></span>
+				<span><input type="text" name="from" id="from-route" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" value="From" autocomplete="off" /></span>
 			</li>
 			<li>
 				<?php echo form_error('to', '<div class="error">', '</div>')?>
 					<div class="clr"></div>
-				<span><input type="text" name="to" id="to-route" value="Destination" autocomplete="off" /></span>
+				<span><input type="text" name="to" id="to-route" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" value="Destination" autocomplete="off" /></span>
 			</li>
 			<li>
 				<input type="submit" name="ride_submit" value="    Search" class="btn-search"/>
@@ -48,7 +48,7 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 				<div class="clr"></div>
 			</li>
 			<li>
-				<input type="submit" name="option" value="Advance Option" class="btn-advance" style="margin-left:5px;"/>
+				<a href="javascript:void(0)" class="btn-advance">Advance Option</a>
 				
 				<div class="clr"></div>
 			</li>
@@ -56,8 +56,7 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 		
 		<div class="clr"></div>
 	</div>
-	<!-- 
-	<div class="advanced-search">
+	<div class="advanced-search" style="display:none;">
 		<p>Search By:</p>
 		<ul>
 			<li>
@@ -130,7 +129,6 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 			</li>
 		</ul>
 	</div>
-	-->
 </form>
 <?php endif?>
 

@@ -1,10 +1,12 @@
 
 <script type="text/javascript">
 $(function() {
-	/*
-	 * Get Route
-	 */
-	 
+	$('.btn-advance').click(function() {
+		$('.advanced-search').slideToggle();
+		// console.log('you clicked');
+	});
+	
+	/* Get Route */ 
 	$('#search-calendar').datepicker();
 	var dateToday = new Date();
 	

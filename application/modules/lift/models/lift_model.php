@@ -45,9 +45,11 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
-	function search_get_location($from, $to, $what = 'user_lift_post.id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, start_time, date') {		
+	function search_get_location($from, $to, $date, $amount, $what = 'user_lift_post.id, firstname, lastname, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, start_time, user_lift_post.date') {		
 		$from 	= mysql_real_escape_string($from);
+		$date 	= date('Y-m-d', strtotime($date));
 		$to		= mysql_real_escape_string($to);
+		$amount	= $amount;
 		
 		$where = array();
 		$query = NULL;
@@ -60,12 +62,16 @@ class Lift_model extends CI_Model {
 			$where[] = "`route_to` Like '{$to}'";
 		endif;
 		
-		/* if($date != ''):
-			$where[] = "`date` Like '{$date}'";
-		endif; */
+		if($date != ''):
+			$where[] = "user_lift_post.date = '{$date}'";
+		endif;
+		
+		if($amount != ''):
+			$where[] = "amount BETWEEN 0 AND '{$amount}'";
+		endif;
 		
 		if(count($where)):
-			$query_result = "SELECT {$what} FROM `user_lift_post` WHERE ".implode(' AND ', $where);
+			$query_result = "SELECT {$what} FROM user_lift_post JOIN user ON user.user_id = user_lift_post.user_id WHERE ".implode(' AND ', $where);
 			$query = $this->db->query($query_result);
 		endif;
 	

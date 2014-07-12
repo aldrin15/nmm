@@ -38,8 +38,10 @@ class Lift extends MX_Controller {
 		if(isset($params['from'])):
 			$from	= $params['from'];
 			$to 	= $params['to'];
+			(isset($params['date'])) ? $date = $params['date'] : $date = '';
+			(isset($params['amount'])) ? $amount = $params['amount'] : $amount = '';
 			
-			$data['ride_list'] = $this->lift_model->search_get_location($from, $to);
+			$data['ride_list'] = $this->lift_model->search_get_location($from, $to, $date, $amount);
 			
 			if($post):
 				if(array_key_exists('ride_submit', $post)):
@@ -94,20 +96,6 @@ class Lift extends MX_Controller {
 				$data["ride_links"] = $this->pagination->create_links();
 			endif;
 		endif;
-		
-		/* $config['base_url'] 	= base_url('rides');
-		$config['total_rows'] 	= 30; //count($data['ride_list'])
-		$config['per_page'] 	= 5;
-
-		$this->pagination->initialize($config); 
-
-		// echo $this->pagination->create_links();
-		
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        $data["results"] = $this->Countries->fetch_countries($config["per_page"], $page);
-        $data["links"] = $this->pagination->create_links();
- 
-        $this->load->view("example1", $data); */
 		
 		$data['view_file'] = 'lift_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
