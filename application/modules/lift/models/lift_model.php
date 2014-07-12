@@ -1,15 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Lift_model extends CI_Model {
-	
-	function cities($city) {
-		$query = $this->db->query("SELECT DISTINCT `combined` FROM (`user_cities`) WHERE `combined` LIKE '{$city}%'");
-		
-		$result = $query->result();
-		if(count($result) == 0) return FALSE;
-		return $result;
-	}
-	
 	function search_location() {
 		$from 	= mysql_real_escape_string($this->input->post('from'));
 		$to 	= mysql_real_escape_string($this->input->post('to'));

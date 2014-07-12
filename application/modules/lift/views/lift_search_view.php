@@ -9,12 +9,12 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 			<li>
 				<?php echo form_error('from', '<div class="error">', '</div>')?>
 					<div class="clr"></div>
-				<span><input type="text" name="from" value="From" id="from-route" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" autocomplete="off"/></span>
+				<span><input type="text" name="from" value="From" id="from" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" autocomplete="off"/></span>
 			</li>
 			<li>
 				<?php echo form_error('to', '<div class="error">', '</div>')?>
 					<div class="clr"></div>
-				<span><input type="text" name="to" value="To" id="to-route" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" autocomplete="off" /></span>
+				<span><input type="text" name="to" value="To" id="destination" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" autocomplete="off" /></span>
 			</li>
 			<li><span><input type="text" name="date" id="datepicker"/></span></li>
 			<li>
@@ -35,12 +35,12 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 			<li>
 				<?php echo form_error('from', '<div class="error">', '</div>')?>
 					<div class="clr"></div>
-				<span><input type="text" name="from" id="from-route" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" value="From" autocomplete="off" /></span>
+				<span><input type="text" name="from" id="from" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" value="From" autocomplete="off" /></span>
 			</li>
 			<li>
 				<?php echo form_error('to', '<div class="error">', '</div>')?>
 					<div class="clr"></div>
-				<span><input type="text" name="to" id="to-route" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" value="Destination" autocomplete="off" /></span>
+				<span><input type="text" name="to" id="destination" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" value="Destination" autocomplete="off" /></span>
 			</li>
 			<li>
 				<input type="submit" name="ride_submit" value="    Search" class="btn-search"/>

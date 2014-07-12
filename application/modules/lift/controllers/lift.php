@@ -314,20 +314,6 @@ class Lift extends MX_Controller {
 		$this->load->view('lift_auto_suggest_view');
 	}
 	
-	public function auto_suggest() {
-		$city = $this->input->get('city');
-
-		$get_city = $this->lift_model->cities($city);
-		
-		$city_array = array();
-		
-		foreach($get_city as $cities):
-			$city_array[] = $cities;
-		endforeach;
-		
-		echo json_encode($city_array);
-	}
-	
 	public function insert_rating() {
 		$user_id 		= $this->input->get('user_id');
 		$rating_number 	= $this->input->get('rating_number');
