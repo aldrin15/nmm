@@ -28,8 +28,13 @@
     document.createElement('nav');
     document.createElement('header'); 
     document.createElement('footer');
-	$(function() {$('.login a:first-child').hover(function() {$('.login ul').stop(true, false).fadeIn().show();}, function() {$('.login ul').fadeOut();});})
+	
+	var height = $(window).height(); 
+	
+	$(function() { $('.login a:first-child').hover(function() { $('.login ul').stop(true, false).fadeIn().show(); }, function() { $('.login ul').fadeOut(); }); });
+	$(document).scroll(function () { var y = $(this).scrollTop(); if(y > height) { $('.header-wrapper').css({position:'fixed',background:'#fff',zIndex:9999, width:'100%'}).fadeIn(); } else { $('.header-wrapper').css({position:'relative'}); } });
 	</script>
+	<style type="text/css">header {height:110px;}</style>
 </head>
 <body>
 <div id="fb-root"></div>
