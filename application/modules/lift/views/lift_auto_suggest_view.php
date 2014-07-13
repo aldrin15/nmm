@@ -22,7 +22,7 @@ function geolocate() {
 }
 
 $(function() {
-	$('.btn-advance').click(function() { $('.advanced-search').slideToggle(); });
+	$('#btn-advance').click(function() { $('.advanced-search').slideToggle(); });
 	
 	/* Get Route */ 
 	$('#search-calendar').datepicker();

@@ -35,7 +35,7 @@
 					<div class="clr"></div>
 				<div class="lift-place">
 					<p><?php echo (isset($_POST['origin'])) ? set_value('origin') : $row[0]['origin']?></p>
-					<input type="hidden" name="origin" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : $row[0]['origin']?>" id="" />
+					<input type="hidden" name="origin" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : $row[0]['origin']?>" />
 				</div>
 				
 				<div class="clr"></div>
@@ -45,7 +45,7 @@
 					<div class="clr"></div>
 				<div class="lift-place">
 					<p><?php echo (isset($_POST['destination'])) ? set_value('destination') : $row[0]['destination']?></p>
-					<input type="hidden" name="destination" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : $row[0]['origin']?>" id="" />	
+					<input type="hidden" name="destination" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : $row[0]['origin']?>" />	
 				</div>
 				
 				<div class="clr"></div>
@@ -66,7 +66,7 @@
 					<div class="clr"></div>
 				<label for="Date">Date:</label>
 				<div id="calendar" class="fl"></div>
-				<input type="hidden" name="dates" value="<?php echo set_value('dates')?>" class="calendar-data"/>
+				<input type="hidden" name="dates" value="<?php set_value('dates')?>" class="calendar-data"/>
 				
 				<div class="clr"></div>
 			</li>
@@ -166,59 +166,25 @@
 				<div class="clr"></div>
 			</li>
 		</ul>	
+		
 		<?php else:?>
+		
 		<ul class="ride-trip">
 			<li class="span5">
-				<label for="Departure">From: </label>
-				<?php echo form_error('origin', '<div class="fl error">', '</div>')?>
-				
-				<div class="clr"></div>
-				
-				<div class="lift-place">
-					<p>- Choose your location -</p>
-					
-					<div class="lift-search">
-						<span><input type="text" name="from" id="lift-route" autocomplete="off" /></span>
-						
-						<input type="hidden" name="origin" value="" id="" />
-						
-						<a href="#" class="l-s-done">Done</a>
-						
-						<div class="clr"></div>
-					</div>
-				</div>
+				<label for="Departure">From: <?php echo form_error('origin', '<span class="error">', '</span>')?></label>
+				<span><input type="text" name="origin" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : ''?>" id="from" class="form-control" autocomplete="off"/></span>
 				
 				<div class="clr"></div>
 			</li>
 			<li class="span5">
-				<label for="Departure">To: </label>
-				<?php echo form_error('destination', '<div class="error">', '</div>')?>
-				
-					<div class="clr"></div>
-				
-				<div class="lift-place">
-					<p>- Choose your location -</p>
-					
-					<div class="lift-search">
-						<span><input type="text" name="to" id="to-route" autocomplete="off"/></span>
-						
-						<input type="hidden" name="destination" value="" id="" />
-						
-						<a href="#" class="l-s-done">Done</a>
-						
-						<div class="clr"></div>
-					</div>
-				</div>
+				<label for="Departure">To: <?php echo form_error('destination', '<span class="error">', '</span>')?></label>
+				<span><input type="text" name="destination" value="<?php echo (isset($_POST['destination'])) ? set_value('destination') : ''?>" id="destination" class="form-control" autocomplete="off"/></span>
 				
 				<div class="clr"></div>
 			</li>
 			<li class="span5">
-				<label for="Via">Via</label>
-				<?php echo form_error('via', '<div class="error">', '</div>')?>
-				
-				<div class="clr"></div>
-				
-				<input type="text" name="via" id="" class="form-control"/>
+				<label for="Via">Via </label>
+				<input type="text" name="via" id="via" autocomplete="off" class="form-control"/>
 				
 				<div class="clr"></div>
 			</li>
@@ -354,7 +320,6 @@
 			</li>
 		</ul>
 		
-		
 		<div id="return-trip" style="display:none;">
 			<h4>Return Ride</h4>
 				<hr/>
@@ -368,7 +333,8 @@
 						<p>- Choose your location -</p>
 						
 						<div class="lift-search">
-							<span><input type="text" name="from" id="rlift-route" autocomplete="off"/></span>
+							<!--<span><input type="text" name="from" id="rlift-route" autocomplete="off"/></span>-->
+							<span><input type="text" name="from" value="From" id="from" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" autocomplete="off"/></span>
 							
 							<input type="hidden" name="origin" value="" id="" />
 							
@@ -514,7 +480,7 @@
 		
 		<input type="hidden" name="user_car_id" value=""/>
 		
-		<input type="submit" name="create_lift_submit" value="Create Lift" class="btn-gray"/>
+		<input type="submit" name="create_lift_submit" value="Create Lift" class="btn btn-default"/>
 	</form>
 </div>
 
@@ -527,7 +493,30 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.core.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.datepicker.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.multidatespicker.js')?>"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <script type="text/javascript">
+$(window).load(function() {initialize();});
+
+var destination, from, via;
+
+function initialize() {
+	from = new google.maps.places.Autocomplete((document.getElementById('from')), { types: ['geocode'] });
+	destination = new google.maps.places.Autocomplete((document.getElementById('destination')), { types: ['geocode'] });
+	via = new google.maps.places.Autocomplete((document.getElementById('via')), { types: ['geocode'] });
+	google.maps.event.addListener(destination, 'place_changed', function() { fillInAddress(); });
+}
+
+function geolocate() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			var geolocation = new google.maps.LatLng(
+			
+			position.coords.latitude, position.coords.longitude);
+			destination.setBounds(new google.maps.LatLngBounds(geolocation, geolocation));
+		});
+	}
+}
+
 function checkbox(checkboxName){
 	var checkBox = $('input[name="'+ checkboxName +'"]');
 	$(checkBox).each(function(){
@@ -556,56 +545,6 @@ $(function() {
 		}
 	});
 	
-	$('.lift-place input').keyup(function(e) {
-		if($(this).attr('name') == 'from') {
-			$.ajax({
-				'url'		: '<?php echo base_url('lift/auto_suggest')?>',
-				'type'		: 'GET',
-				'data'		: {city: $('.lift-place input[name="from"]').val()},
-				'success'	: function(data) {
-					var city_array = [];
-				
-					$.each($.parseJSON(data), function(index, value) {
-						city_array.push(value.combined);
-					});
-					
-					var city = city_array;
-					
-					$('#lift-route').autocomplete({
-						source:city,
-						select: function(event, ui) { 
-							$(this).parent().parent().parent().children('p').html(ui.item.value);
-							$('input[name="origin"]').val(ui.item.value);
-						}
-					});
-				}
-			});	
-		} else {
-			$.ajax({
-				'url'		: '<?php echo base_url('lift/auto_suggest')?>',
-				'type'		: 'GET',
-				'data'		: {city: $('.lift-place input[name="to"]').val()},
-				'success'	: function(data) {
-					var city_array = [];
-				
-					$.each($.parseJSON(data), function(index, value) {
-						city_array.push(value.combined);
-					});
-					
-					var city = city_array;
-					
-					$('#to-route').autocomplete({
-						source:city,
-						select: function(event, ui) { 
-							$(this).parent().parent().parent().children('p').html(ui.item.value);
-							$('input[name="destination"]').val(ui.item.value);
-						}
-					});
-				}
-			});	
-		}
-	});
-	
 	checkbox("re_route");
 	checkbox("offer_re_route");
 
@@ -613,7 +552,7 @@ $(function() {
 		var getDates		= $(this).multiDatesPicker('getDates'),
 			getDates_array	= [];
 		
-		$.each(getDates, function(index, value) { getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>'); });
+		$.each(getDates, function(index, value) { getDates_array.push(value); });
 		
 		$('input[name="dates"]').val(getDates_array);
 	});
@@ -622,7 +561,7 @@ $(function() {
 		var getDates		= $(this).multiDatesPicker('getDates'),
 			getDates_array	= [];
 		
-		$.each(getDates, function(index, value) { getDates_array.push('<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>' + value + '<?php echo htmlentities('"', ENT_QUOTES, "UTF-8");?>'); });
+		$.each(getDates, function(index, value) { getDates_array.push(value); });
 		
 		$('input[name="return_dates"]').val(getDates_array);
 	});

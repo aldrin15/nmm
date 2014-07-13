@@ -520,7 +520,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 
 .create-lift ul {list-style:none; margin-bottom:30px;}
 .create-lift form ul li {margin-bottom:10px;}
-.create-lift form ul li label {width:100px;}
+/*.create-lift form ul li label {width:100px;}*/
 .create-lift form ul li label, .create-lift-form ul li input, .create-lift-form ul li select {float:left;}
 .create-lift form ul li textarea {resize:none;}
 

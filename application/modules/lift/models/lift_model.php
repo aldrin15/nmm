@@ -251,8 +251,10 @@ class Lift_model extends CI_Model {
 	function create_lift() {
 		$date = explode(',', $this->input->post('dates'));
 		$preference_array = implode(',', $this->input->post('preference'));
-		
-		for($i = 0; $i < count($date); $i++):
+				
+		foreach($date as $row):
+			$expiry_date = date('Y-m-d', strtotime($row.' + 1 day'));
+			
 			$post_data = array(
 				'user_id'		=> $this->session->userdata('user_id'),
 				'route_from'	=> $this->input->post('origin'),
@@ -266,11 +268,12 @@ class Lift_model extends CI_Model {
 				're_route'		=> $this->input->post('re_route'),
 				'offer_re_route'=> $this->input->post('re_route'),
 				'start_time'	=> $this->input->post('hours').':'.$this->input->post('minute').':00',
-				'date'			=> str_replace("&quot;", "", $date[$i])
+				'date'			=> str_replace("&quot;", "", $row),
+				'expiry_date'	=> $expiry_date.' '.$this->input->post('hours').':'.$this->input->post('minute').':00'
 			);
 			
 			$insert_post = $this->db->insert('user_lift_post', $post_data);
-		endfor;
+		endforeach;
 	}
 	
 	function get_wish($id, $what = 'user_wish_lift.route_from AS origin, user_wish_lift.route_to AS destination, via, time, CONCAT( GROUP_CONCAT( user_wish_lift_preference.preference_id ) ) AS preference_id, CONCAT( GROUP_CONCAT( type ) ) as type') {
@@ -321,6 +324,19 @@ class Lift_model extends CI_Model {
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function expired_post() {
+		$date = date('Y-m-d H:i:s');
+		
+		$query = $this->db->select('*')
+							->from('user_lift_post')
+							->where('expiry_date <=', $date)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return False;
 		return $result;
 	}
 }

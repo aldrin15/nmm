@@ -48,7 +48,7 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 				<div class="clr"></div>
 			</li>
 			<li>
-				<a href="javascript:void(0)" class="btn-advance">Advance Option</a>
+				<a href="javascript:void(0)" class="btn-advance" id="btn-advance">Advance Option</a>
 				
 				<div class="clr"></div>
 			</li>

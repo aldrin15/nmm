@@ -133,8 +133,7 @@ class Lift extends MX_Controller {
 		if($post):
 			if(array_key_exists('create_lift_submit', $post)):
 				$this->form_validation->set_rules('origin', 'From', 'required');
-				$this->form_validation->set_rules('destination', 'To', 'required');
-				// $this->form_validation->set_rules('via', 'Via', 'required');
+				$this->form_validation->set_rules('destination', 'Destination', 'required');
 				$this->form_validation->set_rules('dates', 'Dates', 'required');
 				$this->form_validation->set_rules('seat_amount', 'Seat Amount', 'required|numeric');
 				
@@ -327,5 +326,13 @@ class Lift extends MX_Controller {
 		foreach($data['rides'] as $row):
 			echo $row['rides'];
 		endforeach;
+	}
+	
+	public function delete_expired_post() {
+		$data = $this->lift_model->expired_post();
+		
+		echo '<pre>';
+		var_dump($data);
+		echo '</pre>';
 	}
 }

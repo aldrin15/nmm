@@ -12,7 +12,7 @@
 	<div class="span5 fr">
 		<ul>
 			<li>
-				<a href="<?php echo base_url('lift/create')?>">
+				<a href="<?php echo base_url('event/create')?>">
 					<p>Create an Event</p>
 					<div><span></span></div>
 					
@@ -20,7 +20,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url('event/create')?>">
+				<a href="<?php echo base_url('rides/create')?>">
 					<div><span></span></div>
 					<p>Create a Ride</p>
 					
