@@ -95,6 +95,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
  =============== */
 .error {color:#ff0000;}
 .error-bd {border:1px solid #ff0000;}
+.re_error-bd {border:1px solid #ff0000;}
 .bd {border:1px solid #000;}
 .hidden 				{display: none !important; visibility: hidden; } /* Hide from both screenreaders and browsers */
 .clr 				{float:none; clear: both; }

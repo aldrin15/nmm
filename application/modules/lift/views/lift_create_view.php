@@ -12,6 +12,8 @@
 .ui-widget-header {background:#fff;}
 .ui-datepicker .ui-datepicker-header {padding:.5em 0;}
 .ui-menu .ui-menu-item {background:#fff;}
+
+.label-width label {display:block; width:100px;}
 </style>
 <div class="create-lift m-center-content">
 	<h2>Create your own lift</h2><br /><br />
@@ -32,21 +34,13 @@
 		<ul>
 			<li class="span5">
 				<label for="Departure">From: </label>
-					<div class="clr"></div>
-				<div class="lift-place">
-					<p><?php echo (isset($_POST['origin'])) ? set_value('origin') : $row[0]['origin']?></p>
-					<input type="hidden" name="origin" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : $row[0]['origin']?>" />
-				</div>
-				
+				<input type="text" name="origin" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : $row[0]['origin']?>" />
+					
 				<div class="clr"></div>
 			</li>
 			<li class="span5">
-				<label for="Departure">To: </label>			
-					<div class="clr"></div>
-				<div class="lift-place">
-					<p><?php echo (isset($_POST['destination'])) ? set_value('destination') : $row[0]['destination']?></p>
-					<input type="hidden" name="destination" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : $row[0]['origin']?>" />	
-				</div>
+				<label for="Departure">To: </label>
+				<input type="text" name="destination" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : $row[0]['origin']?>" />
 				
 				<div class="clr"></div>
 			</li>
@@ -73,11 +67,11 @@
 			<li>
 				<label for="Time">Time:</label>
 				
-				<select name="hours" class="time-dropdown select-width-auto">
+				<select name="hours" class="bt-dropdown select-width-auto">
 					<option value="<?php echo date('H', strtotime($row[0]['time']))?>"><?php echo date('H', strtotime($row[0]['time']))?></option>
 				</select>
 				
-				<select name="minute" class="time-dropdown select-width-auto">
+				<select name="minute" class="bt-dropdown select-width-auto">
 					<option value="<?php echo date('i', strtotime($row[0]['time']))?>"><?php echo date('i', strtotime($row[0]['time']))?></option>
 				</select>
 				
@@ -192,11 +186,12 @@
 		
 		<h4>Date and Time of Lift</h4>
 			<hr/><br />
-		<ul>
+		<ul class="label-width">
 			<li>
 				<?php echo form_error('dates', '<div class="error">', '</div>');?>
+				<span class="dates-req"></span>
 					<div class="clr"></div>
-				<label for="Date">Date:</label>
+				<label for="Date">Date: </label>
 				<div id="calendar" class="fl"></div>
 				<input type="hidden" name="dates" value="<?php echo set_value('dates')?>" class="calendar-data"/>
 				
@@ -206,7 +201,7 @@
 				<label for="Time">Time:</label>
 				
 				<span>Hour</span>
-				<select name="hours" id="" class="time-dropdown select-width-auto">
+				<select name="hours" id="" class="bt-dropdown select-width-auto">
 					<?php for($i = 1; $i < 25; $i++):?>
 					<option value="<?php echo $i?>"><?php echo $i?></option>
 					<?php endfor?>
@@ -214,7 +209,7 @@
 				
 				<span>Minute</span>
 				
-				<select name="minute" id="" class="time-dropdown select-width-auto">
+				<select name="minute" id="" class="bt-dropdown select-width-auto">
 					<?php for($i = 1; $i < 10; $i++):?>
 					<option value="<?php echo '0'.$i?>"><?php echo '0'.$i?></option>
 					<?php endfor?>
@@ -229,10 +224,10 @@
 		
 		<h4>Car Preference</h4>
 			<hr/><br />
-		<ul>
+		<ul class="label-width">
 			<li>
 				<label for="Seat Available">Seat Available</label>
-				<select name="seat_available" id="" class="seat-available-choice" data-width="50px">
+				<select name="seat_available" id="" class="bt-dropdown" data-width="50px">
 					<?php for($i = 1; $i < 12; $i++):?>
 					<option value="<?php echo $i?>"><?php echo $i?></option>
 					<?php endfor?>
@@ -292,11 +287,7 @@
 			<hr/><br />
 		<ul>
 			<li class="span5">
-				<label for="Price Per Seat">Seat Amount:</label>
-				<?php echo form_error('seat_amount', '<div class="fl error">', '</div>')?>
-				
-				<div class="clr"></div>
-				
+				<label for="Price Per Seat">Seat Amount: <?php echo form_error('seat_amount', '<span class="error">', '</span>')?></label>
 				<input type="text" name="seat_amount" id="" value="<?php echo set_value('seat_amount')?>" class="form-control"/>
 				
 				<div class="clr"></div>
@@ -305,7 +296,7 @@
 		
 		<h3>Other Options</h3>
 			<hr/><br />
-		<ul>
+		<ul class="label-width">
 			<li style="float:none;">
 				<label for="Offer Return Ride">Allow Re-route</label>
 				<label style="margin-top:-10px;"><input type="checkbox" name="re_route" value="1" id=""/></label>
@@ -326,53 +317,20 @@
 			<ul class="return-trip">
 				<li class="span5">
 					<label for="Departure">From: </label>
+					<span><input type="text" name="re_origin" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : ''?>" id="re_from" class="form-control" autocomplete="off"/></span>
 									
-					<div class="clr"></div>
-					
-					<div class="lift-place">
-						<p>- Choose your location -</p>
-						
-						<div class="lift-search">
-							<!--<span><input type="text" name="from" id="rlift-route" autocomplete="off"/></span>-->
-							<span><input type="text" name="from" value="From" id="from" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" autocomplete="off"/></span>
-							
-							<input type="hidden" name="origin" value="" id="" />
-							
-							<a href="#" class="l-s-done">Done</a>
-							
-							<div class="clr"></div>
-						</div>
-					</div>
-					
 					<div class="clr"></div>
 				</li>
 				<li class="span5">
 					<label for="Departure">To: </label>
-					
-						<div class="clr"></div>
-					
-					<div class="lift-place">
-						<p>- Choose your location -</p>
-						
-						<div class="lift-search">
-							<span><input type="text" name="to" id="rto-route" autocomplete="off"/></span>
-							
-							<input type="hidden" name="destination" value="" id="" />
-							
-							<a href="#" class="l-s-done">Done</a>
-							
-							<div class="clr"></div>
-						</div>
-					</div>
-					
+					<span><input type="text" name="re_destination" value="<?php echo (isset($_POST['origin'])) ? set_value('origin') : ''?>" id="re_destination" class="form-control" autocomplete="off"/></span>
+										
 					<div class="clr"></div>
 				</li>
 				<li class="span5">
 					<label for="Via">Via</label>
 					
-					<div class="clr"></div>
-					
-					<input type="text" name="via" id="" class="form-control"/>
+					<input type="text" name="via" id="re_via" class="form-control"/>
 					
 					<div class="clr"></div>
 				</li>
@@ -381,11 +339,11 @@
 			<h4>Date and Time of Lift</h4>
 			<hr/><br />
 			
-			<ul>
+			<ul class="label-width">
 				<li>
 					<label for="Date">Date:</label>
 					<div id="return-trip-calendar" class="fl"></div>
-					<input type="hidden" name="return_dates" value="<?php echo set_value('dates')?>" class="calendar-data"/>
+					<input type="hidden" name="re_dates" value="<?php echo set_value('re_dates')?>" class="calendar-data"/>
 					
 					<div class="clr"></div>
 				</li>
@@ -393,7 +351,7 @@
 					<label for="Time">Time:</label>
 					
 					<span>Hour</span>
-					<select name="return_hours" id="" class="time-dropdown select-width-auto">
+					<select name="re_hours" id="" class="bt-dropdown select-width-auto">
 						<?php for($i = 1; $i < 25; $i++):?>
 						<option value="<?php echo $i?>"><?php echo $i?></option>
 						<?php endfor?>
@@ -401,7 +359,7 @@
 					
 					<span>Minute</span>
 					
-					<select name="return_minute" id="" class="time-dropdown select-width-auto">
+					<select name="re_minute" id="" class="bt-dropdown select-width-auto">
 						<?php for($i = 1; $i < 10; $i++):?>
 						<option value="<?php echo '0'.$i?>"><?php echo '0'.$i?></option>
 						<?php endfor?>
@@ -416,10 +374,10 @@
 			
 			<h4>Car Preference</h4>
 				<hr/><br />
-			<ul>
+			<ul class="label-width">
 				<li>
 					<label for="Seat Available">Seat Available</label>
-					<select name="return_seat_available" id="" class="seat-available-choice" data-width="50px">
+					<select name="re_seat_available" id="" class="bt-dropdown" data-width="50px">
 						<?php for($i = 1; $i < 12; $i++):?>
 						<option value="<?php echo $i?>"><?php echo $i?></option>
 						<?php endfor?>
@@ -429,7 +387,7 @@
 				</li>
 				<li>
 					<label for="Storage">Storage</label>
-					<select name="return_storage" id="" class="storage-choice" data-width="100px">
+					<select name="re_storage" id="" class="bt-dropdown" data-width="100px">
 						<option value="Small">Small</option>
 						<option value="Medium">Medium</option>
 						<option value="Large">Large</option>
@@ -442,27 +400,27 @@
 					
 					<div class="lift-preference">
 						<div class="fl checkbox-1">
-							<input type="checkbox" name="return_preference[]" value="1"/>
+							<input type="checkbox" name="re_preference[]" value="1"/>
 							<p>Talk <i></i></p>
 						</div>
 						<div class="fl checkbox-2">
-							<input type="checkbox" name="return_preference[]" value="2"/>
+							<input type="checkbox" name="re_preference[]" value="2"/>
 							<p>Music <i></i></p>
 						</div>
 						<div class="fl checkbox-3">
-							<input type="checkbox" name="return_preference[]" value="3"/>
+							<input type="checkbox" name="re_preference[]" value="3"/>
 							<p>Pet <i></i></p>
 						</div>
 						<div class="fl checkbox-4">
-							<input type="checkbox" name="return_preference[]" value="4"/>
+							<input type="checkbox" name="re_preference[]" value="4"/>
 							<p>Smoke <i></i></p>
 						</div>
 						<div class="fl checkbox-5">
-							<input type="checkbox" name="return_preference[]" value="5"/>
+							<input type="checkbox" name="re_preference[]" value="5"/>
 							<p>Baby <i></i></p>
 						</div>
 						<div class="fl checkbox-6">
-							<input type="checkbox" name="return_preference[]" value="6"/>
+							<input type="checkbox" name="re_preference[]" value="6"/>
 							<p>Women Only <i></i></p>
 						</div>
 					</div>
@@ -471,7 +429,18 @@
 				</li>
 				<li class="span5">
 					<label for="Remarks">Remarks:</label>
-					<textarea name="return_remarks" id="" cols="30" rows="10" class="form-control"></textarea>
+					<textarea name="re_remarks" id="" cols="30" rows="10" class="form-control"></textarea>
+				</li>
+			</ul>
+			
+			<h4>Payment</h4>
+				<hr/><br />
+			<ul>
+				<li class="span5">
+					<label for="Price Per Seat">Seat Amount: <?php echo form_error('seat_amount', '<span class="error">', '</span>')?></label>
+					<input type="text" name="re_amount" id="" value="<?php echo set_value('seat_amount')?>" class="form-control"/>
+					
+					<div class="clr"></div>
 				</li>
 			</ul>
 		</div>
@@ -497,13 +466,16 @@
 <script type="text/javascript">
 $(window).load(function() {initialize();});
 
-var destination, from, via;
+var from, re_from, destination, re_destination, via, re_via;
 
 function initialize() {
 	from = new google.maps.places.Autocomplete((document.getElementById('from')), { types: ['geocode'] });
+	re_from = new google.maps.places.Autocomplete((document.getElementById('re_from')), { types: ['geocode'] });
 	destination = new google.maps.places.Autocomplete((document.getElementById('destination')), { types: ['geocode'] });
+	re_destination = new google.maps.places.Autocomplete((document.getElementById('re_destination')), { types: ['geocode'] });
 	via = new google.maps.places.Autocomplete((document.getElementById('via')), { types: ['geocode'] });
-	google.maps.event.addListener(destination, 'place_changed', function() { fillInAddress(); });
+	re_via = new google.maps.places.Autocomplete((document.getElementById('re_via')), { types: ['geocode'] });
+	// google.maps.event.addListener(destination, 'place_changed', function() { fillInAddress(); });
 }
 
 function geolocate() {
@@ -529,13 +501,134 @@ function checkbox(checkboxName){
 }
 
 $(function() {
-	$('.time-dropdown, .seat-available-choice, .storage-choice').selectpicker();
+	$('.bt-dropdown').selectpicker();
+	checkbox("re_route");
+	checkbox("offer_re_route");
 	
-	$('.ride-trip li div.lift-place p').click(function() { $(this).parent().children('.lift-search').slideToggle(); });
-	$('.ride-trip li div.lift-place .lift-search a.l-s-done').click(function(e) { $(this).parent().slideToggle(); e.preventDefault(); });
-	
-	$('.return-trip li div.lift-place p').click(function() { $(this).parent().children('.lift-search').slideToggle(); });
-	$('.return-trip li div.lift-place .lift-search a.l-s-done').click(function(e) { $(this).parent().slideToggle(); e.preventDefault(); });
+	$('input[name="create_lift_submit"]').click(function(e) {
+		e.preventDefault();
+		var origin		= $('input[name="origin"]'),
+			destination = $('input[name="destination"]'),
+			via 		= $('input[name="via"]'),
+			dates		= $('input[name="dates"]'),
+			seat_amount	= $('input[name="seat_amount"]'),
+			hours		= $('select[name="hours"]'),
+			minute		= $('select[name="minute"]'),
+			seat		= $('select[name="seat_available"]'),
+			storage		= $('select[name="storage"]'),
+			preference	= $('input[name="preference[]"]'),
+			remarks		= $('textarea[name="remarks"]'),
+			error		= 0;
+		var re_origin		= $('input[name="re_origin"]'),
+			re_destination 	= $('input[name="re_destination"]'),
+			re_dates		= $('input[name="re_dates"]'),
+			re_amount		= $('input[name="re_amount"]'),
+			re_hours		= $('select[name="re_hours"]'),
+			re_minute		= $('select[name="re_minute"]'),
+			re_seat			= $('select[name="re_seat_available"]'),
+			re_storage		= $('select[name="re_storage"]'),
+			re_preference	= $('input[name="re_preference[]"]'),
+			re_remarks		= $('textarea[name="re_remarks"]'),
+			re_error		= 0;
+		
+		$('*').removeClass('error-bd');
+		$('.dates-req').html("");
+		
+		if(origin.val() == '') {
+			origin.addClass('error-bd');
+			error = 1;
+		}
+		
+		if(destination.val() == '') {
+			destination.addClass('error-bd');
+			error = 1;
+		}
+		
+		if(dates.val() == '') {
+			$('.dates-req').html('The Date is required.').addClass('error').css({marginLeft:'100px'});
+			error = 1;
+		}
+		
+		if(seat_amount.val() == '') {
+			seat_amount.addClass('error-bd');
+			error = 1;
+		}
+		
+		if($('input[name="offer_re_route"]').is(':checked')) {
+
+
+			$('*').removeClass('re_error_bd');	
+				
+			if(re_origin.val() == '') {
+				re_origin.addClass('re_error_bd');
+				re_error = 1;
+			}
+			
+			if(re_destination.val() == '') {
+				re_destination.addClass('re_error_bd');
+				re_error = 1;
+			}
+			
+			if(re_dates.val() == '') {
+				re_dates.addClass('re_error_bd');
+				re_error = 1;
+			}
+			
+			if(re_amount.val() == '') {
+				re_amount.addClass('re_error_bd');
+				re_error = 1;
+			}
+			
+			if(re_error == 0) {
+				console.log('Success');
+			} else {
+				return false;
+			}
+		}
+		
+		if(error == 0) {
+			var preference_array = []
+				re_preference_array = [];
+			
+			$('input[name="preference[]"]:checkbox:checked').each(function(i){ preference_array[i] = $(this).val(); });
+			$('input[name="re_preference[]"]:checkbox:checked').each(function(i){ re_preference_array[i] = $(this).val(); });
+			
+			$.ajax({
+				url 	: '<?php echo base_url('lift/insert_create')?>',
+				type	: 'POST',
+				data	: {
+					origin:origin.val(),
+					destination:destination.val(),
+					via:via.val(),
+					dates:dates.val(),
+					seat_amount:seat_amount.val(),
+					hours:hours.val(),
+					minute:minute.val(),
+					seat:seat.val(),
+					storage:storage.val(),
+					preference:preference_array,
+					remarks:remarks.val(),
+					re_origin:re_origin.val(),
+					re_destination:re_destination.val(),
+					re_via:re_via.val(),
+					re_destination:re_destination.val(),
+					re_dates:re_dates.val(),
+					re_amount:re_amount.val(),
+					re_hours:re_hours.val(),
+					re_minute:re_minute.val(),
+					re_seat:re_seat.val(),
+					re_storage:re_storage.val(),
+					re_preference:re_preference_array,
+					re_remarks:re_remarks.val()
+				},
+				success	: function(data) {
+					console.log(data);
+				}
+			});
+		} else {
+			return false;
+		}
+	});
 	
 	$('input[name="offer_re_route"]').click(function() {
 		if($(this).is(':checked')) {
@@ -545,9 +638,6 @@ $(function() {
 		}
 	});
 	
-	checkbox("re_route");
-	checkbox("offer_re_route");
-
 	$('#calendar').click(function() {
 		var getDates		= $(this).multiDatesPicker('getDates'),
 			getDates_array	= [];
@@ -563,7 +653,7 @@ $(function() {
 		
 		$.each(getDates, function(index, value) { getDates_array.push(value); });
 		
-		$('input[name="return_dates"]').val(getDates_array);
+		$('input[name="re_dates"]').val(getDates_array);
 	});
 	
 	<?php

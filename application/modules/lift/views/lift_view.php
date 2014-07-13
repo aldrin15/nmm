@@ -6,7 +6,7 @@
 	<h3 class="fl">Upcoming lift near you:</h3>
 	<?php 
 	if($this->session->userdata('validated') == true):
-		echo '<a href="'.base_url('lift/create').'" class="btn-create-lift fr btn-advance">Create Lift</a>';
+		echo '<a href="'.base_url('rides/create').'" class="btn-create-lift fr btn-advance">Create Lift</a>';
 	endif;
 	?>
 	

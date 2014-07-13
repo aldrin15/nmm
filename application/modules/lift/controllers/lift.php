@@ -128,7 +128,7 @@ class Lift extends MX_Controller {
 			$data['get_wish_date'] = '';
 		endif;
 		
-		$post = $this->input->post();
+		/* $post = $this->input->post();
 		
 		if($post):
 			if(array_key_exists('create_lift_submit', $post)):
@@ -143,11 +143,15 @@ class Lift extends MX_Controller {
 					redirect('lift/create_success', 'refresh');
 				endif;
 			endif;
-		endif;
+		endif; */
 		
 		$data['user_car_data'] = $this->lift_model->get_user_car($this->session->userdata('user_id'));
 		$data['view_file'] = 'lift_create_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function insert_create() {
+		$this->lift_model->create_lift();
 	}
 	
 	public function create_success() {

@@ -44,7 +44,7 @@ $route['rides/create'] 			= "lift/create";
 $route['rides/detail/(:any)'] 	= "lift/detail/5";
 $route['rides/index'] 			= "lift/index/";
 $route['rides/index/(:any)'] 	= "lift/index/5";
-$route['404_override'] = '';
+$route['404_override'] 			= '';
 
 
 /* End of file routes.php */
