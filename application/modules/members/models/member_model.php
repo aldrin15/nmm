@@ -52,7 +52,7 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function rides_list($uri_id, $what = 'user_lift_post.id, user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_dates.date') {
+	public function rides_list($uri_id, $what = 'user_lift_post.id, user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_post.date') {
 		if($this->session->userdata('validated') == false):
 			$id = $uri_id;
 		else:
@@ -64,6 +64,7 @@ class Member_model extends CI_Model {
 							->join('user', 'user.user_id = user_lift_post.user_id')
 							->join('user_lift_dates', 'user_lift_dates.user_id = user_lift_post.user_id', 'left')
 							->where('user_lift_post.user_id', $id)
+							->order_by('user_lift_post.date', 'asc')
 							->get();
 		
 		$result = $query->result_array();

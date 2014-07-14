@@ -275,29 +275,31 @@ class Lift_model extends CI_Model {
 			$this->db->insert('user_lift_post', $post_data);
 		endforeach;
 		
-		$re_date = explode(',', $this->input->post('re_dates'));
-		$re_preference_array = implode(',', $this->input->post('re_preference'));
-		
-		foreach($re_date as $row):
-			$re_expiry_date = date('Y-m-d', strtotime($row.' + 1 day'));
+		if($this->input->post('re_origin') != ''):
+			($this->input->post('re_dates') == '') ? $re_date = '' : $re_date = explode(',', $this->input->post('re_dates'));		
+			($this->input->post('re_preference') == '') ? $re_preference_array = '' : $re_preference_array = implode(',', $this->input->post('re_preference'));
 			
-			$re_post_data = array(
-				'user_id'		=> $this->session->userdata('user_id'),
-				'route_from'	=> $this->input->post('re_origin'),
-				'route_to'		=> $this->input->post('re_destination'),
-				'via'			=> $this->input->post('re_via'),
-				'available'		=> $this->input->post('re_seat'),
-				'storage'		=> $this->input->post('re_storage'),
-				'preference'	=> $re_preference_array,
-				'remarks'		=> $this->input->post('re_remarks'),
-				'amount'		=> $this->input->post('re_amount'),
-				'start_time'	=> $this->input->post('re_hours').':'.$this->input->post('re_minute').':00',
-				'date'			=> str_replace("&quot;", "", $row),
-				'expiry_date'	=> $re_expiry_date.' '.$this->input->post('re_hours').':'.$this->input->post('re_minute').':00',
-			);
-			
-			$this->db->insert('user_lift_return_post', $re_post_data);
-		endforeach;		
+			foreach($re_date as $row):
+				$re_expiry_date = date('Y-m-d', strtotime($row.' + 1 day'));
+				
+				$re_post_data = array(
+					'user_id'		=> $this->session->userdata('user_id'),
+					'route_from'	=> $this->input->post('re_origin'),
+					'route_to'		=> $this->input->post('re_destination'),
+					'via'			=> $this->input->post('re_via'),
+					'available'		=> $this->input->post('re_seat'),
+					'storage'		=> $this->input->post('re_storage'),
+					'preference'	=> $re_preference_array,
+					'remarks'		=> $this->input->post('re_remarks'),
+					'amount'		=> $this->input->post('re_amount'),
+					'start_time'	=> $this->input->post('re_hours').':'.$this->input->post('re_minute').':00',
+					'date'			=> str_replace("&quot;", "", $row),
+					'expiry_date'	=> $re_expiry_date.' '.$this->input->post('re_hours').':'.$this->input->post('re_minute').':00',
+				);
+				
+				$this->db->insert('user_lift_return_post', $re_post_data);
+			endforeach;
+		endif;
 	}
 	
 	function get_wish($id, $what = 'user_wish_lift.route_from AS origin, user_wish_lift.route_to AS destination, via, time, CONCAT( GROUP_CONCAT( user_wish_lift_preference.preference_id ) ) AS preference_id, CONCAT( GROUP_CONCAT( type ) ) as type') {

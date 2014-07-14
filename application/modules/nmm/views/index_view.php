@@ -1,28 +1,4 @@
 <?php $this->load->view('header_content')?>
-<style type="text/css">
-.event-detail p {background:#000; width:190px;}
-
-.video {padding-top:55px;}
-.home-features {font-size:1.3em; margin:70px auto; width:710px;}
-.home-features h3 {text-align:center; text-transform:uppercase;}
-.home-features ul li:nth-child(2n+2) {float:right;}
-.home-features ul li {float:left; margin-bottom:50px; width:300px;}
-.home-features ul li i {float:left; margin-right:10px;}
-.home-features ul li:nth-child(1) i {display:block; background: url('<?php echo base_url('assets/images/page_template/home_icon.png')?>') no-repeat; width:71px; height:70px;}
-.home-features ul li:nth-child(2) i {display:block; background: url('<?php echo base_url('assets/images/page_template/home_icon.png')?>') no-repeat 0 -70px; width:71px; height:70px;}
-.home-features ul li:nth-child(3) i {display:block; background: url('<?php echo base_url('assets/images/page_template/home_icon.png')?>') no-repeat 0 -140px; width:71px; height:70px;}
-.home-features ul li:nth-child(4) i {display:block; background: url('<?php echo base_url('assets/images/page_template/home_icon.png')?>') no-repeat 0 -210px; width:71px; height:70px;}
-
-.subscription {color:#678222; text-align:center; margin:90px 0;}
-.subscription h3 {text-transform:uppercase; color:#000;}
-.subscription a {color:#678222;}
-.subscription a:hover {text-decoration:none;}
-.subscription div {background:#e9fdb5; display:inline-block; text-align:center; border:1px solid #ccc; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; vertical-align:top; padding:10px; min-height:130px;}
-.subscription div:hover {background:#d6fd75;}
-.subscription div span {display:block;}
-.subscription div span:nth-child(2) {font-size:3.5em;}
-</style>
-	
 		<div class="slideshow-search" style="position:relative;">
 			<div class="slideshow">			
 				<ul class="rslides" id="slider1">

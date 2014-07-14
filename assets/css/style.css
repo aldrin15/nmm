@@ -40,7 +40,7 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset; }
  ============== */
 #main-container {height:100%; min-height:100%; height: auto !important;}
 
-#main-wrapper {padding-bottom:127px;}
+.header-wrapper {position:fixed;background:#fff;z-index:9999;width:100%;}
 
 .login-status-wrapper {background:#7aa508; margin-bottom:1px; padding-top:5px; height:27px;}
 .login-status {color:#bbfb04; text-align:right;}
@@ -71,6 +71,8 @@ header nav ul li a:hover {text-decoration:none;}
 header nav ul li a span {display:block; font-size:.5em; font-family: 'quicksandregular' !important;}
 
 .line-separator {border-top:2px solid #c2c2c1; width:1024px;}
+
+#main-wrapper {padding-bottom:127px;}
 
 footer {margin-top:-127px;}
 footer .pull-left {text-transform:uppercase; margin-bottom:25px;}
@@ -228,7 +230,27 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .events-quote .pagination {margin:0 20px 0;}
 
 .event-detail {position:absolute; background:#000; color:#fff; top:0; left:0; width:199px;}
-.event-detail p {padding:5px 5px;}
+.event-detail p {background:#000; padding:5px 5px; width:190px;}
+
+.video {padding-top:55px;}
+.home-features {font-size:1.3em; margin:70px auto; width:710px;}
+.home-features h3 {text-align:center; text-transform:uppercase;}
+.home-features ul li:nth-child(2n+2) {float:right;}
+.home-features ul li {float:left; margin-bottom:50px; width:300px;}
+.home-features ul li i {float:left; margin-right:10px;}
+.home-features ul li:nth-child(1) i {display:block; background: url('<?php echo base_url('assets/images/page_template/home_icon.png')?>') no-repeat; width:71px; height:70px;}
+.home-features ul li:nth-child(2) i {display:block; background: url('<?php echo base_url('assets/images/page_template/home_icon.png')?>') no-repeat 0 -70px; width:71px; height:70px;}
+.home-features ul li:nth-child(3) i {display:block; background: url('<?php echo base_url('assets/images/page_template/home_icon.png')?>') no-repeat 0 -140px; width:71px; height:70px;}
+.home-features ul li:nth-child(4) i {display:block; background: url('<?php echo base_url('assets/images/page_template/home_icon.png')?>') no-repeat 0 -210px; width:71px; height:70px;}
+
+.subscription {color:#678222; text-align:center; margin:90px 0 180px;}
+.subscription h3 {text-transform:uppercase; color:#000;}
+.subscription a {color:#678222;}
+.subscription a:hover {text-decoration:none;}
+.subscription div {background:#e9fdb5; display:inline-block; text-align:center; border:1px solid #ccc; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; vertical-align:top; padding:10px; min-height:130px;}
+.subscription div:hover {background:#d6fd75;}
+.subscription div span {display:block;}
+.subscription div span:nth-child(2) {font-size:3.5em;}
 
 .quote {text-align:center; margin:20px 0;}
 .q-message span {display:block; text-align:left; margin-top:10px;}
@@ -442,6 +464,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .contact ul {list-style:none;}
 .contact ul li {margin-bottom:10px;}
 .contact ul li label, .contact ul li input, .contact ul li textarea {float:left;}
+.contact ul li textarea {resize:none;}
 
 .event {font-family: 'quicksandregular'; font-size:1.3em;}
 .event .span5 {margin: 0 0 20px 20px;}

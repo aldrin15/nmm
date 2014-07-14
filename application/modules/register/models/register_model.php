@@ -2,7 +2,7 @@
 
 class Register_model extends CI_Model {
 	
-	function insert($rand) {
+	function free_trial($rand) {
 		$account_type = $this->input->post('account_type');
 		
 		$insert_user = array(
@@ -25,6 +25,40 @@ class Register_model extends CI_Model {
 		$verification = $this->db->insert('user_verification', $email_verification);
 		
 		return $insert;
+	}
+	
+	function membership($rand, $firstname, $lastname, $gender, $email, $password, $subscription) {
+		$insert_user = array(
+			'firstname'			=> $firstname,
+			'lastname'			=> $lastname,
+			'gender'			=> $gender,
+			'email'				=> $email,
+			'password'			=> md5($email),
+			'account_status'	=> 'Not Activated',
+			'subscription_type'	=> $subscription,
+			'date'				=> date("Y-m-d H:i:s")
+		);
+		
+		$email_verification = array(
+			'email'			=> $this->input->post('email'),
+			'code'			=> $rand,
+		);
+		
+		$insert = $this->db->insert('user', $insert_user);
+		$verification = $this->db->insert('user_verification', $email_verification);
+		
+		return $insert;
+	}
+	
+	function membership_amount($id, $what = '*') {
+		$query = $this->db->select($what)
+							->from('subscription_type')
+							->where('subscription_id', $id)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
 	}
 	
 	function verify($code) {
@@ -82,5 +116,24 @@ class Register_model extends CI_Model {
 		endif;
 		
 		$this->db->delete('user_verification', array('code'=>$code));
+	}
+	
+	function check_membership_verification($orderID, $what = 'email, code') {
+		$query = $this->db->select($what)
+					->from('user_verification')
+					->where('code', $orderID)
+					->get();
+					
+		$result = $query->result_array();
+		
+		if(count($result) == 0):
+			return False;
+		else:
+			$result['email'];
+			
+			$data = array( 'account_status' => 'Activated' );
+			
+			$this->db->update('user', $data, "email = {$result['email']}");
+		endif;
 	}
 }

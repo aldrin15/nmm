@@ -44,6 +44,13 @@ $route['rides/create'] 			= "lift/create";
 $route['rides/detail/(:any)'] 	= "lift/detail/5";
 $route['rides/index'] 			= "lift/index/";
 $route['rides/index/(:any)'] 	= "lift/index/5";
+$route['contact-us']			= "contact";
+$route['privacy-policy']		= "privacy";
+$route['about-us']				= "about";
+$route['rides-wish-lift']		= "offer_wish_lift";
+$route['thank-you']				= "register/thank_you";
+$route['payment-error']			= "register/payment_error";
+$route['payment-postback']		= "register/payment_postback";
 $route['404_override'] 			= '';
 
 

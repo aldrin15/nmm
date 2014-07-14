@@ -9,8 +9,8 @@
 			<div class="fl">
 				<h5>NMM</h5>
 				<ul>
-					<li><a href="<?php echo base_url('about')?>">About NMM</a></li>
-					<li><a href="<?php echo base_url('privacy')?>">Privacy Policy</a></li>
+					<li><a href="<?php echo base_url('about-us')?>">About NMM</a></li>
+					<li><a href="<?php echo base_url('privacy-policy')?>">Privacy Policy</a></li>
 					<li><a href="<?php echo base_url('terms')?>">Terms & Conditions</a></li>
 				</ul>
 			</div>
@@ -19,7 +19,7 @@
 				
 				<ul>
 					<li><a href="<?php echo base_url('support')?>">Support</a></li>
-					<li><a href="<?php echo base_url('contact')?>">Contact Us</a></li>
+					<li><a href="<?php echo base_url('contact-us')?>">Contact Us</a></li>
 				</ul>
 			</div>
 			<div class="fl">

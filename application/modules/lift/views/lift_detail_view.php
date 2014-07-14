@@ -287,10 +287,12 @@
 			var request = {
 				origin: "<?php echo $row['origin']?>",
 				destination: "<?php echo $row['destination']?>",
-				waypoints: [{
+				<?php 
+				/* waypoints: [{
 					location: "Makati, Philippines",//via
 					stopover:false
-				}],
+				}], */
+				?>
 				optimizeWaypoints: true,
 				travelMode: google.maps.DirectionsTravelMode.DRIVING
 			};

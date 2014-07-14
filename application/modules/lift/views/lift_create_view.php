@@ -521,6 +521,7 @@ $(function() {
 			error		= 0;
 		var re_origin		= $('input[name="re_origin"]'),
 			re_destination 	= $('input[name="re_destination"]'),
+			re_via 			= $('input[name="re_via"]'),
 			re_dates		= $('input[name="re_dates"]'),
 			re_amount		= $('input[name="re_amount"]'),
 			re_hours		= $('select[name="re_hours"]'),
@@ -622,7 +623,7 @@ $(function() {
 					re_remarks:re_remarks.val()
 				},
 				success	: function(data) {
-					console.log(data);
+					window.location.href = '<?php echo base_url('lift/create_success')?>';
 				}
 			});
 		} else {

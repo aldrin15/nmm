@@ -15,7 +15,7 @@
 						<li><a href="<?php echo base_url('passenger')?>"><i class="fa fa-group <?php echo ($this->uri->segment(1) == 'passenger') ? 'selected' : ''?>"></i><span>Passenger</span></a></li>
 						<li><a href="<?php echo base_url('event')?>"><i class="fa fa-calendar <?php echo ($this->uri->segment(1) == 'event') ? 'selected' : ''?>"></i><span>Events</span></a></li>
 						<li><a href="<?php echo base_url('abroad')?>"><i class="fa fa fa-globe <?php echo ($this->uri->segment(1) == 'abroad') ? 'selected' : ''?>"></i><span>Abroad</span></a></li>
-						<li><a href="<?php echo base_url('offer_wish_lift')?>"><i class="fa fa-pencil-square-o <?php echo ($this->uri->segment(1) == 'offer_wish_lift') ? 'selected' : ''?>"></i><span>Ride/ Wish Lift</span></a></li>
+						<li><a href="<?php echo base_url('rides-wish-lift')?>"><i class="fa fa-pencil-square-o <?php echo ($this->uri->segment(1) == 'rides-wish-lift') ? 'selected' : ''?>"></i><span>Ride/ Wish Lift</span></a></li>
 					</ul>
 				</nav>
 				
