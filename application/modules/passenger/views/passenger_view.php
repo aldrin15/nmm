@@ -29,6 +29,16 @@
 			<div class="clr"></div>
 		</form>
 	</div>
+	
+	<h3 class="fl">Wish rides by user:</h3>
+	
+	<?php 
+	if($this->session->userdata('validated') == true):
+		echo '<a href="'.base_url('passenger/create').'" class="btn-create-lift fr btn-advance">Wish a Lift</a>';
+	endif;
+	?>
+	
+	<div class="clr"></div>
 
 	<div class="passenger-listing">
 		<?php if($wish_lift_data == null):?>
@@ -41,8 +51,8 @@
 						<img src="<?php echo base_url('assets/images/user.jpg')?>" width="150" height="150" alt="User"/>
 						<span><strong>From</strong> <?php echo $wish_lift['origin']?></span>
 						<span><strong>To</strong> <?php echo $wish_lift['destination']?></span>
-						<span><strong>Via</strong> <?php //echo $wish_lift['via']?></span>
-						<span><strong>Posted</strong> <?php echo $wish_lift['posted']?></span>
+						<span><strong>Via</strong> <?php echo $wish_lift['via']?></span>
+						<span><strong>Posted</strong> <?php echo date('F d', strtotime($wish_lift['date']))?></span>
 						<span><strong>Requested seat(s)</strong> <?php echo $wish_lift['available']?></span>
 						<span><strong>Requested by</strong> <?php echo $wish_lift['firstname']." ".$wish_lift['lastname']?></span>
 						<div class="user-rating">

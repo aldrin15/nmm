@@ -94,7 +94,7 @@
 			</li>
 			<li>
 				<label for="Storage">Storage</label>
-				<select name="storage" id="" class="storage-choice" data-width="100px">
+				<select name="storage" id="" class="bt-dropdown" data-width="100px">
 					<option value="Small">Small</option>
 					<option value="Medium">Medium</option>
 					<option value="Large">Large</option>
@@ -462,7 +462,7 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.core.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.datepicker.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.multidatespicker.js')?>"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&region=DE&libraries=places&language=de"></script>  
 <script type="text/javascript">
 $(window).load(function() {initialize();});
 

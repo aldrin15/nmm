@@ -123,7 +123,7 @@ class Passenger extends MX_Controller {
 		modules::run('login/is_logged_in');
 		$post = $this->input->post();
 		
-		if($post):
+		/* if($post):
 			if(array_key_exists('wish_lift_submit', $post)):
 				$this->form_validation->set_rules('origin', 'From', 'required');
 				$this->form_validation->set_rules('destination', 'To', 'required');
@@ -135,10 +135,14 @@ class Passenger extends MX_Controller {
 					redirect('passenger/wish_lift_success', 'refresh');
 				endif;
 			endif;
-		endif;	
+		endif;	 */
 	
 		$data['view_file'] = 'passenger_create_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function insert_create() {
+		$this->lift_model->create_wish_ride();
 	}
 	
 	public function wish_lift_success() {

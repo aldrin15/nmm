@@ -141,8 +141,7 @@ class Lift_model extends CI_Model {
 	
 	function get_user_lift_dates($user_id) {
 		$query = $this->db->query("
-			SELECT CONCAT( GROUP_CONCAT( route_from
-			SEPARATOR  '-' ) ) AS origins, CONCAT( GROUP_CONCAT( route_to SEPARATOR '-' ) ) AS destination, CONCAT( GROUP_CONCAT( DATE ) ) AS dates
+			SELECT CONCAT( GROUP_CONCAT( id ) ) as id, CONCAT( GROUP_CONCAT( route_from SEPARATOR  '-' ) ) AS origins, CONCAT( GROUP_CONCAT( route_to SEPARATOR '-' ) ) AS destination, CONCAT( GROUP_CONCAT( DATE ) ) AS dates
 			FROM user_lift_post
 			WHERE user_id = {$user_id}
 			GROUP BY user_id
@@ -344,8 +343,12 @@ class Lift_model extends CI_Model {
 	}
 	
 	function rides($what = 'COUNT(id) as rides') {
+		$date = getdate();
+		$today = $date['year'].'-'.$date['mon'].'-'.$date['mday'];
+		
 		$query = $this->db->select($what)
 							->from('user_lift_post')
+							->where('date', $today)
 							->get();
 		
 		$result = $query->result_array();

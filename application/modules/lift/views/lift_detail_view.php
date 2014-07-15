@@ -16,6 +16,9 @@
 .user-information {border:1px solid #dbdada; border-radius:7px; -webkit-border-radius:7px; -moz-border-radius:7px; -ms-border-radius:7px; padding:10px;}
 .profile-image {margin-right:10px;}
 .profile-image img {border-radius:7px; -webkit-border-radius:7px; -moz-border-radius:7px; -ms-border-radius:7px;}
+
+.pcal-body ul li a {color:#000;}
+.pcal-body ul li a:hover {text-decoration:none;}
 </style>
 <div class="detail m-center-content">
 	<?php foreach($lift_information as $row):?>
@@ -26,7 +29,7 @@
 
 		<div class="user-information">
 			<p>Lift Offered by:</p>
-			<div class="profile-image fl"><img src="<?php echo base_url('assets/media_uploads').'/'.$row['image']?>" width="160" height="160" alt="Car"/></div>
+			<div class="profile-image fl"><img src="<?php echo ($row['image'] != '') ? base_url('assets/media_uploads').'/'.$row['image'] : base_url('assets/images/page_template/blank_profile_large.jpg')?>" width="160" height="160" alt="Car"/></div>
 			<div class="user-info fl">
 				<p class="name"><strong><a href="<?php echo base_url('members/profile_view/').'/'.$row['user_id']?>"><?php echo $row['firstname'].' '.$row['lastname']?></a></strong></p><br />
 				<div class="user-rating">
@@ -151,11 +154,13 @@
 				</div>
 			</div>
 			<?php
+			$id_array					= array();
 			$other_dates_array			= array();
 			$other_origin_array 		= array();
 			$other_destination_array 	= array();
 			
 			foreach($get_user_lift_dates as $val):
+				$id_array[] 				= explode(',', $val['id']);
 				$other_origin_array[] 		= explode('-', $val['origins']);
 				$other_destination_array[] 	= explode('-', $val['destination']);
 				$other_dates_array[] 		= explode(',', $val['dates']);
@@ -164,10 +169,12 @@
 			<script type="text/javascript">
 			function get_data(events, month_today, year) {
 				$.each(events, function(index, value) {
-					var get_month = value.substring(5, 7);
-					var get_year = value.substring(0, 4);
+					var get_month = value.substring(51, 53);
+					var get_year = value.substring(46, 50);
 					var this_month = (month_today < 9 ? "0"+month_today:month_today);
-					
+
+					console.log(get_year);
+				
 					if(this_month == get_month && get_year == year) {
 						$('.pcal-body ul').append('<li>'+value+'</li>');
 					}
@@ -182,7 +189,8 @@
 					year	= date.getFullYear();
 				
 				var events = [<?php for($i = 0; $i < count($other_dates_array[0]); $i++):
-					echo '"'.$other_dates_array[0][$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[0][$i].' to '.$other_destination_array[0][$i].'",';
+					// echo '"'.$other_dates_array[0][$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[0][$i].' to '.$other_destination_array[0][$i].'",';
+					echo '"<a href=\''.base_url('rides/detail').'/'.$id_array[0][$i].'\'>'.$other_dates_array[0][$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[0][$i].' to '.$other_destination_array[0][$i].'</a>",';
 				endfor;?>];
 			
 				$('.pcal-month').html(months[month] +' '+ year);
@@ -259,56 +267,58 @@
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		<style type="text/css">
 		#ride-location {width:100%; height:280px;}
-		#ride-location div {margin-top:90px;}
-		#ride-location p, #ride-location i {display:inline-block; font-size:3em; vertical-align:text-bottom;}
-		#ride-location i {background:url('<?php echo base_url('assets/images/gmap_marker.png')?>') no-repeat; width:49px; height:77px;}
+		
+		/*#ride-location p, #ride-location i {display:inline-block; font-size:3em; vertical-align:text-bottom;}*/
+		/*#ride-location i {background:url('<?php echo base_url('assets/images/gmap_marker.png')?>') no-repeat; width:49px; height:77px;}*/
 		</style>
 		<script type="text/javascript">
-		$(window).load(function() { initialize(); });
-		
 		var directionDisplay;
 		var directionsService = new google.maps.DirectionsService();
 		var map;
 
 		function initialize() {
-			directionsDisplay = new google.maps.DirectionsRenderer();
-			
+			directionsDisplay = new google.maps.DirectionsRenderer({
+				suppressMarkers: false
+			});
 			var myOptions = {
 				zoom: 6,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
 			}
 			map = new google.maps.Map(document.getElementById("ride-location"), myOptions);
 			directionsDisplay.setMap(map);
-			
 			calcRoute();
 		}
-
+	  
 		function calcRoute() {
 			var request = {
-				origin: "<?php echo $row['origin']?>",
-				destination: "<?php echo $row['destination']?>",
-				<?php 
-				/* waypoints: [{
-					location: "Makati, Philippines",//via
-					stopover:false
-				}], */
-				?>
+				origin: "<?php echo $row['origin']?>", //from
+				destination:"<?php echo $row['destination']?>", //to
 				optimizeWaypoints: true,
 				travelMode: google.maps.DirectionsTravelMode.DRIVING
 			};
+			
 			directionsService.route(request, function(response, status) {
 				if (status == google.maps.DirectionsStatus.OK) {
+					createMarker(response.routes[0].legs[0].via_waypoints[0]);  
 					directionsDisplay.setDirections(response);
 				} else {
-					// alert("directions response "+status);
-					console.log('Google cannot locate this address');
-					$('#ride-location').empty();
-					$('#ride-location').html("<div><p>Google cannot locate this address!</p> <i></i> <div class='clr'></div></div>").css({border:'3px solid #088132', textAlign:'center', marginTop:'30px'});
+					document.getElementById("ride-location").innerHTML = "Google map cant find your input city.";
 				}
 			});
 		}
+		
+		function createMarker(latlng) {
+		
+			var marker = new google.maps.Marker({
+				icon:'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+				title: '', //you can put the via city
+				position: latlng,
+				map: map
+			});
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
-		<div id="ride-location" > </div>
+		<div id="ride-location"> </div>
 	</div>
 	<?php endforeach?>
 </div>

@@ -14,8 +14,9 @@ class Abroad extends MX_Controller {
 	}
 	
 	public function index() {
-		$data['countries_data']	= $this->abroad_model->country();
-		$data['view_file']		= 'abroad_view';
+		$data['countries_data']		= $this->abroad_model->country();
+		$data['ride_default_data']	= $this->abroad_model->ride_by_country();
+		$data['view_file']			= 'abroad_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_layout, $this->_view_template_name, $data);
 	}
 }
