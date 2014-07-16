@@ -66,7 +66,7 @@
 				<li>
 					<?php echo form_error('terms_condition', '<span class="error">', '</span>')?><br />
 					<input type="checkbox" name="terms_condition" id=""/>
-					<label for="Terms and Condition" class="err-terms"><a href="<?php echo base_url('terms-and-condition')?>">Terms and Condition</a></label>
+					<label for="Terms and Condition" class="err-terms"><a href="<?php echo base_url('terms-and-condition')?>">I have read and agree to the Terms & Conditions.</a></label>
 					
 					<div class="clr"></div>
 				</li>

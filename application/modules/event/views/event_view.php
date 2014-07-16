@@ -1,8 +1,21 @@
 <?php $this->load->view('header_content');?>
 
+<div class="slideshow-search" style="position:relative;">
+	<div class="slideshow">			
+		<ul class="rslides" id="slider1">
+			<li><img src="<?php echo base_url('assets/images/events/1.jpg')?>" alt=""></li>
+			<li><img src="<?php echo base_url('assets/images/events/2.jpg')?>" alt=""></li>
+			<li><img src="<?php echo base_url('assets/images/events/3.jpg')?>" alt=""></li>
+		</ul>
+		
+		<div class="clr"></div>
+	</div>
+</div>
+
 <div class="m-center-content event-listings">
-	<h1>Upcoming</h1>
-	<h2>Events</h2>
+	<h3 class="fl">Upcoming events:</h3>
+
+		<div class="clr"></div>
 
 	<?php if($event_data == null):?>
 		<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px;"><p>There are no events at the moment</p></div>
@@ -43,3 +56,6 @@
 	
 	<div class="clr"></div>
 </div>
+
+<script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
+<script type="text/javascript">$(function() {$("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 });})</script>
