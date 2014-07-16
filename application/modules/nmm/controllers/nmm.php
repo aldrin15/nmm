@@ -10,7 +10,6 @@ class Nmm extends MX_Controller {
 		$this->_view_template_layout	= 'main_view';
 		$this->_view_content			= '';
 		
-		modules::run('login/index');
 		$this->load->library('form_validation');
 	}
 	

@@ -38,10 +38,8 @@ class Register extends MX_Controller {
 			$this->form_validation->set_rules('account_type', 'Membership Type', 'required');
 			
 			if($this->form_validation->run() == TRUE):
-				$rand 			= random_string('unique');
-				$length 		= 10;
-				$randomString 	= substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
-				$message		= "Dear ".$this->input->post('email').",\n\nPlease click on below URL or paste into your browser to verify your Email Address\n\n ".base_url('register/verify/')."/".$rand."\n"."\n\nThanks\nAdmin Team";
+				$rand 		= random_string('unique');
+				$message	= "Dear ".$this->input->post('email').",\n\nPlease click on below URL or paste into your browser to verify your Email Address\n\n ".base_url('register/verify/')."/".$rand."\n"."\n\nThanks\nAdmin Team";
 				
 				$data = array(
 					'firstname' => $this->input->post('firstname'),
@@ -53,91 +51,136 @@ class Register extends MX_Controller {
 					'membership' => $this->input->post('account_type')
 				);
 				
-				$this->session->set_userdata('registered_session', $data);
-				
-				$user_data = $this->session->userdata('registered_session');
-				
-				
-				/**
-				 *  ICEPAY Basicmode API 2
-				 *  BasicMode sample script
-				 *
-				 *  @version 1.0.1
-				 *  @author Olaf Abbenhuis
-				 *  @copyright Copyright (c) 2011-2012, ICEPAY
-				 *
-				 *  Disclaimer:
-				 *  These sample scripts are used for training purposes only and
-				 *  should not be used in a live environment. The software is provided
-				 *  "as is", without warranty of any kind, express or implied, including
-				 *  but not limited to the warranties of merchantability, fitness for
-				 *  a particular purpose and non-infringement. In no event shall the
-				 *  authors or copyright holders be liable for any claim, damages or
-				 *  other liability, whether in an action of contract, tort or otherwise,
-				 *  arising from, out of or in connection with the software or the use
-				 *  of other dealings in the software.
-				 *
-				 */
-				 
-				/* Apply logging rules */
-				$logger = Icepay_Api_Logger::getInstance();
-				$logger->enableLogging()
-						->setLoggingLevel(Icepay_Api_Logger::LEVEL_ALL)
-						->logToFile()
-						->setLoggingDirectory(realpath("../logs"))
-						->setLoggingFile("basicmode.txt")
-						->logToScreen();
-				
-				/* Set the paymentObject */
-				$paymentObj = new Icepay_PaymentObject();
-				
-				if($user_data['membership'][0] == 1):
+				if($data['membership'][0] == 1):
 					$this->register_model->free_trial($rand);
-					
-					modules::run('email/sendEmailVerification', $this->input->post('lastname'), $message);
-					
+
+					modules::run('email/sendEmailVerification', $this->input->post('email'), $message);
+
 					redirect('register/successful', 'refresh');
-				elseif($user_data['membership'][0] == 2):
-					$this->register_model->membership($randomString, $user_data['firstname'], $user_data['lastname'], $user_data['gender'], $user_data['email'], $user_data['password'], $user_data['email']);
+				elseif($data['membership'][0] == 2):
+					$length 		= 10;
+					$randomString 	= substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+					$this->session->set_userdata('registered_session', $data);
+					$user_data = $this->session->userdata('registered_session');
+					
+					$this->register_model->membership($randomString, $user_data['firstname'], $user_data['lastname'], $user_data['gender'], $user_data['email'], $user_data['password'], $data['membership'][0]);
 					$amount = $this->register_model->membership_amount(2);
 					
+					/* Apply logging rules */
+					$logger = Icepay_Api_Logger::getInstance();
+					$logger->enableLogging()
+							->setLoggingLevel(Icepay_Api_Logger::LEVEL_ALL)
+							->logToFile()
+							->setLoggingDirectory(realpath("../logs"))
+							->setLoggingFile("basicmode.txt")
+							->logToScreen();
+					
 					foreach($amount as $row):
-						$paymentObj->setAmount($row['amount']*100);							
+						/* Set the paymentObject */
+						$paymentObj = new Icepay_PaymentObject();
+						$paymentObj->setAmount($row['amount']*100)	
+									->setCountry("DE")
+									->setLanguage("EN")
+									->setReference("Nimm Mich Mit")
+									->setDescription("Membership Account")
+									->setCurrency("EUR")
+									->setOrderID($randomString);									
 					endforeach;
-				elseif($user_data['membership'][0] == 3):
-					$this->register_model->membership($randomString, $user_data['firstname'], $user_data['lastname'], $user_data['gender'], $user_data['email'], $user_data['password'], $user_data['email']);
+					
+					try {
+						// Merchant Settings
+						$basicmode = Icepay_Basicmode::getInstance();
+						$basicmode->setMerchantID(MERCHANTID)
+								->setSecretCode(SECRETCODE)
+								->validatePayment($paymentObj);
+
+							redirect($basicmode->getURL());
+					} catch (Exception $e){
+						echo($e->getMessage());
+					}
+				elseif($data['membership'][0] == 3):
+					$length 		= 10;
+					$randomString 	= substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+					$this->session->set_userdata('registered_session', $data);
+					$user_data = $this->session->userdata('registered_session');
+					
+					$this->register_model->membership($randomString, $user_data['firstname'], $user_data['lastname'], $user_data['gender'], $user_data['email'], $user_data['password'], $data['membership'][0]);
 					$amount = $this->register_model->membership_amount(3);
 					
-					foreach($amount as $row):
-						$paymentObj->setAmount($row['amount']*100);					
-					endforeach;
-				elseif($user_data['membership'][0] == 4):
-					$this->register_model->membership($randomString, $user_data['firstname'], $user_data['lastname'], $user_data['gender'], $user_data['email'], $user_data['password'], $user_data['email']);
-					$amount = $this->register_model->membership_amount(4);
+					/* Apply logging rules */
+					$logger = Icepay_Api_Logger::getInstance();
+					$logger->enableLogging()
+							->setLoggingLevel(Icepay_Api_Logger::LEVEL_ALL)
+							->logToFile()
+							->setLoggingDirectory(realpath("../logs"))
+							->setLoggingFile("basicmode.txt")
+							->logToScreen();
 					
 					foreach($amount as $row):
-						$paymentObj->setAmount($row['amount']*100);		
+						/* Set the paymentObject */
+						$paymentObj = new Icepay_PaymentObject();
+						$paymentObj->setAmount($row['amount']*100)	
+									->setCountry("DE")
+									->setLanguage("EN")
+									->setReference("Nimm Mich Mit")
+									->setDescription("Membership Account")
+									->setCurrency("EUR")
+									->setOrderID($randomString);									
 					endforeach;
-				endif;
-				
-				$paymentObj->setCountry("DE")
-							->setLanguage("EN")
-							->setReference("Nimm Mich Mit")
-							->setDescription("Membership Account")
-							->setCurrency("EUR")
-							->setOrderID($randomString);
-				
-				try {
-					// Merchant Settings
-					$basicmode = Icepay_Basicmode::getInstance();
-					$basicmode->setMerchantID(MERCHANTID)
-							->setSecretCode(SECRETCODE)
-							->validatePayment($paymentObj);
+					
+					try {
+						// Merchant Settings
+						$basicmode = Icepay_Basicmode::getInstance();
+						$basicmode->setMerchantID(MERCHANTID)
+								->setSecretCode(SECRETCODE)
+								->validatePayment($paymentObj);
 
-						redirect($basicmode->getURL());
-				} catch (Exception $e){
-					echo($e->getMessage());
-				}
+							redirect($basicmode->getURL());
+					} catch (Exception $e){
+						echo($e->getMessage());
+					}
+				elseif($data['membership'][0] == 4):
+					$length 		= 10;
+					$randomString 	= substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
+					$this->session->set_userdata('registered_session', $data);
+					$user_data = $this->session->userdata('registered_session');
+					
+					$this->register_model->membership($randomString, $user_data['firstname'], $user_data['lastname'], $user_data['gender'], $user_data['email'], $user_data['password'], $data['membership'][0]);
+					$amount = $this->register_model->membership_amount(4);
+					
+					/* Apply logging rules */
+					$logger = Icepay_Api_Logger::getInstance();
+					$logger->enableLogging()
+							->setLoggingLevel(Icepay_Api_Logger::LEVEL_ALL)
+							->logToFile()
+							->setLoggingDirectory(realpath("../logs"))
+							->setLoggingFile("basicmode.txt")
+							->logToScreen();
+					
+					foreach($amount as $row):
+						/* Set the paymentObject */
+						$paymentObj = new Icepay_PaymentObject();
+						$paymentObj->setAmount($row['amount']*100)	
+									->setCountry("DE")
+									->setLanguage("EN")
+									->setReference("Nimm Mich Mit")
+									->setDescription("Membership Account")
+									->setCurrency("EUR")
+									->setOrderID($randomString);									
+					endforeach;
+					
+					try {
+						// Merchant Settings
+						$basicmode = Icepay_Basicmode::getInstance();
+						$basicmode->setMerchantID(MERCHANTID)
+								->setSecretCode(SECRETCODE)
+								->validatePayment($paymentObj);
+
+							redirect($basicmode->getURL());
+					} catch (Exception $e){
+						echo($e->getMessage());
+					}
+				endif;
 			endif;
 		endif;
 	
@@ -159,6 +202,13 @@ class Register extends MX_Controller {
 	}
 	
 	public function thank_you() {
+		if($_GET['Status'] == 'OK') {
+			$data['user_data'] = $this->session->userdata('registered_session');
+			$email = $data['user_data']['email'];
+			
+			$this->register_model->validate_user($email);
+		}
+		
 		echo $_GET['Status'].'<br />';
 		echo $_GET['StatusCode'].'<br />';
 		echo $_GET['Merchant'].'<br />';
@@ -174,7 +224,12 @@ class Register extends MX_Controller {
 		$this->load->view('register_payment_error_view');
 	}
 	
-	public function payment_postback() {	
-		$this->load->view('register_payment_postback_view');
+	public function payment_postback() {
+		$data['user_data'] = $this->session->userdata('registered_session');
+		$data['email'] = $data['user_data']['email'];
+		
+		var_dump($data['email']);
+		
+		$this->load->view('register_payment_postback_view', $data);
 	}
 }

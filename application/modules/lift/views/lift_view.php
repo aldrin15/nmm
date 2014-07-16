@@ -1,5 +1,15 @@
 <?php $this->load->view('header_content')?>
 
+<div class="slideshow">			
+	<ul class="rslides" id="slider1">
+		<li><img src="<?php echo base_url('assets/images/rides/1.jpg')?>" alt=""></li>
+		<li><img src="<?php echo base_url('assets/images/rides/2.jpg')?>" alt=""></li>
+		<li><img src="<?php echo base_url('assets/images/rides/3.jpg')?>" alt=""></li>
+	</ul>
+	
+	<div class="clr"></div>
+</div>
+
 <div class="m-center lift-view">
 	<?php echo modules::run('lift/search')?>
 	
@@ -75,10 +85,10 @@
 	</div>
 </div>
 
-
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modal.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modalmanager.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
 <?php echo modules::run('lift/auto_suggest_city')?>
 <script type="text/javascript">
 function equalHeight(group) {
@@ -92,5 +102,5 @@ function equalHeight(group) {
    group.height(tallest);
 }
 
-$(function() { equalHeight($(".column")); });
+$(function() { equalHeight($(".column")); $("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 }); });
 </script>

@@ -368,4 +368,19 @@ class Lift_model extends CI_Model {
 		if(count($result) == 0) return False;
 		return $result;
 	}
+	
+	function featured_ride($what = 'user_lift_post.id, firstname, lastname, media_filename as image') {
+		$query = $this->db->select($what)
+							->from('user_lift_post')
+							->join('user', 'user.user_id = user_lift_post.user_id')
+							->join('user_car', 'user_car.user_id = user.user_id', 'left')
+							->join('user_media', 'user_media.user_id = user.user_id', 'left')
+							->limit(4)
+							->order_by('user_lift_post.id', 'desc')
+							->get();
+							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
 }

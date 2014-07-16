@@ -27,6 +27,12 @@ class Passenger extends MX_Controller {
 		$id = $this->uri->segment('3');
 		
 		$data['wish_lift_detail'] 		= $this->passenger_model->detail($id);
+		
+		foreach($data['wish_lift_detail'] as $row):
+			$user_id = $row['post_user_id'];
+			$data['get_user_wish_dates']	= $this->passenger_model->get_user_lift_dates($user_id);
+		endforeach;
+		
 		$data['preference_data'] 		= $this->passenger_model->preference($id);
 		
 		$data['view_file']				= 'passenger_detail_view';
@@ -122,20 +128,6 @@ class Passenger extends MX_Controller {
 	public function create() {
 		modules::run('login/is_logged_in');
 		$post = $this->input->post();
-		
-		/* if($post):
-			if(array_key_exists('wish_lift_submit', $post)):
-				$this->form_validation->set_rules('origin', 'From', 'required');
-				$this->form_validation->set_rules('destination', 'To', 'required');
-				$this->form_validation->set_rules('dates', 'Dates', 'required');
-				
-				if($this->form_validation->run() == TRUE):
-					$this->passenger_model->create_wish_lift();
-					
-					redirect('passenger/wish_lift_success', 'refresh');
-				endif;
-			endif;
-		endif;	 */
 	
 		$data['view_file'] = 'passenger_create_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);

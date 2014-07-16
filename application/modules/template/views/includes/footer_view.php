@@ -11,7 +11,7 @@
 				<ul>
 					<li><a href="<?php echo base_url('about-us')?>">About NMM</a></li>
 					<li><a href="<?php echo base_url('privacy-policy')?>">Privacy Policy</a></li>
-					<li><a href="<?php echo base_url('terms')?>">Terms & Conditions</a></li>
+					<li><a href="<?php echo base_url('terms-and-condition')?>">Terms & Conditions</a></li>
 				</ul>
 			</div>
 			<div class="fl">

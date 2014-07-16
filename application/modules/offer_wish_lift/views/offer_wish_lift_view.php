@@ -11,8 +11,14 @@
 	
 	<div class="span5 fr">
 		<ul>
+			<li><a href="<?php echo base_url('rides/create')?>"></a></li>
+			<li><a href="<?php echo base_url('passenger/create')?>"></a></li>
+			<li><a href="<?php echo base_url('event/create')?>"></a></li>
+		</ul>
+		<!-- 
+		<ul>
 			<li>
-				<a href="<?php echo base_url('event/create')?>">
+				<a href="<?php //echo base_url('event/create')?>">
 					<p>Create an Event</p>
 					<div><span></span></div>
 					
@@ -20,7 +26,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url('rides/create')?>">
+				<a href="<?php //echo base_url('rides/create')?>">
 					<div><span></span></div>
 					<p>Create a Ride</p>
 					
@@ -28,7 +34,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="<?php echo base_url('passenger/create')?>">
+				<a href="<?php //echo base_url('passenger/create')?>">
 					<p>Create a Wish Lift</p>
 					<div><span></span></div>
 					
@@ -36,6 +42,7 @@
 				</a>
 			</li>
 		</ul>
+		-->
 	</div>
 	
 	<div class="clr"></div>

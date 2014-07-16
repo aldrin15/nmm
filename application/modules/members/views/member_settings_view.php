@@ -23,13 +23,11 @@
 					<span><?php echo $member['email']?></span>
 				</li>
 				<li>
-					<?php echo form_error('password', '<div class="error">','</div>')?>
-					<label for="Password">New Password: </label>
+					<label for="Password">New Password: <?php echo form_error('password', '<span class="error">','</span>')?></label>
 					<span class="form-control"><input type="password" name="password" value="<?php echo set_value('password')?>" id="" autocomplete="off"/></span>
 				</li>
 				<li>
-					<?php echo form_error('cpassword', '<div class="error">','</div>')?>
-					<label for="Password">Confirm Password: </label>
+					<label for="Password">Confirm Password: <?php echo form_error('cpassword', '<span class="error">','</span>')?></label>
 					<span class="form-control"><input type="password" name="cpassword" id=""/></span>
 				</li>
 				<li>

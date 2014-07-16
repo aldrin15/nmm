@@ -19,6 +19,8 @@
 
 .pcal-body ul li a {color:#000;}
 .pcal-body ul li a:hover {text-decoration:none;}
+
+.user-info .name {text-transform: capitalize;}
 </style>
 <div class="detail m-center-content">
 	<?php foreach($lift_information as $row):?>

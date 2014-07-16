@@ -51,6 +51,7 @@ $route['rides-wish-lift']		= "offer_wish_lift";
 $route['thank-you']				= "register/thank_you";
 $route['payment-error']			= "register/payment_error";
 $route['payment-postback']		= "register/payment_postback";
+$route['terms-and-condition']	= "terms";
 $route['404_override'] 			= '';
 
 

@@ -1,5 +1,17 @@
 <?php $this->load->view('header_content')?>
 
+<div class="slideshow-search" style="position:relative;">
+	<div class="slideshow">			
+		<ul class="rslides" id="slider1">
+			<li><img src="<?php echo base_url('assets/images/passenger/1.jpg')?>" alt=""></li>
+			<li><img src="<?php echo base_url('assets/images/passenger/2.jpg')?>" alt=""></li>
+			<li><img src="<?php echo base_url('assets/images/passenger/3.jpg')?>" alt=""></li>
+		</ul>
+		
+		<div class="clr"></div>
+	</div>
+</div>
+
 <div class="passenger-view m-center">
 	<div class="search">
 		<form action="" method="post">
@@ -79,8 +91,5 @@
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.rateit.js')?>"></script>
-<script type="text/javascript">
-$(function() {
-	$('#datepicker').datepicker();
-});
-</script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
+<script type="text/javascript">$(function() { $('#datepicker').datepicker(); $("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 }); });</script>

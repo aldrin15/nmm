@@ -84,7 +84,7 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function passenger_list($uri_id, $what = 'user_wish_lift.id, user_wish_lift.route_from as origins, user_wish_lift.route_to as destination, time') {
+	public function passenger_list($uri_id, $what = 'user_wish_rides.id, user_wish_rides.route_from as origins, user_wish_rides.route_to as destination, start_time') {
 		if($this->session->userdata('validated') == false):
 			$id = $uri_id;
 		else:
@@ -92,9 +92,9 @@ class Member_model extends CI_Model {
 		endif;
 		
 		$query = $this->db->select($what)
-							->from('user_wish_lift', 'user_wish_lift.user_id = user.user_id')
-							->join('user', 'user.user_id = user_wish_lift.user_id')
-							->where('user_wish_lift.user_id', $id)
+							->from('user_wish_rides', 'user_wish_rides.user_id = user.user_id')
+							->join('user', 'user.user_id = user_wish_rides.user_id')
+							->where('user_wish_rides.user_id', $id)
 							->get();
 							
 		$result = $query->result_array();
@@ -210,9 +210,10 @@ class Member_model extends CI_Model {
 	
 	public function update_media($user_id, $image_data) {
 		$data = array(
-			'media_filename' => $image_data['file_name'],
-			'media_type' => $image_data['image_type'],
-			'media_description' => 'Profile Image'
+			'media_filename' 		=> $image_data['file_name'],
+			'media_description' 	=> 'Profile Image',
+			'media_type' 			=> $image_data['image_type'],
+			'media_description' 	=> 'Profile Image'
 		);
 		
 		$this->db->update('user_media', $data, array('user_id' => $user_id));
@@ -222,7 +223,6 @@ class Member_model extends CI_Model {
 	
 	public function update_settings($user_id) {
 		$data = array(
-			'email'		=> $this->input->post('email'),
 			'password'	=> md5($this->input->post('password'))
 		);
 		

@@ -136,4 +136,11 @@ class Register_model extends CI_Model {
 			$this->db->update('user', $data, "email = {$result['email']}");
 		endif;
 	}
+	
+	function validate_user($email) {
+		$data = array(
+			'account_status' => 'Activated'
+		);
+		$this->db->update('user', $data, array('email' => $email));
+	}
 }

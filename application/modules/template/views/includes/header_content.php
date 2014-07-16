@@ -7,7 +7,7 @@
 			</div>
 			
 			<div class="logo-nav m-center">
-				<div class="logo pull-left"><a href="<?php echo base_url()?>"><img src="<?php echo base_url('assets/images/page_template/logo.png')?>" width="49" height="83" alt=""/></a></div>
+				<div class="logo pull-left"><a href="<?php echo base_url()?>"><img src="<?php echo base_url('assets/images/page_template/logo.png')?>" width="49" height="83" alt="Go to Home page" title="Go to Home page"/></a></div>
 				
 				<nav class="pull-right">
 					<ul>

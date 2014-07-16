@@ -128,23 +128,6 @@ class Lift extends MX_Controller {
 			$data['get_wish_date'] = '';
 		endif;
 		
-		/* $post = $this->input->post();
-		
-		if($post):
-			if(array_key_exists('create_lift_submit', $post)):
-				$this->form_validation->set_rules('origin', 'From', 'required');
-				$this->form_validation->set_rules('destination', 'Destination', 'required');
-				$this->form_validation->set_rules('dates', 'Dates', 'required');
-				$this->form_validation->set_rules('seat_amount', 'Seat Amount', 'required|numeric');
-				
-				if($this->form_validation->run() == TRUE):
-					$this->lift_model->create_lift();
-					
-					redirect('lift/create_success', 'refresh');
-				endif;
-			endif;
-		endif; */
-		
 		$data['user_car_data'] = $this->lift_model->get_user_car($this->session->userdata('user_id'));
 		$data['view_file'] = 'lift_create_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
@@ -338,5 +321,28 @@ class Lift extends MX_Controller {
 		echo '<pre>';
 		var_dump($data);
 		echo '</pre>';
+	}
+	
+	public function featured_ride() {
+		$featured_ride = $this->lift_model->featured_ride();
+		
+		if($featured_ride != ''):
+			foreach($featured_ride as $row):
+				echo "<div class='span2'>";
+				
+				if($row['image'] != ''):
+					echo "<img src='".base_url('assets/media_uploads')."/".$row['image']."' width='200' height='190' alt=''/>";
+				else:
+					echo "<img src='".base_url('assets/images/page_template/blank_profile_large.jpg')."' width='200' height='190' alt=''/>";
+				endif;
+	
+				echo "<div class='event-detail'>
+							<p style='text-transform:capitalize;'>".$row['firstname'].' '.$row['lastname']."</p>
+						</div>
+				</div>";
+			endforeach;
+		else:
+			echo '<div style="font-size:20px; text-align:center; border:1px solid #000; padding-top:60px; height:190px;">No Event Featured Today</div>';
+		endif;
 	}
 }

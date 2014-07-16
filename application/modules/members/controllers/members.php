@@ -68,19 +68,22 @@ class Members extends MX_Controller {
 				
 				if($this->form_validation->run() == TRUE):
 					$config['allowed_types'] 	= 'jpg|jpeg|gif|png';
-					$config['upload_path']		= realpath(APPPATH.'../assets/media_uploads');
-					$config['file_name']		= $user_id.'_'.substr(md5(rand()), 0, 7);
+					$config['upload_path']		= realpath(APPPATH.'../assets/media_uploads/');
+					$config['encrypt_name']		= true;
 					
 					$this->upload->initialize($config);
-					$this->upload->do_upload();
-					
-					$image_data = $this->upload->data();
+
+					if (!$this->upload->do_upload()) {
+						$error = array('error' => $this->upload->display_errors());
+					} else {
+						$image_data = $this->upload->data();
+					}
 					
 					$this->member_model->update($user_id);
 					$this->member_model->update_media($user_id, $image_data);
 					
 					redirect('members/edit_success', 'refresh');
-				endif;				
+				endif;			
 			}
 		endif;
 	
@@ -235,14 +238,13 @@ class Members extends MX_Controller {
 		
 		if($post):
 			if(array_key_exists('settings_submit', $post)):
-				$this->form_validation->set_rules('email', 'Email', 'required|xss_clean');
 				$this->form_validation->set_rules('password', 'Password', 'required|xss_clean');
 				$this->form_validation->set_rules('cpassword', 'Confirm Password', 'required|xss_clean|matches[password]');
 				
 				if($this->form_validation->run()==TRUE):
 					$this->member_model->update_settings($user_id);
 					
-					redirect('members/member_settings_success_view', 'refresh');
+					redirect('members/settings_success', 'refresh');
 				endif;
 			endif;
 		endif;

@@ -40,7 +40,7 @@
 					<?php foreach($ride_default_data as $row): ?>
 					<li class="column">
 						<p>Ace Doe</p>
-						<a href="#">
+						<a href="<?php echo base_url('rides/detail').'/'.$row['id']?>">
 							<img src="<?php echo base_url('assets/images/car.jpg')?>" width="250" height="169" alt="Car"/>
 						</a>
 						<div>
@@ -75,10 +75,6 @@
 							
 							<div class="clr"></div>
 						</div>
-						
-						<div class="clr"></div>
-
-						<a href="#" class="quick-book fr">Quick Book</a>
 					</li>
 					<?php endforeach?>
 				</ul>	
@@ -90,15 +86,13 @@
 		
 		<div id="passenger" style="display:none;">
 			<div class="passenger-listing">
-				<?php
-					$event_details_passenger = array_keys( $event_details_passenger_data, true);
-					
-					if($event_details_passenger[0] == 0):
+				<?php	
+				if($wish_ride_default_data != ''):
 				?>
 					<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px;"><p>There are no route that matches in this event area</p></div>
 				<?php
 				else:
-					foreach($event_details_passenger_data as $wish_lift):
+					foreach($wish_ride_default_data as $wish_lift):
 				?>
 				<ul>
 					<li>
@@ -106,8 +100,8 @@
 							<img src="<?php echo base_url('assets/images/user.jpg')?>" width="150" height="150" alt="User"/>
 							<span><strong>From</strong> <?php echo $wish_lift['origin']?></span>
 							<span><strong>To</strong> <?php echo $wish_lift['destination']?></span>
-							<span><strong>Via</strong> <?php //echo $wish_lift['via']?></span>
-							<span><strong>Posted</strong> <?php echo $wish_lift['posted']?></span>
+							<span><strong>Via</strong> <?php echo $wish_lift['via']?></span>
+							<span><strong>Posted</strong> <?php echo $wish_lift['date']?></span>
 							<span><strong>Requested seat(s)</strong> <?php echo $wish_lift['available']?></span>
 							<span><strong>Requested by</strong> <?php echo $wish_lift['firstname']." ".$wish_lift['lastname']?></span>
 							<div class="user-rating">
@@ -138,6 +132,7 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.rateit.js')?>"></script>
 <script type="text/javascript">
 $(function() { 
 	$('.category').selectpicker(); 

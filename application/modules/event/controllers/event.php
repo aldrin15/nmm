@@ -100,4 +100,21 @@ class Event extends MX_Controller {
 		$data['view_file'] = 'event_create_success_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
+	
+	public function featured_event() {
+		$featured_event = $this->event_model->featured_event();
+		
+		if($featured_event != ''):
+			foreach($featured_event as $row):
+				echo "<div class='span2'>
+						<img src='".base_url('assets/media_uploads')."/".$row['image']."' width='200' height='190' alt=''/>
+						<div class='event-detail'>
+							<p>".$row['title']."</p>
+						</div>
+					</div>";
+			endforeach;
+		else:
+			echo '<div style="font-size:20px; text-align:center; border:1px solid #000; padding-top:60px; height:190px;">No Event Featured Today</div>';
+		endif;
+	}
 }

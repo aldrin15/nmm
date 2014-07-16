@@ -47,7 +47,7 @@ class Event_model extends CI_Model {
 		return $result;
 	}
 	
-	public function detail_passenger($event_detail, $what = 'user_wish_lift.id, user_wish_lift.route_from as origin, user_wish_lift.route_to as destination, user_wish_lift.date_created AS posted, available, firstname, lastname, CONCAT( GROUP_CONCAT( user_rating.rating_number ORDER BY user_rating.rating_number  ) ) as rating') {
+	public function detail_passenger($event_detail, $what = 'user_wish_rides.id, user_wish_rides.route_from as origin, user_wish_rides.route_to as destination, user_wish_rides.date AS posted, available, firstname, lastname, CONCAT( GROUP_CONCAT( user_rating.rating_number ORDER BY user_rating.rating_number  ) ) as rating') {
 		$passenger_array = array();
 		
 		foreach($event_detail as $row):
@@ -60,10 +60,10 @@ class Event_model extends CI_Model {
 		$passenger = $passenger_array;
 		
 		$query = $this->db->select($what)
-							->from('user_wish_lift')
-							->join('user', 'user.user_id = user_wish_lift.user_id', 'left')
-							->join('user_rating', 'user_rating.user_id = user_wish_lift.user_id', 'left')
-							->like('user_wish_lift.route_to', $passenger[0][0], 'after')
+							->from('user_wish_rides')
+							->join('user', 'user.user_id = user_wish_rides.user_id', 'left')
+							->join('user_rating', 'user_rating.user_id = user_wish_rides.user_id', 'left')
+							->like('user_wish_rides.route_to', $passenger[0][0], 'after')
 							->get();
 		
 		$result = $query->result_array();
@@ -107,6 +107,18 @@ class Event_model extends CI_Model {
 							->where('continent_code', 'EU')
 							->get();
 							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function featured_event($what = 'id, title, image') {
+		$query = $this->db->select($what)
+							->from('events')
+							->limit('4')
+							->order_by('id', 'desc')
+							->get();
+		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;

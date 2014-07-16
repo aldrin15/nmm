@@ -6,6 +6,9 @@
 .s-l-body span {display:block; float:left; padding:5px 0;}
 .s-l-body div:nth-child(even) {background:#f5f5f5;}
 .s-l-body div span:first-child {text-align:center;}
+
+.pcal-body ul li a {color:#000;}
+.pcal-body ul li a:hover {text-decoration:none;}
 </style>
 
 <?php foreach($wish_lift_detail as $row):?>
@@ -65,7 +68,7 @@
 			<ul>
 				<li>
 					<label for="">What Time:</label>
-					<span><?php echo date('H:i', strtotime($row['time']))?></span>
+					<span><?php echo date('H:i A', strtotime($row['start_time']))?></span>
 					
 					<div class="clr"></div>
 				</li>
@@ -84,33 +87,24 @@
 				<li>
 					<label for="Preference">Preference</label>
 					
-					<div>
-						<div class="lift-preference">
-							<?php 
-							$preference_array = array();
-							$preference_type_array = array();
-
-							foreach($preference_data as $preference):
-								$preference_array[] 		= $preference['preference'];
-								$preference_type_array[]	= $preference['type'];
-							endforeach;
-							
-							$implode = implode(',', $preference_array);
-							$explode = explode(',', $implode);
-							
-							$implode2 = implode(',', $preference_type_array);
-							$explode2 = explode(',', $implode2);
-							
-							if($explode !== 0):
-								for($i = 0; $i < count($explode); $i++):
-									$num = $i + 1;
-									echo '<div class="fl checkbox-'.$num.' selected"><p>'.$explode2[$i].'<i></i></p></div>';
-								endfor;
-							else:
-								echo '<div>: None</div>';
-							endif;
-							?>
-						</div>
+					<div class="lift-preference">
+						<?php 
+						$preference = explode(',', $row['preference']);
+						$preference_type = array();
+						
+						foreach($preference_data as $type):
+							$preference_type[] = $type;
+						endforeach;
+						
+						if($preference !== 0):
+							for($i = 0; $i < count($preference); $i++):
+								$num = $i + 1;
+								echo '<div class="fl checkbox-'.$num.' selected"><p>'.$preference_type[$i]['type'].'<i></i></p></div>';
+							endfor;
+						else:
+							echo '<div>: None</div>';
+						endif;
+						?>
 					</div>
 					
 					<div class="clr"></div>
@@ -145,26 +139,28 @@
 			</div>
 		</div>
 		<?php
-		$other_dates_array = explode(',', $row['other_post_dates']);
-		$other_origin_array = explode('-', $row['other_post_origins']);
-		$other_destination_array = explode('-', $row['other_post_destinations']);
+		$id_array					= array();
+		$other_dates_array			= array();
+		$other_origin_array 		= array();
+		$other_destination_array 	= array();
 		
-		
-		/* echo '<pre>';
-		var_dump($other_origin_array);
-		echo '</pre>'; */
+		foreach($get_user_wish_dates as $val):
+			$id_array[] 				= explode(',', $val['id']);
+			$other_origin_array[] 		= explode('-', $val['origins']);
+			$other_destination_array[] 	= explode('-', $val['destination']);
+			$other_dates_array[] 		= explode(',', $val['dates']);
+		endforeach;
 		?>
 		<script type="text/javascript">
 		function get_data(events, month_today, year) {
 			$.each(events, function(index, value) {
-				var get_month = value.substring(5, 7);
-				var get_year = value.substring(0, 4);
-				
-				if(month_today != get_month) {
-					$('.pcal-body ul').html('<li style="text-align:center;">No Posted Date</li>');
-				} else if(get_year != year) {
-					$('.pcal-body ul').html('<li style="text-align:center;">No Posted Date</li>');
-				} else if(month_today == get_month) {
+				var get_month = value.substring(55, 57);
+				var get_year = value.substring(50, 54);
+				var this_month = (month_today < 9 ? "0"+month_today:month_today);
+
+				console.log(get_month);
+			
+				if(this_month == get_month && get_year == year) {
 					$('.pcal-body ul').append('<li>'+value+'</li>');
 				}
 			});
@@ -174,11 +170,12 @@
 			var months 	= {1:'January', 2:'February', 3:'March', 4:'April', 5:'May', 6:'June', 7:'July', 8:'August', 9:'September', 10:'October', 11:'November', 12:'December'},
 				prev	= 0,
 				date	= new Date(),
-				month 	= date.getMonth(),
+				month 	= date.getMonth()+1,
 				year	= date.getFullYear();
 			
-			var events = [<?php for($i = 0; $i < count($other_dates_array); $i++):
-				echo '"'.$other_dates_array[$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>From</strong> <span style=\"color:#678222\">'.$other_origin_array[$i].'</span> <strong>To</strong> <span style=\"color:#678222\">'.$other_destination_array[$i].'</span>",';
+			var events = [<?php for($i = 0; $i < count($other_dates_array[0]); $i++):
+				// echo '"'.$other_dates_array[0][$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[0][$i].' to '.$other_destination_array[0][$i].'",';
+				echo '"<a href=\''.base_url('passenger/detail').'/'.$id_array[0][$i].'\'>'.$other_dates_array[0][$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[0][$i].' to '.$other_destination_array[0][$i].'</a>",';
 			endfor;?>];
 		
 			$('.pcal-month').html(months[month] +' '+ year);

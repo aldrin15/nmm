@@ -43,59 +43,12 @@
 				<!-- Carousel items -->
 				<div class="carousel-inner">
 					<div class="active item">
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/events/events.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>The Late Night Show</p>
-							</div>
-						</div>
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/events/events.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>The Early Morning Show</p>
-							</div>
-						</div>
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/events/events.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>First Concert of John Doe</p>
-							</div>
-						</div>
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/events/events.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>Second Concert of John Doe</p>
-							</div>
-						</div>
-						
+						<?php echo modules::run('event/featured_event');?>	
 						<div class="clr"></div>
 					</div>
 					
 					<div class="item">
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/page_template/blank_profile_large.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>John Doe</p>
-							</div>
-						</div>
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/page_template/blank_profile_large.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>Michael Jordan</p>
-							</div>
-						</div>
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/page_template/blank_profile_large.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>Connor Kenway</p>
-							</div>
-						</div>
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/page_template/blank_profile_large.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>John Connor</p>
-							</div>
-						</div>
+						<?php echo modules::run('lift/featured_ride')?>
 						
 						<div class="clr"></div>
 					</div>
