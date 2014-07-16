@@ -1,6 +1,24 @@
 	</div>
 </div>
+<?php
+echo $url = $this->uri->segment(1);
 
+if($url == ''):
+?>
+<div class="modal fade" id="demo-video" tabindex="-1" role="dialog" aria-hidden="true" style="display:none; top:15%; z-index:9999;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				&nbsp;
+			</div>
+			<div class="modal-body">
+				
+			</div>
+		</div>
+	</div>
+</div>
+<?php endif?>
 <footer>
 	<div class="line-separator m-center"></div>
 	
