@@ -20,7 +20,7 @@
 	<?php foreach($car_data as $row):?>	
 	<div class="span5 profile-car fl">
 		<div class="p-frame-car">
-			<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="450" height="230" alt=""/>
+			<img src="<?php echo ($row['image'] != '') ? base_url('assets/media_uploads/').'/'.$row['image'] : base_url('assets/images/page_template/no_car.jpg')?>" width="450" height="230" alt=""/>
 		</div>
 		
 		<div class="p-car-info">

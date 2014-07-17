@@ -255,10 +255,12 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function car($id, $what = 'user_car.car_model as car, user_car.license_plate as plate, door, seat, transmission, air_condition, fuel, year') {
+	public function car($id, $what = 'user_car.car_model as car, user_car.license_plate as plate, door, seat, transmission, air_condition, fuel, year, media_filename as image') {
 		$query = $this->db->select($what)
 							->from('user_car')
-							->where('user_id', $id)
+							->join('user_media', 'user_media.user_id = user_car.user_id')
+							->where('user_car.user_id', $id)
+							->where('user_media.media_description', 'Car Image')
 							->get();
 		
 		$result = $query->result_array();

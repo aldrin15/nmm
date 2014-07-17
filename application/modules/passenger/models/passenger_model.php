@@ -55,7 +55,7 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
-	function detail($id, $what = "user_wish_rides.id, user_wish_rides.user_id as post_user_id, user_wish_rides.user_id as post_user_id, user.user_id AS user_id, firstname, lastname, last_login, user_wish_rides.route_from AS origin, user_wish_rides.route_to AS destination, storage, preference, available, user_wish_rides.amount, user_wish_rides.start_time, user_wish_rides.date, user_car.car_model AS car, user_car.license_plate AS plate, remarks, user_media.media_filename AS image, CONCAT( GROUP_CONCAT(user_rating.rating_number) ) AS rating, user_rating.user_id as rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) AS rating") {
+	function detail($id, $what = "user_wish_rides.id, user_wish_rides.user_id as post_user_id, user_wish_rides.user_id as post_user_id, user.user_id AS user_id, firstname, lastname, last_login, user_wish_rides.route_from AS origin, user_wish_rides.route_to AS destination, via, storage, preference, available, user_wish_rides.start_time, user_wish_rides.date, user_car.car_model AS car, user_car.license_plate AS plate, remarks, user_media.media_filename AS image, CONCAT( GROUP_CONCAT(user_rating.rating_number) ) AS rating, user_rating.user_id as rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) AS rating") {
 		$query = $this->db->select($what)
 							->from('user_wish_rides')
 							->join('user', 'user.user_id = user_wish_rides.user_id')

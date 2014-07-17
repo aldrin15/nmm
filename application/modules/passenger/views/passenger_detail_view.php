@@ -216,58 +216,61 @@
 			});
 		});
 		</script>
-		<div class="passenger-map-location">
-			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-			<style type="text/css">#map_canvas {margin-top:30px; width:370px; height:280px;}</style>
-			<script type="text/javascript">
-			$(window).load(function() {
-				initialize();
-			});
-			
-			var directionDisplay;
-			var directionsService = new google.maps.DirectionsService();
-			var map;
-
-			function initialize() {
-				directionsDisplay = new google.maps.DirectionsRenderer();
-				
-				var myOptions = {
-					zoom: 6,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				}
-				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-				directionsDisplay.setMap(map);
-				
-				calcRoute();
-			}
-
-			function calcRoute() {
-				var request = {
-					// origin: "Pasay, Philippines", //from
-					origin: "<?php echo $row['origin']?>", //from
-					destination: "<?php echo $row['destination']?>",//to
-					waypoints: [{
-						location: "Makati, Philippines",//via
-						stopover:false
-					}],
-					optimizeWaypoints: true,
-					travelMode: google.maps.DirectionsTravelMode.DRIVING
-				};
-				directionsService.route(request, function(response, status) {
-					if (status == google.maps.DirectionsStatus.OK) {
-						directionsDisplay.setDirections(response);
-					} else {
-						// alert("directions response "+status);
-						console.log("Google can't find the map");
-					}
-				});
-			}
-			</script>
-			<div id="map_canvas" > </div>
-		</div>
 	</div>
 	
 	<div class="clr"></div>
+	
+	<div class="passenger-map-location">
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<style type="text/css">#map_canvas {width:100%; height:280px;}</style>
+		<script type="text/javascript">
+		$(window).load(function() {
+			initialize();
+		});
+		
+		var directionDisplay;
+		var directionsService = new google.maps.DirectionsService();
+		var map;
+
+		function initialize() {
+			directionsDisplay = new google.maps.DirectionsRenderer();
+			
+			var myOptions = {
+				zoom: 6,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+			map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+			directionsDisplay.setMap(map);
+			
+			calcRoute();
+		}
+
+		function calcRoute() {
+			var request = {
+				// origin: "Pasay, Philippines", //from
+				origin: "<?php echo $row['origin']?>", //from
+				destination: "<?php echo $row['destination']?>",//to
+				<?php if($row['via'] != ''):?>
+				waypoints: [{
+					location: "<?php echo $row['via']?>",//via
+					stopover:false
+				}],
+				<?php endif?>
+				optimizeWaypoints: true,
+				travelMode: google.maps.DirectionsTravelMode.DRIVING
+			};
+			directionsService.route(request, function(response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+				} else {
+					// alert("directions response "+status);
+					console.log("Google can't find the map");
+				}
+			});
+		}
+		</script>
+		<div id="map_canvas" > </div>
+	</div>
 </div>
 
 <div class="modal fade passenger-message" id="message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
