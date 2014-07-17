@@ -25,10 +25,8 @@ class Member_model extends CI_Model {
 							->from('user')
 							->join('user_additional_information', 'user_additional_information.user_id = user.user_id', 'left')
 							->join('user_address', 'user_address.user_id = user.user_id', 'left')
-							->join('user_media', 'user_media.user_id = user.user_id', 'left')
 							->join('user_mobile', 'user_mobile.user_id = user.user_id', 'left')
 							->where('user.user_id', $user_id)
-							
 							->get();
 							
 		$result = $query->result_array();

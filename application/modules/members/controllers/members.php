@@ -87,7 +87,7 @@ class Members extends MX_Controller {
 			}
 		endif;
 	
-		$data['members_information']	= $this->member_model->member_information($this->session->userdata('user_id'));			
+		$data['members_information']	= $this->member_model->member_information($this->session->userdata('user_id'));
 		$data['profile_image_data']		= $this->member_model->member_profile_image($this->session->userdata('user_id'));			
 		$data['countries_list']			= $this->member_model->countries();
 		$data['view_file']				= 'member_edit_profile_view';

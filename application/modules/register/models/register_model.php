@@ -142,15 +142,13 @@ class Register_model extends CI_Model {
 		
 		$this->db->update('user', $data, array('email' => $email));
 		
-		$query = $this->db->query("SELECT * FROM user WHERE email = '{$email}'");
+		$query = $this->db->query("SELECT * FROM user WHERE email = '{$email}'");		
+		$row = $query->result_array();
+		$data = array('user_id' => $row['user_id']);
 		
-		foreach($query->result_array() as $row):
-			$data = array('user_id' => $row['user_id']);
-			
-			$this->db->insert('user_address', $data);
-			$this->db->insert('user_mobile', $data);
-			$this->db->insert('user_additional_information', $data);
-			$this->db->insert('user_car', $data);
-		endforeach;
+		$this->db->insert('user_address', $data);
+		$this->db->insert('user_mobile', $data);
+		$this->db->insert('user_additional_information', $data);
+		$this->db->insert('user_car', $data);
 	}
 }

@@ -209,6 +209,8 @@ class Register extends MX_Controller {
 			$this->register_model->validate_user($email);
 		}
 		
+		redirect('nmm');
+		
 		echo $_GET['Status'].'<br />';
 		echo $_GET['StatusCode'].'<br />';
 		echo $_GET['Merchant'].'<br />';
