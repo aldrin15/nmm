@@ -82,12 +82,13 @@ class Members extends MX_Controller {
 					$this->member_model->update($user_id);
 					$this->member_model->update_media($user_id, $image_data);
 					
-					redirect('members/edit_success', 'refresh');
+					// redirect('members/edit_success', 'refresh');
 				endif;			
 			}
 		endif;
 	
-		$data['members_information']	= $this->member_model->member_information($this->session->userdata('user_id'));		
+		$data['members_information']	= $this->member_model->member_information($this->session->userdata('user_id'));			
+		$data['profile_image_data']		= $this->member_model->member_profile_image($this->session->userdata('user_id'));			
 		$data['countries_list']			= $this->member_model->countries();
 		$data['view_file']				= 'member_edit_profile_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
@@ -155,6 +156,8 @@ class Members extends MX_Controller {
 	
 	public function car_edit() {
 		modules::run('login/is_logged_in');
+		
+		exit;
 		
 		$id = $this->session->userdata('user_id');
 		

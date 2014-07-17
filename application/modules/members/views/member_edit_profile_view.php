@@ -14,11 +14,14 @@
 			<ul>
 				<li>
 					<div class="profile-upload fl">
-						<?php if($info['image'] == NULL):?>
-							<img src="<?php echo base_url('assets/images/page_template/no_photo.jpg')?>" width="150" height="150" alt=""/>
-						<?php else:?>
-							<img src="<?php echo base_url('assets/media_uploads/').'/'.$info['image']?>" width="150" height="150" alt="" />
-						<?php endif?><br />
+						<?php if($profile_image_data != ''):
+								foreach($profile_image_data as $row):?>
+								<img src="<?php echo base_url('assets/media_uploads/').'/'.$row['image']?>" width="150" height="150" alt="" />
+							<?php 
+								endforeach;
+							else:?>
+								<img src="<?php echo base_url('assets/images/page_template/no_photo.jpg')?>" width="150" height="150" alt=""/>
+							<?php endif?><br />
 						<button class="btn-success">Change Picture</button>
 						<input type="file" name="userfile" style="display:none;"/>
 					</div>
@@ -110,20 +113,7 @@
 				</li>
 				<li>
 					<label for="City and Country">City and Country <?php echo form_error('city_country', '<span class="error">', '</span>')?></label>
-						<div class="clr"></div>
-						
-					<div class="profile-place">
-						<p><?php echo ($info['city'] != '' && $info['country']) ? $info['city'].', '.$info['country'] : '- Choose your location -'?></p>
-						
-						<div class="place-search">
-							<input type="text" name="location_list" id="place-search" autocomplete="off"/>
-							<input type="hidden" name="city_country" value="<?php echo $info['city'].', '.$info['country']?>" id="" />
-							
-							<a href="#" class="p-s-done">Done</a>
-							
-							<div class="clr"></div>
-						</div>
-					</div>
+					<input type="text" name="city_country" value="" id="city-country" class="form-control"/>
 					
 					<div class="clr"></div>
 				</li>
@@ -181,12 +171,33 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js')?>"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&region=DE&libraries=places&language=de"></script>  
 <script type="text/javascript">
+$(window).load(function() {initialize();});
+
+var city_country;
+
+function initialize() {
+	city_country = new google.maps.places.Autocomplete((document.getElementById('city-country')), { types: ['geocode'] });
+	// google.maps.event.addListener(destination, 'place_changed', function() { fillInAddress(); });
+}
+
+function geolocate() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			var geolocation = new google.maps.LatLng(
+			
+			position.coords.latitude, position.coords.longitude);
+			destination.setBounds(new google.maps.LatLngBounds(geolocation, geolocation));
+		});
+	}
+}
+
 $(function() {
 	$('.birth-date').selectpicker();
 
 	$('.profile-upload button').bind('click', function(e) {
-		$('input[type="file"]').trigger('click');
+		$('input[name="userfile"]').trigger('click');
 		
 		e.preventDefault();
 	});

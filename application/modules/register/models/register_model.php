@@ -33,7 +33,7 @@ class Register_model extends CI_Model {
 			'lastname'			=> $lastname,
 			'gender'			=> $gender,
 			'email'				=> $email,
-			'password'			=> md5($email),
+			'password'			=> md5($password),
 			'account_status'	=> 'Not Activated',
 			'subscription_type'	=> $subscription,
 			'date'				=> date("Y-m-d H:i:s")
@@ -138,9 +138,19 @@ class Register_model extends CI_Model {
 	}
 	
 	function validate_user($email) {
-		$data = array(
-			'account_status' => 'Activated'
-		);
+		$data = array( 'account_status' => 'Activated' );
+		
 		$this->db->update('user', $data, array('email' => $email));
+		
+		$query = $this->db->query("SELECT * FROM user WHERE email = '{$email}'");
+		
+		foreach($query->result_array() as $row):
+			$data = array('user_id' => $row['user_id']);
+			
+			$this->db->insert('user_address', $data);
+			$this->db->insert('user_mobile', $data);
+			$this->db->insert('user_additional_information', $data);
+			$this->db->insert('user_car', $data);
+		endforeach;
 	}
 }

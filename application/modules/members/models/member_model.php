@@ -20,7 +20,7 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function member_information($user_id, $what = 'firstname, lastname, about_me, job, birthdate, street, city, country, postal, user_media.media_filename as image, number, phone') {
+	public function member_information($user_id, $what = 'firstname, lastname, about_me, job, birthdate, street, city, country, postal, number, phone') {
 		$query = $this->db->select($what)
 							->from('user')
 							->join('user_additional_information', 'user_additional_information.user_id = user.user_id', 'left')
@@ -28,6 +28,19 @@ class Member_model extends CI_Model {
 							->join('user_media', 'user_media.user_id = user.user_id', 'left')
 							->join('user_mobile', 'user_mobile.user_id = user.user_id', 'left')
 							->where('user.user_id', $user_id)
+							
+							->get();
+							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function member_profile_image($id, $what = 'user_media.media_filename as image') {
+		$query = $this->db->select($what)
+							->from('user_media')
+							->where('user_id', $id)
+							->where('user_media.media_description', 'Profile Image')
 							->get();
 		
 		$result = $query->result_array();
@@ -177,18 +190,17 @@ class Member_model extends CI_Model {
 	public function update($user_id) {
 		$location	= explode(',', $this->input->post('city_country'));
 	
-		$about_me 	= $this->input->post('about_me');
-		$firstname 	= $this->input->post('firstname');
-		$lastname 	= $this->input->post('lastname');
-		$job 		= $this->input->post('work');
-		$birthdate 	= $this->input->post('year').'-'.$this->input->post('month').'-'.$this->input->post('day');
-		$address_no = $this->input->post('address_no');
-		$street 	= $this->input->post('street');
-		$postal 	= $this->input->post('postal');
-		$city 		= $location[0];
-		$country 	= $location[1];
-		$mobile 	= $this->input->post('mobile');
-		$phone 		= $this->input->post('phone');
+		$about_me 		= $this->input->post('about_me');
+		$firstname 		= $this->input->post('firstname');
+		$lastname 		= $this->input->post('lastname');
+		$job 			= $this->input->post('work');
+		$birthdate 		= $this->input->post('year').'-'.$this->input->post('month').'-'.$this->input->post('day');
+		$address_no 	= $this->input->post('address_no');
+		$street 		= $this->input->post('street');
+		$postal 		= $this->input->post('postal');
+		$city_country 	= $this->input->post('city_country');
+		$mobile 		= $this->input->post('mobile');
+		$phone 			= $this->input->post('phone');
 	
 		$this->db->query("UPDATE user, user_additional_information, user_address, user_mobile 
 							SET user.firstname = '{$firstname}', 
@@ -198,8 +210,7 @@ class Member_model extends CI_Model {
 								user_additional_information.birthdate = '{$birthdate}',
 								user_address.address_no = '{$address_no}',
 								user_address.street = '{$street}', 
-								user_address.city = '{$city}',
-								user_address.country = '{$country}',
+								user_address.city_country = '{$street}',
 								user_address.postal = '{$postal}',
 								user_mobile.number = '{$mobile}',
 								user_mobile.phone = '{$phone}'
@@ -210,13 +221,22 @@ class Member_model extends CI_Model {
 	
 	public function update_media($user_id, $image_data) {
 		$data = array(
+			'user_id'				=> $user_id,
 			'media_filename' 		=> $image_data['file_name'],
 			'media_description' 	=> 'Profile Image',
-			'media_type' 			=> $image_data['image_type'],
-			'media_description' 	=> 'Profile Image'
-		);
-		
-		$this->db->update('user_media', $data, array('user_id' => $user_id));
+			'media_type' 			=> $image_data['image_type']
+		);	
+	
+		$query = $this->db->select('*')
+							->from('user_media')
+							->where('user_id', $user_id)
+							->get();
+	
+		if(mysql_num_rows($query) > 0):
+			$this->db->update('user_media', $data, array('user_id' => $user_id));
+		else:
+			$this->db->insert('user_media', $data);
+		endif;
 		
 		return true;
 	}
