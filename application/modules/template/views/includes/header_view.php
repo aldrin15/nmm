@@ -10,7 +10,7 @@
 	<title>Nimm Mich Mit</title>
 	
 	<link rel="icon" type="image/png" href="<?php echo base_url('favicon.png')?>">
-	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-responsive.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-modal.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-select.css')?>"/>

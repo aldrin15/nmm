@@ -34,7 +34,7 @@
 			</aside>
 			
 			<div class="fr video span5">
-				<a href="#" data-toggle="modal" data-target="#demo-video"><img src="<?php echo base_url('assets/images/video.jpg')?>" width="410" height="173" alt=""/></a>
+				<a href="#" data-toggle="modal" data-target="#demo-video"><img src="<?php echo base_url('assets/images/demo.jpg')?>" width="410" height="173" alt=""/></a>
 			</div>
 			
 			<div class="clr"></div>
@@ -146,14 +146,14 @@
 		</div>
 		
 		<div class="clr"></div>
-
+		
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript">
 // You can also use "$(window).load(function() {"
 $(function () {
-	$('#demo-video').on('show', function () { 
+	$('#demo-video').on('show', function () {
 		// $('div.modal-body').html('<iframe width="555px" height="315" src="//www.youtube.com/embed/L10Scjvn6aA" frameborder="0" allowfullscreen></iframe>'); 
 		$('div.modal-body').html('Video Goes Here'); 
 	});

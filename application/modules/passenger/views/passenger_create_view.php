@@ -142,17 +142,6 @@
 			</li>
 		</ul>
 		
-		<h4>Payment</h4>
-			<hr/><br />
-		<ul>
-			<li class="span5">
-				<label for="Price Per Seat">Seat Amount: <?php echo form_error('seat_amount', '<span class="error">', '</span>')?></label>
-				<input type="text" name="seat_amount" id="" value="<?php echo set_value('seat_amount')?>" class="form-control"/>
-				
-				<div class="clr"></div>
-			</li>
-		</ul>
-		
 		<h3>Other Options</h3>
 			<hr/><br />
 		<ul class="label-width">
@@ -304,7 +293,7 @@
 			</ul>
 		</div>
 		
-		<input type="submit" name="create_wish_lift_submit" value="Create Lift" class="btn btn-default"/>
+		<input type="submit" name="create_wish_lift_submit" value="Post Your Wish Lift" class="btn btn-default"/>
 	</form>
 </div>
 
@@ -365,7 +354,6 @@ $(function() {
 			destination = $('input[name="destination"]'),
 			via 		= $('input[name="via"]'),
 			dates		= $('input[name="dates"]'),
-			seat_amount	= $('input[name="seat_amount"]'),
 			hours		= $('select[name="hours"]'),
 			minute		= $('select[name="minute"]'),
 			seat		= $('select[name="seat_available"]'),
@@ -377,7 +365,6 @@ $(function() {
 			re_destination 	= $('input[name="re_destination"]'),
 			re_via 			= $('input[name="re_via"]'),
 			re_dates		= $('input[name="re_dates"]'),
-			re_amount		= $('input[name="re_amount"]'),
 			re_hours		= $('select[name="re_hours"]'),
 			re_minute		= $('select[name="re_minute"]'),
 			re_seat			= $('select[name="re_seat_available"]'),
@@ -404,11 +391,6 @@ $(function() {
 			error = 1;
 		}
 		
-		if(seat_amount.val() == '') {
-			seat_amount.addClass('error-bd');
-			error = 1;
-		}
-		
 		if($('input[name="offer_re_route"]').is(':checked')) {
 
 
@@ -426,11 +408,6 @@ $(function() {
 			
 			if(re_dates.val() == '') {
 				re_dates.addClass('re_error_bd');
-				re_error = 1;
-			}
-			
-			if(re_amount.val() == '') {
-				re_amount.addClass('re_error_bd');
 				re_error = 1;
 			}
 			
@@ -456,7 +433,6 @@ $(function() {
 					destination:destination.val(),
 					via:via.val(),
 					dates:dates.val(),
-					seat_amount:seat_amount.val(),
 					hours:hours.val(),
 					minute:minute.val(),
 					seat:seat.val(),
@@ -468,7 +444,6 @@ $(function() {
 					re_via:re_via.val(),
 					re_destination:re_destination.val(),
 					re_dates:re_dates.val(),
-					re_amount:re_amount.val(),
 					re_hours:re_hours.val(),
 					re_minute:re_minute.val(),
 					re_seat:re_seat.val(),

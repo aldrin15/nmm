@@ -19,8 +19,8 @@
 						<?php else:?>
 							<img src="<?php echo base_url('assets/media_uploads/').'/'.$info['image']?>" width="150" height="150" alt="" />
 						<?php endif?><br />
-						<!--<button class="btn-success">Change Picture</button>-->
-						<input type="file" name="userfile" />
+						<button class="btn-success">Change Picture</button>
+						<input type="file" name="userfile" style="display:none;"/>
 					</div>
 					<textarea name="about_me" id="" cols="30" rows="10" class="fl" style="resize:none;"><?php echo ($info['about_me'] == '') ? 'Write something about yourself' : $info['about_me']?></textarea>
 					

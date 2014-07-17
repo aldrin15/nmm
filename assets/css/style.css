@@ -243,6 +243,16 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .home-features ul li:nth-child(3) i {display:block; background: url('../images/page_template/home_icon.png') no-repeat 0 -140px; width:71px; height:70px;}
 .home-features ul li:nth-child(4) i {display:block; background: url('../images/page_template/home_icon.png') no-repeat 0 -210px; width:71px; height:70px;}
 
+.feedback { font-size:2em; text-align:center; position:relative; /* height:180px; */ padding:100px 0 200px;}
+.feedback .feedback-message:first-child { display:block; }
+.feedback .feedback-message { position:absolute; display:none; width:100%;}
+.feedback-message span {display:block; text-align:left; margin-top:10px;}
+.feedback .fl {margin-left:10px;}
+.feedback .f-left {vertical-align:top}
+.feedback .f-right {vertical-align:top; margin-top:25px;}
+.feedback-message p {position:relative; font-style:italic; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:10px 10px; /*width:450px;*/}
+.feedback-message img {position:absolute; bottom:-9px; left:5px;}
+
 .subscription {color:#678222; text-align:center; margin:90px 0 180px;}
 .subscription h3 {text-transform:uppercase; color:#000;}
 .subscription a {color:#678222;}

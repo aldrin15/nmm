@@ -1,7 +1,7 @@
 	</div>
 </div>
 <?php
-echo $url = $this->uri->segment(1);
+$url = $this->uri->segment(1);
 
 if($url == ''):
 ?>

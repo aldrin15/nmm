@@ -25,7 +25,7 @@ class Abroad_model extends CI_Model {
 		return $result;
 	}
 	
-	public function wish_ride_by_country($what = 'user_wish_rides.id, firstname, lastname, route_from as origin, route_to as destination, via, amount, available, storage, start_time, CONCAT( GROUP_CONCAT( user_rating.user_id ) ) AS rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) rating, user_wish_rides.date') {
+	public function wish_ride_by_country($what = 'user_wish_rides.id, firstname, lastname, route_from as origin, route_to as destination, via, available, storage, start_time, CONCAT( GROUP_CONCAT( user_rating.user_id ) ) AS rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number ) ) rating, user_wish_rides.date') {
 		$date = getdate();
 		$today = $date['year'].'-'.$date['mon'].'-'.$date['mday'];
 		

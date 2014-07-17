@@ -134,7 +134,7 @@ class Passenger extends MX_Controller {
 	}
 	
 	public function insert_create() {
-		$this->lift_model->create_wish_ride();
+		$this->passenger_model->create_wish_ride();
 	}
 	
 	public function wish_lift_success() {

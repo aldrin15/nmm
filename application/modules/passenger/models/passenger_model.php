@@ -33,6 +33,10 @@ class Passenger_model extends CI_Model {
 	}
 	
 	function listing() {
+		$today 		= getdate();
+		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
+		$date 		= date('Y-m-d', strtotime($get_date));
+		
 		$query = $this->db->query("
 			SELECT user_wish_rides.id, user_wish_rides.user_id, firstname, lastname, via, available, route_from AS origin, route_to AS destination, CONCAT( GROUP_CONCAT( user_rating.user_id
 			ORDER BY user_rating.user_id
@@ -42,6 +46,7 @@ class Passenger_model extends CI_Model {
 			FROM user_wish_rides
 			JOIN  `user` ON  `user`.`user_id` =  `user_wish_rides`.`user_id` 
 			LEFT JOIN user_rating ON user_rating.user_id = user_wish_rides.user_id
+			WHERE user_wish_rides.date =  '{$date}'
 			GROUP BY user_wish_rides.id, user_rating.user_id	
 		");
 		
@@ -104,32 +109,6 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
-	//function get_user_lift_post($what = 'user_lift_dates.post_id, user_lift_dates.route_from AS origins, user_lift_dates.route_to AS destination, CONCAT( GROUP_CONCAT( user_lift_dates.date ) ) AS dates') {
-		/* $id = $this->session->userdata('user_id');
-
-		$query = $this->db->select($what)
-							->from('user_lift_dates')
-							->where('user_id', $id)
-							->group_by('post_id')
-							->get();
-				
-		$result = $query->result_array();
-		if(count($result) == 0) return FALSE;
-		return $result; */		
-	//}
-	
-/* 	function get_user_lift_dates($id, $what = 'user_lift_dates.post_id, user_lift_dates.date as dates') {
-		
-		$query = $this->db->select($what)
-							->from('user_lift_dates')
-							->where('post_id', $id)
-							->get();
-		
-		$result = $query->result_array();
-		if(count($result) == 0) return FALSE;
-		return $result;
-	} */
-	
 	function get_selected_lift($id, $what = 'user_lift_dates.date as dates') {	
 		$query = $this->db->select($what)
 							->from('user_lift_dates')
@@ -150,25 +129,6 @@ class Passenger_model extends CI_Model {
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
-	}
-	
-	function return_user_lift_post($date, $what = 'user_lift_dates.user_id, user_lift_dates.route_from AS origins, user_lift_dates.route_to AS destination, user_lift_dates.date AS dates') {	
-		$id = $this->session->userdata('user_id');
-		
-		if($date == null):
-		else:
-			if($date != ''):
-				$query = $this->db->select($what)
-									->from('user_lift_dates')
-									->where('user_id', $id)
-									->where_in('date', $date)
-									->get();
-									
-				$result = $query->result_array();
-				if(count($result) == 0) return FALSE;
-				return $result;
-			endif;
-		endif;
 	}
 	
 	public function get_user_info($id, $what = 'user_id, firstname, lastname, email') {
@@ -218,11 +178,10 @@ class Passenger_model extends CI_Model {
 				'route_from'	=> $this->input->post('origin'),
 				'route_to'		=> $this->input->post('destination'),
 				'via'			=> $this->input->post('via'),
-				'available'		=> $this->input->post('seat_available'),
+				'available'		=> $this->input->post('seat'),
 				'storage'		=> $this->input->post('storage'),
 				'preference'	=> $preference_array,
 				'remarks'		=> $this->input->post('remarks'),
-				'amount'		=> $this->input->post('seat_amount'),
 				're_route'		=> $this->input->post('re_route'),
 				'offer_re_route'=> $this->input->post('re_route'),
 				'start_time'	=> $this->input->post('hours').':'.$this->input->post('minute').':00',
@@ -249,7 +208,6 @@ class Passenger_model extends CI_Model {
 					'storage'		=> $this->input->post('re_storage'),
 					'preference'	=> $re_preference_array,
 					'remarks'		=> $this->input->post('re_remarks'),
-					'amount'		=> $this->input->post('re_amount'),
 					'start_time'	=> $this->input->post('re_hours').':'.$this->input->post('re_minute').':00',
 					'date'			=> str_replace("&quot;", "", $row),
 					'expiry_date'	=> $re_expiry_date.' '.$this->input->post('re_hours').':'.$this->input->post('re_minute').':00',
