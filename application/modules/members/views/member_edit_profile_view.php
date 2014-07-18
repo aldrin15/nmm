@@ -113,7 +113,7 @@
 				</li>
 				<li>
 					<label for="City and Country">City and Country <?php echo form_error('city_country', '<span class="error">', '</span>')?></label>
-					<input type="text" name="city_country" value="" id="city-country" class="form-control"/>
+					<input type="text" name="city_country" value="<?php echo $info['city_country']?>" id="city-country" class="form-control"/>
 					
 					<div class="clr"></div>
 				</li>

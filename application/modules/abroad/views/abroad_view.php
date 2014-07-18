@@ -3,9 +3,9 @@
 <div class="slideshow-search" style="position:relative;">
 	<div class="slideshow">			
 		<ul class="rslides" id="slider1">
-			<li><img src="<?php echo base_url('assets/images/abroad/1.jpg')?>" width="" height="" alt=""></li>
-			<li><img src="<?php echo base_url('assets/images/abroad/2.jpg')?>" width="" height="" alt=""></li>
-			<li><img src="<?php echo base_url('assets/images/abroad/3.jpg')?>" width="" height="" alt=""></li>
+			<li><img src="<?php echo base_url('assets/images/abroad/1.jpg')?>" width="100%" height="" alt=""></li>
+			<li><img src="<?php echo base_url('assets/images/abroad/2.jpg')?>" width="100%" height="" alt=""></li>
+			<li><img src="<?php echo base_url('assets/images/abroad/3.jpg')?>" width="100%" height="" alt=""></li>
 		</ul>
 
 		<div class="clr"></div>

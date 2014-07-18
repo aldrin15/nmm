@@ -2,9 +2,9 @@
 
 <div class="slideshow">			
 	<ul class="rslides" id="slider1">
-		<li><img src="<?php echo base_url('assets/images/rides/1.jpg')?>" alt=""></li>
-		<li><img src="<?php echo base_url('assets/images/rides/2.jpg')?>" alt=""></li>
-		<li><img src="<?php echo base_url('assets/images/rides/3.jpg')?>" alt=""></li>
+		<li><img src="<?php echo base_url('assets/images/rides/1.jpg')?>" width="100%" alt=""></li>
+		<li><img src="<?php echo base_url('assets/images/rides/2.jpg')?>" width="100%" alt=""></li>
+		<li><img src="<?php echo base_url('assets/images/rides/3.jpg')?>" width="100%" alt=""></li>
 	</ul>
 	
 	<div class="clr"></div>

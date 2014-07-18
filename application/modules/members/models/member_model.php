@@ -20,7 +20,7 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function member_information($user_id, $what = 'firstname, lastname, about_me, job, birthdate, street, city, country, postal, number, phone') {
+	public function member_information($user_id, $what = 'firstname, lastname, about_me, job, birthdate, street, city_country, postal, number, phone') {
 		$query = $this->db->select($what)
 							->from('user')
 							->join('user_additional_information', 'user_additional_information.user_id = user.user_id', 'left')
@@ -63,9 +63,9 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function rides_list($uri_id, $what = 'user_lift_post.id, user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_post.date') {
+	public function rides_list($what = 'user_lift_post.id, user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_post.date') {
 		if($this->session->userdata('validated') == false):
-			$id = $uri_id;
+			// $id = $uri_id;
 		else:
 			$id = $this->session->userdata('user_id');
 		endif;
@@ -85,7 +85,6 @@ class Member_model extends CI_Model {
 	public function ride_detail($id, $what = 'user_lift_post.route_from as origins, user_lift_post.route_to as destination, via, available, storage, remarks, amount, re_route, offer_re_route, start_time') {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
-							->join('user_lift_dates', 'user_lift_dates.user_id = user_lift_post.user_id')
 							->where('user_lift_post.id', $id)
 							->get();
 		
@@ -94,9 +93,9 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function passenger_list($uri_id, $what = 'user_wish_rides.id, user_wish_rides.route_from as origins, user_wish_rides.route_to as destination, start_time') {
+	public function passenger_list($what = 'user_wish_rides.id, user_wish_rides.route_from as origins, user_wish_rides.route_to as destination, start_time') {
 		if($this->session->userdata('validated') == false):
-			$id = $uri_id;
+			// $id = $uri_id;
 		else:
 			$id = $this->session->userdata('user_id');
 		endif;
@@ -211,7 +210,7 @@ class Member_model extends CI_Model {
 								user_address.postal = '{$postal}',
 								user_mobile.number = '{$mobile}',
 								user_mobile.phone = '{$phone}'
-							WHERE user.user_id AND user_additional_information.user_id AND user.user_id = user_address.user_id AND user.user_id = user_mobile.user_id  = '{$user_id}';");
+							WHERE user.user_id = '{$user_id}' AND user_additional_information.user_id = '{$user_id}' AND user.user_id = user_address.user_id AND user.user_id = user_mobile.user_id  = '{$user_id}'");
 		
 		return true;
 	}
@@ -228,8 +227,8 @@ class Member_model extends CI_Model {
 							->from('user_media')
 							->where('user_id', $user_id)
 							->get();
-	
-		if(mysql_num_rows($query) > 0):
+		
+		if($query->num_rows() > 0):
 			$this->db->update('user_media', $data, array('user_id' => $user_id));
 		else:
 			$this->db->insert('user_media', $data);

@@ -190,16 +190,7 @@ class Members extends MX_Controller {
 		
 		$id = $this->uri->segment(3);
 		
-		exit;
-		
 		$data['ride_detail_data'] = $this->member_model->ride_detail($id);
-		
-		echo '<pre>';
-		var_dump($data['ride_detail_data']);
-		echo '</pre>';
-		
-		exit;
-		
 		$data['view_file'] = 'member_overview_ride_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}

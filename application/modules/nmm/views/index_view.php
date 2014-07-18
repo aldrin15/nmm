@@ -1,11 +1,17 @@
 <?php $this->load->view('header_content')?>
+<style type="text/css">
+.content-2 {padding-top:100px; height:550px;}
+.content-3 {/* background:#00dcde; */ padding-top:100px; height:570px;}
+.content-4 {padding-top:100px; height:550px;}
+.content-5 {/* background:#00dcde; */ padding-top:100px; height:550px;}
+</style>
 		<div class="slideshow-search" style="position:relative;">
 			<div class="slideshow">			
 				<ul class="rslides" id="slider1">
-					<li><img src="<?php echo base_url('assets/images/slideshow/1.jpg')?>" alt=""></li>
-					<li><img src="<?php echo base_url('assets/images/slideshow/2.jpg')?>" alt=""></li>
-					<li><img src="<?php echo base_url('assets/images/slideshow/3.jpg')?>" alt=""></li>
-					<li><img src="<?php echo base_url('assets/images/slideshow/4.jpg')?>" alt=""></li>
+					<li style="background:url('<?php echo base_url('assets/images/slideshow/1.jpg')?>') no-repeat; background-size:cover; width:100%; height:545px;"> </li>
+					<li style="background:url('<?php echo base_url('assets/images/slideshow/2.jpg')?>') no-repeat; background-size:cover; width:100%; height:545px;"> </li>
+					<li style="background:url('<?php echo base_url('assets/images/slideshow/3.jpg')?>') no-repeat; background-size:cover; width:100%; height:545px;"> </li>
+					<li style="background:url('<?php echo base_url('assets/images/slideshow/4.jpg')?>') no-repeat; background-size:cover; width:100%; height:545px; "> </li>
 				</ul>
 				
 				<div class="clr"></div>
@@ -16,7 +22,7 @@
 			</div>
 		</div>
 		
-		<div class="m-center">
+		<div class="m-center content-2">
 			<aside class="span4 welcome fl">
 				<h3>Velkommen til Nimm Mich Mit</h3>
 
@@ -34,67 +40,74 @@
 			</aside>
 			
 			<div class="fr video span5">
-				<a href="#" data-toggle="modal" data-target="#demo-video"><img src="<?php echo base_url('assets/images/demo.jpg')?>" width="410" height="173" alt=""/></a>
-			</div>
-			
-			<div class="clr"></div>
-			
-			<div id="events" class="carousel slide">
-				<!-- Carousel items -->
-				<div class="carousel-inner">
-					<div class="active item">
-						<?php echo modules::run('event/featured_event');?>	
-						<div class="clr"></div>
-					</div>
-					
-					<div class="item">
-						<?php echo modules::run('lift/featured_ride')?>
-						
-						<div class="clr"></div>
-					</div>
-					
-					<div class="item">
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>This is a test</p>
-							</div>
-						</div>
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>This is a test</p>
-							</div>
-						</div>
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>This is a test</p>
-							</div>
-						</div>
-						<div class="span2">
-							<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
-							<div class="event-detail">
-								<p>This is a test</p>
-							</div>
-						</div>
-						
-						<div class="clr"></div>
-					</div>
-				</div>
-				
-					<div class="clr"></div>
-					
-				<!-- LINKED NAV -->
-				<ul class="carousel-linked-nav">
-					<li class="active"><a href="#1"></a></li>
-					<li><a href="#2"></a></li>
-					<li><a href="#3"></a></li>
-				</ul>
-				
+				<a href="#" data-toggle="modal" data-target="#demo-video" class="fr"><img src="<?php echo base_url('assets/images/demo.jpg')?>" width="410" height="173" alt=""/></a>
 				<div class="clr"></div>
 			</div>
 			
+			<div class="clr"></div>
+		</div>
+		
+		<div class="content-3">
+			<div class="m-center">
+				<div id="events" class="carousel slide">
+					<!-- Carousel items -->
+					<div class="carousel-inner">
+						<div class="active item">
+							<?php echo modules::run('event/featured_event');?>	
+							<div class="clr"></div>
+						</div>
+						
+						<div class="item">
+							<?php echo modules::run('lift/featured_ride')?>
+							
+							<div class="clr"></div>
+						</div>
+						
+						<div class="item">
+							<div class="span2">
+								<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+								<div class="event-detail">
+									<p>This is a test</p>
+								</div>
+							</div>
+							<div class="span2">
+								<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+								<div class="event-detail">
+									<p>This is a test</p>
+								</div>
+							</div>
+							<div class="span2">
+								<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+								<div class="event-detail">
+									<p>This is a test</p>
+								</div>
+							</div>
+							<div class="span2">
+								<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+								<div class="event-detail">
+									<p>This is a test</p>
+								</div>
+							</div>
+							
+							<div class="clr"></div>
+						</div>
+					</div>
+					
+						<div class="clr"></div>
+						
+					<!-- LINKED NAV -->
+					<ul class="carousel-linked-nav">
+						<li class="active"><a href="#1"></a></li>
+						<li><a href="#2"></a></li>
+						<li><a href="#3"></a></li>
+					</ul>
+					
+					<div class="clr"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="m-center content-4">
 			<div class="home-features">
 				<h3>All the features you want</h3>
 				
@@ -107,9 +120,15 @@
 				
 				<div class="clr"></div>
 			</div>
-			
-			<?php echo modules::run('feedback')?>
-			
+		</div>
+		
+		<div class="content-5">
+			<div class="m-center">
+				<?php echo modules::run('feedback')?>
+			</div>
+		</div>
+		
+		<div class="m-center content-6">
 			<div class="subscription">
 				<h3>Start by choosing your plan</h3>
 				
@@ -144,8 +163,6 @@
 				<span class="clr" style="display:block;"></span>
 			</div>
 		</div>
-		
-		<div class="clr"></div>
 		
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>

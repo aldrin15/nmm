@@ -183,11 +183,11 @@ footer .pull-right .fl span:last-child {color:#678222;}
 }
 .btn-advance:hover {color:#000; text-decoration:none;}
  
-.slideshow {margin-top:10px;}
-.slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:500px;}
-.slideshow ul li { -webkit-backface-visibility: hidden; position: absolute; display: none; width: 100%; left: 0; top: 0; }
+.slideshow {/* margin-top:10px; */}
+.slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:545px;}
+.slideshow ul li { /*-webkit-backface-visibility: hidden; position: absolute; display: none;*/ width: 100%; left: 0; top: 0; }
 .slideshow ul li:first-child { position: relative; display: block; float: left; }
-.slideshow ul li img { display: block; height: 100%; float: left; width: 100%; border: 0; }
+/* .slideshow ul li img { display: block; height: 100%; float: left; width: 100%; border: 0; } */
 
 .search-home {background:url('../images/page_template/search_bg.png') repeat; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:10px 10px; width:647px;}
 .search-home ul, .search ul {list-style:none;}
