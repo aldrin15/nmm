@@ -73,7 +73,6 @@ class Member_model extends CI_Model {
 		$query = $this->db->select($what)
 							->from('user_lift_post', 'user_lift_post.user_id = user.user_id')
 							->join('user', 'user.user_id = user_lift_post.user_id')
-							->join('user_lift_dates', 'user_lift_dates.user_id = user_lift_post.user_id', 'left')
 							->where('user_lift_post.user_id', $id)
 							->order_by('user_lift_post.date', 'asc')
 							->get();

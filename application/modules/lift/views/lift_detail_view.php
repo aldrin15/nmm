@@ -2,7 +2,6 @@
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/mdp.css')?>"/>
 <style type="text/css">
-/* .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {background:#00ff00;} */
 .ui-datepicker {width:100%;}
 .ui-widget-content {background:none;}
 .ui-datepicker-calendar td {border:none;}
@@ -21,6 +20,9 @@
 .pcal-body ul li a:hover {text-decoration:none;}
 
 .user-info .name {text-transform: capitalize;}
+
+.passenger-booked ul li {position:relative; float:left; margin: 0 10px 10px 0;}
+.passenger-booked ul li i {position:absolute; display:block; background:url('<?php echo base_url()?>assets/images/page_template/booked_by_user.png') no-repeat; top:0; left:0; width:80px; height:80px;}
 </style>
 <div class="detail m-center-content">
 	<?php foreach($lift_information as $row):?>
@@ -191,7 +193,6 @@
 					year	= date.getFullYear();
 				
 				var events = [<?php for($i = 0; $i < count($other_dates_array[0]); $i++):
-					// echo '"'.$other_dates_array[0][$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[0][$i].' to '.$other_destination_array[0][$i].'",';
 					echo '"<a href=\''.base_url('rides/detail').'/'.$id_array[0][$i].'\'>'.$other_dates_array[0][$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[0][$i].' to '.$other_destination_array[0][$i].'</a>",';
 				endfor;?>];
 			
@@ -260,6 +261,36 @@
 			<a href="#" class="quick-book btn btn-default" data-toggle="modal" data-target="#choose-date" data-hash="<?php echo $hash?>">Start Booking</a>
 			<?php endif;
 			endif?>
+		</div>
+		
+		<div class="passenger-booked">
+			<?php $book_by_number = array()?>
+			<h4>Passengers:</h4>
+			<ul>
+				<?php foreach($passenger_information as $row):?>
+					<?php
+					$book_by_number[] = $row['user_id'];
+					if($row['image'] != ''):?>
+					<li><a href="<?php echo base_url('members/profile_view').'/'.$row['user_id']?>"><i></i> <img src="<?php echo base_url('assets/media_uploads').'/'.$row['image']?>" width="80" height="80" alt=""/></a></li>
+					<?php else:?>
+					<li><a href="<?php echo base_url('members/profile_view').'/'.$row['user_id']?>"><i></i> <img src="<?php echo base_url('assets/images/page_template/blank_profile_large.jpg')?>" width="80" height="80" alt=""/></a></li>
+					<?php endif?>
+				<?php endforeach?>
+			</ul>
+			
+			<?php 
+			foreach($lift_information as $row):
+				$number_of_seat = $row['available'];
+				$number_booked_by = count($book_by_number);
+				$result = $number_of_seat - $number_booked_by;
+			?>
+				<ul>
+				<?php for($i = 0; $i < $result; $i++): ?>
+					<li><a href="javascript:void(0)" title="Available Seat"><i></i> <img src="<?php echo base_url('assets/images/page_template/blank_image.png')?>" width="80" height="80" alt=""/></a></li>
+				<?php endfor?>
+				</ul>
+			<?php endforeach?>			
+
 		</div>
 	</div>
 	

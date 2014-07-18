@@ -165,6 +165,19 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 	
+	function booked_by($id, $what = 'user.user_id, user_media.media_filename as image') {
+		$query = $this->db->select($what)
+							->from('lift_seat_booked')
+							->join('user', 'user.user_id = lift_seat_booked.user_id')
+							->join('user_media', 'user_media.user_id = user.user_id', 'left')
+							->where('lift_seat_booked.post_id', $id)
+							->get();
+							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
 	function lift_seat_booked($id, $date, $what = 'lift_seat_booked.seat as seats, lift_seat_booked.date, media_filename as image') {	
 		$array = array('post_id' => $id, 'date' => date('Y-m-d', strtotime($date)));
 		

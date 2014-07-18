@@ -146,6 +146,7 @@ class Lift extends MX_Controller {
 		$id = $this->uri->segment(3);
 		
 		$data['lift_information'] 		= $this->lift_model->details($id);
+		$data['passenger_information']	= $this->lift_model->booked_by($id);
 		
 		foreach($data['lift_information'] as $row):
 			$user_id = $row['post_user_id'];
