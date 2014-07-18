@@ -58,17 +58,6 @@
 					<label for="Event City and Country">Event City and Country</label> <?php echo form_error('address', '<span class="error">', '</span>')?>
 					<input type="text" name="city_country" value="" class="form-control" id="city-country" />
 					
-					<!-- 
-					<div class="event-search-location-nav btn-gray fl form-control" style="cursor:pointer">Search for the location</div>
-					<div class="event-search-location fl" style="display:none; width:100%;">
-						<input type="hidden" name="city_country" value=""/>
-						<input type="text" name="city_country" id="city_country" class="form-control" placeholder="EX. City, Country"/>
-						<a href="#" class="btn-gray fr">Done</a>
-						
-						<div class="clr"></div>
-					</div>
-					-->
-					
 					<div class="clr"></div>
 				</li>
 				<li>
