@@ -1,5 +1,14 @@
 <?php $this->load->view('header_content')?>
 
+<style type="text/css">
+.subscription-choices li {background:#e9fdb5; float:left; text-align:center; border:1px solid #ccc; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; cursor:pointer; margin-right:5px; padding:20px;}
+.subscription-choices li:hover {background:#d6fd75;}
+.subscription-choices li.selected {background:#d6fd75;}
+.subscription-choices li:last-child {margin:0;}
+.subscription-choices li span {font-size:1.5em;}
+.subscription-choices li input {display:none;}
+</style>
+
 <div class="m-center-content">
 	<h4>Registration</h4>
 	<p>Complete and submit your details below to create your account. Choose membership and begin carpooling.</p>
@@ -41,31 +50,44 @@
 					<input type="password" name="cpassword" id="" value="<?php echo set_value('cpassword')?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>
-					<br /><h4 class="err-type">Choose Membership Type <?php echo form_error('account_type', '<span class="error">', '</span>')?></h4>
+					<br /><h4 class="err-type">Choose Membership Subscription Type <?php echo form_error('account_type', '<span class="error">', '</span>')?></h4>
 					<hr/>
 					
-					<ul>
+					<ul class="subscription-choices">
 						<li>
 							<input type="radio" name="account_type[]" value="1" id=""/>
-							<span>Try it free</span>
+							<span>Free Trial</span>
+							
+							<p>14 Days</p>
 						</li>
 						<li>
 							<input type="radio" name="account_type[]" value="2" id=""/>
 							<span>Monthly</span>
+							
+							<p>&euro; 3.99</p>
 						</li>
 						<li>
 							<input type="radio" name="account_type[]" value="3" id=""/>
 							<span>6 Months</span>
+							
+							<p>&euro; 12.99</p>
 						</li>
 						<li>
 							<input type="radio" name="account_type[]" value="4" id=""/>
-							<span>One Year</span>
+							<span>1 Year</span>
+						
+							<p>&euro; 18.99</p>
 						</li>
 					</ul>
+					
+					<div class="clr"></div>
 				</li>
 				<li>
+					<span class="err-terms"></span>
+					<?php echo form_error('terms_condition', '<span class="error">', '</span>')?>
+						<div class="clr"></div>
 					<input type="checkbox" name="terms_condition" id=""/>
-					<label for="Terms and Condition" class="err-terms"><a href="<?php echo base_url('terms-and-condition')?>">I have read and agree to the Terms & Conditions. <?php echo form_error('terms_condition', '<span class="error">', '</span>')?></a></label>
+					<label for="Terms and Condition"><a href="<?php echo base_url('terms-and-condition')?>">I have read and agree to the Terms & Conditions.</a></label>
 					
 					<div class="clr"></div>
 				</li>
@@ -87,18 +109,27 @@ function customRadio(radioName){
 		}
 	});
 	$(radioButton).click(function(){
-		if($(this).is(':checked')){
-			$(this).parent().addClass("selected");
-		}
-		$(radioButton).not(this).each(function(){
-			$(this).parent().removeClass("selected");
-		});
+		if($(this).is(':checked')){ $(this).parent().addClass("selected"); }
+		$(radioButton).not(this).each(function(){ $(this).parent().removeClass("selected"); });
 	});
 }
 
 $(function() {
-	customRadio("account_type[]");
+	//customRadio("account_type[]");
 	customRadio("gender");
+	
+	$('.subscription-choices li').click(function() {
+		$('.subscription-choices li').removeClass('selected');
+		$('.subscription-choices li span.custom-radio').removeClass('selected');
+		$('.subscription-choices li input[name="account_type[]"]').attr('checked', false);
+		
+		if($('input[name="account_type[]"]', this).is(':checked')) {
+			//$('.subscription-choices li span', this).addClass('selected');
+		} else {
+			$(this).addClass('selected');
+			$('input[name="account_type[]"]', this).attr('checked', true);
+		}
+	});
 
 	$('input[name="register_submit"]').click(function() {
 		var firstname	= $('input[name="firstname"]'),
@@ -166,17 +197,17 @@ $(function() {
 			}
 		}
 		
-		if(acc_type.is(':checked')) {
-			$('.err-type').html('Choose Membership Type');
+		if(acc_type.attr('checked', true)) {
+			$('.err-type').html('Choose Membership Subscription Type');
 		} else {
-			$('.err-type').html('Choose Membership Type <small class="error">Membership type is required</small>');
+			$('.err-type').html('Choose Membership Subscription Type <small class="error">Membership type is required</small>');
 			error = 1;
 		}
 		
 		if(terms.is(':checked')) {
-			$('.err-terms').html('<a href="<?php echo base_url('terms')?>">Terms and Condition</a>');
+			$('.err-terms').html(' ');
 		} else {
-			$('.err-terms').html('<a href="<?php echo base_url('terms')?>">Terms and Condition</a> <span class="error">You need to agree with Terms and Condition</span>');
+			$('.err-terms').html('<span class="error">You need to agree with Terms and Condition</span>');
 			error = 1;
 		}
 		

@@ -11,7 +11,7 @@
 				<div class="clr"></div>
 			</div>
 			
-			<div class="search-lift" style="position:absolute; bottom:0; left:0; z-index:1000; width:100%;">
+			<div class="search-lift" style="position:absolute; bottom:0; left:0; z-index:8; width:100%;">
 				<?php echo modules::run('lift/search')?>
 			</div>
 		</div>

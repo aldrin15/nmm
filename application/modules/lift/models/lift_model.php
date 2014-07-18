@@ -259,7 +259,7 @@ class Lift_model extends CI_Model {
 				'route_from'	=> $this->input->post('origin'),
 				'route_to'		=> $this->input->post('destination'),
 				'via'			=> $this->input->post('via'),
-				'available'		=> $this->input->post('seat_available'),
+				'available'		=> $this->input->post('seat'),
 				'storage'		=> $this->input->post('storage'),
 				'preference'	=> $preference_array,
 				'remarks'		=> $this->input->post('remarks'),

@@ -73,7 +73,7 @@ class Event_model extends CI_Model {
 	
 	public function create($image_data) {
 		$today = getdate();
-		$now = $today['year'].'-'.$today['mon'].'-'.$today['wday'];
+		$now = $today['year'].'-'.$today['mon'].'-'.$today['mday'];
 		
 		$data = array(
 			'user_id'		=> $this->session->userdata('user_id'),
@@ -82,7 +82,7 @@ class Event_model extends CI_Model {
 			'city_country'	=> $this->input->post('city_country'),
 			'address'		=> $this->input->post('address'),
 			'date'			=> $this->input->post('date').' '.$this->input->post('hour').':'.$this->input->post('minute').':00',
-			'image'			=> $image_data['file_name'],
+			'image'			=> ($image_data != '') ? $image_data['file_name'] : "",
 			'remarks'		=> $this->input->post('remarks'),
 			'date_created'	=> $now,
 		);

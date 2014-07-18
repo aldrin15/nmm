@@ -38,15 +38,17 @@ class Passenger_model extends CI_Model {
 		$date 		= date('Y-m-d', strtotime($get_date));
 		
 		$query = $this->db->query("
-			SELECT user_wish_rides.id, user_wish_rides.user_id, firstname, lastname, via, available, route_from AS origin, route_to AS destination, CONCAT( GROUP_CONCAT( user_rating.user_id
+			SELECT user_wish_rides.id, user_wish_rides.user_id, firstname, lastname, via, available, route_from AS origin, route_to AS destination, user_media.media_filename as image, CONCAT( GROUP_CONCAT( user_rating.user_id
 			ORDER BY user_rating.user_id
 			SEPARATOR  ', ' ) ) AS rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number
 			ORDER BY user_rating.rating_number
 			SEPARATOR  ', ' ) ) rating, user_wish_rides.date
 			FROM user_wish_rides
-			JOIN  `user` ON  `user`.`user_id` =  `user_wish_rides`.`user_id` 
+			JOIN user ON  user.user_id =  user_wish_rides.user_id 
 			LEFT JOIN user_rating ON user_rating.user_id = user_wish_rides.user_id
+			LEFT JOIN user_media ON user_media.user_id = user_wish_rides.user_id
 			WHERE user_wish_rides.date =  '{$date}'
+			OR user_media.media_description = 'Profile Image'
 			GROUP BY user_wish_rides.id, user_rating.user_id	
 		");
 		

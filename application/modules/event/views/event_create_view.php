@@ -56,6 +56,9 @@
 				</li>
 				<li>
 					<label for="Event City and Country">Event City and Country</label> <?php echo form_error('address', '<span class="error">', '</span>')?>
+					<input type="text" name="city_country" value="" class="form-control" id="city-country" />
+					
+					<!-- 
 					<div class="event-search-location-nav btn-gray fl form-control" style="cursor:pointer">Search for the location</div>
 					<div class="event-search-location fl" style="display:none; width:100%;">
 						<input type="hidden" name="city_country" value=""/>
@@ -64,6 +67,7 @@
 						
 						<div class="clr"></div>
 					</div>
+					-->
 					
 					<div class="clr"></div>
 				</li>
@@ -138,7 +142,27 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-input.js')?>"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&region=DE&libraries=places&language=de"></script>  
 <script type="text/javascript">
+$(window).load(function() {initialize();});
+
+var city_country;
+
+function initialize() {
+	city_country = new google.maps.places.Autocomplete((document.getElementById('city-country')), { types: ['geocode'] });
+}
+
+function geolocate() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			var geolocation = new google.maps.LatLng(
+			
+			position.coords.latitude, position.coords.longitude);
+			destination.setBounds(new google.maps.LatLngBounds(geolocation, geolocation));
+		});
+	}
+}
+
 function customRadio(radioName){
 	var radioButton = $('input[name="'+ radioName +'"]');
 	$(radioButton).each(function(){

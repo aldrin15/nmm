@@ -14,6 +14,12 @@
 
 <div class="m-center-content event-listings">
 	<h3 class="fl">Upcoming events:</h3>
+	
+	<?php 
+	if($this->session->userdata('validated') == true):
+		echo '<a href="'.base_url('event/create').'" class="btn-create-lift fr btn-advance">Create Event</a>';
+	endif;
+	?>	
 
 		<div class="clr"></div>
 

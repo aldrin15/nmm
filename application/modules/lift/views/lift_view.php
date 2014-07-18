@@ -33,7 +33,7 @@
 					<li class="column">
 						<p><?php echo $row['firstname'].' '.$row['lastname']?></p>
 						<a href="<?php echo base_url().'rides/detail/'.$row['id']?>">
-							<img src="<?php echo base_url('assets/images/page_template/no_car.jpg')?>" width="250" height="169" alt="Car"/>
+							<img src="<?php echo base_url('assets/images/page_template/no_car.jpg')?>" width="210" height="142" alt="Car"/>
 						</a>
 						<div>
 							<label for="From"><strong>From: </strong></label>

@@ -331,9 +331,9 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .btn-create-lift:hover {text-decoration:none;}
 
 .lift-listing ul {/*width:850px;*/}
-.lift-listing ul li { float:left; background: #f2f1f0; border-radius:5px; margin: 0 47px 30px 0; width:250px;}
+.lift-listing ul li { float:left; background: #f2f1f0; border-radius:5px; margin: 0 25px 30px 0; width:210px;}
 .lift-listing ul li:nth-child(4n+4) { margin-right: 0;}
-.lift-listing ul li p {color:#678222; padding: 5px 8px;}
+.lift-listing ul li p {color:#678222; text-transform: capitalize; padding: 5px 8px;}
 .lift-listing ul li div {margin:7px 10px}
 .lift-listing ul li div label, .lift-listing ul li div span {float:left;}
 .lift-listing ul li div label {margin-right:5px;}

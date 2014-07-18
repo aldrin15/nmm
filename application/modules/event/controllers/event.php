@@ -50,7 +50,8 @@ class Event extends MX_Controller {
 				$data['errors'] = $this->upload->display_errors();
 				
 				if($this->form_validation->run() == TRUE):
-					$this->event_model->create();
+					$image_data = '';
+					$this->event_model->create($image_data);
 					
 					redirect('event/success', 'refresh');
 				endif;
@@ -107,7 +108,7 @@ class Event extends MX_Controller {
 		if($featured_event != ''):
 			foreach($featured_event as $row):
 				echo "<div class='span2'>
-						<img src='".base_url('assets/media_uploads')."/".$row['image']."' width='200' height='190' alt=''/>
+						<img src='".base_url('assets/media_uploads/events')."/".$row['image']."' width='200' height='190' alt=''/>
 						<div class='event-detail'>
 							<p>".$row['title']."</p>
 						</div>
