@@ -60,7 +60,7 @@
 				<?php foreach($wish_lift_data as $wish_lift):?>
 				<li>
 					<a href="<?php echo base_url('passenger/detail/'.$wish_lift['id'])?>">
-						<img src="<?php echo ($wish_lift['image'] != '') ? base_url('assets/media_uploads').'/'.$wish_lift['image'] : base_url('assets/images/page_template/blank_profile_large.jpg')?>" width="150" height="150" alt="User"/>
+						<div class="p-profile-image"><img src="<?php echo ($wish_lift['image'] != '') ? base_url('assets/media_uploads').'/'.$wish_lift['image'] : base_url('assets/images/page_template/blank_profile_large.jpg')?>" width="150" height="150" alt="User"/></div>
 						<span><strong>From</strong> <?php echo $wish_lift['origin']?></span>
 						<span><strong>To</strong> <?php echo $wish_lift['destination']?></span>
 						<span><strong>Via</strong> <?php echo $wish_lift['via']?></span>

@@ -330,7 +330,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .btn-create-lift {color:#000; text-align:center; padding-top:6px; margin-top:13px;}
 .btn-create-lift:hover {text-decoration:none;}
 
-.lift-listing ul {/*width:850px;*/}
+.lift-listing ul {}
 .lift-listing ul li { float:left; background: #f2f1f0; border-radius:5px; margin: 0 25px 30px 0; width:210px;}
 .lift-listing ul li:nth-child(4n+4) { margin-right: 0;}
 .lift-listing ul li p {color:#678222; text-transform: capitalize; padding: 5px 8px;}
@@ -339,8 +339,10 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .lift-listing ul li div label {margin-right:5px;}
 .lift-listing ul li span {color:#678222; font-size:1.1em; display:block;}
 .lift-listing ul li span, .lift-listing ul li label {float:left}
-.lift-listing ul li a {color:#000;}
+.lift-listing ul li a {display:block; color:#000; overflow:hidden; width:210px; height:142px;}
+.lift-listing ul li a img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out;}
 .lift-listing ul li a:hover {text-decoration:none;}
+.lift-listing ul li a:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2);}
 
 #choose-date ul li {margin-bottom:10px;}
 #choose-date ul li div label {margin-right:16px; width: 65px;}
@@ -431,6 +433,9 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .passenger-listing ul li span {display:block; text-align:left; color:#678222; padding:4px 0;}
 .passenger-listing ul li span strong {color:#000;}
 
+.p-profile-image {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out;}
+.p-profile-image img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2);}
+
 .user-send-message {margin-top:20px;}
 .select-width-auto {width:auto !important;}
 
@@ -503,6 +508,14 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .event-listings ul li {position:relative; float:left; text-transform:uppercase; margin: 0 0 40px 29px; width:220px;}
 .event-listings ul li a {color:#000;}
 .event-listings ul li a:hover {text-decoration:none;}
+
+.lift-listing ul li a img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out;}
+.lift-listing ul li a:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2);}
+
+.e-image  {overflow:hidden; width:220px; height:135px;}
+.e-image img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out; width:220px; height:135px;}
+.e-image:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2);}
+
 .event-details {background:#fff; box-shadow:0 0 10px #000; padding: 15px 5px 5px; height:140px;}
 .event-details div {margin-bottom:5px;}
 .event-title {font-weight:bold; font-size:1.3em; line-height:1em;}

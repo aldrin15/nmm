@@ -30,13 +30,13 @@
 			<?php foreach($event_data as $row):?>
 			<li>
 				<a href="<?php echo base_url('event/detail'.'/'.$row['id'])?>">
-					<img src="<?php echo ($row['image'] != '') ? base_url('assets/media_uploads/events').'/'.$row['image'] : base_url('assets/images/page_template/no_event.jpg')?>" width="220" height="135" alt=""/>
+					<div class="e-image"><img src="<?php echo ($row['image'] != '') ? base_url('assets/media_uploads/events').'/'.$row['image'] : base_url('assets/images/page_template/no_event.jpg')?>" alt=""/></div>
 					<div class="event-details">
 						<div class="event-date">
 							<?php
-								$month 	= date('F', strtotime($row['date_created']));
-								$date	= date('j', strtotime($row['date_created']));
-								$year	= date('Y', strtotime($row['date_created']));
+								$month 	= date('F', strtotime($row['date']));
+								$date	= date('j', strtotime($row['date']));
+								$year	= date('Y', strtotime($row['date']));
 								
 							
 								echo $month.' '.$date;

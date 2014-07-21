@@ -97,7 +97,7 @@
 				<ul>
 					<li>
 						<a href="<?php echo base_url('passenger/detail/'.$wish_lift['id'])?>">
-							<img src="<?php echo base_url('assets/images/user.jpg')?>" width="150" height="150" alt="User"/>
+							<div class="p-profile-image"><img src="<?php echo base_url('assets/images/user.jpg')?>" width="150" height="150" alt="User"/></div>
 							<span><strong>From</strong> <?php echo $wish_lift['origin']?></span>
 							<span><strong>To</strong> <?php echo $wish_lift['destination']?></span>
 							<span><strong>Via</strong> <?php echo $wish_lift['via']?></span>

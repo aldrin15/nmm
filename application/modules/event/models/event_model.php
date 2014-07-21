@@ -3,6 +3,10 @@
 class Event_model extends CI_Model {
 	
 	public function listing($what = '*') {
+		$today 		= getdate();
+		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
+		$date 		= date('Y-m-d', strtotime($get_date));
+		
 		$query = $this->db->select($what)
 							->from('events')
 							->get();
