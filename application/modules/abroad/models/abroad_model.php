@@ -11,13 +11,14 @@ class Abroad_model extends CI_Model {
 		return $result;
 	}
 	
-	public function ride_by_country($what = 'id, route_from as origin, route_to as destination, via, amount, available, storage, start_time, date') {
+	public function ride_by_country($what = 'id, firstname, lastname, route_from as origin, route_to as destination, via, amount, available, storage, start_time, user_lift_post.date') {
 		$date = getdate();
 		$today = $date['year'].'-'.$date['mon'].'-'.$date['mday'];
 		
 		$query = $this->db->select($what)
 							->from('user_lift_post')
-							->where('date', $today)
+							->join('user', 'user.user_id = user_lift_post.user_id')
+							->where('user_lift_post.date', $today)
 							->get();
 		
 		$result = $query->result_array();

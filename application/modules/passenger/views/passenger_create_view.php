@@ -69,10 +69,10 @@
 				<span>Minute</span>
 				
 				<select name="minute" id="" class="bt-dropdown select-width-auto">
-					<?php for($i = 1; $i < 10; $i++):?>
+					<?php for($i = 0; $i < 10; $i++):?>
 					<option value="<?php echo '0'.$i?>"><?php echo '0'.$i?></option>
 					<?php endfor?>
-					<?php for($i = 10; $i < 61; $i++):?>
+					<?php for($i = 10; $i < 59; $i++):?>
 					<option value="<?php echo $i?>"><?php echo $i?></option>
 					<?php endfor?>
 				</select>
@@ -86,7 +86,7 @@
 		<ul class="label-width">
 			<li>
 				<label for="Seat Available">Seat Available</label>
-				<select name="seat_available" id="" class="bt-dropdown" data-width="50px">
+				<select name="seat_available" id="" class="bt-dropdown select-width-auto">
 					<?php for($i = 1; $i < 12; $i++):?>
 					<option value="<?php echo $i?>"><?php echo $i?></option>
 					<?php endfor?>

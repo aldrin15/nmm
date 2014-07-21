@@ -35,7 +35,7 @@ window.fbAsyncInit = function() {
 	<?php foreach($event_details_data as $row):?>
 	<div class="event-posted">
 		<div class="event-posted-image">
-			<img src="<?php echo base_url('assets/media_uploads/events'.'/'.$row['image'])?>" width="220" height="135" alt="" class="fl"/>
+			<img src="<?php echo ($row['image'] != '') ? base_url('assets/media_uploads/events').'/'.$row['image'] : base_url('assets/images/page_template/no_event.jpg')?>" width="220" height="135" alt="" class="fl"/>
 			
 			<div class="event-posted-details fl">
 				<p style="font-size: 1.5em; font-weight: bold;">On <?php echo date('F d, H:i A', strtotime($row['date']))?></p>

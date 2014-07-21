@@ -183,7 +183,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 }
 .btn-advance:hover {color:#000; text-decoration:none;}
  
-.slideshow {/* margin-top:10px; */}
+.slideshow {margin-top:10px;}
 .slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:545px;}
 .slideshow ul li { /*-webkit-backface-visibility: hidden; position: absolute; display: none;*/ width: 100%; left: 0; top: 0; }
 .slideshow ul li:first-child { position: relative; display: block; float: left; }
@@ -266,7 +266,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .feedback-message img {position:absolute; bottom:-9px; left:5px;}
 
 .subscription {color:#678222; text-align:center; margin:90px 0 180px;}
-.subscription h3 {text-transform:uppercase; color:#000;}
+.subscription h3 {color:#000; text-transform:uppercase; text-shadow:2px 3px 15px #000;}
 .subscription a {color:#678222;}
 .subscription a:hover {text-decoration:none;}
 .subscription div {background:#e9fdb5; display:inline-block; text-align:center; border:1px solid #ccc; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; vertical-align:top; padding:10px; min-height:130px;}
@@ -340,9 +340,9 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .lift-listing ul li span {color:#678222; font-size:1.1em; display:block;}
 .lift-listing ul li span, .lift-listing ul li label {float:left}
 .lift-listing ul li a {display:block; color:#000; overflow:hidden; width:210px; height:142px;}
-.lift-listing ul li a img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out;}
+.lift-listing ul li a img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out; opacity:.5;}
 .lift-listing ul li a:hover {text-decoration:none;}
-.lift-listing ul li a:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2);}
+.lift-listing ul li a:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2); opacity:1;}
 
 #choose-date ul li {margin-bottom:10px;}
 #choose-date ul li div label {margin-right:16px; width: 65px;}
@@ -433,8 +433,9 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .passenger-listing ul li span {display:block; text-align:left; color:#678222; padding:4px 0;}
 .passenger-listing ul li span strong {color:#000;}
 
-.p-profile-image {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out;}
-.p-profile-image img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2);}
+.p-profile-image {overflow:hidden; width:180px; height:150px;}
+.p-profile-image img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out; width:180px; height:150px; opacity:.8;}
+.p-profile-image:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2); opacity:1;}
 
 .user-send-message {margin-top:20px;}
 .select-width-auto {width:auto !important;}
@@ -509,8 +510,8 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .event-listings ul li a {color:#000;}
 .event-listings ul li a:hover {text-decoration:none;}
 
-.lift-listing ul li a img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out;}
-.lift-listing ul li a:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2);}
+.lift-listing ul li a img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out; opacity:.8;}
+.lift-listing ul li a:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2); opacity:1;}
 
 .e-image  {overflow:hidden; width:220px; height:135px;}
 .e-image img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out; width:220px; height:135px;}

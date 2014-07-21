@@ -1,9 +1,10 @@
 <?php $this->load->view('header_content')?>
 <style type="text/css">
-.content-2 {padding-top:100px; height:550px;}
-.content-3 {/* background:#00dcde; */ padding-top:100px; height:570px;}
-.content-4 {padding-top:100px; height:550px;}
-.content-5 {/* background:#00dcde; */ padding-top:100px; height:550px;}
+.content-2 {background-image: -ms-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -moz-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -o-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -webkit-gradient(radial, center center, 0, center center, 506, color-stop(0, #8DD4DA), color-stop(1, #00A3EF)); background-image: -webkit-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: radial-gradient(circle farthest-corner at center, #8DD4DA 0%, #00A3EF 100%); background-attachment:fixed; padding-top:100px; height:570px;}
+.content-3 {background-image: -ms-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: -moz-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: -o-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: -webkit-gradient(radial, center center, 0, center center, 506, color-stop(0, #8DD4DA), color-stop(1, #DFF0FC)); background-image: -webkit-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: radial-gradient(circle farthest-corner at center, #8DD4DA 0%, #DFF0FC 100%); padding-top:100px; height:570px;}
+.content-4 {background-image: -ms-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -moz-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -o-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -webkit-gradient(radial, center center, 0, center center, 506, color-stop(0, #8DD4DA), color-stop(1, #00A3EF)); background-image: -webkit-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: radial-gradient(circle farthest-corner at center, #8DD4DA 0%, #00A3EF 100%); background-size:cover; background-attachment:fixed; padding-top:100px; height:570px;}
+.content-5 {background:#dff0fc; padding-top:100px; height:570px;}
+.content-6 {background:url('<?php echo base_url('assets/images/page_template/bg-content-6.jpg')?>') no-repeat; background-attachment:fixed; background-size:cover; padding-top:100px; height:600px;}
 </style>
 		<div class="slideshow-search" style="position:relative;">
 			<div class="slideshow">			
@@ -17,34 +18,36 @@
 				<div class="clr"></div>
 			</div>
 			
-			<div class="search-lift" style="position:absolute; bottom:0; left:0; z-index:8; width:100%;">
+			<div class="search-lift" style="position:absolute; bottom:40px; left:0; z-index:8; width:100%;">
 				<?php echo modules::run('lift/search')?>
 			</div>
 		</div>
 		
-		<div class="m-center content-2">
-			<aside class="span4 welcome fl">
-				<h3>Velkommen til Nimm Mich Mit</h3>
+		<div class="content-2">
+			<div class="m-center">
+				<aside class="span4 welcome fl">
+					<h3>Velkommen til Nimm Mich Mit</h3>
 
-				<p>
-				"Westerhagen"<br /><br />
+					<p>
+					"Westerhagen"<br /><br />
 
-				Nimm mich mit, zeige mir den Weg.<br />
-				Nimm mich mit, eh der Wind sich dreht.<br />
-				Nimm mich mit uber den Horizont.<br />
-				Nimm mich mit, die anderen warten schon.<br /><br />
+					Nimm mich mit, zeige mir den Weg.<br />
+					Nimm mich mit, eh der Wind sich dreht.<br />
+					Nimm mich mit uber den Horizont.<br />
+					Nimm mich mit, die anderen warten schon.<br /><br />
 
-				Tjen og spar penge med ligesindede,<br />
-				alt imens du hjælper miljøet.
-				</p>
-			</aside>
-			
-			<div class="fr video span5">
-				<a href="#" data-toggle="modal" data-target="#demo-video" class="fr"><img src="<?php echo base_url('assets/images/demo.jpg')?>" width="410" height="173" alt=""/></a>
+					Tjen og spar penge med ligesindede,<br />
+					alt imens du hjælper miljøet.
+					</p>
+				</aside>
+				
+				<div class="fr video span5">
+					<a href="#" data-toggle="modal" data-target="#demo-video" class="fr"><img src="<?php echo base_url('assets/images/demo.jpg')?>" width="410" height="173" alt=""/></a>
+					<div class="clr"></div>
+				</div>
+				
 				<div class="clr"></div>
 			</div>
-			
-			<div class="clr"></div>
 		</div>
 		
 		<div class="content-3">
@@ -107,18 +110,20 @@
 			</div>
 		</div>
 		
-		<div class="m-center content-4">
-			<div class="home-features">
-				<h3>All the features you want</h3>
-				
-				<ul>
-					<li><i></i>You can create your own lift<br /> or you can wish for a lift. <div class="clr"></div></li>
-					<li><i></i>You can create an Events. <div class="clr"></li>
-					<li><i></i>You can invite people/friends<br /> for a ride. <div class="clr"></li>
-					<li><i></i>You can share it via Facebook. <div class="clr"></li>
-				</ul>
-				
-				<div class="clr"></div>
+		<div class="content-4">
+			<div class="m-center">
+				<div class="home-features">
+					<h3>All the features you want</h3>
+					
+					<ul>
+						<li><i></i>You can create your own lift<br /> or you can wish for a lift. <div class="clr"></div></li>
+						<li><i></i>You can create an Events. <div class="clr"></li>
+						<li><i></i>You can invite people/friends<br /> for a ride. <div class="clr"></li>
+						<li><i></i>You can share it via Facebook. <div class="clr"></li>
+					</ul>
+					
+					<div class="clr"></div>
+				</div>
 			</div>
 		</div>
 		
@@ -128,39 +133,41 @@
 			</div>
 		</div>
 		
-		<div class="m-center content-6">
-			<div class="subscription">
-				<h3>Start by choosing your plan</h3>
-				
-				<div class="span2">
-					<a href="javascript:void(0)">
-						<span>14 DAYS FREE TRIAL</span>
-						<span>FREE</span>
-					</a>
+		<div class="content-6">
+			<div class="m-center">
+				<div class="subscription">
+					<h3>Start by choosing your plan</h3>
+					
+					<div class="span2">
+						<a href="javascript:void(0)">
+							<span>14 DAYS FREE TRIAL</span>
+							<span>FREE</span>
+						</a>
+					</div>
+					<div class="span2">
+						<a href="javascript:void(0)">
+							<span>MONTHLY</span>
+							<span>3.99</span>
+							<span>EURO</span>
+						</a>
+					</div>
+					<div class="span2">
+						<a href="javascript:void(0)">
+							<span>6 MONTHS</span>
+							<span>12.99</span>
+							<span>EURO</span>
+						</a>
+					</div>
+					<div class="span2">
+						<a href="javascript:void(0)">
+							<span>12 MONTHS</span>
+							<span>18.99</span>
+							<span>EURO</span>
+						</a>
+					</div>
+					
+					<span class="clr" style="display:block;"></span>
 				</div>
-				<div class="span2">
-					<a href="javascript:void(0)">
-						<span>MONTHLY</span>
-						<span>3.99</span>
-						<span>EURO</span>
-					</a>
-				</div>
-				<div class="span2">
-					<a href="javascript:void(0)">
-						<span>6 MONTHS</span>
-						<span>12.99</span>
-						<span>EURO</span>
-					</a>
-				</div>
-				<div class="span2">
-					<a href="javascript:void(0)">
-						<span>12 MONTHS</span>
-						<span>18.99</span>
-						<span>EURO</span>
-					</a>
-				</div>
-				
-				<span class="clr" style="display:block;"></span>
 			</div>
 		</div>
 		

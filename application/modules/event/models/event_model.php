@@ -42,7 +42,6 @@ class Event_model extends CI_Model {
 		
 		$query = $this->db->select($what)
 							->from('user_lift_post')
-							->join('user_lift_dates', 'user_lift_dates.post_id = user_lift_post.id')
 							->like('user_lift_post.route_to', $city_country[0][0], 'after')
 							->get();
 		

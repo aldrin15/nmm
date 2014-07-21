@@ -39,7 +39,7 @@
 				<ul>
 					<?php foreach($ride_default_data as $row): ?>
 					<li class="column">
-						<p>Ace Doe</p>
+						<p><?php echo $row['firstname'].' '.$row['lastname']?></p>
 						<a href="<?php echo base_url('rides/detail').'/'.$row['id']?>">
 							<img src="<?php echo base_url('assets/images/car.jpg')?>" width="250" height="169" alt="Car"/>
 						</a>

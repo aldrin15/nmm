@@ -78,7 +78,7 @@
 					
 					<div>
 						<select name="hour" class="selectpicker select-width-auto">
-							<?php for($i = 1; $i < 25; $i++):?>
+							<?php for($i = 0; $i < 25; $i++):?>
 							<option value="<?php echo $i?>"><?php echo $i?></option>
 							<?php endfor?>
 						</select> -
@@ -86,7 +86,7 @@
 							<?php for($i = 1; $i < 10; $i++):?>
 							<option value="<?php echo '0'.$i?>"><?php echo '0'.$i?></option>
 							<?php endfor?>
-							<?php for($i = 10; $i < 51; $i++):?>
+							<?php for($i = 10; $i < 60; $i++):?>
 							<option value="<?php echo $i?>"><?php echo $i?></option>
 							<?php endfor?>
 						</select>				
