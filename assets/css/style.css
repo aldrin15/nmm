@@ -40,7 +40,7 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset; }
  ============== */
 #main-container {height:100%; min-height:100%; height: auto !important;}
 
-.header-wrapper {position:fixed;background:#fff; z-index:99;width:100%;}
+.header-wrapper {position:fixed;background:#fff; z-index:99; top:0; left:0; width:100%;}
 
 .login-status-wrapper {background:#7aa508; margin-bottom:1px; padding-top:5px; height:27px;}
 .login-status {color:#bbfb04; text-align:right;}
@@ -184,7 +184,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .btn-advance:hover {color:#000; text-decoration:none;}
  
 .slideshow {margin-top:10px;}
-.slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:545px;}
+.slideshow ul { position: relative; list-style: none; overflow: hidden; width: 100%; padding: 0; margin: 0; height:555px;}
 .slideshow ul li { /*-webkit-backface-visibility: hidden; position: absolute; display: none;*/ width: 100%; left: 0; top: 0; }
 .slideshow ul li:first-child { position: relative; display: block; float: left; }
 /* .slideshow ul li img { display: block; height: 100%; float: left; width: 100%; border: 0; } */
@@ -226,12 +226,13 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .search ul li input[type="text"]:focus {outline:none;}
 .search ul li input[type="submit"] {}
 
-.welcome {margin-left:0; width:390px;}
+.welcome {background:#fff; box-shadow:3px 3px 10px #000; border-radius:8px; -webkit-border-radius:8px; -moz-border-radius:8px; -ms-border-radius:8px; margin-left:0; padding:10px; width:370px;}
 .welcome p {font-size:1.2em; letter-spacing:.2em; margin-bottom:20px;}
 .welcome a {display:block; font-size:1.3em; text-align:center; margin-bottom:20px; width:132px;}
 
-.carousel {margin:80px auto 130px; width:100%;}
-.carousel .span2 {position:relative; float:left; margin-left:20px;}
+.carousel {margin:0 auto; width:100%;}
+.carousel .span2 {position:relative; float:left; margin-left:8px;}
+.carousel-inner {margin-left:10px;}
 .carousel-inner .span2 {width:235px;}
 
 .carousel-linked-nav {margin:20px auto 40px; width:100px;}

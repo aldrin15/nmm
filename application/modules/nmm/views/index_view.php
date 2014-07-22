@@ -1,18 +1,29 @@
 <?php $this->load->view('header_content')?>
 <style type="text/css">
-.content-2 {background-image: -ms-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -moz-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -o-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -webkit-gradient(radial, center center, 0, center center, 506, color-stop(0, #8DD4DA), color-stop(1, #00A3EF)); background-image: -webkit-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: radial-gradient(circle farthest-corner at center, #8DD4DA 0%, #00A3EF 100%); background-attachment:fixed; padding-top:100px; height:570px;}
-.content-3 {background-image: -ms-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: -moz-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: -o-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: -webkit-gradient(radial, center center, 0, center center, 506, color-stop(0, #8DD4DA), color-stop(1, #DFF0FC)); background-image: -webkit-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: radial-gradient(circle farthest-corner at center, #8DD4DA 0%, #DFF0FC 100%); padding-top:100px; height:570px;}
-.content-4 {background-image: -ms-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -moz-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -o-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -webkit-gradient(radial, center center, 0, center center, 506, color-stop(0, #8DD4DA), color-stop(1, #00A3EF)); background-image: -webkit-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: radial-gradient(circle farthest-corner at center, #8DD4DA 0%, #00A3EF 100%); background-size:cover; background-attachment:fixed; padding-top:100px; height:570px;}
-.content-5 {background:#dff0fc; padding-top:100px; height:570px;}
+.content-2 {background-image: -ms-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -moz-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -o-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -webkit-gradient(radial, center center, 0, center center, 506, color-stop(0, #8DD4DA), color-stop(1, #00A3EF)); background-image: -webkit-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: radial-gradient(circle farthest-corner at center, #8DD4DA 0%, #00A3EF 100%); background-attachment:fixed; height:600px;}
+.content-2-bg {background: url('<?php echo base_url('assets/images/page_template/cloud.png')?>') repeat; background-attachment:fixed; padding-top:100px; width:100%; height:100%;}
+.content-3 {position:relative; background-image: -ms-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: -moz-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: -o-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: -webkit-gradient(radial, center center, 0, center center, 506, color-stop(0, #8DD4DA), color-stop(1, #DFF0FC)); background-image: -webkit-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #DFF0FC 100%); background-image: radial-gradient(circle farthest-corner at center, #8DD4DA 0%, #DFF0FC 100%);  height:600px;}
+.content-3-bg {position:absolute; background:url('<?php echo base_url('assets/images/page_template/content_3_cars_bg.png')?>') repeat-x bottom; bottom:0; left:0; width:100%; height:100%;}
+.content-3-bg2 {background:url('<?php echo base_url('assets/images/page_template/content_3_cars_bg2.png')?>') repeat-x top; background-attachment:fixed; width:100%; height:100%;}
+
+#events {padding-top:100px;}
+#events .carousel-inner {margin-left:40px;}
+
+.carousel-wrapper {background:#fff; border-radius:8px; -webkit-border-radius:8px; -moz-border-radius:8px; -ms-border-radius:8px; padding:20px 0;}
+.content-4 {background-image: -ms-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -moz-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -o-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: -webkit-gradient(radial, center center, 0, center center, 506, color-stop(0, #8DD4DA), color-stop(1, #00A3EF)); background-image: -webkit-radial-gradient(center, circle farthest-corner, #8DD4DA 0%, #00A3EF 100%); background-image: radial-gradient(circle farthest-corner at center, #8DD4DA 0%, #00A3EF 100%); background-size:cover; background-attachment:fixed; padding-top:100px; height:600px;}
+.content-5 {background:#dff0fc; padding-top:100px; height:600px;}
 .content-6 {background:url('<?php echo base_url('assets/images/page_template/bg-content-6.jpg')?>') no-repeat; background-attachment:fixed; background-size:cover; padding-top:100px; height:600px;}
+
+.video a {box-shadow: 3px 3px 5px #000;}
+.carousel-inner {width:95%;}
 </style>
 		<div class="slideshow-search" style="position:relative;">
 			<div class="slideshow">			
 				<ul class="rslides" id="slider1">
-					<li style="background:url('<?php echo base_url('assets/images/slideshow/1.jpg')?>') no-repeat; background-size:cover; width:100%; height:545px;"> </li>
-					<li style="background:url('<?php echo base_url('assets/images/slideshow/2.jpg')?>') no-repeat; background-size:cover; width:100%; height:545px;"> </li>
-					<li style="background:url('<?php echo base_url('assets/images/slideshow/3.jpg')?>') no-repeat; background-size:cover; width:100%; height:545px;"> </li>
-					<li style="background:url('<?php echo base_url('assets/images/slideshow/4.jpg')?>') no-repeat; background-size:cover; width:100%; height:545px; "> </li>
+					<li style="background:url('<?php echo base_url('assets/images/slideshow/1.jpg')?>') no-repeat; background-size:cover; width:100%; height:555px;"> </li>
+					<li style="background:url('<?php echo base_url('assets/images/slideshow/2.jpg')?>') no-repeat; background-size:cover; width:100%; height:555px;"> </li>
+					<li style="background:url('<?php echo base_url('assets/images/slideshow/3.jpg')?>') no-repeat; background-size:cover; width:100%; height:555px;"> </li>
+					<li style="background:url('<?php echo base_url('assets/images/slideshow/4.jpg')?>') no-repeat; background-size:cover; width:100%; height:555px; "> </li>
 				</ul>
 				
 				<div class="clr"></div>
@@ -24,88 +35,98 @@
 		</div>
 		
 		<div class="content-2">
-			<div class="m-center">
-				<aside class="span4 welcome fl">
-					<h3>Velkommen til Nimm Mich Mit</h3>
+			<div class="content-2-bg">
+				<div class="m-center">
+					<aside class="span4 welcome fl">
+						<h3>Velkommen til Nimm Mich Mit</h3>
 
-					<p>
-					"Westerhagen"<br /><br />
-
-					Nimm mich mit, zeige mir den Weg.<br />
-					Nimm mich mit, eh der Wind sich dreht.<br />
-					Nimm mich mit uber den Horizont.<br />
-					Nimm mich mit, die anderen warten schon.<br /><br />
-
-					Tjen og spar penge med ligesindede,<br />
-					alt imens du hjælper miljøet.
-					</p>
-				</aside>
-				
-				<div class="fr video span5">
-					<a href="#" data-toggle="modal" data-target="#demo-video" class="fr"><img src="<?php echo base_url('assets/images/demo.jpg')?>" width="410" height="173" alt=""/></a>
+						<p>
+						"Lorem ipsum"<br /><br />
+						
+						Lorem ipsum dolor sit amet,<br /> 
+						consectetur adipisicing elit, sed do<br /> 
+						eiusmod tempor incididunt ut labore<br /> 
+						et dolore magna aliqua. Ut enim ad minim<br /><br />
+						
+						veniam, quis nostrud exercitation<br /> 
+						ullamco laboris nisi ut aliquip ex ea<br /> 
+						commodo consequat. Duis aute irure<br /> 
+						dolor in reprehenderit in voluptate velit<br /> 
+						</p>
+					</aside>
+					
+					<div class="fr video span5">
+						<a href="#" data-toggle="modal" data-target="#demo-video" class="fr"><img src="<?php echo base_url('assets/images/demo.jpg')?>" width="410" height="173" alt=""/></a>
+						<div class="clr"></div>
+					</div>
+					
 					<div class="clr"></div>
 				</div>
-				
-				<div class="clr"></div>
 			</div>
 		</div>
 		
 		<div class="content-3">
-			<div class="m-center">
-				<div id="events" class="carousel slide">
-					<!-- Carousel items -->
-					<div class="carousel-inner">
-						<div class="active item">
-							<?php echo modules::run('event/featured_event');?>	
-							<div class="clr"></div>
-						</div>
-						
-						<div class="item">
-							<?php echo modules::run('lift/featured_ride')?>
-							
-							<div class="clr"></div>
-						</div>
-						
-						<div class="item">
-							<div class="span2">
-								<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
-								<div class="event-detail">
-									<p>This is a test</p>
+			<div class="content-3-bg">
+				<div class="content-3-bg2">
+					<div class="m-center">
+						<div id="events" class="carousel slide">
+							<div class="carousel-wrapper">
+								<!-- Carousel items -->
+								<div class="carousel-inner">
+									<div class="active item">
+										<?php echo modules::run('event/featured_event');?>	
+										<div class="clr"></div>
+									</div>
+									
+									<div class="item">
+										<?php echo modules::run('lift/featured_ride')?>
+										
+										<div class="clr"></div>
+									</div>
+									
+									<div class="item">
+										<div class="span2">
+											<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+											<div class="event-detail">
+												<p>This is a test</p>
+											</div>
+										</div>
+										<div class="span2">
+											<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+											<div class="event-detail">
+												<p>This is a test</p>
+											</div>
+										</div>
+										<div class="span2">
+											<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+											<div class="event-detail">
+												<p>This is a test</p>
+											</div>
+										</div>
+										<div class="span2">
+											<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+											<div class="event-detail">
+												<p>This is a test</p>
+											</div>
+										</div>
+										
+										<div class="clr"></div>
+									</div>
 								</div>
+								
+									<div class="clr"></div>
+									
+								<!-- LINKED NAV -->
+								<ul class="carousel-linked-nav">
+									<li class="active"><a href="#1"></a></li>
+									<li><a href="#2"></a></li>
+									<li><a href="#3"></a></li>
+								</ul>
+								
+								<div class="clr"></div>
 							</div>
-							<div class="span2">
-								<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
-								<div class="event-detail">
-									<p>This is a test</p>
-								</div>
-							</div>
-							<div class="span2">
-								<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
-								<div class="event-detail">
-									<p>This is a test</p>
-								</div>
-							</div>
-							<div class="span2">
-								<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
-								<div class="event-detail">
-									<p>This is a test</p>
-								</div>
-							</div>
-							
-							<div class="clr"></div>
 						</div>
 					</div>
-					
-						<div class="clr"></div>
-						
-					<!-- LINKED NAV -->
-					<ul class="carousel-linked-nav">
-						<li class="active"><a href="#1"></a></li>
-						<li><a href="#2"></a></li>
-						<li><a href="#3"></a></li>
-					</ul>
-					
-					<div class="clr"></div>
 				</div>
 			</div>
 		</div>
