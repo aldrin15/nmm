@@ -346,4 +346,16 @@ class Lift extends MX_Controller {
 			echo '<div style="font-size:20px; text-align:center; border:1px solid #000; padding-top:60px; height:190px;">No Event Featured Today</div>';
 		endif;
 	}
+	
+	public function co2_daily(){
+		$data = $this->lift_model->get_co2_daily(date('Y-m-d'));
+
+		foreach($data as $row):
+			if($row->co2 != ''):
+				echo $row->co2;
+			else:
+				echo '0';
+			endif;
+		endforeach;
+	}
 }

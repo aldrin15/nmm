@@ -73,7 +73,9 @@
 				</li>
 				<li>
 					<label for="Co2 saving total">Co2 saving total:</label>
-					<span>: 0 kg.</span>
+					<?php foreach($get_co2 as $row):?>
+					<span>: <?php echo ($row['co2'] != '') ? $row['co2'] : '0'?> kg.</span>
+					<?php endforeach?>
 				</li>
 			</ul>
 		</div>

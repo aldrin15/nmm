@@ -63,15 +63,15 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function rides_list($what = 'user_lift_post.id, user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_post.date') {
+	public function rides_list($id, $what = '') {
 		if($this->session->userdata('validated') == false):
-			// $id = $uri_id;
+			$id = $id;
 		else:
 			$id = $this->session->userdata('user_id');
 		endif;
 		
-		$query = $this->db->select($what)
-							->from('user_lift_post', 'user_lift_post.user_id = user.user_id')
+		$query = $this->db->select('user_lift_post.id, user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_post.date')
+							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
 							->where('user_lift_post.user_id', $id)
 							->order_by('user_lift_post.date', 'asc')
@@ -93,15 +93,15 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function passenger_list($what = 'user_wish_rides.id, user_wish_rides.route_from as origins, user_wish_rides.route_to as destination, start_time') {
+	public function passenger_list($id, $what = '') {
 		if($this->session->userdata('validated') == false):
-			// $id = $uri_id;
+			$id = $id;
 		else:
 			$id = $this->session->userdata('user_id');
 		endif;
 		
-		$query = $this->db->select($what)
-							->from('user_wish_rides', 'user_wish_rides.user_id = user.user_id')
+		$query = $this->db->select('user_wish_rides.id, user_wish_rides.route_from as origins, user_wish_rides.route_to as destination, start_time')
+							->from('user_wish_rides')
 							->join('user', 'user.user_id = user_wish_rides.user_id')
 							->where('user_wish_rides.user_id', $id)
 							->get();
@@ -303,6 +303,17 @@ class Member_model extends CI_Model {
 		$query = $this->db->select($what)
 							->from('user')
 							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function co2($id, $what = 'co2'){  
+		$query  =  $this->db->select_sum($what)
+								->from('lift_seat_booked')
+								->where('lift_seat_booked.user_id', $id)
+								->get();
 		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;

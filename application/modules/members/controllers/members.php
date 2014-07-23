@@ -25,7 +25,8 @@ class Members extends MX_Controller {
 	}
 	
 	public function profile_view() {
-		$id = $this->uri->segment(3);
+		$id					= $this->uri->segment(3);
+		$data['get_co2'] 	= $this->member_model->co2($id);
 		
 		$data['profile_data']	= $this->member_model->get_profile($id);
 		$data['rides_data']		= $this->member_model->rides_list($id);

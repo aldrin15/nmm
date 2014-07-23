@@ -396,4 +396,16 @@ class Lift_model extends CI_Model {
 		if(count($result) == 0) return FALSE;
 		return $result;
 	}
+	
+	function get_co2_daily($date, $what = 'co2'){
+		$query  = $this->db->select_sum($what)
+							->from('user_lift_post')
+							->join('lift_seat_booked', 'lift_seat_booked.post_id = user_lift_post.id')
+							->where('user_lift_post.date', $date)
+							->get();
+		
+		$result = $query->result();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
 }

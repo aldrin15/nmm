@@ -248,15 +248,15 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .video {padding-top:55px;}
 .home-features {font-size:1.3em; margin:70px auto; width:710px;}
 .home-features h3 {text-align:center; text-transform:uppercase;}
+.home-features ul li {float:left; background:#fff; box-shadow:3px 3px 10px #cacaca; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; margin-bottom:50px; padding:5px; width:300px;}
 .home-features ul li:nth-child(2n+2) {float:right;}
-.home-features ul li {float:left; margin-bottom:50px; width:300px;}
 .home-features ul li i {float:left; margin-right:10px;}
 .home-features ul li:nth-child(1) i {display:block; background: url('../images/page_template/home_icon.png') no-repeat; width:71px; height:70px;}
 .home-features ul li:nth-child(2) i {display:block; background: url('../images/page_template/home_icon.png') no-repeat 0 -70px; width:71px; height:70px;}
 .home-features ul li:nth-child(3) i {display:block; background: url('../images/page_template/home_icon.png') no-repeat 0 -140px; width:71px; height:70px;}
 .home-features ul li:nth-child(4) i {display:block; background: url('../images/page_template/home_icon.png') no-repeat 0 -210px; width:71px; height:70px;}
 
-.feedback { font-size:2em; text-align:center; position:relative; /* height:180px; */ padding:100px 0 200px;}
+.feedback { font-size:2em; text-align:center; position:relative; /* height:180px; */ padding-top:50px;}
 .feedback .feedback-message:first-child { display:block; }
 .feedback .feedback-message { position:absolute; display:none; width:100%;}
 .feedback-message span {display:block; text-align:left; margin-top:10px;}

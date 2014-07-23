@@ -298,16 +298,15 @@
 	
 	<div class="lift-map-location">
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-		<style type="text/css">
-		#ride-location {width:100%; height:280px;}
-		
-		/*#ride-location p, #ride-location i {display:inline-block; font-size:3em; vertical-align:text-bottom;}*/
-		/*#ride-location i {background:url('<?php echo base_url('assets/images/gmap_marker.png')?>') no-repeat; width:49px; height:77px;}*/
-		</style>
+		<style type="text/css">#ride-location {width:100%; height:280px;}</style>
 		<script type="text/javascript">
-		var directionDisplay;
-		var directionsService = new google.maps.DirectionsService();
-		var map;
+		var directionDisplay, 
+			directionsService = new google.maps.DirectionsService(),
+			map,
+			meter,
+			km,
+			co2,
+			emission = 126.6;
 
 		function initialize() {
 			directionsDisplay = new google.maps.DirectionsRenderer({
@@ -334,6 +333,8 @@
 				if (status == google.maps.DirectionsStatus.OK) {
 					createMarker(response.routes[0].legs[0].via_waypoints[0]);  
 					directionsDisplay.setDirections(response);
+					meter = response.routes[0].legs[0].distance['value']; 
+					calculate_co2();
 				} else {
 					document.getElementById("ride-location").innerHTML = "Google map cant find your input city.";
 				}
@@ -349,6 +350,19 @@
 				map: map
 			});
 		}
+		
+		function calculate_co2(){
+			km 	= meter / 1000;
+			km 	= roundToTwo(km);
+			co2 = km*emission;
+			console.log(co2+" = co2 per passenger")
+			document.getElementById("save_co2").value = co2;
+		}
+
+		function roundToTwo(num) {    
+			return Math.ceil(num * 100)/100;
+		}
+		
 		google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
 		<div id="ride-location"> </div>
@@ -440,6 +454,7 @@
 					<input type="hidden" name="get_seat"/>
 					<input type="hidden" name="amount" value=""/>
 					<input type="hidden" name="date" value=""/>
+					<input type="hidden" name="co2"  id ="save_co2" value=""/>
 					<a href="#" class="btn btn-default fl step-back">Go Back</a>
 					<input type="submit" name="book_submit" value="Proceed" class="btn btn-default"/>
 
@@ -504,6 +519,13 @@ function route(checkboxName){
 }
 
 $(function() {
+	var directionDisplay;
+	var directionsService = new google.maps.DirectionsService();
+	var map;
+	var meter;
+	
+
+
 	$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });
 	$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
 	
@@ -532,10 +554,6 @@ $(function() {
 					if(val.seat == null){
 						seat_taken = 0;
 					} else {
-						// seat_taken.push(val.seat);
-						// seat_taken += val.seat << 0;
-						// seat_taken.push(val.seat);
-						// seat_taken_array.push(val.seat);
 						seat_taken_array = val.seat.split(',')
 						seat_taken = seat_taken_array.length;
 					}
@@ -626,7 +644,8 @@ $(function() {
 									get_seat	:get_seat,
 									date		:$('input[name="date"]').val(), 
 									reroute_from:$('input[name="re_origin"]').val(), 
-									reroute_to	:$('input[name="re_destination"]').val()
+									reroute_to	:$('input[name="re_destination"]').val(),
+									co2   		:$('input[name="co2"]').val(),
 								},
 								success	: function() {
 									$('#booking').modal('hide');

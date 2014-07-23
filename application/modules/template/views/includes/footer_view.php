@@ -62,7 +62,7 @@ if($url == ''):
 			</div>
 			<div class="fl">
 				<img src="<?php echo base_url('assets/images/page_template/icon_leave.jpg')?>" width="28" height="32" alt=""/><br />
-				<span><strong>8,888,888</strong></span><br />
+				<span><strong><?php echo modules::run('lift/co2_daily')?></strong></span><br />
 				<span>CO2 saving in kg.</span>
 			</div>
 		</div>
