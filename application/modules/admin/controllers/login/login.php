@@ -10,17 +10,12 @@ class Login extends CI_Controller {
 	public function index($msg = NULL) {
 		$post = $this->input->post();
 		
-		/* if($post):
-			$this->form_validation->set_rules('username', 'Username', 'required|xss_clean');
-			$this->form_validation->set_rules('password', 'Password', 'required|xss_clean');
-			
-			if($this->form_validation->run() == TRUE):
-				$result = $this->admin_model->login();
-			endif;
-		endif; */
-		
-		$data['msg']		= $msg;
-		$this->load->view('login_view', $data);
+		if($this->session->userdata('id') == 1 && $this->session->userdata('user_role') == 'admin'):
+			header('Location: dashboard');
+		else:
+			$data['msg']		= $msg;
+			$this->load->view('login_view', $data);
+		endif;
 	}
 	
 	public function forgot_password() {

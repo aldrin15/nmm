@@ -22,7 +22,7 @@
 						<ul class="dropdown-menu extended logout">
 							<div class="log-arrow-up"></div>
 							<li><a href="#"><i class=" icon-suitcase"></i>Profile</a></li>
-							<li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+							<li><a href="<?php echo base_url('admin/settings')?>"><i class="icon-cog"></i> Settings</a></li>
 
 							<?php foreach($new_email as $newmail): ?>
 							<li><a href="<?php echo base_url('admin/inbox')?>"><i class="icon-envelope"><div class="notify-mail"><div class="badge bg-important"><?php echo $newmail['new_mail']?></div></div></i> Messages</a></li>

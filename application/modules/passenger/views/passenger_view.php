@@ -1,5 +1,7 @@
 <?php $this->load->view('header_content')?>
 
+<style type="text/css">.slideshow ul {margin:0 auto; width:1024px; height:360px;}</style>
+
 <div class="slideshow-search" style="position:relative;">
 	<div class="slideshow">			
 		<ul class="rslides" id="slider1">
@@ -42,7 +44,7 @@
 		</form>
 	</div>
 	
-	<h3 class="fl">Wish rides by user:</h3>
+	<h3 class="fl">Wish lift by user:</h3>
 	
 	<?php 
 	if($this->session->userdata('validated') == true):

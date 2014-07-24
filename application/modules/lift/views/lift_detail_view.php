@@ -293,8 +293,7 @@
 					<li><a href="javascript:void(0)" title="Available Seat"><i></i> <img src="<?php echo base_url('assets/images/page_template/blank_image.png')?>" width="80" height="80" alt=""/></a></li>
 				<?php endfor?>
 				</ul>
-			<?php endforeach?>			
-
+			<?php endforeach?>
 		</div>
 	</div>
 	

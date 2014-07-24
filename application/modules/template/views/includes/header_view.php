@@ -35,7 +35,7 @@
 	
 	$(function() { $('.login a:first-child').hover(function() { $('.login ul').stop(true, false).fadeIn().show(); }, function() { $('.login ul').fadeOut(); }); $("html").niceScroll(); });
 	</script>
-	<style type="text/css">header {height:110px;}</style>
+	<style type="text/css">header {height:110px;} .nicescroll-rails {z-index:99 !important;} .nicescroll-rails div {width:10px !important;}</style>
 </head>
 <body>
 <div id="fb-root"></div>

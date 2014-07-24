@@ -1,4 +1,5 @@
 	<?php $this->load->view('includes/header_content');?>
+	
 	<?php $this->load->view('includes/sidebar_view')?>
 	<!--main content start-->
 	<section id="main-content">
@@ -44,11 +45,10 @@
 	  
 	<!-- js placed at the end of the document so the pages load faster -->
 	<script type="text/javascript" src="<?php echo base_url('assets/admin/plugins/advanced-datatable/media/js/jquery.js')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/admin/js/bootstrap.min.js')?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/admin/js/jquery.dcjqaccordion.2.7.js')?>" class="include"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/admin/js/jquery.scrollTo.min.js')?>"></script>
-	<script src="<?php echo base_url('assets/admin/js/jquery.nicescroll.js')?>" type="text/javascript"></script>
-	<script src="<?php echo base_url('assets/admin/js/respond.min.js')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/admin/js/jquery.nicescroll.js')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/admin/js/respond.min.js')?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/admin/plugins/data-tables/jquery.dataTables.js')?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/admin/plugins/data-tables/DT_bootstrap.js')?>"></script>
 

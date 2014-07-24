@@ -256,7 +256,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .home-features ul li:nth-child(3) i {display:block; background: url('../images/page_template/home_icon.png') no-repeat 0 -140px; width:71px; height:70px;}
 .home-features ul li:nth-child(4) i {display:block; background: url('../images/page_template/home_icon.png') no-repeat 0 -210px; width:71px; height:70px;}
 
-.feedback { font-size:1.8em; text-align:center; position:relative; /* height:180px; */ padding-top:50px;}
+.feedback { font-size:1.8em; text-align:center; position:relative; padding-top:35px;}
 .feedback .feedback-message:first-child { display:block; }
 .feedback .feedback-message { position:absolute; display:none; width:100%;}
 .feedback-message span {display:block; text-align:left; margin-top:10px;}

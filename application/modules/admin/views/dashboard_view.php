@@ -173,7 +173,6 @@
 	<script type="text/javascript" src="<?php echo base_url('assets/admin/js/jquery.nicescroll.js')?>" type="text/javascript"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/admin/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js')?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('assets/admin/js/respond.min.js')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/admin/js/jquery.dcjqaccordion.2.7.js')?>" class="include"></script>
 
 	<script src="<?php echo base_url('assets/admin/js/common-scripts.js')?>"></script>
 
