@@ -53,6 +53,7 @@ $route['payment-error']			= "register/payment_error";
 $route['payment-postback']		= "register/payment_postback";
 $route['terms-and-condition']	= "terms";
 $route['404_override'] 			= '';
+$route['admin']					= 'admin/login';
 
 
 /* End of file routes.php */

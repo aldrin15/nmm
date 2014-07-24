@@ -22,6 +22,7 @@
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/editor.css')?>"/>
 	
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.11.0.min.js')?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.nicescroll.min.js')?>"></script>
 	<script type="text/javascript">
     document.createElement('section');
     document.createElement('aside');
@@ -32,7 +33,7 @@
 	var height = $(window).height();
 	var base_url = '<?php echo base_url()?>';
 	
-	$(function() { $('.login a:first-child').hover(function() { $('.login ul').stop(true, false).fadeIn().show(); }, function() { $('.login ul').fadeOut(); }); });
+	$(function() { $('.login a:first-child').hover(function() { $('.login ul').stop(true, false).fadeIn().show(); }, function() { $('.login ul').fadeOut(); }); $("html").niceScroll(); });
 	</script>
 	<style type="text/css">header {height:110px;}</style>
 </head>

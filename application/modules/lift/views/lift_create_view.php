@@ -227,7 +227,7 @@
 		<ul class="label-width">
 			<li>
 				<label for="Seat Available">Seat Available</label>
-				<select name="seat_available" id="" class="bt-dropdown width-auto">
+				<select name="seat_available" id="" class="bt-dropdown select-width-auto">
 					<?php for($i = 1; $i < 12; $i++):?>
 					<option value="<?php echo $i?>"><?php echo $i?></option>
 					<?php endfor?>
@@ -237,7 +237,7 @@
 			</li>
 			<li>
 				<label for="Storage">Storage</label>
-				<select name="storage" id="" class="storage-choice" data-width="100px">
+				<select name="storage" id="" class="bt-dropdown select-width-auto">
 					<option value="Small">Small</option>
 					<option value="Medium">Medium</option>
 					<option value="Large">Large</option>

@@ -267,7 +267,9 @@
 			<?php $book_by_number = array()?>
 			<h4>Passengers:</h4>
 			<ul>
-				<?php foreach($passenger_information as $row):?>
+				<?php 
+				if($passenger_information != ''):
+					foreach($passenger_information as $row):?>
 					<?php
 					$book_by_number[] = $row['user_id'];
 					if($row['image'] != ''):?>
@@ -275,7 +277,9 @@
 					<?php else:?>
 					<li><a href="<?php echo base_url('members/profile_view').'/'.$row['user_id']?>"><i></i> <img src="<?php echo base_url('assets/images/page_template/blank_profile_large.jpg')?>" width="80" height="80" alt=""/></a></li>
 					<?php endif?>
-				<?php endforeach?>
+				<?php 
+				endforeach;
+				endif?>
 			</ul>
 			
 			<?php 
@@ -490,6 +494,11 @@
 <script type="text/javascript">
 function check_available(checkboxName, image){
 	var checkBox = $('input[name="'+ checkboxName +'"]');
+	if(image == 0) {
+		var image = "<?php echo base_url('assets/images/page_template/blank_profile_large.jpg')?>";
+	} else {
+		var image = "<?php echo base_url('assets/media_uploads')?>/"+image;
+	}
 	
 	$(checkBox).each(function(){
 		$(this).wrap( "<span class='lift-available'></span>" );
@@ -500,7 +509,7 @@ function check_available(checkboxName, image){
 	$(checkBox).click(function(){
 		$(this).parent().toggleClass("selected");
 		if($(this).is(':checked')){
-			$(this).parent().css({background:"url(<?php echo base_url('assets/media_uploads')?>/"+image+")", top:'0'});
+			$(this).parent().css({background:"url("+image+") center", backgroundSize:'contain', top:'0'});
 		} else {
 			$(this).parent().css({background:'<?php echo base_url('assets/images')?>/blank_image.png'});
 		}
@@ -519,19 +528,11 @@ function route(checkboxName){
 }
 
 $(function() {
-	var directionDisplay;
-	var directionsService = new google.maps.DirectionsService();
-	var map;
-	var meter;
-	
-
-
 	$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });
 	$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
 	
 	$('.quick-book').click(function(e) {
 		$('.seat-taken, .seat-available').empty();
-		
 		var id = $(this).attr('data-hash');
 		
 		$.ajax({
@@ -599,70 +600,73 @@ $(function() {
 					$('input[name="amount"]').attr('value', seat_amount);
 					$('input[name="get_seat"]').attr('value', seat_number);
 				});
-				
-				
-				$('.step-next').click(function() {
-					var get_seat	= $('input[name="get_seat"]').val(),
-						amount		= $('input[name="amount"]').val(),
-						error		= 0;
-						
-						
-					route("request_form");
-					$('.err-msg-cal').empty();
-					
-					if(!$('input[name="seat[]"]').is(':checked')) {
-						$('.a-error').addClass('error').html('You need to choose seats');
-						error = 1;
-					}
-					
-					/* Request re-route form */
-					$('input[name="request_form"]').click(function() {
-						if($(this).is(':checked')) {
-							$('.request_form').slideDown();
-						} else {
-							$('.request_form').slideUp();
-						}
-					});
-					
-					if(error == 0) {
-						$('#choose-date').modal('hide');
-						$('#booking').modal({dynamic:true});
-						
-						$('.step-back').click(function() {
-							$('#booking').modal('hide');
-							$('#choose-date').modal({dynamic:true});
-						});
-						
-						$('input[name="book_submit"]').click(function(e) {
-							e.preventDefault();
-							
-							$.ajax({
-								url		: '<?php echo base_url('lift/insert_ride')?>',
-								type	: 'POST',
-								data	: {
-									id			:'<?php echo $this->uri->segment(3)?>', 
-									get_seat	:get_seat,
-									date		:$('input[name="date"]').val(), 
-									reroute_from:$('input[name="re_origin"]').val(), 
-									reroute_to	:$('input[name="re_destination"]').val(),
-									co2   		:$('input[name="co2"]').val(),
-								},
-								success	: function() {
-									$('#booking').modal('hide');
-									$('#successful').modal({dynamic:true});
-									
-									$('#successful').on('hidden', function () {
-										location.reload();
-									})
-								}
-							}); 
-						});
-					} else {
-						return false;
-					}
-				});
 			}
 		});
+	});
+	
+	$('.step-next').click(function() {
+		var get_seat	= $('input[name="get_seat"]').val(),
+			amount		= $('input[name="amount"]').val(),
+			error		= 0;
+			
+		route("request_form");
+		$('.err-msg-cal').empty();
+		
+		if(!$('input[name="seat[]"]').is(':checked')) {
+			$('.a-error').addClass('error').html('You need to choose seats');
+			error = 1;
+		}
+		
+		/* Request re-route form */
+		$('input[name="request_form"]').click(function() {
+			if($(this).is(':checked')) {
+				$('.request_form').slideDown();
+			} else {
+				$('.request_form').slideUp();
+			}
+		});
+		
+		if(error == 0) {
+			$('#choose-date').modal('hide');
+			$('#booking').modal({dynamic:true});
+			$('input[name="request_form"]').parent().unwrap("<span class='create-lift-checkbox'></span>");
+			$('input[name="get_seat"]').val(" ");
+			$('input[name="amount"]').val(" ");
+			$('input[name="date"]').val(" ");
+			$('input[name="co2"]').val(" ");
+			
+			$('.step-back').click(function() {
+				$('#booking').modal('hide');
+				$('#choose-date').modal({dynamic:true});
+			});
+			
+			$('input[name="book_submit"]').click(function(e) {
+				e.preventDefault();
+				
+				$.ajax({
+					url		: '<?php echo base_url('lift/insert_ride')?>',
+					type	: 'POST',
+					data	: {
+						id			:'<?php echo $this->uri->segment(3)?>', 
+						get_seat	:get_seat,
+						date		:$('input[name="date"]').val(), 
+						reroute_from:$('input[name="re_origin"]').val(), 
+						reroute_to	:$('input[name="re_destination"]').val(),
+						co2   		:$('input[name="co2"]').val(),
+					},
+					success	: function() {
+						$('#booking').modal('hide');
+						$('#successful').modal({dynamic:true});
+						
+						$('#successful').on('hidden', function () {
+							location.reload();
+						})
+					}
+				}); 
+			});
+		} else {
+			return false;
+		}
 	});
 })
 </script>

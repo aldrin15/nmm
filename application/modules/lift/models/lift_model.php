@@ -211,6 +211,7 @@ class Lift_model extends CI_Model {
 				'seat'			=> '1',
 				'reroute_from'	=> $this->input->post('reroute_from'),
 				'reroute_to'	=> $this->input->post('reroute_to'),
+				'co2'   		=> $this->input->post('co2'),
 				'date'			=> date('Y-m-d', strtotime($this->input->post('date')))
 			);
 			

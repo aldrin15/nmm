@@ -219,7 +219,7 @@ class Lift extends MX_Controller {
 	}
 	
 	public function insert_ride() {
-		$this->lift_model->booked_user();
+		//$this->lift_model->booked_user();
 	}
 	
 	public function quick_book_details() {

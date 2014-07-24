@@ -1,6 +1,6 @@
 <?php $this->load->view('header_content')?>
 <style type="text/css">
-.content-2 {background:url('<?php echo base_url('assets/images/page_template/street_post.png')?>') no-repeat top right; background-attachment:fixed; box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; padding-top:100px; height:600px;}
+.content-2 {box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; padding-top:100px; height:600px;}
 .content-3 {background:url('<?php echo base_url('assets/images/page_template/street_post.png')?>') no-repeat; background-attachment:fixed; box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; height:600px;}
 
 #events {padding-top:100px;}
@@ -8,7 +8,7 @@
 
 .carousel-wrapper {background:#fff; border-radius:8px; -webkit-border-radius:8px; -moz-border-radius:8px; -ms-border-radius:8px; padding:20px 0;}
 .content-4 {box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; height:200px;}
-.content-5 {background:url('<?php echo base_url('assets/images/page_template/street_post.png')?>') no-repeat top right; background-attachment:fixed; box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; padding-top:100px; height:600px;}
+.content-5 {background:url('<?php echo base_url('assets/images/page_template/content-3-bg.jpg')?>') no-repeat top left; background-attachment:fixed; box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; padding-top:100px; height:600px;}
 .content-6 {background:url('<?php echo base_url('assets/images/page_template/bg-content-6.jpg')?>') no-repeat; background-attachment:fixed; background-size:cover; padding-top:100px; height:600px;}
 
 .video a {box-shadow: 3px 3px 5px #000;}
@@ -131,7 +131,7 @@
 		<div class="content-5">
 			<div class="m-center">
 				<div class="home-features">
-					<h3>All the features you want</h3>
+					<h2>All the features you want</h2>
 					
 					<ul>
 						<li><i></i>You can create your own lift<br /> or you can wish for a lift. <div class="clr"></div></li>

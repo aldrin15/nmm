@@ -6,11 +6,35 @@ class Admin_model extends CI_Model{
 		parent::__construct();
 	}
 	
-	function analytics_count($what = 'COUNT(DISTINCT user.user_id) as user, COUNT(DISTINCT user_lift_post.id) as lift, COUNT(DISTINCT user_wish_lift.id) as wish, COUNT(DISTINCT events.id) as events') {
+	function login() {
+		$username = $this->input->post('username');
+		$password = md5($this->input->post('password'));
+		
+		$query = $this->db->get_where('user_admin', array('username'=>$username, 'password'=>$password));
+		
+		if($query->num_rows == 1):
+			$row = $query->row();
+			
+			$data = array(
+				'id'		=> $row->id,
+				'username'	=> $row->username,
+				'password'	=> $row->password,
+				'validated'	=> true
+			);
+			
+			$this->session->set_userdata($data);
+			
+			return true;
+		endif;
+		
+		return false;
+	}
+	
+	function analytics_count($what = 'COUNT(DISTINCT user.user_id) as user, COUNT(DISTINCT user_lift_post.id) as lift, COUNT(DISTINCT user_wish_rides.id) as wish, COUNT(DISTINCT events.id) as events') {
 		$query = $this->db->select($what)
 								->from('user')
 								->join('user_lift_post', 'user_lift_post.user_id = user.user_id', 'left')
-								->join('user_wish_lift', 'user_wish_lift.user_id = user.user_id', 'left')
+								->join('user_wish_rides', 'user_wish_rides.user_id = user.user_id', 'left')
 								->join('events', 'events.user_id = user.user_id', 'left')
 								->get();
 		
@@ -45,8 +69,8 @@ class Admin_model extends CI_Model{
 	
 	function list_of_passengers($what = '*') {
 		$query = $this->db->select($what)
-							->from('user_wish_lift')
-							->join('user', 'user.user_id = user_wish_lift.user_id')
+							->from('user_wish_rides')
+							->join('user', 'user.user_id = user_wish_rides.user_id')
 							->get();
 	
 		$result = $query->result_array();
@@ -139,11 +163,11 @@ class Admin_model extends CI_Model{
 		return $result;
 	}
 	
-	function get_passenger_detail($id, $what='user.firstname, user.lastname, user_wish_lift.route_from, user_wish_lift.route_to, user_wish_lift.available, user_wish_lift.storage, user_wish_lift.remarks'){
+	function get_passenger_detail($id, $what='user.firstname, user.lastname, user_wish_rides.route_from, user_wish_rides.route_to, user_wish_rides.available, user_wish_rides.storage, user_wish_rides.remarks'){
 		$query = $this->db->select($what)
-							->from('user_wish_lift')
-							->join('user', 'user.user_id = user_wish_lift.user_id')
-							->where('user_wish_lift.id', $id)
+							->from('user_wish_rides')
+							->join('user', 'user.user_id = user_wish_rides.user_id')
+							->where('user_wish_rides.id', $id)
 							->get();
 	
 		$result = $query->result_array();

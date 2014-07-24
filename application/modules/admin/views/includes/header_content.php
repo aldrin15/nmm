@@ -27,7 +27,7 @@
 							<?php foreach($new_email as $newmail): ?>
 							<li><a href="<?php echo base_url('admin/inbox')?>"><i class="icon-envelope"><div class="notify-mail"><div class="badge bg-important"><?php echo $newmail['new_mail']?></div></div></i> Messages</a></li>
 							<?php endforeach?>
-							<li><a href="#"><i class="icon-key"></i> Log Out</a></li>
+							<li><a href="<?php echo base_url('login/logout')?>"><i class="icon-key"></i> Log Out</a></li>
 						</ul>
 					</li>
 					<!-- user login dropdown end -->
