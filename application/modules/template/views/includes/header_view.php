@@ -22,7 +22,7 @@
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/editor.css')?>"/>
 	
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.11.0.min.js')?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.nicescroll.min.js')?>"></script>
+	<script type="text/javascript" src="<?php //echo base_url('assets/js/jquery.nicescroll.min.js')?>"></script>
 	<script type="text/javascript">
     document.createElement('section');
     document.createElement('aside');
@@ -35,7 +35,7 @@
 	
 	$(function() { $('.login a:first-child').hover(function() { $('.login ul').stop(true, false).fadeIn().show(); }, function() { $('.login ul').fadeOut(); }); $("html").niceScroll(); });
 	</script>
-	<style type="text/css">header {height:110px;} .nicescroll-rails {z-index:99 !important;} .nicescroll-rails div {width:10px !important;}</style>
+	<style type="text/css">.nicescroll-rails {z-index:99 !important;} .nicescroll-rails div {width:10px !important;}</style>
 </head>
 <body>
 <div id="fb-root"></div>

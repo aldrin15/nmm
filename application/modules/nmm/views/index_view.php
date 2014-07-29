@@ -1,20 +1,28 @@
 <?php $this->load->view('header_content')?>
 <style type="text/css">
-.content-2 {box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; padding-top:100px; height:600px;}
-.content-3 {background:url('<?php echo base_url('assets/images/page_template/street_post.png')?>') no-repeat; background-attachment:fixed; box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; height:600px;}
+.video a {box-shadow: 3px 3px 5px #000;}
 
-#events {padding-top:100px;}
+section {position:relative; border:1px solid transparent; border-left:none; border-right:none;}
+
+.content-1 {height:678px;}
+.content-2 {height:678px;}
+.content-2 .m-center {padding-top:200px;}
+.content-3 {position: relative; background:url('<?php echo base_url('assets/images/page_template/content-3-bg.jpg')?>') 0 10% no-repeat fixed; background-size:cover; height:678px; width: 100%;}
+.content-3 .m-center {padding-top:200px;}
+.content-3 h2 {color:#fff; font-family: 'quicksandregular'; font-size:3em; border:1px solid #fff; text-align:center; padding: 10px 0;}
+
+.content-4 {box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; height:678px;}
+.content-4 .m-center {padding-top:150px;}
+.carousel-wrapper {background: #fff; border-radius:8px; -webkit-border-radius:8px; -moz-border-radius:8px; -ms-border-radius:8px; padding:20px 0;}
+.carousel-inner {width:95%;}
+
+#events {padding-top:50px;}
 #events .carousel-inner {margin-left:40px;}
 
-.carousel-wrapper {background:#fff; border-radius:8px; -webkit-border-radius:8px; -moz-border-radius:8px; -ms-border-radius:8px; padding:20px 0;}
-.content-4 {box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; height:200px;}
-.content-5 {background:url('<?php echo base_url('assets/images/page_template/content-3-bg.jpg')?>') no-repeat top left; background-attachment:fixed; box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; padding-top:100px; height:600px;}
-.content-6 {background:url('<?php echo base_url('assets/images/page_template/bg-content-6.jpg')?>') no-repeat; background-attachment:fixed; background-size:cover; padding-top:100px; height:600px;}
-
-.video a {box-shadow: 3px 3px 5px #000;}
-.carousel-inner {width:95%;}
+.content-5 {background:url('<?php echo base_url('assets/images/page_template/bg-content-6.jpg')?>') no-repeat; background-attachment:fixed; background-size:cover; padding-top:50px; height:678px;}
+.content-5 .m-center {padding-top:100px;}
 </style>
-		<div class="slideshow-search" style="position:relative;">
+		<section class="content-1 slideshow-search active" style="position:relative">
 			<div class="slideshow">			
 				<ul class="rslides" id="slider1">
 					<li style="background:url('<?php echo base_url('assets/images/slideshow/1.jpg')?>') no-repeat; background-size:cover; width:100%; height:555px;"> </li>
@@ -28,10 +36,10 @@
 			
 			<div class="search-lift" style="position:absolute; bottom:40px; left:0; z-index:8; width:100%;">
 				<?php echo modules::run('lift/search')?>
-			</div>
-		</div>
+			</div>		
+		</section>
 		
-		<div class="content-2">
+		<section class="content-2">
 			<div class="m-center">
 				<aside class="span4 welcome fl">
 					<h3>Velkommen til Nimm Mich Mit</h3>
@@ -57,10 +65,16 @@
 				</div>
 				
 				<div class="clr"></div>
-			</div>
-		</div>
+			</div>		
+		</section>
 		
-		<div class="content-3">
+		<section class="content-3">
+			<div class="m-center">
+				<h2>Going Somewhere?</h2>
+			</div>
+		</section>
+		
+		<section class="content-4">
 			<div class="m-center">
 				<div id="events" class="carousel slide">
 					<div class="carousel-wrapper">
@@ -119,33 +133,12 @@
 						<div class="clr"></div>
 					</div>
 				</div>
-			</div>
-		</div>
-		
-		<div class="content-4">
-			<div class="m-center">
+				
 				<?php echo modules::run('feedback')?>
 			</div>
-		</div>
+		</section>
 		
-		<div class="content-5">
-			<div class="m-center">
-				<div class="home-features">
-					<h2>All the features you want</h2>
-					
-					<ul>
-						<li><i></i>You can create your own lift<br /> or you can wish for a lift. <div class="clr"></div></li>
-						<li><i></i>You can create an Events. <div class="clr"></li>
-						<li><i></i>You can invite people/friends<br /> for a ride. <div class="clr"></li>
-						<li><i></i>You can share it via Facebook. <div class="clr"></li>
-					</ul>
-					
-					<div class="clr"></div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="content-6">
+		<section class="content-5">
 			<div class="m-center">
 				<div class="subscription">
 					<h3>Start by choosing your plan</h3>
@@ -180,6 +173,19 @@
 					
 					<span class="clr" style="display:block;"></span>
 				</div>
+				
+				<div class="home-features">
+					<h3>All the features you want</h3>
+					
+					<ul>
+						<li><i></i>You can create your own lift<br /> or you can wish for a lift. <div class="clr"></div></li>
+						<li><i></i>You can create an Events. <div class="clr"></li>
+						<li><i></i>You can invite people/friends<br /> for a ride. <div class="clr"></li>
+						<li><i></i>You can share it via Facebook. <div class="clr"></li>
+					</ul>
+					
+					<div class="clr"></div>
+				</div>
 			</div>
 		</div>
 		
@@ -187,7 +193,6 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript">
-// You can also use "$(window).load(function() {"
 $(function () {
 	$('#demo-video').on('show', function () {
 		// $('div.modal-body').html('<iframe width="555px" height="315" src="//www.youtube.com/embed/L10Scjvn6aA" frameborder="0" allowfullscreen></iframe>'); 
@@ -234,5 +239,79 @@ function showNextQuote() {
 	++quoteIndex;
 	$(".feedback-message").eq(quoteIndex % $(".feedback-message").length).fadeIn(1000).delay(5000).fadeOut(1000, showNextQuote);
 }
+
+/* handle the mousewheel event together with 
+ DOMMouseScroll to work on cross browser */
+$(document).on('mousewheel DOMMouseScroll', function (e) {
+	e.preventDefault();//prevent the default mousewheel scrolling
+	
+	var active = $('section.active');
+	//get the delta to determine the mousewheel scrol UP and DOWN
+	var delta = e.originalEvent.detail < 0 || e.originalEvent.wheelDelta > 0 ? 1 : -1;
+	
+	//if the delta value is negative, the user is scrolling down
+	if (delta < 0) {
+		//mousewheel down handler
+		var next = active.next();
+	   
+		//check if the next section exist and animate the anchoring
+		if (next.length) {
+		   /*setTimeout is here to prevent the scrolling animation
+			to jump to the topmost or bottom when 
+			the user scrolled very fast.*/
+			var timer = setTimeout(function () {
+				console.log(next.offset().top);
+				
+				/* animate the scrollTop by passing 
+				the elements offset top value */
+				$("html, body").stop(true, false).animate({ scrollTop: next.offset().top }, "slow");
+				
+				// move the indicator 'active' class
+				next.addClass('active').siblings().removeClass('active');
+				
+				clearTimeout(timer);
+			}, 200);
+		}
+
+	} else {
+		//mousewheel up handler
+		/*similar logic to the mousewheel down handler 
+		except that we are animate the anchoring 
+		to the previous sibling element*/
+		prev = active.prev();
+
+		if (prev.length) {
+			var timer = setTimeout(function () {
+				$('body, html').animate({
+					scrollTop: prev.offset().top
+				}, 'slow');
+
+				prev.addClass('active')
+					.siblings().removeClass('active');
+				
+				clearTimeout(timer);
+			}, 800);
+		}
+
+	}
+	
+	return false;
+});
+
+$(document).scroll(function(e){
+	if($(window).scrollTop() <= 1) {
+		$('section').removeClass('active');
+		$('section').first().addClass('active');
+	} else if($(window).scrollTop() <= 678) {
+		$('section').removeClass('active');
+		$('.content-2').addClass('active');
+	} else if($(window).scrollTop() <= 1356) {
+		$('section').removeClass('active');
+		$('.content-3').addClass('active');
+	} else if($(window).scrollTop() <= 2034) {
+		$('section').removeClass('active');
+		$('.content-4').addClass('active');
+	}
+});
 </script>
 <?php echo modules::run('lift/auto_suggest_city')?>

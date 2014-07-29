@@ -19,6 +19,7 @@
 											<th>Driver</th>
 											<th>From &#10137; To</th>
 											<th>Date & Time</th>
+											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -26,8 +27,9 @@
 									<tr>
 										<td><?php echo $rides['id']?></td>
 										<td><?php echo $rides['firstname']?> <?php echo $rides['lastname']?></td>
-										<td><a href="<?php echo base_url('admin/rides/detail/').'/'.$rides['id']?>"><?php echo $rides['route_from']?> &#10137; <?php echo $rides['route_to']?></a></td>
+										<td><?php echo $rides['route_from']?> &#10137; <?php echo $rides['route_to']?></td>
 										<td><?php echo $rides['date']?></td>
+										<td><a href="<?php echo base_url('admin/rides/detail/').'/'.$rides['id']?>">view</a></td>
 									</tr>  
 									<?php endforeach?>									  
 									</tbody>
@@ -58,5 +60,5 @@
 	<script src="<?php echo base_url('assets/admin/js/common-scripts.js')?>"></script>
 
 	<script type="text/javascript" charset="utf-8">
-	$(document).ready(function() { $('#example').dataTable( { "aaSorting": [[ 4, "desc" ]] }); });
+	$(document).ready(function() { $('#example').dataTable( { "aaSorting": [[ 5, "desc" ]] }); });
 	</script>

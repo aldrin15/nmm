@@ -18,11 +18,13 @@
 											<th>Passenger</th>
 											<th>From &#10137; To</th>
 											<th>Date</th>
+											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php if($passenger != ''): ?>
 										<tr>
+											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
 											<td>&nbsp;</td>
@@ -35,6 +37,7 @@
 										  <td><?php echo $wish['firstname']?> <?php echo $wish['lastname']?></td>
 										  <td><?php echo $wish['route_from']?> &#10137; <?php echo $wish['route_to']?></td>
 										  <td><?php echo $wish['date']?></td>
+										  <td><a href="<?php echo base_url('admin/passenger/')?>">View</a></td>
 										</tr>
 										<?php endforeach;
 										endif?>									  

@@ -41,7 +41,7 @@
 								</li>
 								<li>
 									<label for="Date & Time">Date & Time:</label>
-									<span><?php echo $detail['start_time']?></span>
+									<span><?php echo date('F d - H:i A', strtotime($detail['start_time']))?></span>
 								</li>
 								<li>
 									<label for="Remarks">Remarks:</label>
