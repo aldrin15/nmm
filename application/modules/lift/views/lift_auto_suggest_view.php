@@ -7,7 +7,6 @@ var destination, from;
 function initialize() {
 	from = new google.maps.places.Autocomplete((document.getElementById('from')), { types: ['geocode'] });
 	destination = new google.maps.places.Autocomplete((document.getElementById('destination')), { types: ['geocode'] });
-	google.maps.event.addListener(destination, 'place_changed', function() { fillInAddress(); });
 }
 
 function geolocate() {
@@ -36,12 +35,12 @@ $(function() {
 			price	= $('input[name="price"]'),
 			error	= 0;
 		
-		if(from.val() == '') {
+		if(from.val() == '' || from.val() == 'From') {
 			from.parent().css({border:'2px solid #ff0000'});
 			error = 1;
 		}
 		
-		if(to.val() == '') {
+		if(to.val() == '' || to.val() == 'Destination') {
 			to.parent().css({border:'2px solid #ff0000'});
 			error = 1;
 		}

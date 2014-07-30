@@ -18,7 +18,22 @@ class Passenger extends MX_Controller {
 	}
 	
 	public function index() {
-		$data['wish_lift_data']		= $this->passenger_model->listing();
+		$post = $this->input->post();
+		
+		if($post):
+			$this->form_validation->set_rules('from', 'From', 'required');
+			$this->form_validation->set_rules('to', 'To', 'required');
+			
+			if($this->form_validation->run() == TRUE):
+				$data['wish_lift_data']		= $this->passenger_model->listing();
+			else:
+				$data['wish_lift_data']	= $this->passenger_model->listing();
+			endif;
+		else:
+			$data['wish_lift_data']		= $this->passenger_model->listing();
+		endif;	
+	
+		//$data['wish_lift_data']		= $this->passenger_model->listing();
 		$data['view_file']			= 'passenger_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}

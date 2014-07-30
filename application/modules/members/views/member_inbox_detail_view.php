@@ -10,7 +10,7 @@
 	<?php $this->load->view('member_sidebar_view')?>
 	
 	<div class="inbox-detail fl">
-		<?php if($user_inbox_data != '')?>
+		<?php if($user_inbox_data != ''):?>
 		<?php foreach($user_inbox_data as $row):?>
 		<section class="wrapper">
 			<div>

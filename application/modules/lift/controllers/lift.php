@@ -286,7 +286,7 @@ class Lift extends MX_Controller {
 						$query.= implode('&', $where);
 					}
 					
-					header("location: lift?".$query);
+					header("location: rides?".$query);
 				endif;
 			endif;
 		endif;

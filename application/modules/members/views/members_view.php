@@ -97,7 +97,6 @@
 </div>
 
 
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/gmap3.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript">
@@ -121,3 +120,4 @@ $(function() {
 	$( ".profile-progress" ).progressbar({ value: count });
 });
 </script>
+<?php echo modules::run('lift/auto_suggest_city')?>

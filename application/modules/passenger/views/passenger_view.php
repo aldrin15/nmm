@@ -21,15 +21,15 @@
 				<li>
 					<?php echo form_error('from', '<div class="error">', '</div>')?>
 						<div class="clr"></div>
-					<span><input type="text" name="from" id="from-route" autocomplete="off"/></span>
+					<span><input type="text" name="from" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" value="From" id="from" autocomplete="off"/></span>
 				</li>
 				<li>
 					<?php echo form_error('to', '<div class="error">', '</div>')?>
 						<div class="clr"></div>
-					<span><input type="text" name="to" id="to-route" autocomplete="off" /></span>
+					<span><input type="text" name="to" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" value="Destination" id="destination" autocomplete="off" /></span>
 				</li>
 				<li>
-					<input type="submit" name="ride_submit" value="    Search" class="btn-search"/>
+					<input type="submit" name="passenger_submit" value="    Search" class="btn-search"/>
 
 					<div class="clr"></div>
 				</li>
@@ -94,4 +94,52 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.rateit.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
-<script type="text/javascript">$(function() { $('#datepicker').datepicker(); $("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 }); });</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&region=DE&libraries=places&language=de"></script>  
+<script type="text/javascript">
+$(window).load(function() {initialize();});
+
+var destination, from;
+
+function initialize() {
+	from = new google.maps.places.Autocomplete((document.getElementById('from')), { types: ['geocode'] });
+	destination = new google.maps.places.Autocomplete((document.getElementById('destination')), { types: ['geocode'] });
+}
+
+function geolocate() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			var geolocation = new google.maps.LatLng(
+			
+			position.coords.latitude, position.coords.longitude);
+			destination.setBounds(new google.maps.LatLngBounds(geolocation, geolocation));
+		});
+	}
+}
+
+$(function() { 
+	$('#datepicker').datepicker(); $("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 }); 
+	
+	$('input[name="passenger_submit"]').click(function() {
+		var from 	= $('input[name="from"]'),
+			to		= $('input[name="to"]'),
+			date	= $('input[name="date"]'),
+			price	= $('input[name="price"]'),
+			error	= 0;
+		
+		if(from.val() == '' || from.val() == 'From') {
+			from.parent().css({border:'2px solid #ff0000'});
+			error = 1;
+		}
+		
+		if(to.val() == '' || to.val() == 'Destination') {
+			to.parent().css({border:'2px solid #ff0000'});
+			error = 1;
+		}
+		
+		if(error == 0) {
+			$(this).submit();
+		} else {
+			return false;
+		}
+	});	
+});</script>

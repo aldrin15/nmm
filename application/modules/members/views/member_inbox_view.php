@@ -65,7 +65,7 @@
 </div>
 
 <div class="modal fade" id="compose" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;">
-	<div class="modal-dialog" style="width:450px">
+	<div class="modal-dialog" style="">
 		<form action="" method="post">
 			<div class="modal-content">
 				<div class="modal-header">
