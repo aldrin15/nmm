@@ -7,7 +7,9 @@
 
 <div class="m-center-content support">
 	<div class="fl demo-videos">
-		<img src="<?php echo base_url('assets/images/demo_video.jpg')?>" width="563" height="269" alt=""/>
+		<img src="<?php echo base_url('assets/images/testing.jpg')?>" width="563" height="269" alt=""/>
+		
+		<p>If you have any questions or inquiries you can chat our <a href="#">support</a></p>
 		
 		<div class="support-sub-links">
 			<ul>

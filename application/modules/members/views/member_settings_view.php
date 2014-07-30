@@ -9,7 +9,7 @@
 .profile-settings ul li input[type="submit"] {background:#47a447; color:#fff; text-transform:uppercase; font-size:14px; font-weight:bold; border:none; padding:5px 20px;}
 </style>
 
-<div class="m-center-content">
+<div class="profile-wrapper m-center-content">
 	<?php echo modules::run('lift/search')?>
 	
 	<?php $this->load->view('member_sidebar_view')?>
@@ -71,5 +71,13 @@ $(function() {
 	});
 	
 	$( ".profile-progress" ).progressbar({ value: count });
+	
+	$(".profile-nav ul li a").click(function(e){
+		if(false == $(this).next().is(':visible')) { $('.profile-nav ul li ul').slideUp(300); }
+		
+		$(this).next().slideToggle(300);
+		
+		// e.preventDefault();
+	});	
 });
 </script>

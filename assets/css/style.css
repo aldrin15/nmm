@@ -296,7 +296,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .about .fr ul li:nth-child(3) {background:url('../images/about_image3.png') no-repeat 0 0; margin:-51px 0 0 235px; width:144px; height:144px;}
 .about .fr ul li:nth-child(3) div {background:url('../images/about_image3.png') no-repeat 0 -144px; width:144px; height:144px;}
 
-.login-form {text-align:center; margin:0 auto;}
+.login-form {text-align:center; padding-top:50px; margin:110px auto 0;}
 .login-form a {color:#000; text-decoration:underline;}
 .login-form .signin-with {background: url('../images/page_template/icon_line.png') repeat-x center; margin-bottom:20px; width:100%;}
 .login-form .signin-with span {background:#fff; padding:0 5px;}
@@ -313,6 +313,10 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .forgot-form {margin-top:20px;}
 .forgot-form input[type="text"] {border:1px solid #bebdbd; width:261px; height:27px;}
 
+
+
+
+.register-wrapper {padding-top:30px; margin-top:110px;}
 .register form {/*margin-left:84px;*/ padding-top:20px;}
 .register form ul li {margin-bottom:10px;}
 .register form ul li label {margin-bottom:5px;}
@@ -343,6 +347,8 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .lift-listing ul li a img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out; opacity:.5;}
 .lift-listing ul li a:hover {text-decoration:none;}
 .lift-listing ul li a:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2); opacity:1;}
+
+.detail {margin-top:110px;}
 
 #choose-date ul li {margin-bottom:10px;}
 #choose-date ul li div label {margin-right:16px; width: 65px;}
@@ -494,6 +500,10 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .contact ul li label, .contact ul li input, .contact ul li textarea {float:left;}
 .contact ul li textarea {resize:none;}
 
+
+
+
+/***** [Events] *****/
 .event {font-family: 'quicksandregular'; font-size:1.3em;}
 .event .span5 {margin: 0 0 20px 20px;}
 .event form ul li {margin-bottom:10px;}
@@ -509,6 +519,8 @@ footer .pull-right .fl span:last-child {color:#678222;}
 .event-listings ul li {position:relative; float:left; text-transform:uppercase; margin: 0 0 40px 29px; width:220px;}
 .event-listings ul li a {color:#000;}
 .event-listings ul li a:hover {text-decoration:none;}
+
+.event-posted {margin-top:110px; padding-top:50px;}
 
 .lift-listing ul li a img {-webkit-transition: all .4s ease-in-out; -moz-transition: all .4s ease-in-out; -o-transition: all .4s ease-in-out; -ms-transition: all .4s ease-in-out; opacity:.8;}
 .lift-listing ul li a:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2); opacity:1;}
@@ -555,7 +567,7 @@ footer .pull-right .fl span:last-child {color:#678222;}
 
 .event-search-location {border:1px solid #ccc; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; padding:10px;}
 
-.offer-and-wish-lift {background:url('../images/page_template/offer_and_wish_lift.jpg') no-repeat; color:#2e2e2e; font-family: 'quicksandregular'; font-weight:bold; font-size:1.2em; padding-bottom:130px; /*padding-bottom:154px;*/}
+.offer-and-wish-lift {background:url('../images/page_template/offer_and_wish_lift.jpg') no-repeat; color:#2e2e2e; font-family: 'quicksandregular'; font-weight:bold; font-size:1.2em; margin-top:110px; padding-bottom:130px;}
 .offer-and-wish-lift .fl {padding:40px 20px 20px;}
 .offer-and-wish-lift .fl p {line-height:35px;}
 .offer-and-wish-lift .fr {margin-top:20px;}
@@ -575,22 +587,6 @@ footer .pull-right .fl span:last-child {color:#678222;}
 
 .offer-and-wish-lift .fr ul li:nth-child(3) {background:url('../images/page_template/btn_create_event.png') no-repeat 0 0; width:259px; height:64px;}
 .offer-and-wish-lift .fr ul li:nth-child(3):hover {background:url('../images/page_template/btn_create_event.png') no-repeat 0 -64px; width:259px; height:64px;}
-
-/*.offer-and-wish-lift .fr ul li:first-child {margin-left:200px;}
-.offer-and-wish-lift .fr ul li:first-child p {font-size:1.6em; margin-left:-210px; padding-top:70px;}
-.offer-and-wish-lift .fr ul li:first-child div {background:url('../images/image_create_lift.png') no-repeat 0 0; width:168px; height:168px;}
-.offer-and-wish-lift .fr ul li:first-child div span {display:block; background:url('../images/image_create_lift.png') no-repeat 0 -169px; width:168px; height:168px;}
-
-.offer-and-wish-lift .fr ul li:nth-child(2) p {font-size:1.6em; margin-left:10px; padding-top:70px;}
-.offer-and-wish-lift .fr ul li:nth-child(2) div {background:url('../images/image_create_event.png') no-repeat 0 0; width:168px; height:168px;}
-.offer-and-wish-lift .fr ul li:nth-child(2) div a  {display:block; width:168px; height:168px;}
-.offer-and-wish-lift .fr ul li:nth-child(2) div span {display:block; background:url('../images/image_create_event.png') no-repeat 0 -169px; width:168px; height:168px;}
-
-.offer-and-wish-lift .fr ul li:nth-child(3) {margin-left:200px;}
-.offer-and-wish-lift .fr ul li:nth-child(3) p {font-size:1.6em; margin-left:-230px; padding-top:70px;}
-.offer-and-wish-lift .fr ul li:nth-child(3) div {background:url('../images/image_wish_lift.png') no-repeat 0 0; width:168px; height:168px;}
-.offer-and-wish-lift .fr ul li:nth-child(3) div a {display:block; width:168px; height:168px;}
-.offer-and-wish-lift .fr ul li:nth-child(3) div span{display:block; background:url('../images/image_wish_lift.png') no-repeat 0 -169px; width:168px; height:168px;}*/
 
 .create-lift ul {list-style:none; margin-bottom:30px;}
 .create-lift form ul li {margin-bottom:10px;}
@@ -634,6 +630,8 @@ footer .pull-right .fl span:last-child {color:#678222;}
 
 
 /***** [Member] *****/
+.profile-wrapper {margin-top:110px; padding-top:15px;}
+
 .profile-nav ul { list-style: none; width: 170px; }
 .profile-nav ul li { cursor: pointer; background: #75ca30; border-right:1px solid #759f52;}	
 .profile-nav ul li a { display:block; color:#fff; text-transform:uppercase; border-bottom:1px solid #181e13; padding:10px; }
@@ -700,6 +698,12 @@ footer .pull-right .fl span:last-child {color:#678222;}
 
 .p-s-done {float:right; background:#47a447; color:#fff; font-size:14px; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; margin-top:5px; padding:5px 20px;}
 .p-s-done:hover {color:#fff; text-decoration:none;}
+
+
+
+
+/***** [Support View] *****/
+.support {margin-top:110px; padding-top:70px;}
 
 
 

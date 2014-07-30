@@ -9,7 +9,7 @@
 .subscription-choices li input {display:none;}
 </style>
 
-<div class="m-center-content">
+<div class="register-wrapper m-center-content">
 	<h4>Registration</h4>
 	<p>Complete and submit your details below to create your account. Choose membership and begin carpooling.</p>
 	<hr/>

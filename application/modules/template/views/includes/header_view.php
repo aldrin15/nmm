@@ -33,7 +33,8 @@
 	var height = $(window).height();
 	var base_url = '<?php echo base_url()?>';
 	
-	$(function() { $('.login a:first-child').hover(function() { $('.login ul').stop(true, false).fadeIn().show(); }, function() { $('.login ul').fadeOut(); }); $("html").niceScroll(); });
+	$(function() { 
+		$('.login a:first-child').hover(function() { $('.login ul').stop(true, false).fadeIn().show(); }, function() { $('.login ul').fadeOut(); }); });
 	</script>
 	<style type="text/css">.nicescroll-rails {z-index:99 !important;} .nicescroll-rails div {width:10px !important;}</style>
 </head>

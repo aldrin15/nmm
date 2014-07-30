@@ -4,12 +4,13 @@
 .inbox-detail {margin-left:10px; width:80%;}
 </style>
 
-<div class="m-center-content">
+<div class="profile-wrapper m-center-content">
 	<?php echo modules::run('lift/search')?>
 	
 	<?php $this->load->view('member_sidebar_view')?>
 	
 	<div class="inbox-detail fl">
+		<?php if($user_inbox_data != '')?>
 		<?php foreach($user_inbox_data as $row):?>
 		<section class="wrapper">
 			<div>
@@ -24,7 +25,7 @@
 
 								<div class="innerAll border-bottom">
 									<div class="span3">
-										<img src="<?php echo base_url('assets/media_uploads')?>/<?php echo $row['image']?>" alt="70" width="90" class="pull-left">
+										<img src="<?php echo ($row['image'] != '') ? base_url('assets/media_uploads').'/'.$row['image'] : base_url('assets/images/page_template/blank_profile_large.jpg')?>" alt="70" width="90" class="pull-left">
 										
 										<div class="pull-left span2" style="margin-left:10px;">
 											<h5 style="color:#898989;"><strong><?php echo $row['firstname'].' '.$row['lastname']?></strong></h5>
@@ -49,7 +50,8 @@
 				</div>
 			</section>
 		</section>
-		<?php endforeach?>
+		<?php endforeach;
+		endif?>
 	</div>
 	
 	<div class="clr"></div>

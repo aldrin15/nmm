@@ -11,7 +11,7 @@
 .overview-passenger {display:none;}
 </style>
 
-<div class="m-center-content">
+<div class="profile-wrapper m-center-content">
 	<?php echo modules::run('lift/search')?>
 	
 	<?php $this->load->view('member_sidebar_view')?>
@@ -104,7 +104,7 @@
 										<tr class="">
 											<td><?php echo $row['origins']?></td>
 											<td><?php echo $row['destination']?></td>
-											<td><?php echo date('F d - H:i A', strtotime($row['time']))?></td>
+											<td><?php echo date('F d - H:i A', strtotime($row['start_time']))?></td>
 											<td><a class="edit" href="<?php echo base_url('members/overview_passenger_detail')?>/<?php echo $row['id']?>">View</a></td>
 											<td><a class="edit" href="<?php echo base_url('members/overview_passenger_edit')?>/<?php echo $row['id']?>">Edit</a></td>
 											<td><a class="delete" href="javascript:;">Delete</a></td>

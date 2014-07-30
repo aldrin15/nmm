@@ -12,12 +12,13 @@
 .p-car-info ul li:nth-child(even) {background: #eaeaea;}
 </style>
 
-<div class="m-center-content">
+<div class="profile-wrapper m-center-content">
 	<?php echo modules::run('lift/search')?>
 	
 	<?php $this->load->view('member_sidebar_view')?>
 	
-	<?php foreach($car_data as $row):?>	
+	<?php if($car_data != ''):
+		foreach($car_data as $row):?>	
 	<div class="span5 profile-car fl">
 		<div class="p-frame-car">
 			<img src="<?php echo ($row['image'] != '') ? base_url('assets/media_uploads/').'/'.$row['image'] : base_url('assets/images/page_template/no_car.jpg')?>" width="450" height="230" alt=""/>
@@ -28,49 +29,49 @@
 			<ul>
 				<li>
 					<label for="Car Model">Car Model</label>
-					<span><?php echo $row['car']?></span>
+					<span><?php echo ($row['car'] != '') ? $row['car'] : ''?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="License Plate">License Plate</label>
-					<span><?php echo $row['plate']?></span>
+					<span><?php echo ($row['plate'] != '') ? $row['plate'] : ''?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Year">Year</label>
-					<span><?php echo $row['year']?></span>
+					<span><?php echo ($row['year'] != '') ? $row['year'] : ''?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Fuel">Fuel</label>
-					<span><?php echo $row['fuel']?></span>
+					<span><?php echo ($row['fuel'] != '') ? $row['fuel'] : ''?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Fuel">Doors</label>
-					<span><?php echo $row['door']?></span>
+					<span><?php echo ($row['door'] != '') ? $row['door'] : ''?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Fuel">Seats</label>
-					<span><?php echo $row['seat']?></span>
+					<span><?php echo ($row['seat'] != '')?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Fuel">Transmission</label>
-					<span><?php echo $row['transmission']?></span>
+					<span><?php echo ($row['transmission'] != '') ? $row['transmission'] : ''?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Fuel">Air Condition</label>
-					<span><?php echo $row['air_condition']?></span>
+					<span><?php echo ($row['air_condition'] != '') ? $row['air_condition'] : ''?></span>
 					
 					<div class="clr"></div>
 				</li>
@@ -80,7 +81,8 @@
 	
 	<?php echo modules::run('members/status')?>
 	
-	<?php endforeach?>	
+	<?php endforeach;
+	endif?>
 
 	<div class="clr"></div>
 </div>
