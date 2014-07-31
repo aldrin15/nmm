@@ -1,26 +1,7 @@
 <?php $this->load->view('header_content')?>
 <style type="text/css">
-.video a {box-shadow: 3px 3px 5px #000;}
-
-section {position:relative; border:1px solid transparent; border-left:none; border-right:none;}
-
-.content-1 {height:678px;}
-.content-2 {height:678px;}
-.content-2 .m-center {padding-top:200px;}
-.content-3 {position: relative; background:url('<?php echo base_url('assets/images/page_template/content-3-bg.jpg')?>') 0 10% no-repeat fixed; background-size:cover; height:678px; width: 100%;}
-.content-3 .m-center {padding-top:200px;}
-.content-3 h2 {color:#fff; font-family: 'quicksandregular'; font-size:3em; border:1px solid #fff; text-align:center; padding: 10px 0;}
-
-.content-4 {box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; height:678px;}
-.content-4 .m-center {padding-top:150px;}
-.carousel-wrapper {background: #fff; border-radius:8px; -webkit-border-radius:8px; -moz-border-radius:8px; -ms-border-radius:8px; padding:20px 0;}
-.carousel-inner {width:95%;}
-
 #events {padding-top:50px;}
 #events .carousel-inner {margin-left:40px;}
-
-.content-5 {background:url('<?php echo base_url('assets/images/page_template/bg-content-6.jpg')?>') no-repeat; background-attachment:fixed; background-size:cover; padding-top:50px; height:678px;}
-.content-5 .m-center {padding-top:100px;}
 </style>
 		<section class="content-1 slideshow-search active" style="position:relative">
 			<div class="slideshow">			
@@ -34,7 +15,7 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 				<div class="clr"></div>
 			</div>
 			
-			<div class="search-lift" style="position:absolute; bottom:40px; left:0; z-index:8; width:100%;">
+			<div class="search-lift">
 				<?php echo modules::run('lift/search')?>
 			</div>		
 		</section>
@@ -93,25 +74,25 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 							
 							<div class="item">
 								<div class="span2">
-									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" alt=""/>
 									<div class="event-detail">
 										<p>This is a test</p>
 									</div>
 								</div>
 								<div class="span2">
-									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" alt=""/>
 									<div class="event-detail">
 										<p>This is a test</p>
 									</div>
 								</div>
 								<div class="span2">
-									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" alt=""/>
 									<div class="event-detail">
 										<p>This is a test</p>
 									</div>
 								</div>
 								<div class="span2">
-									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" width="200" height="190" alt=""/>
+									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" alt=""/>
 									<div class="event-detail">
 										<p>This is a test</p>
 									</div>
@@ -178,7 +159,7 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 					<h3>All the features you want</h3>
 					
 					<ul>
-						<li><i></i>You can create your own lift<br /> or you can wish for a lift. <div class="clr"></div></li>
+						<li><i></i>You can create your own lift or you can wish for a lift. <div class="clr"></div></li>
 						<li><i></i>You can create an Events. <div class="clr"></li>
 						<li><i></i>You can invite people/friends<br /> for a ride. <div class="clr"></li>
 						<li><i></i>You can share it via Facebook. <div class="clr"></li>
@@ -299,18 +280,28 @@ $(document).on('mousewheel DOMMouseScroll', function (e) {
 });
 
 $(document).scroll(function(e){
-	if($(window).scrollTop() <= 1) {
-		$('section').removeClass('active');
-		$('section').first().addClass('active');
-	} else if($(window).scrollTop() <= 678) {
-		$('section').removeClass('active');
-		$('.content-2').addClass('active');
-	} else if($(window).scrollTop() <= 1356) {
-		$('section').removeClass('active');
-		$('.content-3').addClass('active');
-	} else if($(window).scrollTop() <= 2034) {
-		$('section').removeClass('active');
-		$('.content-4').addClass('active');
+	if($(window).width() <= 580) {
+		if($(window).scrollTop() <= 1) {
+			$('section').removeClass('active');
+			$('section').first().addClass('active');
+		} else if($(window).scrollTop() <= 402) {
+			$('section').removeClass('active');
+			$('.content-2').addClass('active');
+		}
+	} else {
+		if($(window).scrollTop() <= 1) {
+			$('section').removeClass('active');
+			$('section').first().addClass('active');
+		} else if($(window).scrollTop() <= 678) {
+			$('section').removeClass('active');
+			$('.content-2').addClass('active');
+		} else if($(window).scrollTop() <= 1356) {
+			$('section').removeClass('active');
+			$('.content-3').addClass('active');
+		} else if($(window).scrollTop() <= 2034) {
+			$('section').removeClass('active');
+			$('.content-4').addClass('active');
+		}
 	}
 });
 </script>

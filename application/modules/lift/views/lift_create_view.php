@@ -14,6 +14,10 @@
 .ui-menu .ui-menu-item {background:#fff;}
 
 .label-width label {display:block; width:100px;}
+
+@media (max-width:920px) {
+	.span5 {width:100%;}
+}
 </style>
 <div class="create-lift m-center-content">
 	<h2>Create your own lift</h2><br /><br />
@@ -689,7 +693,7 @@ $(function() {
 		}
 	});
 	<?php endif?>
-	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", <?php echo ($get_wish_date != '') ? 'beforeShowDay:choices' : '' ?>});
+	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", minDate:0, <?php echo ($get_wish_date != '') ? 'beforeShowDay:choices' : '' ?>});
 	$('#return-trip-calendar').multiDatesPicker({dateFormat	: "yy-mm-dd"});
 	$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });
 	$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });

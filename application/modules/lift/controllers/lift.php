@@ -332,9 +332,9 @@ class Lift extends MX_Controller {
 				echo "<div class='span2'>";
 				
 				if($row['image'] != ''):
-					echo "<a href='".base_url('rides/detail').'/'.$row['id']."'><img src='".base_url('assets/media_uploads')."/".$row['image']."' width='200' height='190' alt=''/></a>";
+					echo "<a href='".base_url('rides/detail').'/'.$row['id']."'><img src='".base_url('assets/media_uploads')."/".$row['image']."' alt=''/></a>";
 				else:
-					echo "<a href='".base_url('rides/detail').'/'.$row['id']."'><img src='".base_url('assets/images/page_template/blank_profile_large.jpg')."' width='200' height='190' alt=''/></a>";
+					echo "<a href='".base_url('rides/detail').'/'.$row['id']."'><img src='".base_url('assets/images/page_template/blank_profile_large.jpg')."' alt=''/></a>";
 				endif;
 	
 				echo "<div class='event-detail'>

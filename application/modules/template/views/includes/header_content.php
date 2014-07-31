@@ -9,7 +9,8 @@
 			<div class="logo-nav m-center">
 				<div class="logo pull-left"><a href="<?php echo base_url()?>"><img src="<?php echo base_url('assets/images/page_template/logo.png')?>" width="49" height="83" alt="Go to Home page" title="Go to Home page"/></a></div>
 				
-				<nav class="pull-right">
+				<nav class="menu">
+					<a href="#" class="pull-right nav-dropdown"></a>
 					<ul>
 						<li><a href="<?php echo base_url('rides')?>"><i class="<?php echo ($this->uri->segment(1) == 'rides') ? 'icon-ride_selected' : 'icon-ride'?>"></i><span>Lift</span></a></li>
 						<li><a href="<?php echo base_url('passenger')?>"><i class="<?php echo ($this->uri->segment(1) == 'passenger') ? 'icon-passenger_selected' : 'icon-passenger'?>"></i><span>Passenger</span></a></li>

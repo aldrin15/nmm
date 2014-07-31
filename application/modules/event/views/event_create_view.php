@@ -121,7 +121,7 @@
 			<textarea name="remarks" id="" cols="30" rows="10" class="form-control input-sm"></textarea>
 		</div>
 		
-		<div class="span5"><input type="submit" name="create_event_submit" value="Post Event" class="btn-gray"/></div>
+		<div class="span5"><input type="submit" name="create_event_submit" value="Post Event" class="btn btn-default"/></div>
 		
 		<div class="clr"></div>
 	</form>

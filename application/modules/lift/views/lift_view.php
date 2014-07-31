@@ -1,6 +1,12 @@
 <?php $this->load->view('header_content')?>
 
-<style type="text/css">.slideshow ul {margin:0 auto; width:1024px; height:360px;}</style>
+<style type="text/css">
+.slideshow ul {margin:0 auto; width:1024px; height:360px;}
+
+@media (max-width: 920px) {
+	.slideshow ul {width:100%;}
+}
+</style>
 
 <div class="slideshow">			
 	<ul class="rslides" id="slider1">
