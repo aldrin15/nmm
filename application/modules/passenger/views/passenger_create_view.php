@@ -249,8 +249,8 @@ $(function() {
 					remarks:remarks.val()
 				},
 				success	: function(data) {
-					console.log(data);
-					// window.location.href = '<?php echo base_url('passenger/wish_lift_success')?>';
+					// console.log(data);
+					window.location.href = '<?php echo base_url('passenger/wish_lift_success')?>';
 				}
 			});
 		} else {

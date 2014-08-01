@@ -28,7 +28,14 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 	</form>
 </div>
 <?php else: ?>
-
+<style type="text/css">
+.advanced-search {background:#d6d6d6; border-top:1px solid #000; border-bottom:1px solid #000; padding:10px 50px; width:100%;}
+.advanced-search ul li {margin-bottom:10px;}
+.advanced-search ul li label {display:block; font-weight:bold; width:100px;}
+.advanced-search ul li input[type="text"] {border:1px solid #9b9b9b; margin-right:10px; padding:0 10px; height:30px;}
+.advanced-search ul li select {height:30px;}
+.advanced-search ul li .lift-preference div {margin-bottom:10px;}
+</style>
 <form action="" method="post">
 	<div class="search">
 		<ul>
@@ -57,7 +64,7 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 		<div class="clr"></div>
 	</div>
 	<div class="advanced-search" style="display:none;">
-		<p>Search By:</p>
+		<h4>Search By:</h4>
 		<ul>
 			<li>
 				<div class="fl">
@@ -68,14 +75,14 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 				<div class="fl">
 					<label for="Time">Time</label>
 					<select name="hour" id="">
-						<?php //for($i = 1; $i < 25; $i++):?>
-						<option><?php //echo $i?></option>
-						<?php //endfor?>
+						<?php for($i = 1; $i < 25; $i++):?>
+						<option><?php echo $i?></option>
+						<?php endfor?>
 					</select> -
 					<select name="minute" id="">
-						<?php //for($i = 1; $i < 61; $i++):?>
-						<option><?php //echo $i?></option>
-						<?php //endfor?>
+						<?php for($i = 1; $i < 60; $i++):?>
+						<option><?php echo $i?></option>
+						<?php endfor?>
 					</select>
 				</div>
 				
@@ -120,10 +127,13 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 				<label for="Price">Price</label>
 				<select name="price" id="">
 					<?php
-					//for($x = 1; $x < 500; $x++):
-					//	$x = $x + 29;
+					/* for($x = 1; $x < 400; $x++):
+						$x = $x + 29; */
 					?>
-					<option><?php //echo $x?></option>
+					<option>&euro;5 - &euro;25</option>
+					<option>&euro;25 - &euro;50</option>
+					<option>&euro;50 - &euro;75</option>
+					<option>&euro;75 - &euro;100</option>
 					<?php //endfor?>
 				</select>
 			</li>

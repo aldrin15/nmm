@@ -1,6 +1,8 @@
 <?php $this->load->view('header_content')?>
 
-<style type="text/css">.slideshow ul {margin:0 auto; width:1024px; height:360px;}</style>
+<style type="text/css">
+.slideshow ul {margin:0 auto; width:1024px; height:360px;}
+</style>
 
 <div class="slideshow-search" style="position:relative;">
 	<div class="slideshow">			
@@ -56,7 +58,7 @@
 
 	<div class="passenger-listing">
 		<?php if($wish_lift_data == null):?>
-			<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px;"><p>There are no post of passengers at the moment</p></div>
+			<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin:10px 0; padding:20px;"><p>There are no post of passengers at the moment</p></div>
 		<?php else:?>
 			<ul>
 				<?php foreach($wish_lift_data as $wish_lift):?>

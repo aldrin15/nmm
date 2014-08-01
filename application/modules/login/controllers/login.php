@@ -43,7 +43,8 @@ class Login extends MX_Controller {
         $result = $this->login_model->validate();
         
         if(!$result):
-            $msg = '<font color=red>Invalid username and/or password.</font><br />';
+            // $msg = '<font color=red>Invalid username and/or password.</font><br />';
+            $msg = '<div style="background:#ff553c; color:#fff; text-align:center; border:1px solid #ff0000; padding:10px 0; margin-bottom:10px;">Invalid Username and/or Password.</div>';
             $this->index($msg);
         else:
 			$now = new DateTime();

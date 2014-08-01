@@ -1,6 +1,6 @@
 <?php $this->load->view('header_content')?>
 
-<div class="m-center-content">
+<div class="m-center-content" style="padding-top:120px;">
 	<h2>Terms and Condition</h2>
 	
 	<p>

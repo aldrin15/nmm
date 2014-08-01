@@ -3,9 +3,9 @@
 <style type="text/css">
 .slideshow ul {margin:0 auto; width:1024px; height:360px;}
 
-@media (max-width: 920px) {
-	.slideshow ul {width:100%;}
-}
+@media (max-width: 920px) { .slideshow ul {width:100%;} }
+@media (max-width: 480px) { .slideshow ul {height:270px;} }
+@media (max-width: 320px) { .slideshow ul {height:175px;} }
 </style>
 
 <div class="slideshow">			
@@ -32,7 +32,7 @@
 	
 	<div class="lift-listing">
 		<?php if($ride_list == 0):?>
-			<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px;"><p>There are no route that match your criteria. Try some different places</p></div>
+			<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin:10px 0; padding:20px;"><p>There are no route that match your criteria. Try some different places</p></div>
 		<?php else:?>
 			<ul>
 				<?php 

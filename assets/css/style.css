@@ -325,7 +325,7 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 .about .fr ul li:nth-child(3) {background:url('../images/about_image3.png') no-repeat 0 0; margin:-51px 0 0 235px; width:144px; height:144px;}
 .about .fr ul li:nth-child(3) div {background:url('../images/about_image3.png') no-repeat 0 -144px; width:144px; height:144px;}
 
-.login-form {text-align:center; padding-top:50px; margin:110px auto 0;}
+.login-form {text-align:center; padding-top:160px; margin:0 auto;}
 .login-form a {color:#000; text-decoration:underline;}
 .login-form .signin-with {background: url('../images/page_template/icon_line.png') repeat-x center; margin-bottom:20px; width:100%;}
 .login-form .signin-with span {background:#fff; padding:0 5px;}
@@ -339,8 +339,11 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 
 
 /*.forgot-form {margin:0 auto; width:312px;}*/
-.forgot-form {margin-top:20px;}
-.forgot-form input[type="text"] {border:1px solid #bebdbd; width:261px; height:27px;}
+.forgot-form {margin:0 auto; padding-top:160px; width:470px;}
+.forgot-form label {background:url('../images/page_template/icon_line.png') repeat-x center; text-align:center; width:100%;}
+.forgot-form input[type="text"] {border:1px solid #9b9b9b; width:100%; height:40px;}
+.forgot-form input[type="submit"] {background:#92bd3a; color:#fff; font-size:1.5em; font-weight:bold; border:none; text-transform:uppercase; width:100%; height:40px;}
+.forgot-form label span {background:#fff; padding:0 5px;}
 
 
 
@@ -746,6 +749,10 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 	/* .login-status, .logo-nav, .line-separator {width:100%;} */
 	.line-separator {width:100%;}
 	.m-center, .m-center-content {width:100%;}
+	
+	.login-form {float:none !important; clear:both; padding:50px 20px 0; width:470px;}
+	
+	.register-wrapper {width:470px;}
 }
 
 @media (max-width: 920px) {
@@ -790,6 +797,8 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 	.subscription div {float:none; width:137px;}
 	
 	.home-features {padding:0 20px; width:100%;}
+	
+	.register-wrapper {width:80%;}
 }
 
 @media (max-width: 854px) {
@@ -894,6 +903,12 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 	.event-listings h1 {font-size:3em;}
 	.event-listings ul li {margin-left:10px; width:90%;}
 	.event-listings ul li img {width:100%;}
+	
+	.login-form {width:100%;}
+	
+	.forgot-form {padding:0 10px; width:100%;}
+	.forgot-form input[type="text"] {border:1px solid #9b9b9b; width:100%; height:40px;}
+	.forgot-form input[type="submit"] {background:#92bd3a; color:#fff; font-size:1.5em; font-weight:bold; border:none; text-transform:uppercase; width:100%; height:40px;}
 }
 
 @media (max-width: 320px) {
