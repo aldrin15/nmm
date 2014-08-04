@@ -32,7 +32,7 @@ class Passenger_model extends CI_Model {
 		return $result;
 	}
 	
-	function listing() {
+	function listing($limit, $start) {
 		$today 		= getdate();
 		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
 		$date 		= date('Y-m-d', strtotime($get_date));
@@ -49,7 +49,8 @@ class Passenger_model extends CI_Model {
 			LEFT JOIN user_media ON user_media.user_id = user_wish_rides.user_id
 			WHERE user_wish_rides.date =  '{$date}'
 			OR user_media.media_description = 'Profile Image'
-			GROUP BY user_wish_rides.id, user_rating.user_id	
+			GROUP BY user_wish_rides.id, user_rating.user_id
+			LIMIT $start, $limit
 		");
 		
 		$result = $query->result_array();
@@ -218,5 +219,20 @@ class Passenger_model extends CI_Model {
 				$this->db->insert('user_wish_ride_return_post', $re_post_data);
 			endforeach;
 		endif;
+	}
+	
+	function passenger_count($what = 'COUNT(id) as passenger') {
+		$today 		= getdate();
+		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
+		$date 		= date('Y-m-d', strtotime($get_date));
+		
+		$query = $this->db->select($what)
+							->from('user_wish_rides')
+							->where('user_wish_rides.date', $date)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
 	}
 }

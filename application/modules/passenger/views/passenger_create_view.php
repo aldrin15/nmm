@@ -279,7 +279,7 @@ $(function() {
 		}
 	});
 	
-	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd" });
+	$('#calendar').multiDatesPicker({ dateFormat	: "yy-mm-dd", minDate : 0 });
 	$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });
 	$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
 });

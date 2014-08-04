@@ -88,6 +88,10 @@ class Lift extends MX_Controller {
 				$config['next_link'] 		= '&raquo;';
 				$config['next_tag_open'] 	= '<li>';
 				$config['next_tag_close'] 	= '</li>';
+				$config['first_tag_open'] 	= '<li>';
+				$config['first_tag_close'] 	= '</li>';
+				$config['last_tag_open'] 	= '<li>';
+				$config['last_tag_close'] 	= '</li>';				
 				$config['full_tag_close'] 	= '</ul>';
 				
 				$this->pagination->initialize($config);

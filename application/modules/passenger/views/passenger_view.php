@@ -91,6 +91,10 @@
 	</div>
 	
 	<div class="clr"></div>
+	
+	<div>
+		<?php echo $this->pagination->create_links()?>
+	</div>
 </div>
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
