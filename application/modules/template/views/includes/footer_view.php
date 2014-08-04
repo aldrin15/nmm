@@ -27,17 +27,17 @@ if($url == ''):
 			<div class="fl">
 				<h5>NMM</h5>
 				<ul>
-					<li><a href="<?php echo base_url('about-us')?>">About NMM</a></li>
-					<li><a href="<?php echo base_url('privacy-policy')?>">Privacy Policy</a></li>
-					<li><a href="<?php echo base_url('terms-and-condition')?>">Terms & Conditions</a></li>
+					<li><a href="<?php echo base_url('about-us')?>"><?php echo $translate['about_nmm']?></a></li>
+					<li><a href="<?php echo base_url('privacy-policy')?>"><?php echo $translate['privacy_policy']?></a></li>
+					<li><a href="<?php echo base_url('terms-and-condition')?>"><?php echo $translate['terms_condition']?></a></li>
 				</ul>
 			</div>
 			<div class="fl">
 				<h5>Help</h5>
 				
 				<ul>
-					<li><a href="<?php echo base_url('support')?>">Support</a></li>
-					<li><a href="<?php echo base_url('contact-us')?>">Contact Us</a></li>
+					<li><a href="<?php echo base_url('support')?>"><?php echo $translate['support']?></a></li>
+					<li><a href="<?php echo base_url('contact-us')?>"><?php echo $translate['contact_us']?></a></li>
 				</ul>
 			</div>
 			<div class="fl">

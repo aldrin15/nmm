@@ -17,36 +17,36 @@
 		<form action="" method="post">
 			<ul>
 				<li>
-					<label for="firstname">Firstname <?php echo form_error('firstname', '<span class="error">', '</span>')?></label>
+					<label for="firstname"><?php echo $translate['firstname']?> <?php echo form_error('firstname', '<span class="error">', '</span>')?></label>
 					<input type="text" name="firstname" id="" value="<?php echo (isset($_GET['firstname']) ? $_GET['firstname'] : set_value('firstname'))?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>
-					<label for="lastname">Lastname <?php echo form_error('lastname', '<span class="error">', '</span>')?></label>
+					<label for="lastname"><?php echo $translate['lastname']?> <?php echo form_error('lastname', '<span class="error">', '</span>')?></label>
 					<input type="text" name="lastname" id="" value="<?php echo (isset($_GET['lastname']) ? $_GET['lastname'] : set_value('lastname'))?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>
-					<label for="Gender" class="err-gender">Gender <?php echo form_error('gender', '<span class="error">', '</span>')?></label>
+					<label for="Gender" class="err-gender"><?php echo $translate['gender']?> <?php echo form_error('gender', '<span class="error">', '</span>')?></label>
 					
 					<div>
 						<input type="radio" name="gender" value="Male" class="fl" id="" <?php echo (isset($_GET['gender']) == "male" ? 'checked="checked"' : (isset($_POST['gender'])) ? set_value('gender') : "")?>/>
-						<span>Male</span>
+						<span><?php echo $translate['male']?></span>
 						
 						<input type="radio" name="gender" value="Female" id="" <?php echo (isset($_GET['gender']) == "female" ? 'checked="checked"' : (isset($_POST['gender'])) ? set_value('gender') : "")?>/>
-						<span>Female</span>
+						<span><?php echo $translate['female']?></span>
 						
 						<div class="clr"></div>
 					</div>
 				</li>
 				<li>
-					<label for="email" class="err-mail">Email: <?php echo form_error('email', '<span class="error">', '</span>')?></label>
+					<label for="email" class="err-mail"><?php echo $translate['email']?>: <?php echo form_error('email', '<span class="error">', '</span>')?></label>
 					<input type="text" name="email" id="" value="<?php echo isset($_GET['email']) ? $_GET['email'] : set_value('email')?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>
-					<label for="Password" class="err-pass">Password <?php echo form_error('password', '<span class="error">', '</span>')?></label>
+					<label for="Password" class="err-pass"><?php echo $translate['password']?> <?php echo form_error('password', '<span class="error">', '</span>')?></label>
 					<input type="password" name="password" id="" value="<?php echo set_value('password')?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>
-					<label for="Confirm Password">Confirm Password <?php echo form_error('cpassword', '<span class="error">', '</span>')?></label>
+					<label for="Confirm Password"><?php echo $translate['confirm_password']?> <?php echo form_error('cpassword', '<span class="error">', '</span>')?></label>
 					<input type="password" name="cpassword" id="" value="<?php echo set_value('cpassword')?>" class="form-control" autocomplete="off"/>
 				</li>
 				<li>

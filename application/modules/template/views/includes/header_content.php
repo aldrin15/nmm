@@ -7,7 +7,7 @@
 					</div>
 					
 					<div class="language fr">
-						<select name="" id="" onChange="window.location = 'lang/'+this.value+''">
+						<select name="" id="" onChange="(this.value == '- Select Language -') ? '' : window.location = 'lang/'+this.value+''">
 							<option>- Select Language -</option>
 							<option value="en" <?php echo ($_SESSION['language'] == 'en') ? 'selected="selected"' : ''?>>English</option>
 							<option value="dk" <?php echo ($_SESSION['language'] == 'dk') ? 'selected="selected"' : ''?>>Danish</option>
