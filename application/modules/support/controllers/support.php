@@ -18,12 +18,6 @@ class Support extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
-	public function menu_subtopic() {
-		$data['translate'] 	= $this->session->userdata('translate');
-		$data['view_file'] = 'menu_subtopic_view';
-		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
-	}
-	
 	public function faq() {
 		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] = 'faq_view';

@@ -6,11 +6,11 @@
 	<form action="<?php echo base_url('login/process')?>" method="post" class="login-form span5">
 		<center><?php if(!is_null($msg)) echo $msg;?></center><br />
 		<ul>
-			<li><a href="javascript:void(0)" class="login-fb">Login with Facebook</a></li>
+			<li><a href="javascript:void(0)" class="login-fb"><?php echo $translate['login_facebook']?></a></li>
 			<li class="signin-with"><span>Or Sign with your email address</span></li>
 			<li><span class="username"><input type="text" name="username" value="<?php echo (isset($_POST['username'])) ? $_POST['username'] : 'Email Address'?>" id=""/><i></i></span></li>
 			<li><span class="password"><input type="password" name="password" value="<?php echo (isset($_POST['password'])) ? $_POST['password'] : 'Password'?>" id=""/><i></i></span></li>
-			<li><input type="submit" name="login_submit" value="LOGIN" /></li>
+			<li><input type="submit" name="login_submit" value="<?php echo $translate['login']?>" /></li>
 			<li><a href="<?php echo base_url('login/forgot_password')?>">Forgot Password</a></li>
 		</ul>
 	</form>

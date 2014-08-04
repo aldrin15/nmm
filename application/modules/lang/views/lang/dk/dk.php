@@ -22,6 +22,16 @@ $lang = array(
 	"email"				=> "Email",
 	"password"			=> "Password",
 	"confirm_password"	=> "Confirm Password",
-	"terms_conditions"	=> "Terms & Conditions",	
+	"terms_conditions"	=> "Terms & Conditions",
+	"sign_up"			=> "Sign Up",
+//Support Page
+	"rides_booking"			=> "Rides & Bookings",
+	"for_driver"			=> "For the driver",
+	"rules_rides_booking" 	=> "Rules for Rides & Booking",
+	"payment"				=> "Payment",
+	"tax_legislation"		=> "Tax & legislation",
+	"general_question"		=> "General questions",
+//Login Page
+	"login_facebook"		=> "Login With Facebook",
 );
 ?>

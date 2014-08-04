@@ -24,13 +24,12 @@
 		<div class="support-sub-links">
 			<ul>
 				<li>
-					<h5>Rides & Bookings</h5>
-					<p><a href="<?php echo base_url('support/menu_subtopic')?>">Menu with subtopic</a></p>
-					<p><a href="<?php echo base_url('support/driver')?>">For the driver</a></p>
-					<p><a href="<?php echo base_url('support/rules')?>">Rules for Rides & Booking</a></p>
-					<p><a href="<?php echo base_url('support/payment')?>">Payment</a></p>
-					<p><a href="<?php echo base_url('support/tax')?>">Tax & legislation</a></p>
-					<p><a href="<?php echo base_url('support/faq')?>">General questions</a></p>
+					<h5><?php echo $translate['rides_booking']?></h5>
+					<p><a href="<?php echo base_url('support/driver')?>"><?php echo $translate['for_driver']?></a></p>
+					<p><a href="<?php echo base_url('support/rules')?>"><?php echo $translate['rules_rides_booking']?></a></p>
+					<p><a href="<?php echo base_url('support/payment')?>"><?php echo $translate['payment']?></a></p>
+					<p><a href="<?php echo base_url('support/tax')?>"><?php echo $translate['tax_legislation']?></a></p>
+					<p><a href="<?php echo base_url('support/faq')?>"><?php echo $translate['general_question']?></a></p>
 				</li>
 			</ul>
 		</div>

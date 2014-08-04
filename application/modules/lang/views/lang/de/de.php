@@ -23,5 +23,15 @@ $lang = array(
 	"password"			=> "Adgangskode",
 	"confirm_password"	=> "Bekræft Adgangskode",
 	"terms_conditions"	=> "Terms &  conditions",
+	"sign_up"			=> "Registrer",
+//Support Page
+	"rides_booking"			=> "Samkørsel & Reservering ( bookings)",
+	"for_driver"			=> "For billister",
+	"rules_rides_booking" 	=> "Regler for Samkørsel og Reservering ( booking) ",
+	"payment"				=> "Payment",
+	"tax_legislation"		=> "Skat & lovgivning",
+	"general_question"		=> "Generelle Spørgsmål",
+//Login Page
+	"login_facebook"		=> "Login Med Facebook",
 );
 ?>

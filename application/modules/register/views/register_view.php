@@ -92,7 +92,7 @@
 					<div class="clr"></div>
 				</li>
 				<li>
-					<input type="submit" name="register_submit" value="SIGN UP" class="btn btn-default"/>
+					<input type="submit" name="register_submit" value="<?php echo $translate['sign_up']?>" class="btn btn-default"/>
 				</li>
 			</ul>
 		</form>	
