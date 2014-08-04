@@ -26,6 +26,8 @@ class Lift extends MX_Controller {
 				$this->session->set_userdata('refered_from', $url);
 			endif;
 		endforeach;
+		
+		modules::run('lang/index');
 	}
 	
 	public function index() {
@@ -97,6 +99,7 @@ class Lift extends MX_Controller {
 			endif;
 		endif;
 		
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] = 'lift_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -111,10 +114,6 @@ class Lift extends MX_Controller {
 		endforeach;
 		
 		$seat_taken = $this->lift_model->seat_taken();
-		
-		echo '<pre>';
-		var_dump($seat_taken);
-		echo '</pre>';
 	}
 	
 	public function create() {
@@ -128,6 +127,7 @@ class Lift extends MX_Controller {
 			$data['get_wish_date'] = '';
 		endif;
 		
+		$data['translate'] = $this->session->userdata('translate');
 		$data['user_car_data'] = $this->lift_model->get_user_car($this->session->userdata('user_id'));
 		$data['view_file'] = 'lift_create_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
@@ -138,6 +138,7 @@ class Lift extends MX_Controller {
 	}
 	
 	public function create_success() {
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] = 'lift_create_success_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -155,6 +156,7 @@ class Lift extends MX_Controller {
 		$data['preference_data']		= $this->lift_model->preference($id);
 		$data['get_user_image'] 		= $this->lift_model->get_user_image();
 		
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] 				= 'lift_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -219,7 +221,7 @@ class Lift extends MX_Controller {
 	}
 	
 	public function insert_ride() {
-		//$this->lift_model->booked_user();
+		$this->lift_model->booked_user();
 	}
 	
 	public function quick_book_details() {

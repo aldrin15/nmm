@@ -15,6 +15,8 @@ class Passenger extends MX_Controller {
 		
 		$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$this->session->set_userdata('refered_from', $url);
+		
+		modules::run('lang/index');
 	}
 	
 	public function index() {
@@ -34,6 +36,7 @@ class Passenger extends MX_Controller {
 		endif;	
 	
 		//$data['wish_lift_data']		= $this->passenger_model->listing();
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file']			= 'passenger_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -49,7 +52,7 @@ class Passenger extends MX_Controller {
 		endforeach;
 		
 		$data['preference_data'] 		= $this->passenger_model->preference($id);
-		
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file']				= 'passenger_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -153,6 +156,7 @@ class Passenger extends MX_Controller {
 	}
 	
 	public function wish_lift_success() {
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] = 'passenger_wish_lift_success_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}

@@ -11,6 +11,8 @@ class Abroad extends MX_Controller {
 		$this->_view_content			= '';
 		
 		$this->load->model('abroad_model');
+		
+		modules::run('lang/index');
 	}
 	
 	public function index() {
@@ -18,6 +20,7 @@ class Abroad extends MX_Controller {
 		$data['ride_default_data']		= $this->abroad_model->ride_by_country();
 		$data['wish_ride_default_data']	= $this->abroad_model->wish_ride_by_country();
 		
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file']				= 'abroad_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_layout, $this->_view_template_name, $data);
 	}

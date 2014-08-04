@@ -55,6 +55,8 @@ $route['terms-and-condition']	= "terms";
 $route['404_override'] 			= '';
 $route['admin']					= 'admin/login';
 
+//$route['/en']					= 'nmm';
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

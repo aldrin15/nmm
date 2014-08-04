@@ -9,9 +9,12 @@ class Offer_wish_lift extends MX_Controller {
 		$this->_view_template_name 		= "includes/";
 		$this->_view_template_layout	= "main_view";
 		$this->_view_content 			= "";
+		
+		modules::run('lang/index');
 	}
 	
 	public function index() {
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] = 'offer_wish_lift_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}

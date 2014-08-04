@@ -1,6 +1,6 @@
 <?php $this->load->view('header_content')?>
 
-<div class="m-center-content">
+<div class="m-center-content privacy">
 	<h2>Privacy Policy</h2>
 	
 	<p>

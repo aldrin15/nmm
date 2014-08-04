@@ -13,13 +13,15 @@ class Members extends MX_Controller {
 		$this->load->model('member_model');
 		$this->load->library(array('form_validation', 'upload'));
 		$this->load->helper('form');
+		
+		modules::run('lang/index');
 	}
 	
 	public function index() {
 		modules::run('login/is_logged_in');
 		
 		$data['members_data'] 	= $this->member_model->members($this->session->userdata('user_id'));
-		
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] 		= 'members_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -27,7 +29,7 @@ class Members extends MX_Controller {
 	public function profile_view() {
 		$id					= $this->uri->segment(3);
 		$data['get_co2'] 	= $this->member_model->co2($id);
-		
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['profile_data']	= $this->member_model->get_profile($id);
 		$data['rides_data']		= $this->member_model->rides_list($id);
 		$data['passenger_data'] = $this->member_model->passenger_list($id);
@@ -88,6 +90,7 @@ class Members extends MX_Controller {
 			}
 		endif;
 	
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['members_information']	= $this->member_model->member_information($this->session->userdata('user_id'));
 		$data['profile_image_data']		= $this->member_model->member_profile_image($this->session->userdata('user_id'));			
 		$data['countries_list']			= $this->member_model->countries();
@@ -99,6 +102,7 @@ class Members extends MX_Controller {
 		modules::run('login/is_logged_in');
 		
 		$data['user_inbox_data']	= $this->member_model->inbox();
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file']			= 'member_inbox_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -109,6 +113,7 @@ class Members extends MX_Controller {
 		$id = $this->uri->segment(3);
 		
 		$data['user_inbox_data']	= $this->member_model->inbox_detail($id);
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] 			= 'member_inbox_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -117,6 +122,7 @@ class Members extends MX_Controller {
 		modules::run('login/is_logged_in');
 		
 		$data['user_sent_data']	= $this->member_model->sent();
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file']			= 'member_sent_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -126,7 +132,7 @@ class Members extends MX_Controller {
 		
 		$id = $this->uri->segment(3);
 		$data['user_sent_data']	= $this->member_model->sent_detail($id);
-		
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] 			= 'member_sent_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -151,6 +157,7 @@ class Members extends MX_Controller {
 		$id = $this->session->userdata('user_id');
 		
 		$data['car_data'] = $this->member_model->car($id);
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] = 'member_car_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -170,6 +177,7 @@ class Members extends MX_Controller {
 		endif;
 		
 		$data['car_data'] = $this->member_model->car($id);
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] = 'member_car_edit_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -182,6 +190,7 @@ class Members extends MX_Controller {
 		$data['rides_data'] = $this->member_model->rides_list($id);
 		$data['passenger_data'] = $this->member_model->passenger_list($id);
 		
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] = 'member_overview_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -192,6 +201,7 @@ class Members extends MX_Controller {
 		$id = $this->uri->segment(3);
 		
 		$data['ride_detail_data'] = $this->member_model->ride_detail($id);
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] = 'member_overview_ride_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -201,6 +211,7 @@ class Members extends MX_Controller {
 		
 		$id = $this->uri->segment(3);
 		
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] = 'member_overview_ride_edit_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -220,6 +231,7 @@ class Members extends MX_Controller {
 	public function edit_success() {
 		modules::run('login/is_logged_in');
 		
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] = 'member_edit_profile_success_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -245,6 +257,7 @@ class Members extends MX_Controller {
 		endif;
 		
 		$data['members_id'] = $this->member_model->members($user_id);
+		$data['translate'] 	= $this->session->userdata('translate');
 		$data['view_file'] = 'member_settings_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}

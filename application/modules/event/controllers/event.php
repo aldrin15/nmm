@@ -12,10 +12,13 @@ class Event extends MX_Controller {
 		
 		$this->load->library(array('form_validation', 'upload'));
 		$this->load->model('event_model');
+		
+		modules::run('lang/index');
 	}
 	
 	public function index() {
 		$data['event_data'] = $this->event_model->listing();
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] = 'event_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
@@ -27,6 +30,7 @@ class Event extends MX_Controller {
 		
 		$event_detail = $data['event_details_data'];
 		
+		$data['translate'] = $this->session->userdata('translate');
 		$data['event_details_lift_data']		= $this->event_model->detail_lift($event_detail);
 		$data['event_details_passenger_data']	= $this->event_model->detail_passenger($event_detail);		
 		$data['view_file'] 						= 'event_detail_view';
@@ -79,6 +83,7 @@ class Event extends MX_Controller {
 			}
 		endif;
 		
+		$data['translate'] = $this->session->userdata('translate');
 		$data['country_data']	= $this->event_model->country();
 		$data['view_file'] 	= 'event_create_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
@@ -98,6 +103,7 @@ class Event extends MX_Controller {
 	}
 	
 	public function success() {
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] = 'event_create_success_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}

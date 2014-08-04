@@ -22,6 +22,8 @@ class Register extends MX_Controller {
 		define('MERCHANTID', 23405);//<--- Change this into your own merchant ID
 		define('SECRETCODE', "Ny79KcLr6g4E5RuFs8m3BJe9w5WDn67QxYp3q4GC");//<--- Change this into your own merchant ID 
 		define('EMAIL',"ivan@appenvy.dk");//<--- Change this into your own e-mail address
+		
+		modules::run('lang/index');
 	}
 	
 	public function index() {
@@ -184,11 +186,13 @@ class Register extends MX_Controller {
 			endif;
 		endif;
 	
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] = 'register_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
 	public function successful() {
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] = 'register_successful_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}

@@ -15,6 +15,8 @@ class Login extends MX_Controller {
 		
 		$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$this->session->set_userdata('referred_from', $url);
+		
+		modules::run('lang/index');
 	}
 	
     public function index($msg = NULL){
@@ -22,6 +24,7 @@ class Login extends MX_Controller {
 		
 		if(!isset($is_logged_in) || $is_logged_in !== true):
 			$data['msg']		= $msg;
+			$data['translate'] 	= $this->session->userdata('translate');
 			$data['view_file']	= 'login_view';
 			echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 		endif;
@@ -72,11 +75,13 @@ class Login extends MX_Controller {
 			endif;
 		endif;
 
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] = 'login_forgot_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
 	public function forgot_password_success() {
+		$data['translate'] = $this->session->userdata('translate');
 		$data['view_file'] = 'login_forgot_success_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
