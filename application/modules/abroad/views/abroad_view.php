@@ -42,8 +42,8 @@
 					<?php foreach($ride_default_data as $row): ?>
 					<li class="column">
 						<p><?php echo $row['firstname'].' '.$row['lastname']?></p>
-						<a href="<?php echo base_url('rides/detail').'/'.$row['id']?>">
-							<img src="<?php echo base_url('assets/images/car.jpg')?>" width="250" height="169" alt="Car"/>
+						<a href="<?php echo base_url().'rides/detail/'.$row['id']?>">
+							<img src="<?php echo base_url('assets/images/page_template/no_car.jpg')?>" alt="Car"/>
 						</a>
 						<div>
 							<label for="From"><strong>From: </strong></label>
@@ -61,14 +61,14 @@
 							<label for="Date"><strong>On</strong></label>
 							<span><?php echo date('M d', strtotime($row['date']))?></span>
 							<label for="at">&nbsp;<strong>at</strong></label>
-							<span>8:30 AM</span>
+							<span><?php echo date('g A', strtotime($row['start_time']))?></span>
 							
 							<div class="clr"></div>
 						</div>
 						<div>
 							<div class="fl" style="margin:0;">
 								<label for="Available Seats"><strong>Available Seat/s:</strong></label>
-								<span>5</span>
+								<span><?php echo $row['available']?></span>
 							</div>
 							<div class="fr" style="color:#678222; margin:-6px 0 0 0;">
 								<label for="" style="font-size:1.5em;">&#128; </label>
@@ -77,6 +77,8 @@
 							
 							<div class="clr"></div>
 						</div>
+						
+						<div class="clr"></div>
 					</li>
 					<?php endforeach?>
 				</ul>	
@@ -89,7 +91,7 @@
 		<div id="passenger" style="display:none;">
 			<div class="passenger-listing">
 				<?php	
-				if($wish_ride_default_data != ''):
+				if($wish_ride_default_data == null):
 				?>
 					<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px;"><p>There are no route that matches in this event area</p></div>
 				<?php
@@ -99,11 +101,11 @@
 				<ul>
 					<li>
 						<a href="<?php echo base_url('passenger/detail/'.$wish_lift['id'])?>">
-							<div class="p-profile-image"><img src="<?php echo base_url('assets/images/user.jpg')?>" width="150" height="150" alt="User"/></div>
+							<div class="p-profile-image"><img src="<?php echo ($wish_lift['image'] != '') ? base_url('assets/media_uploads').'/'.$wish_lift['image'] : base_url('assets/images/page_template/blank_profile_large.jpg')?>" alt="User"/></div>
 							<span><strong>From</strong> <?php echo $wish_lift['origin']?></span>
 							<span><strong>To</strong> <?php echo $wish_lift['destination']?></span>
 							<span><strong>Via</strong> <?php echo $wish_lift['via']?></span>
-							<span><strong>Posted</strong> <?php echo $wish_lift['date']?></span>
+							<span><strong>Posted</strong> <?php echo date('F d', strtotime($wish_lift['date']))?></span>
 							<span><strong>Requested seat(s)</strong> <?php echo $wish_lift['available']?></span>
 							<span><strong>Requested by</strong> <?php echo $wish_lift['firstname']." ".$wish_lift['lastname']?></span>
 							<div class="user-rating">
