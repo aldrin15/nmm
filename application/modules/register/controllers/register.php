@@ -201,8 +201,6 @@ class Register extends MX_Controller {
 		$code = $this->uri->segment(3);
 		
 		$data['verification'] = $this->register_model->verify($code);
-		
-		var_dump($data['verification']);
 	}
 	
 	public function thank_you() {
@@ -211,11 +209,11 @@ class Register extends MX_Controller {
 			$email = $data['user_data']['email'];
 			
 			$this->register_model->validate_user($email);
+			
+			redirect('nmm');
 		}
 		
-		redirect('nmm');
-		
-		echo $_GET['Status'].'<br />';
+		/* echo $_GET['Status'].'<br />';
 		echo $_GET['StatusCode'].'<br />';
 		echo $_GET['Merchant'].'<br />';
 		echo $_GET['OrderID'].'<br />';
@@ -223,7 +221,7 @@ class Register extends MX_Controller {
 		echo $_GET['Reference'].'<br />';
 		echo $_GET['TransactionID'].'<br />';
 		echo $_GET['Checksum'].'<br />';
-		echo $_GET['PaymentMethod'].'<br />';
+		echo $_GET['PaymentMethod'].'<br />'; */
 	}
 	
 	public function payment_error() {

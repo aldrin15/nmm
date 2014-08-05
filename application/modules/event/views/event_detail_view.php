@@ -133,7 +133,7 @@ window.fbAsyncInit = function() {
 				<?php
 					$event_details_passenger = array_keys( $event_details_passenger_data, true);
 					
-					if($event_details_passenger[0] == 0):
+					if($event_details_passenger_data == null):
 				?>
 					<div style="font-size:1.2em; font-weight:bold; border:1px solid #000; text-align:center; margin-top:10px; padding:20px;"><p>There are no route that matches in this event area</p></div>
 				<?php
@@ -143,10 +143,10 @@ window.fbAsyncInit = function() {
 				<ul>
 					<li>
 						<a href="<?php echo base_url('passenger/detail/'.$wish_lift['id'])?>">
-							<img src="<?php echo base_url('assets/images/user.jpg')?>" width="150" height="150" alt="User"/>
+							<img src="<?php echo ($wish_lift['image'] != '') ? base_url('assets/media_uploads').'/'.$wish_lift['image'] : base_url('assets/images/page_template/blank_profile_large.jpg')?>" alt="User"/>
 							<span><strong>From</strong> <?php echo $wish_lift['origin']?></span>
 							<span><strong>To</strong> <?php echo $wish_lift['destination']?></span>
-							<span><strong>Via</strong> <?php //echo $wish_lift['via']?></span>
+							<span><strong>Via</strong> <?php echo $wish_lift['via']?></span>
 							<span><strong>Posted</strong> <?php echo $wish_lift['posted']?></span>
 							<span><strong>Requested seat(s)</strong> <?php echo $wish_lift['available']?></span>
 							<span><strong>Requested by</strong> <?php echo $wish_lift['firstname']." ".$wish_lift['lastname']?></span>

@@ -146,9 +146,24 @@ class Register_model extends CI_Model {
 		$row = $query->result_array();
 		$data = array('user_id' => $row['user_id']);
 		
+		if($row['subscription_type'] == '2'):
+			$date	= date("Y-m-d H:i:s");
+			
+			$data2	= array('user_id' => $row['user_id'], 'subscription_type' => $row['subscription_type'], 'start_date' => $date, 'end_date' => date('Y-m-d H:i:s', strtotime($date. '+30 days')));
+		elseif($row['subscription_type'] == '3'):
+			$date	= date("Y-m-d H:i:s");
+			
+			$data2	= array('user_id' => $row['user_id'], 'subscription_type' => $row['subscription_type'], 'start_date' => $date, 'end_date' => date('Y-m-d H:i:s', strtotime($date. '+360 days')));		
+		elseif($row['subscription_type'] == '4'):
+			$date	= date("Y-m-d H:i:s");
+			
+			$data2	= array('user_id' => $row['user_id'], 'subscription_type' => $row['subscription_type'], 'start_date' => $date, 'end_date' => date('Y-m-d H:i:s', strtotime($date. '+1 year')));		
+		endif;
+		
 		$this->db->insert('user_address', $data);
 		$this->db->insert('user_mobile', $data);
 		$this->db->insert('user_additional_information', $data);
 		$this->db->insert('user_car', $data);
+		$this->db->insert('subscription', $data2);
 	}
 }

@@ -54,14 +54,16 @@ class Event_model extends CI_Model {
 		return $result;
 	}
 	
-	public function detail_passenger($event_detail, $what = 'user_wish_rides.id, user_wish_rides.route_from as origin, user_wish_rides.route_to as destination, user_wish_rides.date AS posted, available, firstname, lastname, CONCAT( GROUP_CONCAT( user_rating.rating_number ORDER BY user_rating.rating_number  ) ) as rating') {
+	public function detail_passenger($event_detail, $what = 'user_wish_rides.id, user_wish_rides.route_from as origin, user_wish_rides.route_to as destination, user_wish_rides.via, user_wish_rides.date AS posted, available, firstname, lastname, CONCAT( GROUP_CONCAT( user_rating.rating_number ORDER BY user_rating.rating_number  ) ) as rating, media_filename as image') {
 		$passenger_array = array();
+		$date_array 			= array();
 		
 		foreach($event_detail as $row):
 			$passenger_name = array($row['city_country']);
 			$passenger_name = preg_replace('/^([^,]*).*$/', '$1', $passenger_name);	
 			
 			$passenger_array[] = $passenger_name;
+			$date_array[] = date('Y-m-d', strtotime($row['date']));
 		endforeach;
 		
 		$passenger = $passenger_array;
@@ -70,7 +72,9 @@ class Event_model extends CI_Model {
 							->from('user_wish_rides')
 							->join('user', 'user.user_id = user_wish_rides.user_id', 'left')
 							->join('user_rating', 'user_rating.user_id = user_wish_rides.user_id', 'left')
+							->join('user_media', 'user_media.user_id = user_wish_rides.user_id', 'left')
 							->like('user_wish_rides.route_to', $passenger[0][0], 'after')
+							->where('user_wish_rides.date', $date_array[0])
 							->get();
 		
 		$result = $query->result_array();

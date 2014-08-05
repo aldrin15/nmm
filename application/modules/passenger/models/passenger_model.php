@@ -48,7 +48,6 @@ class Passenger_model extends CI_Model {
 			LEFT JOIN user_rating ON user_rating.user_id = user_wish_rides.user_id
 			LEFT JOIN user_media ON user_media.user_id = user_wish_rides.user_id
 			WHERE user_wish_rides.date =  '{$date}'
-			OR user_media.media_description = 'Profile Image'
 			GROUP BY user_wish_rides.id, user_rating.user_id
 			LIMIT $start, $limit
 		");
