@@ -179,6 +179,7 @@ $(function() {
 	$('#datepicker').datepicker({
 		dateFormat:'yy-mm-dd',
 		altField: '#date',
+		minDate: 0,
 		<?php if(isset($_POST['date'])):?>
 		defaultDate: default_date.date
 		<?php endif;?>

@@ -39,7 +39,7 @@ window.fbAsyncInit = function() {
 			
 			<div class="event-posted-details fl">
 				<p style="font-size: 1.5em; font-weight: bold;">On <?php echo date('F d, H:i A', strtotime($row['date']))?></p>
-				<p><?php echo $row['title']?></p>
+				<p><?php echo $row['title']?> <i>in</i> <strong><?php echo $row['city_country']?></strong></p>
 				<p><?php echo $row['address']?></p>
 				<p>Posted by: <?php echo $row['firstname'].' '.$row['lastname']?></p>
 			</div>
@@ -48,8 +48,8 @@ window.fbAsyncInit = function() {
 			<script type="text/javascript">
 			document.getElementById('shareBtn').onclick = function() {
 				FB.ui({method: 'feed',
-					picture		: 'http://nmm-nmm.de/nmm/assets/images/fb_share_logo.png',
-					link		: "http://nmm-nmm.de/nmm/",
+					picture		: 'http://nmm-nmm.de/assets/images/page_template/logo.png',
+					link		: "http://nmm-nmm.de/",
 					caption		: "<?php echo $row['title']?> at <?php echo $row['address']?>",
 					description	: "<?php echo preg_replace( "/\r|\n/", "", $row['remarks'])?>",
 				}, function(response){});
@@ -83,9 +83,9 @@ window.fbAsyncInit = function() {
 				<ul>
 					<?php foreach($event_details_lift_data as $row): ?>
 					<li class="column">
-						<p>Ace Doe</p>
+						<p><?php echo $row['firstname'].' '.$row['lastname']?></p>
 						<a href="#">
-							<img src="<?php echo base_url('assets/images/car.jpg')?>" width="250" height="169" alt="Car"/>
+							<img src="<?php echo base_url('assets/images/page_template/no_car.jpg')?>" alt="Car"/>
 						</a>
 						<div>
 							<label for="From"><strong>From: </strong></label>
@@ -103,14 +103,14 @@ window.fbAsyncInit = function() {
 							<label for="Date"><strong>On</strong></label>
 							<span><?php echo date('M d', strtotime($row['date']))?></span>
 							<label for="at">&nbsp;<strong>at</strong></label>
-							<span>8:30 AM</span>
+							<span><?php echo date('H:m A', strtotime($row['start_time']))?></span>
 							
 							<div class="clr"></div>
 						</div>
 						<div>
 							<div class="fl" style="margin:0;">
 								<label for="Available Seats"><strong>Available Seat/s:</strong></label>
-								<span>5</span>
+								<span><?php echo $row['available']?></span>
 							</div>
 							<div class="fr" style="color:#678222; margin:-6px 0 0 0;">
 								<label for="" style="font-size:1.5em;">&#128; </label>
@@ -119,10 +119,6 @@ window.fbAsyncInit = function() {
 							
 							<div class="clr"></div>
 						</div>
-						
-						<div class="clr"></div>
-
-						<a href="#" class="quick-book fr">Quick Book</a>
 					</li>
 					<?php endforeach?>
 				</ul>	

@@ -30,7 +30,7 @@ class Event extends MX_Controller {
 		
 		$event_detail = $data['event_details_data'];
 		
-		$data['translate'] = $this->session->userdata('translate');
+		$data['translate'] 						= $this->session->userdata('translate');
 		$data['event_details_lift_data']		= $this->event_model->detail_lift($event_detail);
 		$data['event_details_passenger_data']	= $this->event_model->detail_passenger($event_detail);		
 		$data['view_file'] 						= 'event_detail_view';

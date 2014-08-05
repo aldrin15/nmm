@@ -28,21 +28,25 @@ class Event_model extends CI_Model {
 		return $result;
 	}
 	
-	public function detail_lift($event_detail, $what = 'user_lift_post.user_id, user_lift_post.route_from as origin, user_lift_post.route_to as destination, via, available, amount') {
-		$city_country_array = array();
+	public function detail_lift($event_detail, $what = 'user_lift_post.user_id, firstname, lastname, user_lift_post.route_from as origin, user_lift_post.route_to as destination, via, available, amount, start_time, user_lift_post.date') {
+		$city_country_array 	= array();
+		$date_array 			= array();
 		
 		foreach($event_detail as $row):
 			$city_name = array($row['city_country']);
 			$city_name = preg_replace('/^([^,]*).*$/', '$1', $city_name);		
 			
 			$city_country_array[] = $city_name;
+			$date_array[] = date('Y-m-d', strtotime($row['date']));
 		endforeach;
 		
 		$city_country = $city_country_array;
 		
 		$query = $this->db->select($what)
 							->from('user_lift_post')
+							->join('user', 'user.user_id = user_lift_post.user_id')
 							->like('user_lift_post.route_to', $city_country[0][0], 'after')
+							->where('user_lift_post.date', $date_array[0])
 							->get();
 		
 		$result = $query->result_array();
