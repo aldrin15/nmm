@@ -85,7 +85,7 @@ class Members extends MX_Controller {
 					$this->member_model->update($user_id);
 					$this->member_model->update_media($user_id, $image_data);
 					
-					// redirect('members/edit_success', 'refresh');
+					redirect('members/edit_success', 'refresh');
 				endif;			
 			}
 		endif;

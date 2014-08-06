@@ -28,6 +28,8 @@ class Member_model extends CI_Model {
 							->join('user_mobile', 'user_mobile.user_id = user.user_id', 'left')
 							->where('user.user_id', $user_id)
 							->get();
+		
+		echo $this->db->last_query();
 							
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
