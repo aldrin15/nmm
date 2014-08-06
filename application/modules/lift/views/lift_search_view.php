@@ -126,15 +126,10 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 			<li>
 				<label for="Price">Price</label>
 				<select name="price" id="">
-					<?php
-					/* for($x = 1; $x < 400; $x++):
-						$x = $x + 29; */
-					?>
-					<option>&euro;5 - &euro;25</option>
-					<option>&euro;25 - &euro;50</option>
-					<option>&euro;50 - &euro;75</option>
-					<option>&euro;75 - &euro;100</option>
-					<?php //endfor?>
+					<option value="5 AND 25">&euro;5 - &euro;25</option>
+					<option value="25 AND 50">&euro;25 - &euro;50</option>
+					<option value="50 AND 75">&euro;50 - &euro;75</option>
+					<option value="75 AND 100">&euro;75 - &euro;100</option>
 				</select>
 			</li>
 		</ul>

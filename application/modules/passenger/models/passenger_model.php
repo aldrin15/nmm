@@ -2,7 +2,7 @@
 
 class Passenger_model extends CI_Model {
 	
-	function search_location() {
+	function search_location($limit, $start, $what = 'user_wish_rides.id, user_wish_rides.user_id, firstname, lastname, user_media.media_filename as image, route_from as origin, route_to as destination, available, via, user_wish_rides.date') {
 		$from 	= $this->input->post('from');
 		$to 	= $this->input->post('to');
 		$date 	= $this->input->post('date');
@@ -11,22 +11,46 @@ class Passenger_model extends CI_Model {
 		$query = NULL;
 		
 		if($from != ''):
-			$where[] = "`route_from` Like '{$from}'";
+			$where[] = "route_from Like '{$from}%'";
 		endif;
 		
 		if($to != ''):
-			$where[] = "`route_to` Like '{$to}'";
+			$where[] = "route_to Like '{$to}%'";
 		endif;
 		
 		if($date != ''):
-			$where[] = "`date` <= '{$date} 24:00:01'";
+			$where[] = "user_wish_rides.date <= '{$date} 24:00:01'";
+		else:
+			$today 		= getdate();
+			$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
+			$date 		= date('Y-m-d', strtotime($get_date));
+			
+			$where[] = "user_wish_rides.date =  '{$date}'";
 		endif;
 		
 		if(count($where)):
-			$query_result = "SELECT * FROM `user_passenger_booking` WHERE ".implode(' AND ', $where);
+			$query_result = "SELECT $what, CONCAT( user_rating.user_id ) as rating_id, CONCAT( user_rating.rating_number ) as rating FROM `user_wish_rides` JOIN user ON user.user_id = user_wish_rides.user_id LEFT JOIN user_media ON user_media.user_id = user_wish_rides.user_id LEFT JOIN user_rating ON user_rating.user_id = user_wish_rides.user_id WHERE ".implode(' AND ', $where)." LIMIT $start, $limit";
 			$query = $this->db->query($query_result);
 		endif;
 	
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function passenger_search_count($what = 'COUNT(id) as passenger') {
+		$today 		= getdate();
+		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
+		$date 		= date('Y-m-d', strtotime($get_date));
+		
+		$from 	= $this->input->post('from');
+		$to 	= $this->input->post('to');
+		
+		$query = $this->db->select($what)
+							->from('user_wish_rides')
+							->where(array('user_wish_rides.route_from'=>$from,'user_wish_rides.route_from'=>$to,'user_wish_rides.date'=>$date))
+							->get();
+		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
@@ -42,7 +66,7 @@ class Passenger_model extends CI_Model {
 			ORDER BY user_rating.user_id
 			SEPARATOR  ', ' ) ) AS rating_id, CONCAT( GROUP_CONCAT( user_rating.rating_number
 			ORDER BY user_rating.rating_number
-			SEPARATOR  ', ' ) ) rating, user_wish_rides.date
+			SEPARATOR  ', ' ) ) as rating, user_wish_rides.date
 			FROM user_wish_rides
 			JOIN user ON  user.user_id =  user_wish_rides.user_id 
 			LEFT JOIN user_rating ON user_rating.user_id = user_wish_rides.user_id

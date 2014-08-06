@@ -24,10 +24,10 @@ $(function() {
 	$('#btn-advance').click(function() { $('.advanced-search').slideToggle(); });
 	
 	/* Get Route */ 
-	$('#search-calendar').datepicker({dateFormat:'mm-dd-yy'});
 	var dateToday = new Date();
 	
-	$('#datepicker').datepicker({ dateFormat:'mm-dd-yy', minDate: dateToday }).datepicker("setDate", new Date());
+	$('#search-calendar').datepicker({dateFormat:'dd-mm-yy', minDate: dateToday}).datepicker("setDate", new Date());
+	$('#datepicker').datepicker({ dateFormat:'dd-mm-yy', minDate: dateToday }).datepicker("setDate", new Date());
 	$('input[name="ride_submit"]').click(function() {
 		var from 	= $('input[name="from"]'),
 			to		= $('input[name="to"]'),

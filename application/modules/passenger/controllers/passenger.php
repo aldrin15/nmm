@@ -27,9 +27,69 @@ class Passenger extends MX_Controller {
 			$this->form_validation->set_rules('to', 'To', 'required');
 			
 			if($this->form_validation->run() == TRUE):
-				$data['wish_lift_data']		= $this->passenger_model->listing();
+				$data['passenger_count'] 	= $this->passenger_model->passenger_search_count();
+				$passenger_count			= $data['passenger_count'];
+				
+				$config 					= array();
+				$config["base_url"] 		= base_url('passenger/index');
+				$config["total_rows"] 		= $passenger_count[0]['passenger'];
+				$config["per_page"] 		= 12;
+				$config["uri_segment"] 		= 3;
+				
+				$config['full_tag_open']	= '<ul class="pagination">';
+				$config['cur_tag_open'] 	= '<li class="active"><a href="javascript:void(0)">';
+				$config['cur_tag_close'] 	= '</a></li>';
+				$config['num_tag_open'] 	= '<li>';
+				$config['num_tag_close'] 	= '</li>';
+				$config['prev_link'] 		= '&laquo;';
+				$config['prev_tag_open'] 	= '<li>';
+				$config['prev_tag_close'] 	= '</li>';
+				$config['next_link'] 		= '&raquo;';
+				$config['next_tag_open'] 	= '<li>';
+				$config['next_tag_close'] 	= '</li>';
+				$config['first_tag_open'] 	= '<li>';
+				$config['first_tag_close'] 	= '</li>';
+				$config['last_tag_open'] 	= '<li>';
+				$config['last_tag_close'] 	= '</li>';
+				$config['full_tag_close'] 	= '</ul>';
+
+				$this->pagination->initialize($config);
+				
+				$page 						= ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+				$data['wish_lift_data']		= $this->passenger_model->search_location($config["per_page"], $page);
+				$data["passenger_links"] 	= $this->pagination->create_links();	
 			else:
-				$data['wish_lift_data']	= $this->passenger_model->listing();
+				$data['passenger_count'] 	= $this->passenger_model->passenger_count();
+				$passenger_count			= $data['passenger_count'];
+
+				$config 					= array();
+				$config["base_url"] 		= base_url('passenger/index');
+				$config["total_rows"] 		= $passenger_count[0]['passenger'];
+				$config["per_page"] 		= 12;
+				$config["uri_segment"] 		= 3;
+
+				$config['full_tag_open']	= '<ul class="pagination">';
+				$config['cur_tag_open'] 	= '<li class="active"><a href="javascript:void(0)">';
+				$config['cur_tag_close'] 	= '</a></li>';
+				$config['num_tag_open'] 	= '<li>';
+				$config['num_tag_close'] 	= '</li>';
+				$config['prev_link'] 		= '&laquo;';
+				$config['prev_tag_open'] 	= '<li>';
+				$config['prev_tag_close'] 	= '</li>';
+				$config['next_link'] 		= '&raquo;';
+				$config['next_tag_open'] 	= '<li>';
+				$config['next_tag_close'] 	= '</li>';
+				$config['first_tag_open'] 	= '<li>';
+				$config['first_tag_close'] 	= '</li>';
+				$config['last_tag_open'] 	= '<li>';
+				$config['last_tag_close'] 	= '</li>';
+				$config['full_tag_close'] 	= '</ul>';
+
+				$this->pagination->initialize($config);
+
+				$page 						= ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+				$data['wish_lift_data']		= $this->passenger_model->listing($config["per_page"], $page);
+				$data["passenger_links"] 	= $this->pagination->create_links();	
 			endif;
 		else:
 			$data['passenger_count'] 	= $this->passenger_model->passenger_count();

@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Lift_model extends CI_Model {
-	function search_location() {
+	function search_location($limit, $start, $what = 'user_lift_post.id, firstname, lastname, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, start_time, user_lift_post.date') {
 		$from 	= mysql_real_escape_string($this->input->post('from'));
 		$to 	= mysql_real_escape_string($this->input->post('to'));
 		$date 	= date('Y-m-d', strtotime($this->input->post('date')));
@@ -19,15 +19,15 @@ class Lift_model extends CI_Model {
 		endif;
 		
 		if($date != ''):
-			$where[] = "date = '{$date}'";
+			$where[] = "user_lift_post.date = '{$date}'";
 		endif;
 		
 		if($price != ''):
-			$where[] = "amount BETWEEN 0 AND '{$price}'";
+			$where[] = "amount BETWEEN {$price}";
 		endif;
 		
 		if(count($where)):
-			$query_result = "SELECT * FROM  `user_lift_post` WHERE  ".implode(' AND ', $where);
+			$query_result = "SELECT $what FROM  `user_lift_post` JOIN user ON user.user_id = user_lift_post.user_id JOIN user_media ON user_media.user_id = user_lift_post.user_id JOIN user_car ON user_car.user_id = user_lift_post.user_id WHERE  ".implode(' AND ', $where);
 			$query = $this->db->query($query_result);
 		endif;
 	
@@ -58,14 +58,32 @@ class Lift_model extends CI_Model {
 		endif;
 		
 		if($amount != ''):
-			$where[] = "amount BETWEEN 0 AND '{$amount}'";
+			$where[] = "amount BETWEEN {$price}";
 		endif;
 		
 		if(count($where)):
-			$query_result = "SELECT {$what} FROM user_lift_post JOIN user ON user.user_id = user_lift_post.user_id WHERE ".implode(' AND ', $where);
+			$query_result = "SELECT $what FROM  `user_lift_post` JOIN user ON user.user_id = user_lift_post.user_id JOIN user_media ON user_media.user_id = user_lift_post.user_id JOIN user_car ON user_car.user_id = user_lift_post.user_id WHERE  ".implode(' AND ', $where);
 			$query = $this->db->query($query_result);
 		endif;
 	
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function ride_where_count($what = 'COUNT(id) as rides') {
+		$today 		= getdate();
+		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
+		$date 		= date('Y-m-d', strtotime($get_date));
+		
+		$from 	= mysql_real_escape_string($from);
+		$to		= mysql_real_escape_string($to);
+		
+		$query = $this->db->select($what)
+							->from('user_lift_post')
+							->where(array('route_from'=>$from, 'route_to'=>$to, 'user_lift_post.date'=>$date))
+							->get();
+		
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;

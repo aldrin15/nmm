@@ -144,21 +144,21 @@ class Register_model extends CI_Model {
 		
 		$query = $this->db->query("SELECT * FROM user WHERE email = '{$email}'");		
 		$row = $query->result_array();
-		$data = array('user_id' => $row['user_id']);
 		
-		if($row['subscription_type'] == '2'):
-			$date	= date("Y-m-d H:i:s");
+		foreach($row as $value):
+			$data = array('user_id' => $value['user_id']);
+			$date = date('Y-m-d H:i:s');
 			
-			$data2	= array('user_id' => $row['user_id'], 'subscription_type' => $row['subscription_type'], 'start_date' => $date, 'end_date' => date('Y-m-d H:i:s', strtotime($date. '+30 days')));
-		elseif($row['subscription_type'] == '3'):
-			$date	= date("Y-m-d H:i:s");
+			if($value['subscription_type'] == 2):
+				$expiration = time()+86400*30;
+			elseif($value['subscription_type'] == 3):
+				$expiration = time()+86400*180;
+			elseif($value['subscription_type'] == 4):
+				$expiration = time()+86400*365;
+			endif;
 			
-			$data2	= array('user_id' => $row['user_id'], 'subscription_type' => $row['subscription_type'], 'start_date' => $date, 'end_date' => date('Y-m-d H:i:s', strtotime($date. '+360 days')));		
-		elseif($row['subscription_type'] == '4'):
-			$date	= date("Y-m-d H:i:s");
-			
-			$data2	= array('user_id' => $row['user_id'], 'subscription_type' => $row['subscription_type'], 'start_date' => $date, 'end_date' => date('Y-m-d H:i:s', strtotime($date. '+1 year')));		
-		endif;
+			$data2 = array('user_id' => $value['user_id'], 'subscription_type'=>$value['subscription_type'], 'start_date'=>$date, 'end_date'=>date('Y-m-d H:i:s', $expiration));
+		endforeach;
 		
 		$this->db->insert('user_address', $data);
 		$this->db->insert('user_mobile', $data);
