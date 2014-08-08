@@ -27,7 +27,7 @@ class Contact extends MX_Controller {
 				if($this->form_validation->run() == TRUE):
 					modules::run('email/contactEmail', $this->input->post('name'), $this->input->post('email'), $this->input->post('message'));
 					
-					redirect('contact/successfully');
+					redirect('contact-us/successful');
 				endif;
 			endif;
 		endif;
