@@ -21,7 +21,11 @@
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/style.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/editor.css')?>"/>
 	
+	<?php if($this->uri->segment(2) == 'create'):?>
+	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.7.2.js')?>"></script>
+	<?php else:?>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.11.0.min.js')?>"></script>
+	<?php endif?>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.nicescroll.min.js')?>"></script>
 	<script type="text/javascript">
     document.createElement('section');
@@ -32,7 +36,7 @@
 	
 	var height = $(window).height(), base_url = '<?php echo base_url()?>';
 	
-	$(function() {$('.login a:first-child').hover(function(){$('.login ul').stop(true,false).fadeIn().show();},function(){$('.login ul').fadeOut(); });$('.nav-dropdown').click(function(){ $('.menu ul').slideToggle();});$('html').niceScroll({autohidemode:'false',cursorborderradius:'0px',background:'#E5E9E7',cursorwidth:'10px',cursorcolor:'#999999'});});
+	$(function() { $('.login a:first-child').hover(function(){ $('.login ul').stop(true,false).fadeIn().show(); },function(){ $('.login ul').fadeOut(); }); $('.nav-dropdown').click(function(){ $('.menu ul').slideToggle(); }); $('html').niceScroll({autohidemode:'false',cursorborderradius:'0px',background:'#E5E9E7',cursorwidth:'10px',cursorcolor:'#999999'}); });
 	</script>
 	<style type="text/css">.nicescroll-rails {z-index:99 !important;} .nicescroll-rails div {width:10px !important;}</style>
 </head>
