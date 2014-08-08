@@ -44,6 +44,7 @@ $route['rides/create'] 			= "lift/create";
 $route['rides/detail/(:any)'] 	= "lift/detail/5";
 $route['rides/index'] 			= "lift/index/";
 $route['rides/index/(:any)'] 	= "lift/index/5";
+$route['rides/create_success'] 	= "lift/create_success";
 $route['contact-us']			= "contact";
 $route['contact-us/successful']	= "contact/successfully";
 $route['privacy-policy']		= "privacy";

@@ -471,117 +471,23 @@ var from, destination, via, re_via;
 function initialize() { from = new google.maps.places.Autocomplete((document.getElementById('from')), { types: ['geocode'] }); destination = new google.maps.places.Autocomplete((document.getElementById('destination')), { types: ['geocode'] }); via = new google.maps.places.Autocomplete((document.getElementById('via')), { types: ['geocode'] }); re_via = new google.maps.places.Autocomplete((document.getElementById('re_via')), { types: ['geocode'] }); }
 function geolocate() { if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(function(position) { var geolocation = new google.maps.LatLng( position.coords.latitude, position.coords.longitude); destination.setBounds(new google.maps.LatLngBounds(geolocation, geolocation)); }); } }
 
-function checkbox(checkboxName){
-	var checkBox = $('input[name="'+ checkboxName +'"]');
-	$(checkBox).each(function(){
-		$(this).wrap( "<span class='create-lift-checkbox'></span>" );
-		if($(this).is(':checked')){
-			$(this).parent().addClass("selected");
-		}
-	});
-	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
-}
+function checkbox(checkboxName){var checkBox=$('input[name="'+checkboxName+'"]');$(checkBox).each(function(){$(this).wrap("<span class='create-lift-checkbox'></span>");if($(this).is(':checked')){$(this).parent().addClass("selected")}});$(checkBox).click(function(){$(this).parent().toggleClass("selected")})}
 
-jQuery.fn.ForceNumericOnly = function()
-{
-    return this.each(function()
-    {
-        $(this).keydown(function(e)
-        {
-            var key = e.charCode || e.keyCode || 0;
-            // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
-            // home, end, period, and numpad decimal
-            return (
-                key == 8 || 
-                key == 9 ||
-                key == 13 ||
-                key == 46 ||
-                key == 110 ||
-                key == 190 ||
-                (key >= 35 && key <= 40) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105));
-        });
-    });
-};
+jQuery.fn.ForceNumericOnly=function(){return this.each(function(){$(this).keydown(function(e){var key=e.charCode||e.keyCode||0;return(key==8||key==9||key==13||key==46||key==110||key==190||(key>=35&&key<=40)||(key>=48&&key<=57)||(key>=96&&key<=105))})})};
 
 $(function() {
-	$('amount, re_amount').ForceNumericOnly();
+	$('input[name="seat_amount"], input[name="re_amount"]').ForceNumericOnly();
 	$('.bt-dropdown').selectpicker();
 	checkbox("re_route");
 	checkbox("offer_re_route");
 	
-	$('input[name="create_lift_submit"]').click(function(e) {
-		e.preventDefault();
-		var origin = $('input[name="origin"]'), destination = $('input[name="destination"]'), via = $('input[name="via"]'), dates = $('input[name="dates"]'), seat_amount	= $('input[name="seat_amount"]'), hours = $('select[name="hours"]'), minute	= $('select[name="minute"]'), seat = $('select[name="seat_available"]'), storage = $('select[name="storage"]'), preference = $('input[name="preference[]"]'), remarks = $('textarea[name="remarks"]'), error = 0;
-		var re_origin = $('input[name="re_origin"]'), re_destination = $('input[name="re_destination"]'), re_via = $('input[name="re_via"]'), re_dates = $('input[name="re_dates"]'), re_amount = $('input[name="re_amount"]'), re_hours = $('select[name="re_hours"]'), re_minute = $('select[name="re_minute"]'), re_seat = $('select[name="re_seat_available"]'), re_storage = $('select[name="re_storage"]'), re_preference = $('input[name="re_preference[]"]'), re_remarks = $('textarea[name="re_remarks"]'), re_error = 0;
-		
-		$('*').removeClass('error-bd');
-		$('.dates-req').html("");
-		
-		if(origin.val() == '') { origin.addClass('error-bd'); error = 1; }
-		if(destination.val() == '') { destination.addClass('error-bd'); error = 1; }
-		if(dates.val() == '') { $('.dates-req').html('The Date is required.').addClass('error').css({marginLeft:'100px'}); error = 1; }		
-		if(seat_amount.val() == '') { seat_amount.addClass('error-bd'); error = 1; }	
-		if($('input[name="offer_re_route"]').is(':checked')) {
-			$('*').removeClass('re_error_bd');	
-				
-			if(re_origin.val() == '') { re_origin.addClass('re_error_bd'); re_error = 1; }
-			if(re_destination.val() == '') { re_destination.addClass('re_error_bd'); re_error = 1; }
-			if(re_dates.val() == '') { re_dates.addClass('re_error_bd'); re_error = 1; }
-			if(re_amount.val() == '') { re_amount.addClass('re_error_bd'); re_error = 1; }
-			if(re_error == 0) { console.log('Success'); } else { return false; }
-		}
-		
-		if(error == 0) {
-			var preference_array = []
-				re_preference_array = [];
-			
-			$('input[name="preference[]"]:checkbox:checked').each(function(i){ preference_array[i] = $(this).val(); });
-			$('input[name="re_preference[]"]:checkbox:checked').each(function(i){ re_preference_array[i] = $(this).val(); });
-			
-			$.ajax({
-				url 	: base_url+'lift/insert_create',
-				type	: 'POST',
-				data	: { origin:origin.val(), destination:destination.val(), via:via.val(), dates:dates.val(), seat_amount:seat_amount.val(), hours:hours.val(), minute:minute.val(), seat:seat.val(), storage:storage.val(), preference:preference_array, remarks:remarks.val(), re_origin:re_origin.val(), re_destination:re_destination.val(), re_via:re_via.val(), re_destination:re_destination.val(), re_dates:re_dates.val(), re_amount:re_amount.val(), re_hours:re_hours.val(), re_minute:re_minute.val(), re_seat:re_seat.val(), re_storage:re_storage.val(), re_preference:re_preference_array, re_remarks:re_remarks.val() }, success:function(data) { window.location.href = base_url+'lift/create_success'; }
-			});
-		} else {
-			return false;
-		}
-	});
+	$('input[name="create_lift_submit"]').click(function(e){e.preventDefault();var origin=$('input[name="origin"]'),destination=$('input[name="destination"]'),via=$('input[name="via"]'),dates=$('input[name="dates"]'),seat_amount=$('input[name="seat_amount"]'),hours=$('select[name="hours"]'),minute=$('select[name="minute"]'),seat=$('select[name="seat_available"]'),storage=$('select[name="storage"]'),preference=$('input[name="preference[]"]'),remarks=$('textarea[name="remarks"]'),error=0;var re_origin=$('input[name="re_origin"]'),re_destination=$('input[name="re_destination"]'),re_via=$('input[name="re_via"]'),re_dates=$('input[name="re_dates"]'),re_amount=$('input[name="re_amount"]'),re_hours=$('select[name="re_hours"]'),re_minute=$('select[name="re_minute"]'),re_seat=$('select[name="re_seat_available"]'),re_storage=$('select[name="re_storage"]'),re_preference=$('input[name="re_preference[]"]'),re_remarks=$('textarea[name="re_remarks"]'),re_error=0;$('*').removeClass('error-bd');$('.dates-req').html("");if(origin.val()==''){origin.addClass('error-bd');error=1}if(destination.val()==''){destination.addClass('error-bd');error=1}if(dates.val()==''){$('.dates-req').html('The Date is required.').addClass('error').css({marginLeft:'100px'});error=1}if(seat_amount.val()==''){seat_amount.addClass('error-bd');error=1}if($('input[name="offer_re_route"]').is(':checked')){$('*').removeClass('re_error_bd');if(re_origin.val()==''){re_origin.addClass('re_error_bd');re_error=1}if(re_destination.val()==''){re_destination.addClass('re_error_bd');re_error=1}if(re_dates.val()==''){re_dates.addClass('re_error_bd');re_error=1}if(re_amount.val()==''){re_amount.addClass('re_error_bd');re_error=1}if(re_error==0){console.log('Success')}else{return false}}if(error==0){var preference_array=[],re_preference_array=[];$('input[name="preference[]"]:checkbox:checked').each(function(i){preference_array[i]=$(this).val()});$('input[name="re_preference[]"]:checkbox:checked').each(function(i){re_preference_array[i]=$(this).val()});$.ajax({url:base_url+'lift/insert_create',type:'POST',data:{origin:origin.val(),destination:destination.val(),via:via.val(),dates:dates.val(),seat_amount:seat_amount.val(),hours:hours.val(),minute:minute.val(),seat:seat.val(),storage:storage.val(),preference:preference_array,remarks:remarks.val(),re_origin:re_origin.val(),re_destination:re_destination.val(),re_via:re_via.val(),re_destination:re_destination.val(),re_dates:re_dates.val(),re_amount:re_amount.val(),re_hours:re_hours.val(),re_minute:re_minute.val(),re_seat:re_seat.val(),re_storage:re_storage.val(),re_preference:re_preference_array,re_remarks:re_remarks.val()},success:function(data){window.location.href=base_url+'rides/create_success'}})}else{return false}});
+	$('input[name="offer_re_route"]').click(function(){if($(this).is(':checked')){$('#return-trip').slideDown().show()}else{$('#return-trip').slideUp()}});
 	
-	$('input[name="offer_re_route"]').click(function() {
-		if($(this).is(':checked')) {
-			$('#return-trip').slideDown().show();
-		} else {
-			$('#return-trip').slideUp();
-		}
-	});
+	setInterval(function(){$('.re-origin').html(($('input[name="destination"]').val()=='')?'<strong>No chosen place yet</strong>':'<strong>'+$('input[name="destination"]').val()+'</strong>');$('input[name="re_origin"]').val(($('input[name="destination"]').val()=='')?'':$('input[name="destination"]').val());$('.re-destination').html(($('input[name="origin"]').val()=='')?'<strong>No chosen place yet</strong>':'<strong>'+$('input[name="origin"]').val()+'</strong>');$('input[name="re_destination"]').val(($('input[name="origin"]').val()=='')?'':$('input[name="origin"]').val())},1000);
 	
-	setInterval(function() {
-		$('.re-origin').html(($('input[name="destination"]').val() == '') ? '<strong>No chosen place yet</strong>' : '<strong>'+$('input[name="destination"]').val()+'</strong>');
-		$('input[name="re_origin"]').val(($('input[name="destination"]').val() == '') ? '' : $('input[name="destination"]').val());
-		$('.re-destination').html(($('input[name="origin"]').val() == '') ? '<strong>No chosen place yet</strong>' : '<strong>'+$('input[name="origin"]').val()+'</strong>');
-		$('input[name="re_destination"]').val(($('input[name="origin"]').val() == '') ? '' : $('input[name="origin"]').val());
-	}, 1000);
-	
-	$('#calendar').click(function() {
-		var getDates		= $(this).multiDatesPicker('getDates'),
-			getDates_array	= [];
-		
-		$.each(getDates, function(index, value) { getDates_array.push(value); });
-		
-		$('input[name="dates"]').val(getDates_array);
-	});
-
-	$('#return-trip-calendar').click(function() {
-		var getDates		= $(this).multiDatesPicker('getDates'),
-			getDates_array	= [];
-		
-		$.each(getDates, function(index, value) { getDates_array.push(value); });
-		
-		$('input[name="re_dates"]').val(getDates_array);
-	});
+	$('#calendar').click(function(){var getDates=$(this).multiDatesPicker('getDates'),getDates_array=[];$.each(getDates,function(index,value){getDates_array.push(value)});$('input[name="dates"]').val(getDates_array)});
+	$('#return-trip-calendar').click(function(){var getDates=$(this).multiDatesPicker('getDates'),getDates_array=[];$.each(getDates,function(index,value){getDates_array.push(value)});$('input[name="re_dates"]').val(getDates_array)});
 	
 	<?php
 	if($get_wish_date != ''):
@@ -593,31 +499,10 @@ $(function() {
 	?>
 	var passenger_date = [<?php echo implode(',', $dates_array)?>];
 	
-	function choices(date) {
-		var month 		= date.getMonth()+1;
-			real_month 	= (month < 9 ? "0"+month:month)
-			day			= date.getDate(),
-			year		= date.getFullYear(),
-			fullyear	= year+'-'+real_month+'-'+day;
-	
-		return ($.inArray(fullyear, passenger_date) > -1) ? [true, ''] : [false, '']
-	}
+	function choices(date){var month=date.getMonth()+1;real_month=(month<9?"0"+month:month)day=date.getDate(),year=date.getFullYear(),fullyear=year+'-'+real_month+'-'+day;return($.inArray(fullyear,passenger_date)>-1)?[true,'']:[false,'']}
 	<?php else:?>
-	$('.lift-preference div').click(function() {
-		var input = $('input', this);
-		
-		if(input.attr('checked')){
-		   input.attr('checked', false);
-		   $(this).removeClass('selected');
-		} else{
-		   input.attr('checked', true);
-		   $(this).addClass('selected');
-		}
-	});
+	$('.lift-preference div').click(function(){var input=$('input',this);if(input.attr('checked')){input.attr('checked',false);$(this).removeClass('selected')}else{input.attr('checked',true);$(this).addClass('selected')}});
 	<?php endif?>
-	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", minDate:0, <?php echo ($get_wish_date != '') ? 'beforeShowDay:choices' : '' ?>});
-	$('#return-trip-calendar').multiDatesPicker({dateFormat	: "yy-mm-dd"});
-	$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });
-	$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
+	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", minDate:0, <?php echo ($get_wish_date != '') ? 'beforeShowDay:choices' : '' ?>});$('#return-trip-calendar').multiDatesPicker({dateFormat	: "yy-mm-dd"});$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
 });
 </script>
