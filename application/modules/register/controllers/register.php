@@ -13,7 +13,7 @@ class Register extends MX_Controller {
 		$this->load->model('register_model');
 		
 		// Include IcePay API
-		$this->load->library(array('form_validation', 'icepay_api_basic'));
+		$this->load->library(array('form_validation', 'icepay_api_basic', 'email'));
 		
 		$url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$this->session->set_userdata('refered_from', $url);
@@ -207,11 +207,12 @@ class Register extends MX_Controller {
 		if($_GET['Status'] == 'OK') {
 			$data['user_data'] = $this->session->userdata('registered_session');
 			
-			var_dump($data['user_data']);
-			
 			$email = $data['user_data']['email'];
 			
 			$this->register_model->validate_user($email);
+			
+			$message = "Dear ".$email.",\n\nRegister Successful\n\nYou are now registered with Nimm Mich Mit membership account <table><th><td>Registrant</td><td>Type</td><td>Price</td></th><tbody><td>".$email."</td></tbody></table>\n\nIf you need any help just email us at <a href='mailto:support@nmm-nmm.de'>support@nmm-nmm.de</a>";
+			modules::run('email/sendEmail', $email, $message);
 			
 			redirect('nmm');
 		}

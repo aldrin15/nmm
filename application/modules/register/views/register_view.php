@@ -55,25 +55,25 @@
 					
 					<ul class="subscription-choices">
 						<li>
-							<input type="radio" name="account_type[]" value="1" id=""/>
+							<input type="radio" name="account_type" value="1" id="" <?php echo (isset($_POST['account_type']) == 1) ? 'selected' : ''?>/>
 							<span>Free Trial</span>
 							
 							<p>14 Days</p>
 						</li>
 						<li>
-							<input type="radio" name="account_type[]" value="2" id=""/>
+							<input type="radio" name="account_type" value="2" id="" <?php echo (isset($_POST['account_type']) == 2) ? 'selected' : ''?>/>
 							<span>Monthly</span>
 							
 							<p>&euro; 3.99</p>
 						</li>
 						<li>
-							<input type="radio" name="account_type[]" value="3" id=""/>
+							<input type="radio" name="account_type" value="3" id="" <?php echo (isset($_POST['account_type']) == 3) ? 'selected' : ''?>/>
 							<span>6 Months</span>
 							
 							<p>&euro; 12.99</p>
 						</li>
 						<li>
-							<input type="radio" name="account_type[]" value="4" id=""/>
+							<input type="radio" name="account_type" value="4" id="" <?php echo (isset($_POST['account_type']) == 4) ? 'selected' : ''?>/>
 							<span>1 Year</span>
 						
 							<p>&euro; 18.99</p>
@@ -170,11 +170,11 @@ $(function() {
 		$('.subscription-choices li span.custom-radio').removeClass('selected');
 		$('.subscription-choices li input[name="account_type[]"]').attr('checked', false);
 		
-		if($('input[name="account_type[]"]', this).is(':checked')) {
+		if($('input[name="account_type"]', this).is(':checked')) {
 			//$('.subscription-choices li span', this).addClass('selected');
 		} else {
 			$(this).addClass('selected');
-			$('input[name="account_type[]"]', this).attr('checked', true);
+			$('input[name="account_type"]', this).attr('checked', true);
 		}
 	});
 
@@ -260,7 +260,10 @@ $(function() {
 		
 		if(error == 0) {
 			console.log('success');
+			$('.register-wrapper form').submit();
+			$('input[name="register_submit"]').prop('disabled', true);
 		} else {
+			$('input[name="register_submit"]').prop('disabled', false);
 			return false;
 		}
 	});
