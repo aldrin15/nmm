@@ -491,40 +491,8 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.ui.core.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.multidatespicker.js')?>"></script>
 <script type="text/javascript">
-function check_available(checkboxName, image){
-	var checkBox = $('input[name="'+ checkboxName +'"]');
-	if(image == 0) {
-		var image = "<?php echo base_url('assets/images/page_template/blank_profile_large.jpg')?>";
-	} else {
-		var image = "<?php echo base_url('assets/media_uploads')?>/"+image;
-	}
-	
-	$(checkBox).each(function(){
-		$(this).wrap( "<span class='lift-available'></span>" );
-		if($(this).is(':checked')){
-			$(this).parent().addClass("selected");
-		}
-	});
-	$(checkBox).click(function(){
-		$(this).parent().toggleClass("selected");
-		if($(this).is(':checked')){
-			$(this).parent().css({background:"url("+image+") center", backgroundSize:'contain', top:'0'});
-		} else {
-			$(this).parent().css({background:'<?php echo base_url('assets/images')?>/blank_image.png'});
-		}
-	});
-}
-
-function route(checkboxName){
-	var checkBox = $('input[name="'+ checkboxName +'"]');
-	$(checkBox).each(function(){
-		$(this).wrap( "<span class='create-lift-checkbox'></span>" );
-		if($(this).is(':checked')){
-			$(this).parent().addClass("selected");
-		}
-	});
-	$(checkBox).click(function(){ $(this).parent().toggleClass("selected"); });
-}
+function check_available(checkboxName,image){var checkBox=$('input[name="'+checkboxName+'"]');if(image==0){var image=base_url+"assets/images/page_template/blank_profile_large.jpg"}else{var image=base_url+"assets/media_uploads/"+image}$(checkBox).each(function(){$(this).wrap("<span class='lift-available'></span>");if($(this).is(':checked')){$(this).parent().addClass("selected")}});$(checkBox).click(function(){$(this).parent().toggleClass("selected");if($(this).is(':checked')){$(this).parent().css({background:"url("+image+") center",backgroundSize:'contain',top:'0'})}else{$(this).parent().css({background:base_url+'assets/images/blank_image.png'})}})}
+function route(checkboxName){var checkBox=$('input[name="'+checkboxName+'"]');$(checkBox).each(function(){$(this).wrap("<span class='create-lift-checkbox'></span>");if($(this).is(':checked')){$(this).parent().addClass("selected")}});$(checkBox).click(function(){$(this).parent().toggleClass("selected")})}
 
 $(function() {
 	$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });

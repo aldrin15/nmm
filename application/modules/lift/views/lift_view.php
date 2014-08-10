@@ -1,12 +1,6 @@
 <?php $this->load->view('header_content')?>
 
-<style type="text/css">
-.slideshow ul {margin:0 auto; width:1024px; height:360px;}
-
-@media (max-width: 920px) { .slideshow ul {width:100%;} }
-@media (max-width: 480px) { .slideshow ul {height:270px;} }
-@media (max-width: 320px) { .slideshow ul {height:175px;} }
-</style>
+<style type="text/css">.slideshow ul {margin:0 auto; width:1024px; height:360px;} @media (max-width: 920px) { .slideshow ul {width:100%;} } @media (max-width: 480px) { .slideshow ul {height:270px;} } @media (max-width: 320px) { .slideshow ul {height:175px;} }</style>
 
 <div class="slideshow">			
 	<ul class="rslides" id="slider1">
@@ -95,17 +89,4 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-modalmanager.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
 <?php echo modules::run('lift/auto_suggest_city')?>
-<script type="text/javascript">
-function equalHeight(group) {
-   tallest = 0;
-   group.each(function() {
-      thisHeight = $(this).height();
-      if(thisHeight > tallest) {
-         tallest = thisHeight;
-      }
-   });
-   group.height(tallest);
-}
-
-$(function() { equalHeight($(".column")); $("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 }); });
-</script>
+<script type="text/javascript">function equalHeight(group) { tallest = 0; group.each(function() { thisHeight = $(this).height(); if(thisHeight > tallest) { tallest = thisHeight; } }); group.height(tallest); }$(function() { equalHeight($(".column")); $("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 }); });</script>
