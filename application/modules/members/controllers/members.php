@@ -20,10 +20,16 @@ class Members extends MX_Controller {
 	public function index() {
 		modules::run('login/is_logged_in');
 		
-		$data['members_data'] 	= $this->member_model->members($this->session->userdata('user_id'));
-		$data['translate'] 	= $this->session->userdata('translate');
-		$data['view_file'] 		= 'members_view';
-		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+		$billing_validate = $this->member_model->billing_validate();
+
+		if($billing_validate[0]['account_status'] == 'Activated'):
+			$data['members_data'] 			= $this->member_model->members($this->session->userdata('user_id'));
+			$data['translate'] 				= $this->session->userdata('translate');
+			$data['view_file'] 				= 'members_view';
+			echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+		else:
+			redirect('members/billing-information');
+		endif;
 	}
 	
 	public function profile_view() {
@@ -265,9 +271,12 @@ class Members extends MX_Controller {
 	public function billing_information() {
 		modules::run('login/is_logged_in');
 		
-		$data['subscription_data']	= $this->member_model->billing_information();
-		$data['translate'] 	= $this->session->userdata('translate');
-		$data['view_file'] = 'billing_information_view';
+		$data['billing_validate_data'] 		= $this->member_model->billing_validate();
+		$data['subscription_data']			= $this->member_model->billing_information();
+		$data['subscription_status_data']	= $this->member_model->billing_information_status();
+		$data['subscription_total']			= $this->member_model->billing_total();
+		$data['translate'] 					= $this->session->userdata('translate');
+		$data['view_file'] 					= 'billing_information_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	

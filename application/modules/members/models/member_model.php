@@ -2,6 +2,17 @@
 
 class Member_model extends CI_Model {
 	
+	public function billing_validate($what = 'account_status') {
+		$query = $this->db->select($what)
+							->from('user')
+							->where('user_id', $this->session->userdata('user_id'))
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return false;
+		return $result;
+	}
+	
 	public function members($user_id, $what = 'firstname, lastname, email, about_me, birthdate, job, city, country, user_media.media_filename as image, number, user_car.car_model as car, user_car.license_plate as plate, last_login, user.date, COUNT(user_lift_post.user_id) as created') {
 		$query = $this->db->select($what)
 							->from('user')
@@ -247,13 +258,41 @@ class Member_model extends CI_Model {
 		$this->db->update('user', $data, array('user_id' => $user_id));
 	}
 	
-	public function billing_information($what = 'start_date, end_date') {
+	public function billing_information($what = 'firstname, lastname, type, amount, start_date, end_date') {
 		$query = $this->db->select($what)
 							->from('subscription')
-							->join('subscription_type', 'subscription_type.user_id = ')
-							->where('user_id', $this->session->userdata('user_id'))
+							->join('user', 'user.user_id = subscription.user_id')
+							->join('subscription_type', 'subscription_type.subscription_id = subscription.subscription_type')
+							->where('subscription.user_id', $this->session->userdata('user_id'))
 							->get();
 		
+		$result = $query->result_array();
+		if(count($result) == 0) return false;
+		return $result;
+	}
+	
+	public function billing_information_status($what = 'amount, start_date, end_date') {
+		$query = $this->db->select($what)
+							->from('subscription')
+							->join('subscription_type', 'subscription_type.subscription_id = subscription.subscription_type')
+							->where('subscription.user_id', $this->session->userdata('user_id'))
+							->limit(1)
+							->order_by('end_date', 'desc')
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return false;
+		return $result;
+	}
+	
+	public function billing_total($what = 'SUM(amount) as total') {
+		$query = $this->db->select($what)
+							->from('subscription')
+							->join('user', 'user.user_id = subscription.user_id')
+							->join('subscription_type', 'subscription_type.subscription_id = subscription.subscription_type')
+							->where('subscription.user_id', $this->session->userdata('user_id'))
+							->get();
+							
 		$result = $query->result_array();
 		if(count($result) == 0) return false;
 		return $result;

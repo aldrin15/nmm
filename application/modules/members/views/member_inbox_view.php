@@ -1,10 +1,6 @@
 <?php $this->load->view('header_content')?>
 
-<style type="text/css">
-.message-inbox {margin-left:10px; width:80%;}
-.m-row {cursor:pointer}
-.profile-nav ul li:nth-child(2) ul {display:block;}
-</style>
+<style type="text/css">.message-inbox {margin-left:10px; width:80%;}.m-row {cursor:pointer}.profile-nav ul li:nth-child(2) ul {display:block;}</style>
 
 <div class="profile-wrapper m-center-content">
 	<?php echo modules::run('lift/search')?>
@@ -117,53 +113,24 @@ $(function() {
 	$('#message').dataTable();
 	$("#txtEditor").Editor();
 	
-	$('.m-row').click(function() {
-		var id = $(this).attr('data-id');
-		
-		window.location.href="<?php echo base_url('members/inbox_detail/')?>/"+id;	
-	});
+	$('.m-row').click(function() { var id = $(this).attr('data-id'); window.location.href = base_url+"members/inbox_detail/"+id;	 });
 	
 	$('#btn-delete').click(function() {
 		var m_delete = [];
 		
 		if(confirm("Are you sure? you want to delete")) {
-			if($('input[name="message[]"]').is(':checked')) {
-				$('input[name="message[]"]').each(function() {
-					if($(this).is(':checked')) {
-						m_delete.push($(this).val());
-					}
-				});
+			if($('input[name="message[]"]').is(':checked')) {$('input[name="message[]"]').each(function() {if($(this).is(':checked')) {m_delete.push($(this).val());}});
 			
-				$.ajax({
-					url		: '<?php echo base_url('members/inbox_delete')?>',
-					data	: {id:m_delete},
-					type	: 'POST',
-					success	: function(data) {
-						location.reload();
-					}
-				});
-			} else {
-				alert('Please check first');
-			}
+				$.ajax({url:base_url+'members/inbox_delete',data:{id:m_delete},type:'POST',success:function(data){location.reload();}});}else{alert('Please check first');}
 		}
 	});
 	
-	$(".profile-nav ul li a").click(function(e){
-		if(false == $(this).next().is(':visible')) { $('.profile-nav ul li ul').slideUp(300); }
-		
-		$(this).next().slideToggle(300);
-		
-		// e.preventDefault();
-	});	
+	$(".profile-nav ul li a").click(function(e){ if(false == $(this).next().is(':visible')) { $('.profile-nav ul li ul').slideUp(300); } $(this).next().slideToggle(300); });	
 	
 	var count = 0;
 	
-	$('.profile-status ul li').each(function() {
-		var percent = $(this).attr('data-val');
-		
-		count += Number(percent);
-	});
-	
+	$('.profile-status ul li').each(function() { var percent = $(this).attr('data-val'); count += Number(percent); });
 	$( ".profile-progress" ).progressbar({ value: count });
 });
 </script>
+<?php echo modules::run('lift/auto_suggest_city')?>

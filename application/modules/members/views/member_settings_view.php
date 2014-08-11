@@ -81,3 +81,4 @@ $(function() {
 	});	
 });
 </script>
+<?php echo modules::run('lift/auto_suggest_city')?>

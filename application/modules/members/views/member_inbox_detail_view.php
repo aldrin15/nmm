@@ -60,34 +60,13 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript">
 $(function() {
-	$('.overview-tab-menu a').click(function() {
-		var div = $(this).attr('href').substring(1);
-		
-		$('.overview-tab-menu a').removeClass('selected');
-		$('.overview-rides, .overview-passenger').hide();
-		
-		$(this).addClass('selected');
-		
-		
-		$('.'+div).show();
-	});
-	
-	$(".profile-nav ul li a").click(function(e){
-		if(false == $(this).next().is(':visible')) { $('.profile-nav ul li ul').slideUp(300); }
-		
-		$(this).next().slideToggle(300);
-		
-		// e.preventDefault();
-	});
+	$('.overview-tab-menu a').click(function() { var div = $(this).attr('href').substring(1); $('.overview-tab-menu a').removeClass('selected'); $('.overview-rides, .overview-passenger').hide(); $(this).addClass('selected'); $('.'+div).show(); });
+	$(".profile-nav ul li a").click(function(e){ if(false == $(this).next().is(':visible')) { $('.profile-nav ul li ul').slideUp(300); } $(this).next().slideToggle(300); });
 	
 	var count = 0;
 	
-	$('.profile-status ul li').each(function() {
-		var percent = $(this).attr('data-val');
-		
-		count += Number(percent);
-	});
-	
+	$('.profile-status ul li').each(function() { var percent = $(this).attr('data-val'); count += Number(percent); });
 	$( ".profile-progress" ).progressbar({ value: count });
 });
 </script>
+<?php echo modules::run('lift/auto_suggest_city')?>
