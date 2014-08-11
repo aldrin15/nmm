@@ -17,6 +17,7 @@
 					<li><a href="<?php echo base_url('members/car_edit')?>">Edit Car</a></li>
 				</ul>
 			</li>
+			<li <?php echo ($this->uri->segment(2) == 'billing-information') ? 'style="background:#006200"' : ''?>><a href="<?php echo base_url('members/billing-information')?>">Billing Information</a></li>
 			<li <?php echo ($this->uri->segment(2) == 'settings') ? 'style="background:#006200"' : ''?>><a href="<?php echo base_url('members/settings')?>">Settings</a></li>
 		</ul>
 	</nav>

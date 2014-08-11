@@ -173,10 +173,11 @@
 			<script type="text/javascript">
 			function get_data(events, month_today, year) {
 				$.each(events, function(index, value) {
-					var get_month = value.substring(51, 53);
-					var get_year = value.substring(46, 50);
+					var get_month = value.substring(52, 54);
+					var get_year = value.substring(47, 51);
 					var this_month = (month_today < 9 ? "0"+month_today:month_today);
 
+					console.log(get_month);
 					console.log(get_year);
 				
 					if(this_month == get_month && get_year == year) {

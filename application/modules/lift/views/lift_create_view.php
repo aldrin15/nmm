@@ -503,6 +503,6 @@ $(function() {
 	<?php else:?>
 	$('.lift-preference div').click(function(){var input=$('input',this);if(input.attr('checked')){input.attr('checked',false);$(this).removeClass('selected')}else{input.attr('checked',true);$(this).addClass('selected')}});
 	<?php endif?>
-	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", minDate:0, <?php echo ($get_wish_date != '') ? 'beforeShowDay:choices' : '' ?>});$('#return-trip-calendar').multiDatesPicker({dateFormat	: "yy-mm-dd"});$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
+	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", minDate:0, <?php echo ($get_wish_date != '') ? 'beforeShowDay:choices' : '' ?>});$('#return-trip-calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", minDate: 0});$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
 });
 </script>

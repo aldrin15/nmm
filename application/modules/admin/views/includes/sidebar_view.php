@@ -18,9 +18,6 @@
 			<li>
 				<a href="<?php echo base_url('admin/event')?>" ><i class="icon-calendar"></i><span>List of Events</span></a>
 			</li>
-			<li class="sub-menu">
-				<a href="javascript:;"><i class="icon-euro"></i><span>List of Rent a Car</span></a>
-			</li>
 			<li>
 				<a  href="javascript:;"><i class=" icon-shopping-cart"></i><span>List of Subcriptions</span></a>
 			</li>           

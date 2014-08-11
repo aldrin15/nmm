@@ -247,6 +247,18 @@ class Member_model extends CI_Model {
 		$this->db->update('user', $data, array('user_id' => $user_id));
 	}
 	
+	public function billing_information($what = 'start_date, end_date') {
+		$query = $this->db->select($what)
+							->from('subscription')
+							->join('subscription_type', 'subscription_type.user_id = ')
+							->where('user_id', $this->session->userdata('user_id'))
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return false;
+		return $result;
+	}
+	
 	/*****
 	 * Populate City by Country
 	 *****/

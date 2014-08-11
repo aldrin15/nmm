@@ -386,7 +386,7 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 .lift-listing ul li a:hover {text-decoration:none;}
 .lift-listing ul li a:hover img {-webkit-transform: scale(1.2); -moz-transform: scale(1.2); -o-transform: scale(1.2); transform: scale(1.2); opacity:1;}
 
-.detail {margin-top:110px;}
+.detail {margin-top:140px;}
 
 .create-lift {margin-top:110px; padding:20px 20px 0;}
 
@@ -743,6 +743,13 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 
 .p-s-done {float:right; background:#47a447; color:#fff; font-size:14px; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; margin-top:5px; padding:5px 20px;}
 .p-s-done:hover {color:#fff; text-decoration:none;}
+
+
+
+
+/***** [Member - Billing Information] *****/
+.member-billing {margin-top:140px;}
+.member-billing section {margin-left:10px;}
 
 
 

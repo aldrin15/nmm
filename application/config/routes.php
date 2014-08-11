@@ -45,19 +45,21 @@ $route['rides/detail/(:any)'] 	= "lift/detail/5";
 $route['rides/index'] 			= "lift/index/";
 $route['rides/index/(:any)'] 	= "lift/index/5";
 $route['rides/create_success'] 	= "lift/create_success";
+$route['rides-wish-lift']		= "offer_wish_lift";
+
+$route['members/billing-information'] = "members/billing_information";
+
 $route['contact-us']			= "contact";
 $route['contact-us/successful']	= "contact/successfully";
 $route['privacy-policy']		= "privacy";
 $route['about-us']				= "about";
-$route['rides-wish-lift']		= "offer_wish_lift";
 $route['thank-you']				= "register/thank_you";
 $route['payment-error']			= "register/payment_error";
 $route['payment-postback']		= "register/payment_postback";
 $route['terms-and-condition']	= "terms";
 $route['404_override'] 			= '';
-$route['admin']					= 'admin/login';
 
-//$route['/en']					= 'nmm';
+$route['admin']					= 'admin/login';
 
 
 /* End of file routes.php */

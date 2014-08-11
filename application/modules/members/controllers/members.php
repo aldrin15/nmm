@@ -262,6 +262,15 @@ class Members extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
+	public function billing_information() {
+		modules::run('login/is_logged_in');
+		
+		$data['subscription_data']	= $this->member_model->billing_information();
+		$data['translate'] 	= $this->session->userdata('translate');
+		$data['view_file'] = 'billing_information_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
 	public function settings_success() {
 		modules::run('login/is_logged_in');
 		
