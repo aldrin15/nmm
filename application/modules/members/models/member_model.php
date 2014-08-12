@@ -104,6 +104,18 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
+	public function ride_update($id){
+		$preference_array = implode(',', $this->input->post('preference'));
+		
+		$data = array(
+			'start_time' => $this->input->post('hour').':'.$this->input->post('minute').":00",
+			'storage' => $this->input->post('storage'),
+			'preference' => $preference_array
+		);
+		
+		$this->db->update('user_lift_post', $data, array('id'=>$id));
+	}
+	
 	function preference($id, $what = 'type') {
 		$query = $this->db->select($what)
 							->from('lift_preference')

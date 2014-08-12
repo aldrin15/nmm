@@ -23,30 +23,34 @@
 				</li>
 				<li>
 					<label for="Time">Time</label>
+					<?php
+					$hour = date('H', strtotime($row['start_time']));
+					$minute = date('i', strtotime($row['start_time']));
+					?>
 					<select name="hour" id="" class="bt-dropdown select-width-auto">
 						<?php for($x = 1; $x < 25; $x++):?>
-						<option value="<?php echo $x?>"><?php echo $x?></option>
+						<option value="<?php echo $x?>" <?php echo ($hour == $x) ? 'selected' : ''?>><?php echo $x?></option>
 						<?php endfor?>
 					</select>
 					<select name="minute" id="" class="bt-dropdown select-width-auto">
 						<?php for($x = 1; $x < 60; $x++):?>
-						<option value="<?php echo ($x > 10) ? '0'.$x : $x?>"><?php echo ($x < 10) ? '0'.$x : $x?></option>
+						<option value="<?php echo ($x > 10) ? '0'.$x : $x?>" <?php echo ($minute == $x) ? 'selected' : ''?>><?php echo ($x < 10) ? '0'.$x : $x?></option>
 						<?php endfor?>
 					</select>
 				</li>
 				<li>
 					<label for="Storage">Storage</label>
 					<select name="storage" id="" class="bt-dropdown select-width-auto">
-						<option value="small">Small</option>
-						<option value="medium">Medium</option>
-						<option value="large">Large</option>
+						<option value="small" <?php echo ($row['storage'] == 'small') ? 'selected' : ''?>>Small</option>
+						<option value="medium" <?php echo ($row['storage'] == 'medium') ? 'selected' : ''?>>Medium</option>
+						<option value="large" <?php echo ($row['storage'] == 'large') ? 'selected' : ''?>>Large</option>
 					</select>
 				</li>
 				<li>
 					<label for="Available">Available</label>
 					<select name="available" id="" class="bt-dropdown select-width-auto">
 						<?php for($x=1; $x<12; $x++):?>
-						<option><?php echo $x?></option>
+						<option <?php echo ($row['available'] == $x) ? 'selected' : ''?>><?php echo $x?></option>
 						<?php endfor?>
 					</select>
 				</li>
@@ -60,27 +64,27 @@
 						if($preference !== 0):
 						?>
 						<div class="fl checkbox-1 <?php echo (in_array(1, $preference)) ? 'selected' : ''?>">
-							<input type="checkbox" name="re_preference[]" value="1" <?php echo (in_array(1, $preference)) ? 'checked="checked"' : ''?>/>
+							<input type="checkbox" name="preference[]" value="1" <?php echo (in_array(1, $preference)) ? 'checked="checked"' : ''?>/>
 							<p>Talk <i></i></p>
 						</div>
 						<div class="fl checkbox-2 <?php echo (in_array(2, $preference)) ? 'selected' : ''?>">
-							<input type="checkbox" name="re_preference[]" value="2" <?php echo (in_array(1, $preference)) ? 'checked="checked"' : ''?>/>
+							<input type="checkbox" name="preference[]" value="2" <?php echo (in_array(1, $preference)) ? 'checked="checked"' : ''?>/>
 							<p>Music <i></i></p>
 						</div>
 						<div class="fl checkbox-3 <?php echo (in_array(3, $preference)) ? 'selected' : ''?>">
-							<input type="checkbox" name="re_preference[]" value="3" <?php echo (in_array(3, $preference)) ? 'checked="checked"' : ''?>/>
+							<input type="checkbox" name="preference[]" value="3" <?php echo (in_array(3, $preference)) ? 'checked="checked"' : ''?>/>
 							<p>Pet <i></i></p>
 						</div>
 						<div class="fl checkbox-4 <?php echo (in_array(4, $preference)) ? 'selected' : ''?>">
-							<input type="checkbox" name="re_preference[]" value="4" <?php echo (in_array(4, $preference)) ? 'checked="checked"' : ''?>/>
+							<input type="checkbox" name="preference[]" value="4" <?php echo (in_array(4, $preference)) ? 'checked="checked"' : ''?>/>
 							<p>Smoke <i></i></p>
 						</div>
 						<div class="fl checkbox-5 <?php echo (in_array(5, $preference)) ? 'selected' : ''?>">
-							<input type="checkbox" name="re_preference[]" value="5" <?php echo (in_array(5, $preference)) ? 'checked="checked"' : ''?>/>
+							<input type="checkbox" name="preference[]" value="5" <?php echo (in_array(5, $preference)) ? 'checked="checked"' : ''?>/>
 							<p>Baby <i></i></p>
 						</div>
 						<div class="fl checkbox-6 <?php echo (in_array(6, $preference)) ? 'selected' : ''?>">
-							<input type="checkbox" name="re_preference[]" value="6" <?php echo (in_array(6, $preference)) ? 'checked="checked"' : ''?>/>
+							<input type="checkbox" name="preference[]" value="6" <?php echo (in_array(6, $preference)) ? 'checked="checked"' : ''?>/>
 							<p>Women Only <i></i></p>
 						</div>
 						<?php

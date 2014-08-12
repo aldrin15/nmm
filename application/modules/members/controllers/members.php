@@ -217,12 +217,26 @@ class Members extends MX_Controller {
 		
 		$id = $this->uri->segment(3);
 		
+		$post = $this->input->post();
+		
+		if($post):
+			$this->member_model->ride_update($id);
+			
+			redirect('members/edit-ride-detail-success');
+		endif;
+		
 		$data['ride_details_data']	= $this->member_model->ride_detail($id);
 		$data['preference_data']	= $this->member_model->preference($id);
 		$data['translate']			= $this->session->userdata('translate');
 		$data['view_file']			= 'member_overview_ride_edit_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
+	
+	public function overview_ride_success() {
+		$data['translate']			= $this->session->userdata('translate');
+		$data['view_file']			= 'member_overview_ride_edit_success_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}	
 	
 	public function overview_passenger_detail() {
 		$id = $this->uri->segment(3);

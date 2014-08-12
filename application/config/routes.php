@@ -56,9 +56,10 @@ $route['members/ride-edit'] 				= "members/overview_ride_edit";
 $route['members/ride-edit/(:num)'] 			= "members/overview_ride_edit/$1";
 $route['members/ride-edit/(:num)/(:any)'] 	= "members/overview_ride_edit/$1/$2";
 
-$route['members/passenger-detail'] 				= "members/overview_passenger_detail";
-$route['members/passenger-detail/(:num)'] 		= "members/overview_passenger_detail/$1";
-$route['members/passenger-detail/(:num)/(:any)'] = "members/overview_passenger_detail/$1/$2";
+$route['members/passenger-detail'] 					= "members/overview_passenger_detail";
+$route['members/passenger-detail/(:num)'] 			= "members/overview_passenger_detail/$1";
+$route['members/passenger-detail/(:num)/(:any)'] 	= "members/overview_passenger_detail/$1/$2";
+$route['members/edit-ride-detail-success'] 			= "members/overview_ride_success";
 
 $route['contact-us']			= "contact";
 $route['contact-us/successful']	= "contact/successfully";
