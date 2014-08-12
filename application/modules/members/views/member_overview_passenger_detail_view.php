@@ -1,15 +1,17 @@
 <?php $this->load->view('header_content')?>
 
+<style type="text/css">.overview-detail {margin-left:10px; width:80%;}.overview-detail ul li label {font-weight:bold; width:100px;}</style>
+
 <div class="profile-wrapper m-center-content">
 	<?php echo modules::run('lift/search')?>
 	
 	<?php $this->load->view('member_sidebar_view')?>
 	
 	<div class="fl overview-detail">
-		<?php foreach($ride_detail_data as $row):?>
+		<?php foreach($passenger_detail_data as $row):?>
 			<h4><?php echo $row['origins']?> to <?php echo $row['destination']?></h4>
-			<h5><strong>Via:</strong> <?php echo $row['via']?></h5>
-			<hr/>
+			<h5><?php echo $row['via']?></h5>
+		
 			<ul>
 				<li>
 					<label for="Date and Time">Date and Time:</label> 
@@ -24,10 +26,6 @@
 					<span><?php echo $row['available']?></span>
 				</li>
 				<li>
-					<label for="Amount">Amount: </label>
-					<span><?php echo $row['amount']?></span>
-				</li>
-				<li>
 					<label for="Remarks">Remarks: </label>
 					<span><?php echo $row['remarks']?></span>
 				</li>
@@ -36,15 +34,22 @@
 					<span><?php echo ($row['re_route'] != 0) ? "Yes" : "No"?></span>
 				</li>
 			</ul>
-			<?php echo modules::run('lift/auto_suggest_city')?>
+			
 			<div class="lift-map-location">
-				<style type="text/css">#ride-location {width:100%; height:280px;}</style>
+				<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+				<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
+				<style type="text/css">
+				#ride-location {width:100%; height:280px;}
+				
+				/*#ride-location p, #ride-location i {display:inline-block; font-size:3em; vertical-align:text-bottom;}*/
+				/*#ride-location i {background:url('<?php echo base_url('assets/images/gmap_marker.png')?>') no-repeat; width:49px; height:77px;}*/
+				</style>
 				<script type="text/javascript">
 				var directionDisplay;
 				var directionsService = new google.maps.DirectionsService();
 				var map;
 
-				function initialize_map() {
+				function initialize() {
 					directionsDisplay = new google.maps.DirectionsRenderer({
 						suppressMarkers: false
 					});
@@ -76,6 +81,7 @@
 				}
 				
 				function createMarker(latlng) {
+				
 					var marker = new google.maps.Marker({
 						icon:'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
 						title: '', //you can put the via city
@@ -83,8 +89,7 @@
 						map: map
 					});
 				}
-				
-				google.maps.event.addDomListener(window, 'load', initialize_map);
+				google.maps.event.addDomListener(window, 'load', initialize);
 				</script>
 				<div id="ride-location"> </div>
 			</div>
@@ -93,3 +98,4 @@
 	
 	<div class="clr"></div>
 </div>
+<?php echo modules::run('lift/auto_suggest_city')?>

@@ -332,6 +332,9 @@ class Lift extends MX_Controller {
 					$from	= $this->input->post('from');
 					$to		= $this->input->post('to');
 					$date	= $this->input->post('date');
+					$time 	= $this->input->post('hour').':'.$this->input->post('hour').':00';
+					$hour	= $this->input->post('hour');
+					$minute	= $this->input->post('minute');
 					
 					$where = array();
 					$query = NULL;
@@ -346,6 +349,10 @@ class Lift extends MX_Controller {
 					
 					if($date != ''):
 						$where[] = 'date='.$date;
+					endif;
+					
+					if($time != '' && $minute != ''):
+						$where[] = 'time='.$time;
 					endif;
 					
 					if(count($where)) {

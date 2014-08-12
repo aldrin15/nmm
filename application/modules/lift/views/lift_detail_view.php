@@ -507,32 +507,7 @@ $(function() {
 			url		: '<?php echo base_url('lift/get_lift_post')?>',
 			data	: {id:id},
 			success	: function(data) {
-				var date_array 		= [],
-					seat_array  	= [],
-					amount_array	= [],
-					seat_taken 		= 0,
-					seat_amount		= 0,
-					seat_number		= 0,
-					seat_taken_array;	
-				
-				$.each($.parseJSON(data), function(i, val) {
-					date_array.push(val.date);
-					seat_array.push(val.available);
-					amount_array.push(val.amount);
-					
-					if(val.seat == null){
-						seat_taken = 0;
-					} else {
-						seat_taken_array = val.seat.split(',')
-						seat_taken = seat_taken_array.length;
-					}
-				});
-				
-				var availability	= seat_array - seat_taken;
-				
-				for(var j = 0; j < availability; j++) {
-					$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="'+amount_array[0]+'" /></label>');
-				}
+				var date_array=[],seat_array=[],amount_array=[],seat_taken=0,seat_amount=0,seat_number=0,seat_taken_array;$.each($.parseJSON(data),function(i,val){date_array.push(val.date);seat_array.push(val.available);amount_array.push(val.amount);if(val.seat==null){seat_taken=0}else{seat_taken_array=val.seat.split(',');seat_taken=seat_taken_array.length}});var availability=seat_array-seat_taken;for(var j=0;j<availability;j++){$('.seat-available').prepend('<label><input type="checkbox" name="seat[]" value="'+amount_array[0]+'" /></label>')}
 				
 				var user_image;
 				<?php if($get_user_image == null):?>
@@ -601,7 +576,6 @@ $(function() {
 			$('input[name="get_seat"]').val(" ");
 			$('input[name="amount"]').val(" ");
 			$('input[name="date"]').val(" ");
-			$('input[name="co2"]').val(" ");
 			
 			$('.step-back').click(function() {
 				$('#booking').modal('hide');

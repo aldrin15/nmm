@@ -34,7 +34,7 @@
     document.createElement('header'); 
     document.createElement('footer');
 	
-	var height = $(window).height(), base_url = '<?php echo base_url()?>', pathArray = window.location.pathname.split('/');;
+	var height = $(window).height(), base_url = '<?php echo base_url()?>', pathArray = window.location.pathname.split('/');
 	
 	$(function() { $('.login a:first-child').hover(function(){ $('.login ul').stop(true,false).fadeIn().show(); },function(){ $('.login ul').fadeOut(); }); $('.nav-dropdown').click(function(){ $('.menu ul').slideToggle(); }); $('html').niceScroll({autohidemode:'false',cursorborderradius:'0px',background:'#E5E9E7',cursorwidth:'10px',cursorcolor:'#999999'}); });
 	</script>

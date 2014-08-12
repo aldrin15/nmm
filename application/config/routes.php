@@ -44,10 +44,21 @@ $route['rides/create'] 			= "lift/create";
 $route['rides/detail/(:any)'] 	= "lift/detail/5";
 $route['rides/index'] 			= "lift/index/";
 $route['rides/index/(:any)'] 	= "lift/index/5";
-$route['rides/create_success'] 	= "lift/create_success";
+$route['rides/create-success'] 	= "lift/create_success";
 $route['rides-wish-lift']		= "offer_wish_lift";
 
-$route['members/billing-information'] = "members/billing_information";
+$route['members/billing-information'] 		= "members/billing_information";
+$route['members/ride-detail'] 				= "members/overview_ride_detail";
+$route['members/ride-detail/(:num)'] 		= "members/overview_ride_detail/$1";
+$route['members/ride-detail/(:num)/(:any)'] = "members/overview_ride_detail/$1/$2";
+
+$route['members/ride-edit'] 				= "members/overview_ride_edit";
+$route['members/ride-edit/(:num)'] 			= "members/overview_ride_edit/$1";
+$route['members/ride-edit/(:num)/(:any)'] 	= "members/overview_ride_edit/$1/$2";
+
+$route['members/passenger-detail'] 				= "members/overview_passenger_detail";
+$route['members/passenger-detail/(:num)'] 		= "members/overview_passenger_detail/$1";
+$route['members/passenger-detail/(:num)/(:any)'] = "members/overview_passenger_detail/$1/$2";
 
 $route['contact-us']			= "contact";
 $route['contact-us/successful']	= "contact/successfully";

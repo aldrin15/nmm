@@ -30,11 +30,12 @@ class Admin_model extends CI_Model{
 		return false;
 	}
 	
-	function analytics_count($what = 'COUNT(DISTINCT user.user_id) as user, COUNT(DISTINCT user_lift_post.id) as lift, COUNT(DISTINCT user_wish_rides.id) as wish, COUNT(DISTINCT events.id) as events') {
+	function analytics_count($what = 'SUM(DISTINCT lift_seat_booked.co2) as co2, COUNT(DISTINCT user.user_id) as user, COUNT(DISTINCT user_lift_post.id) as lift, COUNT(DISTINCT user_wish_rides.id) as wish, COUNT(DISTINCT events.id) as events') {
 		$query = $this->db->select($what)
 								->from('user')
 								->join('user_lift_post', 'user_lift_post.user_id = user.user_id', 'left')
 								->join('user_wish_rides', 'user_wish_rides.user_id = user.user_id', 'left')
+								->join('lift_seat_booked', 'lift_seat_booked.user_id = user.user_id', 'left')
 								->join('events', 'events.user_id = user.user_id', 'left')
 								->get();
 		
@@ -211,6 +212,33 @@ class Admin_model extends CI_Model{
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
+	}
+	
+	function get_graph_data($month, $year, $what='SUM(amount) as amount, subscription.start_date as date'){
+		$query = $this->db->select($what)
+							->from('subscription')
+							->join('subscription_type', 'subscription_type.subscription_id = subscription.subscription_type')
+							->where('YEAR(subscription.start_date) >= ', $year) 
+							->where('MONTH(subscription.start_date) >= ', 01) 
+							->where('YEAR(subscription.start_date) <= ', $year) 
+							->where('MONTH(subscription.start_date) <= ', $month) 
+							->group_by('MONTH(subscription.start_date)')
+							->get();
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function get_total_earnings($year, $what='SUM(subscription_type.amount) as total'){
+		$query = $this->db->select($what)
+								->from('user')
+								->join('subscription', 'subscription.user_id = user.user_id', 'left')
+								->join('subscription_type', 'subscription_type.subscription_id = subscription.subscription_type', 'left')
+								->where('YEAR(subscription.start_date)', $year)	
+								->get();
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;	
 	}
 	
 }

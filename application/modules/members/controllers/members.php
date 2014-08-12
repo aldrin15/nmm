@@ -222,6 +222,15 @@ class Members extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
+	public function overview_passenger_detail() {
+		$id = $this->uri->segment(3);
+		
+		$data['passenger_detail_data'] = $this->member_model->passenger_detail($id);
+		$data['translate'] 	= $this->session->userdata('translate');
+		$data['view_file'] = 'member_overview_passenger_detail_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);		
+	}
+	
 	public function get_location() {
 		$city = $this->member_model->get_location($this->input->get('city'));
 		

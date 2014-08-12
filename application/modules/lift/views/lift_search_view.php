@@ -28,14 +28,7 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 	</form>
 </div>
 <?php else: ?>
-<style type="text/css">
-.advanced-search {background:#d6d6d6; border-top:1px solid #000; border-bottom:1px solid #000; padding:10px 50px; width:100%;}
-.advanced-search ul li {margin-bottom:10px;}
-.advanced-search ul li label {display:block; font-weight:bold; width:100px;}
-.advanced-search ul li input[type="text"] {border:1px solid #9b9b9b; margin-right:10px; padding:0 10px; height:30px;}
-.advanced-search ul li select {height:30px;}
-.advanced-search ul li .lift-preference div {margin-bottom:10px;}
-</style>
+<style type="text/css">.advanced-search {background:#d6d6d6; border-top:1px solid #000; border-bottom:1px solid #000; padding:10px 50px; width:100%;}.advanced-search ul li {margin-bottom:10px;}.advanced-search ul li label {display:block; font-weight:bold; width:100px;}.advanced-search ul li input[type="text"] {border:1px solid #9b9b9b; margin-right:10px; padding:0 10px; height:30px;}.advanced-search ul li select {height:30px;}.advanced-search ul li .lift-preference div {margin-bottom:10px;}</style>
 <form action="" method="post">
 	<div class="search">
 		<ul>
@@ -76,7 +69,7 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 					<label for="Time">Time</label>
 					<select name="hour" id="">
 						<?php for($i = 1; $i < 25; $i++):?>
-						<option><?php echo $i?></option>
+						<option><?php echo ($i > 10) ? '0'.$i : $i?></option>
 						<?php endfor?>
 					</select> -
 					<select name="minute" id="">

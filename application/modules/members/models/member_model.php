@@ -39,8 +39,6 @@ class Member_model extends CI_Model {
 							->join('user_mobile', 'user_mobile.user_id = user.user_id', 'left')
 							->where('user.user_id', $user_id)
 							->get();
-		
-		echo $this->db->last_query();
 							
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
@@ -99,6 +97,17 @@ class Member_model extends CI_Model {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->where('user_lift_post.id', $id)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	public function passenger_detail($id, $what = 'user_wish_rides.route_from as origins, user_wish_rides.route_to as destination, via, available, storage, remarks, re_route, offer_re_route, start_time') {
+		$query = $this->db->select($what)
+							->from('user_wish_rides')
+							->where('user_wish_rides.id', $id)
 							->get();
 		
 		$result = $query->result_array();

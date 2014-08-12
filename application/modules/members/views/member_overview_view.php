@@ -58,8 +58,8 @@
 												<td><?php echo $row['origins']?></td>
 												<td><?php echo $row['destination']?></td>
 												<td><?php echo date('F d - H:i A', strtotime($row['time']))?></td>
-												<td><a class="edit" href="<?php echo base_url('members/overview_ride_detail')?>/<?php echo $row['id']?>/<?php echo $row['date']?>">View</a></td>
-												<td><a class="edit" href="<?php echo base_url('members/overview_ride_edit')?>/<?php echo $row['id']?>">Edit</a></td>
+												<td><a class="edit" href="<?php echo base_url('members/ride-detail')?>/<?php echo $row['id']?>/<?php echo $row['date']?>">View</a></td>
+												<td><a class="edit" href="<?php echo base_url('members/ride-edit')?>/<?php echo $row['id']?>">Edit</a></td>
 												<td><a class="delete" href="javascript:;">Delete</a></td>
 										</tr>
 										<?php endforeach?>
@@ -105,8 +105,8 @@
 											<td><?php echo $row['origins']?></td>
 											<td><?php echo $row['destination']?></td>
 											<td><?php echo date('F d - H:i A', strtotime($row['start_time']))?></td>
-											<td><a class="edit" href="<?php echo base_url('members/overview_passenger_detail')?>/<?php echo $row['id']?>">View</a></td>
-											<td><a class="edit" href="<?php echo base_url('members/overview_passenger_edit')?>/<?php echo $row['id']?>">Edit</a></td>
+											<td><a class="edit" href="<?php echo base_url('members/passenger-detail')?>/<?php echo $row['id']?>">View</a></td>
+											<td><a class="edit" href="<?php echo base_url('members/passenger-edit')?>/<?php echo $row['id']?>">Edit</a></td>
 											<td><a class="delete" href="javascript:;">Delete</a></td>
 										</tr>
 										<?php endforeach?>
@@ -130,42 +130,10 @@
 <script type="text/javascript" src="<?php echo base_url('assets/js/editable-table.js')?>"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	$('.m-row').click(function() {
-		var id = $(this).attr('data-id');
-		
-		window.location.href="<?php echo base_url('members/inbox_detail/')?>/"+id;	
-	});
-
+	$('.m-row').click(function() { var id = $(this).attr('data-id');window.location.href=base_url+"members/inbox_detail/"+id;});
 	$('#ride-table, #passenger-table').dataTable();
-	
-	$('.overview-tab-menu a').click(function() {
-		var div = $(this).attr('href').substring(1);
-		
-		$('.overview-tab-menu a').removeClass('selected');
-		$('.overview-rides, .overview-passenger').hide();
-		
-		$(this).addClass('selected');
-		
-		
-		$('.'+div).show();
-	});
-	
-	$(".profile-nav ul li a").click(function(e){
-		if(false == $(this).next().is(':visible')) { $('.profile-nav ul li ul').slideUp(300); }
-		
-		$(this).next().slideToggle(300);
-		
-		// e.preventDefault();
-	});
-	
-	var count = 0;
-	
-	$('.profile-status ul li').each(function() {
-		var percent = $(this).attr('data-val');
-		
-		count += Number(percent);
-	});
-	
-	$( ".profile-progress" ).progressbar({ value: count });
+	$('.overview-tab-menu a').click(function() { var div = $(this).attr('href').substring(1);$('.overview-tab-menu a').removeClass('selected');$('.overview-rides, .overview-passenger').hide();$(this).addClass('selected');$('.'+div).show();});	
+	$(".profile-nav ul li a").click(function(e){ if(false == $(this).next().is(':visible')) { $('.profile-nav ul li ul').slideUp(300); } $(this).next().slideToggle(300);});
 });
 </script>
+<?php echo modules::run('lift/auto_suggest_city')?>

@@ -1,10 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Lift_model extends CI_Model {
+	
 	function search_location($limit, $start, $what = 'user_lift_post.id, firstname, lastname, user_lift_post.route_from as origin, user_lift_post.route_to as destination, available, amount, start_time, user_lift_post.date') {
 		$from 	= mysql_real_escape_string($this->input->post('from'));
 		$to 	= mysql_real_escape_string($this->input->post('to'));
 		$date 	= date('Y-m-d', strtotime($this->input->post('date')));
+		$time 	= $this->input->post('hour').':'.$this->input->post('minute').':00';
 		$price 	= $this->input->post('price');
 		
 		$where = array();
@@ -20,6 +22,10 @@ class Lift_model extends CI_Model {
 		
 		if($date != ''):
 			$where[] = "user_lift_post.date = '{$date}'";
+		endif;
+		
+		if($time != ''):
+			$where[] = "user_lift_post.start_time = '{$time}'";
 		endif;
 		
 		if($price != ''):
@@ -76,8 +82,8 @@ class Lift_model extends CI_Model {
 		$get_date 	= $today['year'].'-'.$today['mon'].'-'.$today['mday'];
 		$date 		= date('Y-m-d', strtotime($get_date));
 		
-		$from 	= mysql_real_escape_string($from);
-		$to		= mysql_real_escape_string($to);
+		$from 	= $this->input->post('from');
+		$to		= $this->input->post('to');
 		
 		$query = $this->db->select($what)
 							->from('user_lift_post')

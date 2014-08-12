@@ -126,11 +126,6 @@ $(function() {
 	});
 	
 	$(".profile-nav ul li a").click(function(e){ if(false == $(this).next().is(':visible')) { $('.profile-nav ul li ul').slideUp(300); } $(this).next().slideToggle(300); });	
-	
-	var count = 0;
-	
-	$('.profile-status ul li').each(function() { var percent = $(this).attr('data-val'); count += Number(percent); });
-	$( ".profile-progress" ).progressbar({ value: count });
 });
 </script>
 <?php echo modules::run('lift/auto_suggest_city')?>

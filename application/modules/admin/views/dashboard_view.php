@@ -5,8 +5,8 @@
 	<section id="main-content">
 		<section class="wrapper">		
 			<!--state overview start-->
-			<?php foreach($analytics_count_data as $row):?>
 			<div class="row state-overview">
+				<?php foreach($analytics_count_data as $row):?>
 				<div class="col-lg-2 col-sm-6">
 					<section class="panel">
 						<div class="symbol terques"><i class="icon-group"></i></div>
@@ -47,23 +47,26 @@
 					<section class="panel">
 						<div class="symbol green"><i class="icon-euro"></i></div>
 						<div class="value">
-							<h3 class=" count5"> 0</h3>
-							<p>Rent a Car created</p>
+							<h3 class=" count5"> <?php echo $row['co2']?></h3>
+							<p>Co2 saving in kg.</p>
 						</div>
 					</section>
 				</div>
-				<div class="col-lg-2 col-sm-6">
+				<?php endforeach?>
+				
+				<?php foreach ($earnings as $income):?>
+				<div class="col-lg-4 col-sm-6">
 					<section class="panel">
 						<div class="symbol violet"><i class=" icon-shopping-cart"></i></div>
 						<div class="value">
-							<h3 class=" count6">0</h3>
-							<p>Total Earnings</p>
+							<h3 class=" count6"><?php echo $inc = round($income['total'], 2)?></h3>
+							<p>Total Earnings for this year</p>
 						</div>
 					</section>
 				</div>
+				<?php endforeach?>
 			</div>
 			<!--state overview end-->
-			<?php endforeach?>
 
 			<div class="row">
 				<div class="col-lg-12">
@@ -81,21 +84,36 @@
 						
 						<?php 
 						$month_array = array(
-							'Jan' => '80%',
-							'Feb' => '70%',
-							'Mar' => '60%',
-							'Apr' => '50%',
-							'May' => '40%',
-							'Jun' => '30%',
-							'Jul' => '20%',
-							'Aug' => '10%',
-							'Sep' => '90%',
-							'Oct' => '100%',
-							'Nov' => '100%',
-							'Dec' => '90%'
+							'Jan' => '0%',
+							'Feb' => '0%',
+							'Mar' => '0%',
+							'Apr' => '0%',
+							'May' => '0%',
+							'Jun' => '0%',
+							'Jul' => '0%',
+							'Aug' => '0%',
+							'Sep' => '0%',
+							'Oct' => '0%',
+							'Nov' => '0%',
+							'Dec' => '0%'
 						);
 
-						foreach($month_array as $key=>$val):
+						$i = 0;
+						foreach ($graph as $data):
+							$month = date('M', strtotime($data['date']));
+							if($inc!=0):
+								$total = ($data['amount']/$inc)*100;
+								$total = round($total, 2);
+							endif;
+							$replace = array($month => $total.'%');
+							if($i == 0):
+								$new_month = array_replace($month_array, $replace);
+								$i++;
+							else:
+								$new_month = array_replace($new_month, $replace);
+							endif;					
+						endforeach;
+						foreach($new_month as $key=>$val):
 						?>
 						<div class="bar">
 							<div class="title"><?php echo $key?></div>
