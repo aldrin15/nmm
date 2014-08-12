@@ -21,7 +21,7 @@
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/style.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/editor.css')?>"/>
 	
-	<?php if($this->uri->segment(2) == 'create'):?>
+	<?php if($this->uri->segment(2) == 'create' || $this->uri->segment(2) == 'ride-edit'):?>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.7.2.js')?>"></script>
 	<?php else:?>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.11.0.min.js')?>"></script>

@@ -1,21 +1,5 @@
 <?php $this->load->view('header_content')?>
 
-<style type="text/css">
-.profile-car {margin-left:10px;}
-.p-frame-car {border:1px solid #adadad; padding:5px 10px;}
-
-.p-car-heading {background: #75ca30; color:#fff; font-size: 1.3em; padding:10px; height:40px;}
-
-.p-car-info ul li {}
-.p-car-info ul li label, .p-car-info ul li span {float:left; display:block; padding:10px;}
-.p-car-info ul li label {border-right:1px solid #d2d2d2; width:200px;}
-.p-car-info ul li:nth-child(even) {background: #eaeaea;}
-
-.profile-car input[type="submit"] {background:#47a447; color:#fff; text-transform:uppercase; font-size:14px; font-weight:bold; border:none; padding:5px 20px;}
-.p-frame-car button {border:none; padding:10px 0; width:100%;}
-.p-frame-car input {display:none;}
-</style>
-
 <div class="profile-wrapper m-center-content">
 	<?php echo modules::run('lift/search')?>
 	

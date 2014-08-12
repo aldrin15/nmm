@@ -1,17 +1,7 @@
 <?php $this->load->view('header_content')?>
 
 <style type="text/css">
-#calendar, #return-trip-calendar {width:360px;}
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {background:#00ff00;}
-.ui-datepicker {width:100%;}
-.ui-widget-content {background:none;}
-.ui-datepicker-calendar td {border:none;}
-.ui-datepicker td span, .ui-datepicker td a {padding:10px 5px;}
-.ui-widget-header .ui-state-highlight {border:none;}
-.ui-state-highlight {border:none}
-.ui-widget-header {background:#fff;}
-.ui-datepicker .ui-datepicker-header {padding:.5em 0;}
-.ui-menu .ui-menu-item {background:#fff;}
+#calendar, #return-trip-calendar {width:360px;}.ui-state-highlight,.ui-widget-content .ui-state-highlight,.ui-widget-header .ui-state-highlight{background:#00ff00;}.ui-datepicker {width:100%;}.ui-widget-content {background:none;}.ui-datepicker-calendar td {border:none;}.ui-datepicker td span, .ui-datepicker td a {padding:10px 5px;}.ui-widget-header .ui-state-highlight {border:none;}.ui-state-highlight {border:none}.ui-widget-header {background:#fff;}.ui-datepicker .ui-datepicker-header {padding:.5em 0;}.ui-menu .ui-menu-item {background:#fff;}
 
 .label-width label {display:block; width:100px;}
 @media (max-width:920px) { .span5 {width:100%;} }
@@ -502,7 +492,8 @@ $(function() {
 	function choices(date){var month=date.getMonth()+1;real_month=(month<9?"0"+month:month)day=date.getDate(),year=date.getFullYear(),fullyear=year+'-'+real_month+'-'+day;return($.inArray(fullyear,passenger_date)>-1)?[true,'']:[false,'']}
 	<?php else:?>
 	$('.lift-preference div').click(function(){var input=$('input',this);if(input.attr('checked')){input.attr('checked',false);$(this).removeClass('selected')}else{input.attr('checked',true);$(this).addClass('selected')}});
+	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", minDate:0, <?php echo ($get_wish_date != '') ? 'beforeShowDay:choices' : '' ?>});$('#return-trip-calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", minDate: 0});$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });
 	<?php endif?>
-	$('#calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", minDate:0, <?php echo ($get_wish_date != '') ? 'beforeShowDay:choices' : '' ?>});$('#return-trip-calendar').multiDatesPicker({dateFormat	: "yy-mm-dd", minDate: 0});$('.lift-preference div').mouseover(function() { $('p', this).stop(true, true).fadeIn().css({display:'block'}); });$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
+	$('.lift-preference div').mouseleave(function() { $('p', this).fadeOut(); });
 });
 </script>

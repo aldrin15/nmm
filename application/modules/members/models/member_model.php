@@ -93,10 +93,20 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function ride_detail($id, $what = 'user_lift_post.route_from as origins, user_lift_post.route_to as destination, via, available, storage, remarks, amount, re_route, offer_re_route, start_time') {
+	public function ride_detail($id, $what = 'user_lift_post.route_from as origins, user_lift_post.route_to as destination, via, available, storage, preference, remarks, amount, re_route, offer_re_route, start_time') {
 		$query = $this->db->select($what)
 							->from('user_lift_post')
 							->where('user_lift_post.id', $id)
+							->get();
+		
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
+	
+	function preference($id, $what = 'type') {
+		$query = $this->db->select($what)
+							->from('lift_preference')
 							->get();
 		
 		$result = $query->result_array();

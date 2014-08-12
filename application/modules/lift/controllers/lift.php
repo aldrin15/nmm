@@ -217,6 +217,7 @@ class Lift extends MX_Controller {
 			$user_id = $row['post_user_id'];
 			$data['get_user_lift_dates']	= $this->lift_model->get_user_lift_dates($user_id);
 		endforeach;
+		
 		$data['preference_data']		= $this->lift_model->preference($id);
 		$data['get_user_image'] 		= $this->lift_model->get_user_image();
 		
