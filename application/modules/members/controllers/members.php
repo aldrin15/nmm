@@ -222,7 +222,7 @@ class Members extends MX_Controller {
 		if($post):
 			$this->member_model->ride_update($id);
 			
-			redirect('members/edit-ride-detail-success');
+			redirect('members/ride-edit-detail-success');
 		endif;
 		
 		$data['ride_details_data']	= $this->member_model->ride_detail($id);
@@ -246,6 +246,29 @@ class Members extends MX_Controller {
 		$data['view_file'] = 'member_overview_passenger_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);		
 	}
+	
+	public function overview_passenger_edit() {
+		$id = $this->uri->segment(3);
+		
+		$post = $this->input->post();
+		
+		if($post):
+			$this->member_model->passenger_update($id);
+			
+			redirect('members/passenger-edit-detail-success');
+		endif;
+		
+		$data['wish_lift_detail']	= $this->member_model->passenger_detail($id);
+		$data['translate']			= $this->session->userdata('translate');
+		$data['view_file']			= 'member_overview_passenger_edit_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function overview_passenger_success() {
+		$data['translate']			= $this->session->userdata('translate');
+		$data['view_file']			= 'member_overview_passenger_edit_success_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}	
 	
 	public function get_location() {
 		$city = $this->member_model->get_location($this->input->get('city'));

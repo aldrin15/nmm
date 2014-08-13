@@ -126,7 +126,7 @@ class Member_model extends CI_Model {
 		return $result;
 	}
 	
-	public function passenger_detail($id, $what = 'user_wish_rides.route_from as origins, user_wish_rides.route_to as destination, via, available, storage, remarks, re_route, offer_re_route, start_time') {
+	public function passenger_detail($id, $what = 'user_wish_rides.route_from as origins, user_wish_rides.route_to as destination, via, available, storage, preference, remarks, re_route, offer_re_route, start_time') {
 		$query = $this->db->select($what)
 							->from('user_wish_rides')
 							->where('user_wish_rides.id', $id)
@@ -135,6 +135,18 @@ class Member_model extends CI_Model {
 		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
+	}
+	
+	public function passenger_update($id){
+		$preference_array = implode(',', $this->input->post('preference'));
+		
+		$data = array(
+			'start_time' => $this->input->post('hour').':'.$this->input->post('minute').":00",
+			'storage' => $this->input->post('storage'),
+			'preference' => $preference_array
+		);
+		
+		$this->db->update('user_wish_rides', $data, array('id'=>$id));
 	}
 	
 	public function passenger_list($id, $what = '') {

@@ -141,7 +141,7 @@ class Passenger extends MX_Controller {
 		endforeach;
 		
 		$data['preference_data'] 		= $this->passenger_model->preference($id);
-		$data['translate'] = $this->session->userdata('translate');
+		$data['translate'] 				= $this->session->userdata('translate');
 		$data['view_file']				= 'passenger_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
