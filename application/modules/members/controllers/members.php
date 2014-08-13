@@ -138,8 +138,8 @@ class Members extends MX_Controller {
 		
 		$id = $this->uri->segment(3);
 		$data['user_sent_data']	= $this->member_model->sent_detail($id);
-		$data['translate'] 	= $this->session->userdata('translate');
-		$data['view_file'] 			= 'member_sent_detail_view';
+		$data['translate'] 		= $this->session->userdata('translate');
+		$data['view_file'] 		= 'member_sent_detail_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
@@ -162,9 +162,28 @@ class Members extends MX_Controller {
 		
 		$id = $this->session->userdata('user_id');
 		
-		$data['car_data'] = $this->member_model->car($id);
+		$post = $this->input->post();
+		
+		if($post):
+			$this->form_validation->set_rules('car_model', 'Car Model', 'required');
+			$this->form_validation->set_rules('license_plate', 'License Plate', 'required');
+			
+			if($this->form_validation->run() == TRUE):
+				$this->member_model->car_update($id);
+				
+				redirect('members/car-update-successful');
+			endif;
+		endif;
+		
+		$data['car_data'] 	= $this->member_model->car($id);
 		$data['translate'] 	= $this->session->userdata('translate');
-		$data['view_file'] = 'member_car_view';
+		$data['view_file'] 	= 'member_car_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+	}
+	
+	public function car_update_successful() {
+		$data['translate'] = $this->session->userdata('translate');
+		$data['view_file'] = 'member_car_update_success_view';
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	

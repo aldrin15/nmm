@@ -757,7 +757,7 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 
 
 /***** [Member - Car Edit] *****/
-.profile-car {margin-left:10px;}
+.profile-car {float:left; margin-left:10px;}
 .p-frame-car {border:1px solid #adadad; padding:5px 10px;}
 
 .p-car-heading {background: #75ca30; color:#fff; font-size: 1.3em; padding:10px; height:40px;}
@@ -770,6 +770,8 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 .profile-car input[type="submit"] {background:#47a447; color:#fff; text-transform:uppercase; font-size:14px; font-weight:bold; border:none; padding:5px 20px;}
 .p-frame-car button {border:none; padding:10px 0; width:100%;}
 .p-frame-car input {display:none;}
+
+.profile-no-car {background:#ff5257; color:#fff; text-transform:uppercase; text-align:center; border:1px solid #ff0000; padding:10px 0; width:560px;}
 
 
 

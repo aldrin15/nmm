@@ -1,24 +1,91 @@
 <?php $this->load->view('header_content')?>
 
-<style type="text/css">
-.profile-car {margin-left:10px;}
-.p-frame-car {border:1px solid #adadad; padding:5px 10px;}
-
-.p-car-heading {background: #75ca30; color:#fff; font-size: 1.3em; padding:10px; height:40px;}
-
-.p-car-info ul li {}
-.p-car-info ul li label, .p-car-info ul li span {float:left; display:block; padding:10px;}
-.p-car-info ul li label {border-right:1px solid #d2d2d2; width:200px;}
-.p-car-info ul li:nth-child(even) {background: #eaeaea;}
-</style>
-
 <div class="profile-wrapper m-center-content">
 	<?php echo modules::run('lift/search')?>
 	
 	<?php $this->load->view('member_sidebar_view')?>
 	
-	<?php if($car_data != ''):
-		foreach($car_data as $row):?>	
+	<?php if($car_data[0]['car'] == ''):?>
+	<div class="profile-car">
+		<p class="profile-no-car">You didn't add your car details yet. Please fill the fields below.</p>
+		
+		<hr/>
+		
+		<form action="" method="post">
+			<ul>
+				<li>
+					<label for="Car Model">Car Model <?php echo form_error('car_model', '<span class="error">', '</span>')?></label>
+					<input type="text" name="model" id="" class="form-control"/>
+				</li>
+				<li>
+					<label for="License Plate">License Plate <?php echo form_error('license_plate', '<span class="error">', '</span>')?></label>
+					<input type="text" name="plate" id="" class="form-control"/>
+				</li>
+				<li>
+					<label for="Year">Year</label>
+					<select name="year" id="" class="form-control">
+						<?php 
+							$years = range(date("Y"), date("Y", strtotime("now - 50 years")));
+							foreach($years as $year):
+						?>
+						<option value="<?php echo $year?>"><?php echo $year?></option>
+						<?php endforeach?>
+					</select>
+				</li>
+				<li>
+					<label for="Door">Door</label>
+					<select name="door" id="" class="form-control">
+						<?php for($x = 2; $x < 6; $x++):?>
+						<option value="<?php echo $x?>"><?php echo $x?></option>
+						<?php endfor?>
+					</select>
+				</li>
+				<li>
+					<label for="Seat">Seat</label>
+					<select name="seat" id="" class="form-control">
+						<?php for($x = 1; $x < 12; $x++):?>
+						<option value="<?php echo $x?>"><?php echo $x?></option>
+						<?php endfor?>
+					</select>
+				</li>
+				<li>
+					<label for="Transmission">Transmission</label>
+					<select name="transmission" id="" class="choice form-control">
+						<option <?php echo (isset($_POST['transmission']) == 'Manual') ? 'selected' : ''?>>Manual</option>
+						<option <?php echo (isset($_POST['transmission']) == 'Automatic') ? 'selected' : ''?>>Automatic</option>
+						<option <?php echo (isset($_POST['transmission']) == 'CVT (Continuous Variable Transmission)') ? 'selected' : ''?>>CVT (Continuous Variable Transmission)</option>
+						<option <?php echo (isset($_POST['transmission']) == 'Semi Automatic') ? 'selected' : ''?>>Semi Automatic</option>
+						<option <?php echo (isset($_POST['transmission']) == 'TipTronic&reg; gearbox') ? 'selected' : ''?>>TipTronic&reg; gearbox</option>
+						<option <?php echo (isset($_POST['transmission']) == 'DSG (Direct shift gearbox)') ? 'selected' : ''?>>DSG (Direct shift gearbox)</option>
+					</select>
+				</li>
+				<li>
+					<label for="Air Condition">Air Condition</label>
+					<select name="air_condition" id="" class="form-control">
+						<option value="Yes">Yes</option>
+						<option value="No">No</option>
+					</select>
+				</li>
+				<li>
+					<label for="Fuel">Fuel</label>
+					<select name="fuel" id="" class="choice form-control">
+						<option <?php echo (isset($_POST['fuel']) == 'Petron') ? 'selected' : ''?>>Petrol</option>
+						<option <?php echo (isset($_POST['fuel']) == 'Diesel') ? 'selected' : ''?>>Diesel</option>
+						<option <?php echo (isset($_POST['fuel']) == 'Biodiesel') ? 'selected' : ''?>>Biodiesel</option>
+						<option <?php echo (isset($_POST['fuel']) == 'Autogas') ? 'selected' : ''?>>Autogas</option>
+						<option <?php echo (isset($_POST['fuel']) == 'Ethanol Blend') ? 'selected' : ''?>>Ethanol Blend</option>
+						<option <?php echo (isset($_POST['fuel']) == 'Hybrid') ? 'selected' : ''?>>Hybrid</option>
+					</select>
+				</li>
+				<li>
+					<input type="submit" name="submit" value="ADD CAR"/>
+				</li>
+			</ul>
+		</form>
+	</div>
+	<?php else:
+		foreach($car_data as $row):
+	?>
 	<div class="span5 profile-car fl">
 		<div class="p-frame-car">
 			<img src="<?php echo ($row['image'] != '') ? base_url('assets/media_uploads/').'/'.$row['image'] : base_url('assets/images/page_template/no_car.jpg')?>" width="450" height="230" alt=""/>
@@ -29,37 +96,37 @@
 			<ul>
 				<li>
 					<label for="Car Model">Car Model</label>
-					<span><?php echo ($row['car'] != '') ? $row['car'] : ''?></span>
+					<span><?php echo $row['car']?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="License Plate">License Plate</label>
-					<span><?php echo ($row['plate'] != '') ? $row['plate'] : ''?></span>
+					<span><?php echo $row['plate']?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Year">Year</label>
-					<span><?php echo ($row['year'] != '') ? $row['year'] : ''?></span>
+					<span><?php echo $row['year']?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Fuel">Fuel</label>
-					<span><?php echo ($row['fuel'] != '') ? $row['fuel'] : ''?></span>
+					<span><?php echo $row['fuel']?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Fuel">Doors</label>
-					<span><?php echo ($row['door'] != '') ? $row['door'] : ''?></span>
+					<span><?php echo $row['door']?></span>
 					
 					<div class="clr"></div>
 				</li>
 				<li>
 					<label for="Fuel">Seats</label>
-					<span><?php echo ($row['seat'] != '')?></span>
+					<span><?php echo $row['seat']?></span>
 					
 					<div class="clr"></div>
 				</li>
@@ -78,11 +145,11 @@
 			</ul>
 		</div>
 	</div>
+	<?php 
+		endforeach;
+	endif?>
 	
 	<?php echo modules::run('members/status')?>
-	
-	<?php endforeach;
-	endif?>
 
 	<div class="clr"></div>
 </div>

@@ -62,6 +62,8 @@ $route['members/passenger-detail/(:num)/(:any)'] 	= "members/overview_passenger_
 $route['members/passenger-edit/(:num)'] 			= "members/overview_passenger_edit/$1";
 $route['members/passenger-edit-detail-success'] 	= "members/overview_passenger_success";
 
+$route['members/car-update-successful'] 	= "members/car_update_successful";
+
 $route['contact-us']			= "contact";
 $route['contact-us/successful']	= "contact/successfully";
 $route['privacy-policy']		= "privacy";

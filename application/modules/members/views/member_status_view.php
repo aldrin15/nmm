@@ -1,5 +1,5 @@
 		<?php foreach($members_data as $row):?>
-		<div class="profile-status span3 fl">
+		<div class="profile-status span3 fr">
 			<p>Profile Status</p>
 			
 			<div class="profile-progress"></div>

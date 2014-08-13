@@ -372,7 +372,7 @@ class Member_model extends CI_Model {
 							->from('user_car')
 							->join('user_media', 'user_media.user_id = user_car.user_id', 'left')
 							->where('user_car.user_id', $id)
-							//->where('user_media.media_description', 'Car Image')
+							->or_where('user_media.media_name', 'Car Image')
 							->get();
 		
 		$result = $query->result_array();
@@ -392,7 +392,7 @@ class Member_model extends CI_Model {
 			'year'				=> $this->input->post('year')
 		);
 		
-		$this->db->update('user_car', $data);
+		$this->db->update('user_car', $data, array('user_id'=>$id));
 	}
 	
 	public function count_user($what = 'COUNT(user.user_id) as users') {

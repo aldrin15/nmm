@@ -173,12 +173,9 @@
 			<script type="text/javascript">
 			function get_data(events, month_today, year) {
 				$.each(events, function(index, value) {
-					var get_month = value.substring(52, 54);
-					var get_year = value.substring(47, 51);
+					var get_month = value.substring(14, 16);
+					var get_year = value.substring(9, 13);
 					var this_month = (month_today < 9 ? "0"+month_today:month_today);
-
-					console.log(get_month);
-					console.log(get_year);
 				
 					if(this_month == get_month && get_year == year) {
 						$('.pcal-body ul').append('<li>'+value+'</li>');
@@ -194,7 +191,7 @@
 					year	= date.getFullYear();
 				
 				var events = [<?php for($i = 0; $i < count($other_dates_array[0]); $i++):
-					echo '"<a href=\''.base_url('rides/detail').'/'.$id_array[0][$i].'\'>'.$other_dates_array[0][$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[0][$i].' to '.$other_destination_array[0][$i].'</a>",';
+					echo '"<a data=\''.$other_dates_array[0][$i].'\' href=\''.base_url('rides/detail').'/'.$id_array[0][$i].'\'>'.$other_dates_array[0][$i].'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from '.$other_origin_array[0][$i].' to '.$other_destination_array[0][$i].'</a>",';
 				endfor;?>];
 			
 				$('.pcal-month').html(months[month] +' '+ year);

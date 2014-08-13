@@ -80,7 +80,7 @@
 						<div class="clr"></div>
 					</li>
 					<li>
-						<label for="Fuel">Seats <?php echo form_error('seats', '<span class="error">','</span>')?></label>
+						<label for="Seats">Seats <?php echo form_error('seats', '<span class="error">','</span>')?></label>
 						<select name="seat" id="" class="choice form-control">
 							<?php for($i = 1; $i < 12; $i++):?>
 							<option><?php echo $i?></option>
@@ -90,7 +90,7 @@
 						<div class="clr"></div>
 					</li>
 					<li>
-						<label for="Fuel">Transmission <?php echo form_error('Transmission', '<span class="error">','</span>')?></label>
+						<label for="Transmission">Transmission <?php echo form_error('Transmission', '<span class="error">','</span>')?></label>
 						<select name="transmission" id="" class="choice form-control">
 							<option <?php echo ($row['transmission'] == "Manual") ? 'selected' : ''?>>Manual</option>
 							<option <?php echo ($row['transmission'] == "Automatic") ? 'selected' : ''?>>Automatic</option>
