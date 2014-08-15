@@ -387,7 +387,7 @@ class Member_model extends CI_Model {
 			'door' 				=> $this->input->post('door'),
 			'seat' 				=> $this->input->post('seat'),
 			'transmission' 		=> $this->input->post('model'),
-			'air_condition'		=> $this->input->post('air_con'),
+			'air_condition'		=> $this->input->post('air_condition'),
 			'fuel'				=> $this->input->post('fuel'),
 			'year'				=> $this->input->post('year')
 		);

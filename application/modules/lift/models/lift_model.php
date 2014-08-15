@@ -364,10 +364,10 @@ class Lift_model extends CI_Model {
 		return $result;
 	}
 
-	function get_user_car($user_id) {
-		$query = $this->db->get_where('user_car', array('user_id'=> $user_id));
+	function get_user_car($id) {
+		$query = $this->db->get_where('user_car', array('user_id'=> $id));
 		
-		$result = $query->result();
+		$result = $query->result_array();
 		if(count($result) == 0) return FALSE;
 		return $result;
 	}

@@ -165,8 +165,8 @@ class Members extends MX_Controller {
 		$post = $this->input->post();
 		
 		if($post):
-			$this->form_validation->set_rules('car_model', 'Car Model', 'required');
-			$this->form_validation->set_rules('license_plate', 'License Plate', 'required');
+			$this->form_validation->set_rules('model', 'Car Model', 'required');
+			$this->form_validation->set_rules('plate', 'License Plate', 'required');
 			
 			if($this->form_validation->run() == TRUE):
 				$this->member_model->car_update($id);

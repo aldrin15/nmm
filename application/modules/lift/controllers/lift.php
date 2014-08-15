@@ -183,18 +183,24 @@ class Lift extends MX_Controller {
 	public function create() {
 		modules::run('login/is_logged_in');
 		
-		if($this->uri->segment(3) != ''):
-			$data['get_wish_data'] = $this->lift_model->get_wish($this->uri->segment(3));
-			$data['get_wish_date'] = $this->lift_model->get_wish_date($this->uri->segment(3));
-		else:
-			$data['get_wish_data'] = '';
-			$data['get_wish_date'] = '';
-		endif;
-		
-		$data['translate'] = $this->session->userdata('translate');
 		$data['user_car_data'] = $this->lift_model->get_user_car($this->session->userdata('user_id'));
-		$data['view_file'] = 'lift_create_view';
-		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+		$user_car_data = $data['user_car_data'];
+		
+		if($user_car_data[0]['car_model'] != ''):
+			if($this->uri->segment(3) != ''):
+				$data['get_wish_data'] = $this->lift_model->get_wish($this->uri->segment(3));
+				$data['get_wish_date'] = $this->lift_model->get_wish_date($this->uri->segment(3));
+			else:
+				$data['get_wish_data'] = '';
+				$data['get_wish_date'] = '';
+			endif;
+			
+			$data['translate'] = $this->session->userdata('translate');
+			$data['view_file'] = 'lift_create_view';
+			echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
+		else:
+			redirect('members/car');
+		endif;
 	}
 	
 	public function insert_create() {
