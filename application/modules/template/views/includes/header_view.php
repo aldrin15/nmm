@@ -26,7 +26,6 @@
 	<?php else:?>
 	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.11.0.min.js')?>"></script>
 	<?php endif?>
-	<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.nicescroll.min.js')?>"></script>
 	<script type="text/javascript">
     document.createElement('section');
     document.createElement('aside');
@@ -36,9 +35,8 @@
 	
 	var height = $(window).height(), base_url = '<?php echo base_url()?>', pathArray = window.location.pathname.split('/');
 	
-	$(function() { $('.login a:first-child').hover(function(){ $('.login ul').stop(true,false).fadeIn().show(); },function(){ $('.login ul').fadeOut(); }); $('.nav-dropdown').click(function(){ $('.menu ul').slideToggle(); }); $('html').niceScroll({autohidemode:'false',cursorborderradius:'0px',background:'#E5E9E7',cursorwidth:'10px',cursorcolor:'#999999'}); });
+	$(function() { $('.login a:first-child').hover(function(){ $('.login ul').stop(true,false).fadeIn().show(); },function(){ $('.login ul').fadeOut(); }); $('.nav-dropdown').click(function(){ $('.menu ul').slideToggle(); });});
 	</script>
-	<style type="text/css">.nicescroll-rails {z-index:99 !important;} .nicescroll-rails div {width:10px !important;}</style>
 </head>
 <body>
 <div id="fb-root"></div>

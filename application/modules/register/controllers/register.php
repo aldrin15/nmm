@@ -214,7 +214,7 @@ class Register extends MX_Controller {
 			$message = "Dear ".$email.",\n\nRegister Successful\n\nYou are now registered with Nimm Mich Mit membership account <table><th><td>Registrant</td><td>Type</td><td>Price</td></th><tbody><td>".$email."</td></tbody></table>\n\nIf you need any help just email us at <a href='mailto:support@nmm-nmm.de'>support@nmm-nmm.de</a>";
 			modules::run('email/sendEmail', $email, $message);
 			
-			redirect('nmm');
+			redirect('register/payment_membership_successful');
 		}
 		
 		echo $_GET['Status'].'<br />';
@@ -226,6 +226,12 @@ class Register extends MX_Controller {
 		echo $_GET['TransactionID'].'<br />';
 		echo $_GET['Checksum'].'<br />';
 		echo $_GET['PaymentMethod'].'<br />';
+	}
+	
+	public function payment_membership_successful() {
+		$data['translate'] = $this->session->userdata('translate');	
+		$data['view_file'] = 'register_successful_paid_membership_view';
+		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
 	public function payment_error() {

@@ -89,7 +89,7 @@ header .menu ul li a span {display:block; font-size:.5em; font-family: 'quicksan
 
 #main-wrapper {padding-bottom:127px;}
 
-footer {margin-top:-127px;}
+footer {background:#fff; margin-top:-127px;}
 footer .pull-left {text-transform:uppercase; margin-bottom:25px;}
 footer .pull-left .fl {margin-right:20px;}
 footer .pull-left a {color:#050505; font-size:.9em;}
@@ -194,16 +194,16 @@ footer .pull-right .fl span:last-child {color:#678222;}
 
 section {position:relative; border:1px solid transparent; border-left:none; border-right:none;}
 
-.content-1 {height:678px;}
+.content-1 {height:665px;}
 
-.content-2 {height:678px;}
-.content-2 .m-center {padding-top:200px;}
+.content-2 {}
+.content-2 .m-center {position:relative; padding-top:200px; height:678px;}
 
 .content-3 {position: relative; background:url('../images/page_template/content-3-bg.jpg') 0 10% no-repeat fixed; background-size:cover; height:678px; width: 100%;}
 .content-3 .m-center {padding-top:200px;}
 .content-3 h2 {color:#fff; font-family: 'quicksandregular'; font-size:3em; border:1px solid #fff; text-align:center; padding: 10px 0;}
 
-.content-4 {box-shadow: inset 0  8px 8px -8px #bababa, inset 0 -8px 8px -8px #bababa; height:678px;}
+.content-4 {height:678px;}
 .content-4 .m-center {padding-top:150px;}
 .carousel-wrapper {background: #fff; border-radius:8px; -webkit-border-radius:8px; -moz-border-radius:8px; -ms-border-radius:8px; padding:20px 0;}
 .carousel-inner {width:95%;}
@@ -255,7 +255,7 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 .search ul li input[type="text"]:focus {outline:none;}
 .search ul li input[type="submit"] {}
 
-.welcome {background:#fff; box-shadow:3px 3px 10px #000; border-radius:8px; -webkit-border-radius:8px; -moz-border-radius:8px; -ms-border-radius:8px; margin-left:0; padding:10px; width:370px;}
+.welcome {position:absolute; background: url('../images/page_template/welcome_bg.png') repeat; top:0; left:0; padding: 170px 15px 0; height:100%;}
 .welcome p {font-size:1.2em; letter-spacing:.2em; margin-bottom:20px;}
 .welcome a {display:block; font-size:1.3em; text-align:center; margin-bottom:20px; width:132px;}
 
@@ -275,7 +275,7 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 .event-detail {position:absolute; background:#000; color:#fff; top:0; left:0; width:199px;}
 .event-detail p {background:#000; padding:5px 5px; width:190px;}
 
-.video {padding-top:55px;}
+.video {padding-top:0px;}
 .home-features {font-size:1.3em; margin:0 auto; width:710px;}
 .home-features h3 {text-align:center; text-transform:uppercase; text-shadow:2px 3px 15px #000;}
 .home-features ul li {float:left; background:#e9fdb5; box-shadow:3px 3px 10px #cacaca; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; margin-bottom:50px; padding:5px; width:300px;}
@@ -351,6 +351,7 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 
 
 
+/***** [Register] *****/
 .register-wrapper {padding-top:30px; margin-top:110px;}
 .register form {/*margin-left:84px;*/ padding-top:20px;}
 .register form ul li {margin-bottom:10px;}
@@ -358,6 +359,13 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 .register form ul li:nth-child(7) input {float:left; margin-right:5px;}
 .register div label, .register div input {float:left; margin-right:5px;}
 .register form ul li label a:hover {text-decoration:none;}
+
+.paid-membership ul {margin:20px auto 0; width:500px;}
+.paid-membership ul li {border-bottom:1px solid #c4c4c4;}
+.paid-membership ul li span {float:left; padding:10px 10px;}
+.paid-membership ul li span:nth-child(2) {text-align:right; width:100px;}
+.paid-membership ul li span:first-child {width:390px;}
+.paid-membership ul li:last-child {border:none;}
 
 #successful-message {padding:130px 0 0;}
 #successful-message p {background: #8aff73 url('../images/page_template/icon_check_success.png') no-repeat 2% 50%; color:#378b15; font-size:1.3em; text-align:center; border:3px solid #27f82a; padding:20px 0;}

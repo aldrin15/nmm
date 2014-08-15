@@ -2,6 +2,7 @@
 <style type="text/css">
 #events {padding-top:50px;}
 #events .carousel-inner {margin-left:40px;}
+html, body {background: #fdfdfb  url('<?php echo base_url('assets/images/page_template/background.jpg')?>') repeat !important;}
 </style>
 		<section class="content-1 slideshow-search active" style="position:relative">
 			<div class="slideshow">			
@@ -41,7 +42,7 @@
 				</aside>
 				
 				<div class="fr video span5">
-					<a href="#" data-toggle="modal" data-target="#demo-video" class="fr"><img src="<?php echo base_url('assets/images/demo.jpg')?>" width="410" height="173" alt=""/></a>
+					<a href="#" data-toggle="modal" data-target="#demo-video" class="fr"><img src="<?php echo base_url('assets/images/demo.jpg')?>" width="480" height="390" alt=""/></a>
 					<div class="clr"></div>
 				</div>
 				
@@ -169,6 +170,23 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="modal fade" id="demo-video" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
@@ -177,7 +195,7 @@
 $(function () {
 	$('#demo-video').on('show', function () {
 		// $('div.modal-body').html('<iframe width="555px" height="315" src="//www.youtube.com/embed/L10Scjvn6aA" frameborder="0" allowfullscreen></iframe>'); 
-		$('div.modal-body').html('Video Goes Here'); 
+		$('div.modal-body').html('Test');
 	});
 	$('#demo-video').on('hide', function () { $('div.modal-body').html(''); });
 
