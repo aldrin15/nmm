@@ -229,14 +229,28 @@ $(function () {
 		$('.carousel-linked-nav li:eq(' + idx + ')').addClass('active'); // select currently active item and add active class
 	});
 	
-	showNextQuote();
+	//showNextQuote();
+	
+	$('.feedback-message p:gt(0)').hide();
+
+	setInterval(function() { $('.feedback-message > p:first-child').fadeOut().next().fadeIn().end().appendTo('.feedback-message'); }, 5000);
+	
+	$('.next').click(function() {
+		$('.feedback-message p:first-child').fadeOut().next().fadeIn().end().appendTo('.feedback-message');
+	});
+
+	$('.prev').click(function() {
+		$('.feedback-message p:first-child').fadeOut();
+		$('.feedback-message p:last-child').prependTo('.feedback-message').fadeOut();
+		$('.feedback-message p:first-child').fadeIn();
+	});
 });
 
-var quoteIndex = -1;
+/* var quoteIndex = -1;
 
 function showNextQuote() {
 	++quoteIndex;
 	$(".feedback-message").eq(quoteIndex % $(".feedback-message").length).fadeIn(1000).delay(5000).fadeOut(1000, showNextQuote);
-}
+} */
 </script>
 <?php echo modules::run('lift/auto_suggest_city')?>

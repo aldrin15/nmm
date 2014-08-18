@@ -286,15 +286,23 @@ section {position:relative; border:1px solid transparent; border-left:none; bord
 .home-features ul li:nth-child(3) i {display:block; background: url('../images/page_template/home_icon.png') no-repeat 0 -140px; width:71px; height:70px;}
 .home-features ul li:nth-child(4) i {display:block; background: url('../images/page_template/home_icon.png') no-repeat 0 -210px; width:71px; height:70px;}
 
-.feedback { font-size:1.8em; text-align:center; position:relative; padding-top:15px;}
+.feedback {position:relative; color:#57613c; font-family: 'Open Sans', sans-serif; font-size:1.8em; margin-top:80px; width:100%;}
+.feedback-message p {display:none; position: absolute; text-align:center; top: 0; left: 0; width:100%;}
+.feedback-message p:first-child {display:block;}
+
+.f-next-nav, .f-prev-nav { position: absolute; cursor: pointer; top:0;}
+.f-next-nav {right:0;}
+.f-prev-nav {left:0;}
+
+/* .feedback { font-size:1.8em; text-align:center; position:relative; padding-top:15px;}
 .feedback .feedback-message:first-child { display:block; }
 .feedback .feedback-message { position:absolute; display:none; width:100%;}
 .feedback-message span {display:block; text-align:left; margin-top:10px;}
 .feedback .fl {margin-left:10px;}
 .feedback .f-left {vertical-align:top}
 .feedback .f-right {vertical-align:top; margin-top:25px;}
-.feedback-message p {position:relative; font-style:italic; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:0 10px; /*width:450px;*/}
-.feedback-message img {position:absolute; bottom:-9px; left:5px;}
+.feedback-message p {position:relative; font-style:italic; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; padding:0 10px; /*width:450px;}*/
+/* .feedback-message img {position:absolute; bottom:-9px; left:5px;}  */
 
 .subscription {color:#678222; text-align:center; margin-bottom:40px;}
 .subscription h3 {color:#000; text-transform:uppercase; text-shadow:2px 3px 15px #000;}
