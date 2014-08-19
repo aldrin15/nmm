@@ -258,4 +258,21 @@ class Passenger_model extends CI_Model {
 		if(count($result) == 0) return FALSE;
 		return $result;
 	}
+	
+	function featured_passenger($what = 'user_wish_rides.id, firstname, lastname, media_filename as image') {
+		$query = $this->db->select($what)
+							->from('user_wish_rides')
+							->join('user', 'user.user_id = user_wish_rides.user_id')
+							->join('user_car', 'user_car.user_id = user.user_id', 'left')
+							->join('user_media', 'user_media.user_id = user.user_id', 'left')
+							->where('user_media.media_name', 'Profile Image')
+							->or_where('user_wish_rides.date >= NOW() - INTERVAL 1 DAY', '', false)
+							->limit(4)
+							->order_by('user_wish_rides.id', 'desc')
+							->get();
+							
+		$result = $query->result_array();
+		if(count($result) == 0) return FALSE;
+		return $result;
+	}
 }

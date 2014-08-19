@@ -413,6 +413,7 @@ class Lift_model extends CI_Model {
 							->join('user', 'user.user_id = user_lift_post.user_id')
 							->join('user_car', 'user_car.user_id = user.user_id', 'left')
 							->join('user_media', 'user_media.user_id = user.user_id', 'left')
+							->where('user_lift_post.date >= NOW() - INTERVAL 1 DAY', '', false)
 							->limit(4)
 							->order_by('user_lift_post.id', 'desc')
 							->get();

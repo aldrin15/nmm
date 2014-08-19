@@ -1,6 +1,6 @@
 <?php $this->load->view('header_content')?>
 <style type="text/css">
-#events {padding-top:50px;}
+#events {/*padding-top:50px;*/}
 #events .carousel-inner {margin-left:40px;}
 html, body {background: #fdfdfb  url('<?php echo base_url('assets/images/page_template/background.jpg')?>') repeat !important;}
 </style>
@@ -57,6 +57,7 @@ html, body {background: #fdfdfb  url('<?php echo base_url('assets/images/page_te
 		</section>
 		
 		<section class="content-4">
+			<div class="c-4-topborder" style="background:#c8de8d; width:100%; height:150px;"></div>
 			<div class="m-center">
 				<div id="events" class="carousel slide">
 					<div class="carousel-wrapper">
@@ -74,50 +75,26 @@ html, body {background: #fdfdfb  url('<?php echo base_url('assets/images/page_te
 							</div>
 							
 							<div class="item">
-								<div class="span2">
-									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" alt=""/>
-									<div class="event-detail">
-										<p>This is a test</p>
-									</div>
-								</div>
-								<div class="span2">
-									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" alt=""/>
-									<div class="event-detail">
-										<p>This is a test</p>
-									</div>
-								</div>
-								<div class="span2">
-									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" alt=""/>
-									<div class="event-detail">
-										<p>This is a test</p>
-									</div>
-								</div>
-								<div class="span2">
-									<img src="<?php echo base_url('assets/images/dummy_car.jpg')?>" alt=""/>
-									<div class="event-detail">
-										<p>This is a test</p>
-									</div>
-								</div>
+								<?php echo modules::run('passenger/featured_passenger')?>
 								
 								<div class="clr"></div>
 							</div>
 						</div>
-						
 							<div class="clr"></div>
-							
-						<!-- LINKED NAV -->
-						<ul class="carousel-linked-nav">
-							<li class="active"><a href="#1"></a></li>
-							<li><a href="#2"></a></li>
-							<li><a href="#3"></a></li>
-						</ul>
-						
-						<div class="clr"></div>
 					</div>
 				</div>
-				
-				<?php echo modules::run('feedback')?>
 			</div>
+			<div class="c-4-topborder" style="background:#c8de8d; width:100%; height:150px;">
+				<!-- LINKED NAV -->
+				<ul class="carousel-linked-nav">
+					<li class="active"><a href="#1"></a></li>
+					<li><a href="#2"></a></li>
+					<li><a href="#3"></a></li>
+				</ul>
+				
+				<div class="clr"></div>			
+			</div>
+			<?php echo modules::run('feedback')?>
 		</section>
 		
 		<section class="content-5">
@@ -126,27 +103,27 @@ html, body {background: #fdfdfb  url('<?php echo base_url('assets/images/page_te
 					<h3>Start by choosing your plan</h3>
 					
 					<div class="span2">
-						<a href="javascript:void(0)">
+						<a href="<?php echo base_url('register/#1')?>">
 							<span>14 DAYS FREE TRIAL</span>
 							<span>FREE</span>
 						</a>
 					</div>
 					<div class="span2">
-						<a href="javascript:void(0)">
+						<a href="<?php echo base_url('register/#2')?>">
 							<span>MONTHLY</span>
 							<span>3.99</span>
 							<span>EURO</span>
 						</a>
 					</div>
 					<div class="span2">
-						<a href="javascript:void(0)">
+						<a href="<?php echo base_url('register/#3')?>">
 							<span>6 MONTHS</span>
 							<span>12.99</span>
 							<span>EURO</span>
 						</a>
 					</div>
 					<div class="span2">
-						<a href="javascript:void(0)">
+						<a href="<?php echo base_url('register/#4')?>">
 							<span>12 MONTHS</span>
 							<span>18.99</span>
 							<span>EURO</span>
@@ -201,35 +178,14 @@ $(function () {
 
 	$("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 });
 	
-	// Invoke the carousel
-	$('#events').carousel({ interval: 3000 });
+	// invoke the carousel
+	$('#events').carousel({interval: 3000});
 
-	/* Slide on Click */
-	$('.carousel-linked-nav > li > a').click(function() {
-		var item = Number($(this).attr('href').substring(1)); // grab href, remove pound sign, convert to number
-		
-		$('#events').carousel(item - 1); // slide to number -1 (account for zero indexing)
-		
-		$('.carousel-linked-nav .active').removeClass('active'); // remove current active class
-		
-		$(this).parent().addClass('active'); // add active class to just clicked on item
-		
-		return false; // don't follow the link
-	});
+	/* SLIDE ON CLICK */ 
+	$('.carousel-linked-nav > li > a').click(function() {var item = Number($(this).attr('href').substring(1));$('#events').carousel(item - 1);$('.carousel-linked-nav .active').removeClass('active');$(this).parent().addClass('active');return false;});
 
-	/* ========================
-	 * AUTOPLAY NAV HIGHLIGHT 
-	 * Bind 'slid' function
-	 ======================= */
-	$('#events').bind('slid', function() {
-		$('.carousel-linked-nav .active').removeClass('active'); // remove active class
-		
-		var idx = $('#events .item.active').index(); // get index of currently active item
-		
-		$('.carousel-linked-nav li:eq(' + idx + ')').addClass('active'); // select currently active item and add active class
-	});
-	
-	//showNextQuote();
+	// bind 'slid' function
+	$('#events').bind('slide.bs.carousel',function(){var test = $('.carousel-linked-nav .active').removeClass('active'), idx = $('#events .item.active').index();$('.carousel-linked-nav li:eq(' + idx + ')').addClass('active');});
 	
 	$('.feedback-message p:gt(0)').hide();
 
@@ -239,18 +195,7 @@ $(function () {
 		$('.feedback-message p:first-child').fadeOut().next().fadeIn().end().appendTo('.feedback-message');
 	});
 
-	$('.prev').click(function() {
-		$('.feedback-message p:first-child').fadeOut();
-		$('.feedback-message p:last-child').prependTo('.feedback-message').fadeOut();
-		$('.feedback-message p:first-child').fadeIn();
-	});
+	$('.prev').click(function() {$('.feedback-message p:first-child').fadeOut();$('.feedback-message p:last-child').prependTo('.feedback-message').fadeOut();$('.feedback-message p:first-child').fadeIn();});
 });
-
-/* var quoteIndex = -1;
-
-function showNextQuote() {
-	++quoteIndex;
-	$(".feedback-message").eq(quoteIndex % $(".feedback-message").length).fadeIn(1000).delay(5000).fadeOut(1000, showNextQuote);
-} */
 </script>
 <?php echo modules::run('lift/auto_suggest_city')?>

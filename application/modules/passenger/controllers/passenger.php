@@ -251,34 +251,26 @@ class Passenger extends MX_Controller {
 		echo modules::run('template/my_template', $this->_view_module, $this->_view_template_name, $this->_view_template_layout, $data);
 	}
 	
-	public function test() {
-		$test = $this->passenger_model->test();
-		
-		
-		foreach($test as $row):
-			echo '<div>'.$row['id'].'</div>';
-			echo '<div>'.$row['user_id'].'</div>';
-			echo '<div>'.$row['firstname'].'</div>';
-			echo '<div>'.$row['lastname'].'</div>';
-			echo '<div>'.$row['origins'].'</div>';
-			echo '<div>'.$row['destination'].'</div>';
-			echo '<div>'.$row['car'].'</div>';
-			echo '<div>'.$row['plate'].'</div>';
-			echo '<div>'.$row['last_login'].'</div>';
-			
-			$preference_id = explode(',', $row['p_id']);
-			
-			for($i = 0; $i < count($preference_id); $i++):
-				echo $preference_id[$i];
-			endfor;
-			
-			echo '<br />';
-			
-			$other_post_date = explode(',', $row['other_post_dates']);
-			
-			for($i = 0; $i < count($other_post_date); $i++):
-				echo $other_post_date[$i].'<br />';
-			endfor;
-		endforeach;
+	public function featured_passenger() {
+		$featured_passenger = $this->passenger_model->featured_passenger();
+
+		if($featured_passenger != ''):
+			foreach($featured_passenger as $row):
+				echo "<div class='span2'>";
+				
+				if($row['image'] != ''):
+					echo "<a href='".base_url('rides/detail').'/'.$row['id']."'><img src='".base_url('assets/media_uploads')."/".$row['image']."' alt=''/></a>";
+				else:
+					echo "<a href='".base_url('rides/detail').'/'.$row['id']."'><img src='".base_url('assets/images/page_template/blank_profile_large.jpg')."' alt=''/></a>";
+				endif;
+	
+				echo "<div class='event-detail'>
+							<p style='text-transform:capitalize;'>".$row['firstname'].' '.$row['lastname']."</p>
+						</div>
+				</div>";
+			endforeach;
+		else:
+			echo '<div style="font-size:20px; text-align:center; border:1px solid #000; padding-top:60px; height:190px;">No Event Featured Today</div>';
+		endif;
 	}
 }
