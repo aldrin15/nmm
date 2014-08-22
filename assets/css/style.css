@@ -714,6 +714,7 @@ section {position:relative; /*border:1px solid transparent;*/ border-left:none; 
 .profile-status {font-size:1.2em; border:1px solid #d7d7d6; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; margin-left:10px; padding:10px;}
 .profile-status ul li {margin-top:10px; padding-left:20px;}
 .p-checked {background: url('../images/page_template/icon_check.png') no-repeat left;}
+.p-not-checked {background: url('../images/page_template/icon_x.png') no-repeat left;}
 
 
 
