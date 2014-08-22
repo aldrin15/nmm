@@ -57,7 +57,7 @@
 										<tr class="">
 												<td><?php echo $row['origins']?></td>
 												<td><?php echo $row['destination']?></td>
-												<td><?php echo date('F d - H:i A', strtotime($row['time']))?></td>
+												<td><?php echo date('F d', strtotime($row['date'])).' '.date('H:i A', strtotime($row['time']))?></td>
 												<td><a class="edit" href="<?php echo base_url('members/ride-detail')?>/<?php echo $row['id']?>/<?php echo $row['date']?>">View</a></td>
 												<td><a class="edit" href="<?php echo base_url('members/ride-edit')?>/<?php echo $row['id']?>">Edit</a></td>
 												<td><a class="delete" href="javascript:;">Delete</a></td>
@@ -104,7 +104,7 @@
 										<tr class="">
 											<td><?php echo $row['origins']?></td>
 											<td><?php echo $row['destination']?></td>
-											<td><?php echo date('F d - H:i A', strtotime($row['start_time']))?></td>
+											<td><?php echo date('F d', strtotime($row['date'])).' '.date('H:i A', strtotime($row['start_time']))?></td>
 											<td><a class="edit" href="<?php echo base_url('members/passenger-detail')?>/<?php echo $row['id']?>">View</a></td>
 											<td><a class="edit" href="<?php echo base_url('members/passenger-edit')?>/<?php echo $row['id']?>">Edit</a></td>
 											<td><a class="delete" href="javascript:;">Delete</a></td>

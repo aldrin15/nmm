@@ -81,7 +81,7 @@ class Member_model extends CI_Model {
 			$id = $this->session->userdata('user_id');
 		endif;
 		
-		$query = $this->db->select('user_lift_post.id, user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_post.date')
+		$query = $this->db->select('user_lift_post.id, user_lift_post.id, user_lift_post.route_from as origins, user_lift_post.route_to as destination, user_lift_post.start_time as time, user_lift_post.date, user_lift_post.date')
 							->from('user_lift_post')
 							->join('user', 'user.user_id = user_lift_post.user_id')
 							->where('user_lift_post.user_id', $id)
@@ -156,7 +156,7 @@ class Member_model extends CI_Model {
 			$id = $this->session->userdata('user_id');
 		endif;
 		
-		$query = $this->db->select('user_wish_rides.id, user_wish_rides.route_from as origins, user_wish_rides.route_to as destination, start_time')
+		$query = $this->db->select('user_wish_rides.id, user_wish_rides.route_from as origins, user_wish_rides.route_to as destination, start_time, user_wish_rides.date')
 							->from('user_wish_rides')
 							->join('user', 'user.user_id = user_wish_rides.user_id')
 							->where('user_wish_rides.user_id', $id)
