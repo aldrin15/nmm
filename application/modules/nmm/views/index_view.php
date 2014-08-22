@@ -103,27 +103,27 @@ html, body {background: #fdfdfb  url('<?php echo base_url('assets/images/page_te
 					<h3>Start by choosing your plan</h3>
 					
 					<div class="span2">
-						<a href="<?php echo base_url('register/#1')?>">
+						<a href="<?php echo base_url('register/?type=1')?>">
 							<span>14 DAYS FREE TRIAL</span>
 							<span>FREE</span>
 						</a>
 					</div>
 					<div class="span2">
-						<a href="<?php echo base_url('register/#2')?>">
+						<a href="<?php echo base_url('register/?type=2')?>">
 							<span>MONTHLY</span>
 							<span>3.99</span>
 							<span>EURO</span>
 						</a>
 					</div>
 					<div class="span2">
-						<a href="<?php echo base_url('register/#3')?>">
+						<a href="<?php echo base_url('register/?type=3')?>">
 							<span>6 MONTHS</span>
 							<span>12.99</span>
 							<span>EURO</span>
 						</a>
 					</div>
 					<div class="span2">
-						<a href="<?php echo base_url('register/#4')?>">
+						<a href="<?php echo base_url('register/?type=4')?>">
 							<span>12 MONTHS</span>
 							<span>18.99</span>
 							<span>EURO</span>

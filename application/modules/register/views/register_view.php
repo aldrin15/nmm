@@ -52,28 +52,27 @@
 				<li>
 					<br /><h4 class="err-type">Choose Membership Subscription Type <?php echo form_error('account_type', '<span class="error">', '</span>')?></h4>
 					<hr/>
-					
 					<ul class="subscription-choices">
-						<li>
-							<input type="radio" name="account_type" value="1" id="" <?php echo (isset($_POST['account_type']) == 1) ? 'selected' : ''?>/>
+						<li <?php echo (isset($_GET['type']) && $_GET['type'] == 1) ? 'class="selected"' : ''?>>
+							<input type="radio" name="account_type" value="1" id="" <?php echo (isset($_POST['account_type']) == 1 || $_GET['type'] == 1) ? 'checked="checked"' : ''?>/>
 							<span>Free Trial</span>
 							
 							<p>14 Days</p>
 						</li>
-						<li>
-							<input type="radio" name="account_type" value="2" id="" <?php echo (isset($_POST['account_type']) == 2) ? 'selected' : ''?>/>
+						<li <?php echo (isset($_GET['type']) && $_GET['type'] == 2) ? 'class="selected"' : ''?>>
+							<input type="radio" name="account_type" value="2" id="" <?php echo (isset($_POST['account_type']) == 2 || $_GET['type'] == 2) ? 'checked="checked"' : ''?>/>
 							<span>Monthly</span>
 							
 							<p>&euro; 3.99</p>
 						</li>
-						<li>
-							<input type="radio" name="account_type" value="3" id="" <?php echo (isset($_POST['account_type']) == 3) ? 'selected' : ''?>/>
+						<li <?php echo (isset($_GET['type']) && $_GET['type'] == 3) ? 'class="selected"' : ''?>>
+							<input type="radio" name="account_type" value="3" id="" <?php echo (isset($_POST['account_type']) == 3 || $_GET['type'] == 3) ? 'checked="checked"' : ''?>/>
 							<span>6 Months</span>
 							
 							<p>&euro; 12.99</p>
 						</li>
-						<li>
-							<input type="radio" name="account_type" value="4" id="" <?php echo (isset($_POST['account_type']) == 4) ? 'selected' : ''?>/>
+						<li <?php echo (isset($_GET['type']) && $_GET['type'] == 4) ? 'class="selected"' : ''?>>
+							<input type="radio" name="account_type" value="4" id="" <?php echo (isset($_POST['account_type']) == 4 || $_GET['type'] == 4) ? 'checked="checked"' : ''?>/>
 							<span>1 Year</span>
 						
 							<p>&euro; 18.99</p>
@@ -260,6 +259,7 @@ $(function() {
 		
 		if(error == 0) {
 			console.log('success');
+			console.log(acc_type.val());
 			$('.register-wrapper form').submit();
 			$('input[name="register_submit"]').prop('disabled', true);
 		} else {

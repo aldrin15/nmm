@@ -6,6 +6,7 @@ class Register_model extends CI_Model {
 		$account_type = $this->input->post('account_type');
 		
 		$insert_user = array(
+			'user_role'			=> 'member',
 			'firstname'			=> $this->input->post('firstname'),
 			'lastname'			=> $this->input->post('lastname'),
 			'gender'			=> $this->input->post('gender'),
