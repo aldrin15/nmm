@@ -10,8 +10,7 @@
 	<div class="message-inbox fl">
 		<section class="wrapper">
 			<div class="span5">
-				<a href="#" data-toggle="modal" data-target="#compose" class="btn btn-primary">Compose <i class="glyphicon glyphicon-plus"></i></a>
-				<a href="#" id="btn-delete" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+				<a href="#" id="btn-delete" class="btn btn-danger" title="Delete"><i class="glyphicon glyphicon-trash"></i></a>
 				<div class="clr"></div>
 			</div><br />
 			
