@@ -10,7 +10,7 @@
 	<title>Nimm Mich Mit</title>
 	
 	<link rel="icon" type="image/png" href="<?php echo base_url('favicon.png')?>">
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,400,700,300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,700&subset=latin,cyrillic-ext,greek-ext' rel='stylesheet' type='text/css'>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/font-awesome.min.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-responsive.css')?>"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap-modal.css')?>"/>
