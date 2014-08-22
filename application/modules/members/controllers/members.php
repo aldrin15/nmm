@@ -165,14 +165,39 @@ class Members extends MX_Controller {
 		$post = $this->input->post();
 		
 		if($post):
-			$this->form_validation->set_rules('model', 'Car Model', 'required');
-			$this->form_validation->set_rules('plate', 'License Plate', 'required');
-			
-			if($this->form_validation->run() == TRUE):
-				$this->member_model->car_update($id);
+			if(empty($_FILES['userfile']['name'])) {
+				$this->form_validation->set_rules('model', 'Car Model', 'required');
+				$this->form_validation->set_rules('plate', 'License Plate', 'required');
 				
-				redirect('members/car-update-successful');
-			endif;
+				if($this->form_validation->run() == TRUE):
+					$this->member_model->car_update($id);
+					
+					redirect('members/car-update-successful');
+				endif;
+			} else {
+				$this->form_validation->set_rules('model', 'Car Model', 'required');
+				$this->form_validation->set_rules('plate', 'License Plate', 'required');
+				
+				if($this->form_validation->run() == TRUE):
+					$config['allowed_types'] 	= 'jpg|jpeg|gif|png';
+					$config['upload_path']		= realpath(APPPATH.'../assets/media_uploads/');
+					$config['encrypt_name']		= true;
+
+					$this->upload->initialize($config);
+
+					if (!$this->upload->do_upload()) {
+						$error = array('error' => $this->upload->display_errors());
+					} else {
+						$image_data = $this->upload->data();
+					}
+
+					$this->member_model->car_update($id);
+					$this->member_model->update_car_media($id, $image_data);
+					
+					redirect('members/car-update-successful');
+				endif;			
+			}
+
 		endif;
 		
 		$data['car_data'] 	= $this->member_model->car($id);

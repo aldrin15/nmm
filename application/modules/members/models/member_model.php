@@ -275,13 +275,36 @@ class Member_model extends CI_Model {
 		$data = array(
 			'user_id'				=> $user_id,
 			'media_filename' 		=> $image_data['file_name'],
-			'media_description' 	=> 'Profile Image',
+			'media_name' 	=> 'Profile Image',
 			'media_type' 			=> $image_data['image_type']
 		);	
 	
 		$query = $this->db->select('*')
 							->from('user_media')
 							->where('user_id', $user_id)
+							->get();
+		
+		if($query->num_rows() > 0):
+			$this->db->update('user_media', $data, array('user_id' => $user_id));
+		else:
+			$this->db->insert('user_media', $data);
+		endif;
+		
+		return true;
+	}
+	
+	public function update_car_media($user_id, $image_data) {
+		$data = array(
+			'user_id'				=> $user_id,
+			'media_filename' 		=> $image_data['file_name'],
+			'media_name' 			=> 'Car Image',
+			'media_type' 			=> $image_data['image_type']
+		);
+	
+		$query = $this->db->select('*')
+							->from('user_media')
+							->where('user_id', $user_id)
+							->where('media_name', 'Car Image')
 							->get();
 		
 		if($query->num_rows() > 0):
@@ -373,6 +396,7 @@ class Member_model extends CI_Model {
 							->join('user_media', 'user_media.user_id = user_car.user_id', 'left')
 							->where('user_car.user_id', $id)
 							->or_where('user_media.media_name', 'Car Image')
+							->limit(1)
 							->get();
 		
 		$result = $query->result_array();

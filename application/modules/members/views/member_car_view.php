@@ -6,13 +6,21 @@
 	<?php $this->load->view('member_sidebar_view')?>
 	
 	<?php if($car_data[0]['car'] == ''):?>
-	<div class="profile-car">
+	<div class="profile-car span6">
 		<p class="profile-no-car">You didn't add your car details yet. Please fill the fields below.</p>
 		
 		<hr/>
 		
-		<form action="" method="post">
+		<form action="" method="post" enctype="multipart/form-data">
 			<ul>
+				<li>
+					<label for="Upload Car Image">Upload Car Image</label>
+					<div class="fileinput fileinput-new input-group" data-provides="fileinput">
+						<div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+						<span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="userfile"></span>
+						<a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+					</div>
+				</li>
 				<li>
 					<label for="Car Model">Car Model <?php echo form_error('car_model', '<span class="error">', '</span>')?></label>
 					<input type="text" name="model" id="" class="form-control"/>
@@ -156,6 +164,7 @@
 
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-input.js')?>"></script>
 <script type="text/javascript">
 $(function() {
 	$(".profile-nav ul li a").click(function(e){
@@ -173,6 +182,8 @@ $(function() {
 		
 		count += Number(percent);
 	});
+	
+	console.log(count);
 	
 	$( ".profile-progress" ).progressbar({ value: count });
 });

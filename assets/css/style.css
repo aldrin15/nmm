@@ -766,7 +766,7 @@ section {position:relative; /*border:1px solid transparent;*/ border-left:none; 
 
 
 /***** [Member - Car Edit] *****/
-.profile-car {float:left; margin-left:10px;}
+.profile-car {float:left; margin-left:10px; width:560px;}
 .p-frame-car {border:1px solid #adadad; padding:5px 10px;}
 
 .p-car-heading {background: #75ca30; color:#fff; font-size: 1.3em; padding:10px; height:40px;}
@@ -901,6 +901,8 @@ section {position:relative; /*border:1px solid transparent;*/ border-left:none; 
 	.profile-nav ul li ul {width:100%;}
 	
 	.profile-detail-information {margin-left:0; padding:0 20px; width:100%;}
+	
+	.profile-car {padding:0 20px; margin-left:0; width:100%;}
 }
 
 @media (max-width: 640px) {
