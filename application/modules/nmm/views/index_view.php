@@ -42,7 +42,7 @@ html, body {background: #fdfdfb  url('<?php echo base_url('assets/images/page_te
 				</aside>
 				
 				<div class="fr video span5">
-					<a href="#" data-toggle="modal" data-target="#demo-video" class="fr"><img src="<?php echo base_url('assets/images/demo.jpg')?>" width="480" height="390" alt=""/></a>
+					<a href="#" data-toggle="modal" data-target="#demo-video" class="fr"><img src="<?php echo base_url('assets/images/demo.jpg')?>" alt=""/></a>
 					<div class="clr"></div>
 				</div>
 				
@@ -61,7 +61,6 @@ html, body {background: #fdfdfb  url('<?php echo base_url('assets/images/page_te
 			<div class="m-center">
 				<div id="events" class="carousel slide">
 					<div class="carousel-wrapper">
-						<!-- Carousel items -->
 						<div class="carousel-inner">
 							<div class="active item">
 								<?php echo modules::run('event/featured_event');?>	
@@ -80,10 +79,13 @@ html, body {background: #fdfdfb  url('<?php echo base_url('assets/images/page_te
 								<div class="clr"></div>
 							</div>
 						</div>
-							<div class="clr"></div>
+						
+						<div class="clr"></div>
 					</div>
 				</div>
 			</div>
+			
+			<!-- LINKED NAV -->
 			<div class="c-4-topborder" style="background:#c8de8d; width:100%; height:150px;">
 				<!-- LINKED NAV -->
 				<ul class="carousel-linked-nav">
@@ -165,37 +167,17 @@ html, body {background: #fdfdfb  url('<?php echo base_url('assets/images/page_te
 			</div>
 		</div>
 		
-<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.js')?>"></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.0.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/responsiveslides.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js')?>"></script>
 <script type="text/javascript">
 $(function () {
 	$('#demo-video').on('show', function () {
 		// $('div.modal-body').html('<iframe width="555px" height="315" src="//www.youtube.com/embed/L10Scjvn6aA" frameborder="0" allowfullscreen></iframe>'); 
-		$('div.modal-body').html('Test');
+		$('div.modal-body').html('Video goes here');
 	});
-	$('#demo-video').on('hide', function () { $('div.modal-body').html(''); });
-
-	$("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 });
 	
-	// invoke the carousel
-	$('#events').carousel({interval: 3000});
-
-	/* SLIDE ON CLICK */ 
-	$('.carousel-linked-nav > li > a').click(function() {var item = Number($(this).attr('href').substring(1));$('#events').carousel(item - 1);$('.carousel-linked-nav .active').removeClass('active');$(this).parent().addClass('active');return false;});
-
-	// bind 'slid' function
-	$('#events').bind('slide.bs.carousel',function(){var test = $('.carousel-linked-nav .active').removeClass('active'), idx = $('#events .item.active').index();$('.carousel-linked-nav li:eq(' + idx + ')').addClass('active');});
-	
-	$('.feedback-message p:gt(0)').hide();
-
-	setInterval(function() { $('.feedback-message > p:first-child').fadeOut().next().fadeIn().end().appendTo('.feedback-message'); }, 5000);
-	
-	$('.next').click(function() {
-		$('.feedback-message p:first-child').fadeOut().next().fadeIn().end().appendTo('.feedback-message');
-	});
-
-	$('.prev').click(function() {$('.feedback-message p:first-child').fadeOut();$('.feedback-message p:last-child').prependTo('.feedback-message').fadeOut();$('.feedback-message p:first-child').fadeIn();});
+	$('#demo-video').on('hide', function () { $('div.modal-body').html(''); }); $("#slider1").responsiveSlides({ maxwidth: "none", speed: 800 }); $('#events').carousel({ interval: 3000 }); $('.carousel-linked-nav > li > a').click(function() { var item = Number($(this).attr('href').substring(1)); $('#events').carousel(item - 1); $('.carousel-linked-nav .active').removeClass('active'); $(this).parent().addClass('active'); return false; }); $('#events').bind('slid', function() { $('.carousel-linked-nav .active').removeClass('active'); var idx = $('#events .item.active').index(); $('.carousel-linked-nav li:eq(' + idx + ')').addClass('active'); }); $('.feedback-message p:gt(0)').hide(); setInterval(function() { $('.feedback-message > p:first-child').fadeOut().next().fadeIn().end().appendTo('.feedback-message'); }, 5000); $('.next').click(function() { $('.feedback-message p:first-child').fadeOut().next().fadeIn().end().appendTo('.feedback-message'); }); $('.prev').click(function() {$('.feedback-message p:first-child').fadeOut();$('.feedback-message p:last-child').prependTo('.feedback-message').fadeOut();$('.feedback-message p:first-child').fadeIn();});
 });
 </script>
 <?php echo modules::run('lift/auto_suggest_city')?>

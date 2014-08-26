@@ -255,7 +255,7 @@ section {position:relative; /*border:1px solid transparent;*/ border-left:none; 
 .search ul li input[type="text"]:focus {outline:none;}
 .search ul li input[type="submit"] {}
 
-.welcome {position:absolute; background: url('../images/page_template/welcome_bg.png') repeat; top:0; left:0; padding: 170px 15px 0; height:100%;}
+.welcome {position:absolute; background: url('../images/page_template/welcome_bg.png') repeat; top:0; left:0; padding: 170px 15px 0; width:350px; height:100%;}
 .welcome p {font-size:1.2em; letter-spacing:.2em; margin-bottom:20px;}
 .welcome a {display:block; font-size:1.3em; text-align:center; margin-bottom:20px; width:132px;}
 
@@ -275,7 +275,8 @@ section {position:relative; /*border:1px solid transparent;*/ border-left:none; 
 .event-detail {position:absolute; background:#000; color:#fff; top:0; left:0; width:199px;}
 .event-detail p {background:#000; padding:5px 5px; width:190px;}
 
-.video {padding-top:0px;}
+.video {text-align:center; padding-top:0px;}
+.video img {width:480px; height:390px;}
 .home-features {font-size:1.3em; margin:0 auto; width:710px;}
 .home-features h3 {text-align:center; text-transform:uppercase; text-shadow:2px 3px 15px #000;}
 .home-features ul li {float:left; background:#e9fdb5; box-shadow:3px 3px 10px #cacaca; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px; margin-bottom:50px; padding:5px; width:300px;}
@@ -634,7 +635,7 @@ section {position:relative; /*border:1px solid transparent;*/ border-left:none; 
 .offer-and-wish-bg {position:absolute; background: url('../images/offer-wish-lift-bg.png') repeat-x; text-align:center; top:300px; left:0; width:100%; height:92px; z-index:0;}
 
 .offer-and-wish-lift {position:relative; color:#2e2e2e; font-family: 'Open Sans', sans-serif; font-size:1.2em; text-align:justify; margin-top:130px; z-index:1;}
-.offer-and-wish-lift ul {margin-top:205px;}
+.offer-and-wish-lift ul {text-align:center; margin-top:205px;}
 .offer-and-wish-lift ul li {display:inline-block; margin-right:56px;}
 .offer-and-wish-lift ul li:last-child {margin-right:0;}
 .offer-and-wish-lift ul li a img {width:284px; height:284px;}
@@ -818,14 +819,14 @@ section {position:relative; /*border:1px solid transparent;*/ border-left:none; 
 
 	.logo {margin-left:10px;}
 	.search-lift {width:100%;}
-	.search-home {width:657px;}
+	.search-home {/*width:657px;*/ width:100%;}
 	
-	.content-2 .m-center {padding-top:140px;}
+	.content-2 .m-center {/*padding-top:140px;*/padding-top:0;}
 	.content-2 .fr {float:none; clear:both; margin:0 auto; width:410px;}
 	
 	.content-4 .m-center {padding-top:90px;}
 	
-	.welcome {text-align:center; width:100%;}
+	.welcome {position:relative; text-align:center; padding: 0 15px; width:100%; height:auto;}
 	.welcome a {margin:0 auto;}
 	
 	.events-quote {float:none; clear:both; padding-top:20px;}
@@ -884,6 +885,8 @@ section {position:relative; /*border:1px solid transparent;*/ border-left:none; 
 	header .menu ul li:hover a {color:#fff;}
 	.nav-dropdown {float:right; display:block;}
 	
+	.search-lift {padding:0 15px;}
+	
 	.search {margin:10px 2%; width:95%;}
 	.search form ul li {float:none; margin-bottom:10px;}
 	.search form ul li:nth-child(3) {float:left; margin-right:10px;}
@@ -904,18 +907,41 @@ section {position:relative; /*border:1px solid transparent;*/ border-left:none; 
 	.profile-detail-information {margin-left:0; padding:0 20px; width:100%;}
 	
 	.profile-car {padding:0 20px; margin-left:0; width:100%;}
+	
+	.video img {width:370px; height:301px;}
 }
 
 @media (max-width: 640px) {
 	.q-message p {width:90%;}
 	
 	.home-features ul li {width:235px;}
-	/* .home-features ul li {float:none; clear:both;}
-	.home-features ul li:nth-child(2n+2) {float:none;} */
+	
+	.search-home ul li {float:none; clear:both;}
+	.search-home form ul li span {width:100%;}
+	.search-home form ul li input[type="text"] {width:100%;}
+	.search-home form ul li:nth-child(3) span {width:100%;}
+	.search-home form ul li #datepicker {width:100%;}
+	
+	.search {width:95% !important;}
+	.search ul li {float:none; clear:both; margin-bottom:5px;}
+	.search ul li span {width:100%;}
+	.search ul li input[type="text"] {width:100%;}
+	.search ul li:nth-child(4) a {text-align:center; margin-left:0; width:100%;}
+	
+	.btn-search {
+		background: -ms-linear-gradient(top left, #FFF254 0%, #FFCF04 100%); /* IE10 Consumer Preview */ 
+		background: -moz-linear-gradient(top left, #FFF254 0%, #FFCF04 100%); /* Mozilla Firefox */ 
+		background: -o-linear-gradient(top left, #FFF254 0%, #FFCF04 100%); /* Opera */ 
+		background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #FFF254), color-stop(1, #FFCF04)); /* Webkit (Safari/Chrome 10) */ 
+		background: -webkit-linear-gradient(top left, #FFF254 0%, #FFCF04 100%); /* Webkit (Chrome 11+) */ 
+		background: linear-gradient(to bottom right, #FFF254 0%, #FFCF04 100%); /* W3C Markup, IE10 Release Preview */ 	
+		width:100%;
+	}
 }
 
 @media (max-width: 580px) {
 	.search-home {width:80%;}
+	/*
 	.search-home ul li {float:none; clear:both;}
 	.search-home form ul li span {width:100%;}
 	.search-home form ul li input[type="text"] {width:100%;}
@@ -928,23 +954,12 @@ section {position:relative; /*border:1px solid transparent;*/ border-left:none; 
 	.search ul li input[type="text"] {width:100%;}
 	.search ul li:nth-child(4) a {text-align:center; margin-left:0; width:100%;}
 	.btn-advance {}
-	
-	
-
-	.btn-search {
-		background: -ms-linear-gradient(top left, #FFF254 0%, #FFCF04 100%); /* IE10 Consumer Preview */ 
-		background: -moz-linear-gradient(top left, #FFF254 0%, #FFCF04 100%); /* Mozilla Firefox */ 
-		background: -o-linear-gradient(top left, #FFF254 0%, #FFCF04 100%); /* Opera */ 
-		background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #FFF254), color-stop(1, #FFCF04)); /* Webkit (Safari/Chrome 10) */ 
-		background: -webkit-linear-gradient(top left, #FFF254 0%, #FFCF04 100%); /* Webkit (Chrome 11+) */ 
-		background: linear-gradient(to bottom right, #FFF254 0%, #FFCF04 100%); /* W3C Markup, IE10 Release Preview */ 	
-		width:100%;
-	}
+	*/
 	
 	.slideshow ul {height:290px;}
 	
 	.content-1 {height:402px;}
-	.content-2 {border:1px solid #000; height:678px;}
+	.content-2 {height:678px;}
 	
 	.home-features ul li {margin-bottom:10px;}
 	.subscription div span:nth-child(2) {font-size:2em;}

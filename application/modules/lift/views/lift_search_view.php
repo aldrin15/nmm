@@ -14,7 +14,7 @@ if($page == "/nmm/" || $page == "/nmm/nmm"):
 			<li>
 				<?php echo form_error('to', '<div class="error">', '</div>')?>
 					<div class="clr"></div>
-				<span><input type="text" name="to" value="To" id="destination" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" autocomplete="off" /></span>
+				<span><input type="text" name="to" value="Destination" id="destination" onfocus="if(this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" autocomplete="off" /></span>
 			</li>
 			<li><span><input type="text" name="date" id="datepicker"/></span></li>
 			<li>
