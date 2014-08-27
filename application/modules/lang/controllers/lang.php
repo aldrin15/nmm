@@ -37,4 +37,11 @@ class Lang extends MX_Controller {
 		$ref = $this->input->server('HTTP_REFERER', TRUE);
 		redirect($ref, 'location');
 	}
+	
+	public function ru() {
+		$this->session->set_userdata('lang', 'ru');
+		
+		$ref = $this->input->server('HTTP_REFERER', TRUE);
+		redirect($ref, 'location');
+	}
 }

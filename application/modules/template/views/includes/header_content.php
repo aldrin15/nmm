@@ -13,6 +13,7 @@
 							<option value="dk" <?php echo ($_SESSION['language'] == 'dk') ? 'selected="selected"' : ''?>>Danish</option>
 							<option value="de" <?php echo ($_SESSION['language'] == 'de') ? 'selected="selected"' : ''?>>German</option>
 							<option value="tr" <?php echo ($_SESSION['language'] == 'tr') ? 'selected="selected"' : ''?>>Turkish</option>
+							<option value="ru" <?php echo ($_SESSION['language'] == 'ru') ? 'selected="selected"' : ''?>>Russian</option>
 						</select>
 					</div>
 					
