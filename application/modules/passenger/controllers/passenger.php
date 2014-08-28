@@ -270,7 +270,7 @@ class Passenger extends MX_Controller {
 				</div>";
 			endforeach;
 		else:
-			echo '<div style="font-size:20px; text-align:center; border:1px solid #000; padding-top:60px; height:190px;">No Event Featured Today</div>';
+			echo '<div style="font-size:20px; text-align:center; border:1px solid #000; padding-top:60px; height:190px;">No Wish a Lift Posted Today</div>';
 		endif;
 	}
 }
