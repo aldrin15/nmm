@@ -11,7 +11,7 @@ class Members extends MX_Controller {
 		if($this->session->userdata('user_role') == 'admin'):
 			$data['main_content'] 	= 'member_view';
 			$data['new_email'] 		= $this->admin_model->get_new_mail();
-			$data['user'] 			= $this->admin_model->list_of_users();
+			$data['user'] 			= $this->admin_model->list_of_users();	
 
 			$this->load->view('includes/main_view', $data);
 		else:

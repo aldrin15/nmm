@@ -79,9 +79,11 @@ class Admin_model extends CI_Model{
 		return $result;
 	}
 	
-	function list_of_users($what = '*') {
+	function list_of_users($what = 'user.user_id, firstname, lastname, gender, type, end_date') {
 		$query = $this->db->select($what)
 							->from('user')
+							->join('subscription_type', 'subscription_type.subscription_id = user.subscription_type')
+							->join('subscription', 'subscription.user_id = user.user_id')
 							->get();
 	
 		$result = $query->result_array();
@@ -110,7 +112,9 @@ class Admin_model extends CI_Model{
 							->join('user_address', 'user_address.user_id = user.user_id')
 							->where('user.user_id', $id)
 							->get();
-		return $query->result_array();	
+		$result = $query->result_array();
+		if(count($result) == 0) return false;
+		return $result;
 	}
 	
 	function inbox($id, $what = 'user_admin.display_name, message.message_id, message.subject, user.firstname, user.lastname, message.date, message.is_read'){

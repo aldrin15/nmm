@@ -7,7 +7,7 @@
 			<!--state overview start-->
 			<div class="row state-overview">
 				<?php foreach($analytics_count_data as $row):?>
-				<div class="col-lg-2 col-sm-6">
+				<div class="col-lg-4 col-sm-6">
 					<section class="panel">
 						<div class="symbol terques"><i class="icon-group"></i></div>
 						<div class="value">
@@ -16,7 +16,7 @@
 						</div>
 					</section>
 				</div>
-				<div class="col-lg-2 col-sm-6">
+				<div class="col-lg-4 col-sm-6">
 					<section class="panel">
 						<div class="symbol red"><i class="icon-truck"></i></div>
 						<div class="value">
@@ -25,7 +25,7 @@
 						</div>
 					</section>
 				</div>
-				<div class="col-lg-2 col-sm-6">
+				<div class="col-lg-4 col-sm-6">
 					<section class="panel">
 						<div class="symbol yellow"><i class="icon-male"></i></div>
 						<div class="value">
@@ -34,7 +34,7 @@
 						</div>
 					</section>
 				</div>
-				<div class="col-lg-2 col-sm-6">
+				<div class="col-lg-4 col-sm-6">
 					<section class="panel">
 						<div class="symbol blue"><i class="icon-calendar"></i></div>
 						<div class="value">
@@ -43,7 +43,7 @@
 						</div>
 					</section>
 				</div>
-				<div class="col-lg-2 col-sm-6">
+				<div class="col-lg-4 col-sm-6">
 					<section class="panel">
 						<div class="symbol green"><i class="icon-euro"></i></div>
 						<div class="value">

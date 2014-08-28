@@ -27,10 +27,10 @@
 											foreach($user as $member):?>
 										<tr>
 											  <td><?php echo $member['user_id']?></td>
-											  <td><a href="<?php echo base_url('admin/user/detail/').'/'.$member['user_id']?>"><?php echo $member['firstname']?> <?php echo $member['lastname']?></a></td>
+											  <td><a href="<?php echo base_url('admin/members/detail/').'/'.$member['user_id']?>"><?php echo $member['firstname']?> <?php echo $member['lastname']?></a></td>
 											  <td><?php echo $member['gender']?></td>
-											  <td>no data</td>
-											  <td>no data</td>
+											  <td><?php echo $member['type']?></td>
+											  <td><?php echo date('d-m-Y', strtotime($member['end_date']))?></td>
 										</tr>  
 										<?php endforeach;
 										endif?>									  

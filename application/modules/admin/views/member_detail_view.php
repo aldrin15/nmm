@@ -1,10 +1,13 @@
-<?php $this->load->view('includes/sidebar_view')?>
-<aside class="profile-info col-lg-12">
-	<section id="main-content">
-		<section class="panel">
+	<?php $this->load->view('includes/header_content')?>
 
-			<div class="panel-body bio-graph-info">
-				<?php foreach($details as $detail): ?>
+	<?php $this->load->view('includes/sidebar_view')?>
+	
+	<!--main content start-->
+	<section id="main-content">
+		<section class="wrapper">
+			<section class="panel">
+				<div class="panel-body bio-graph-info" style="padding:0 15px;">
+					<?php foreach($details as $detail): ?>
 					<div class="row">
 						<div class="bio-graph-heading">
 							<img alt="" src="<?php echo base_url('assets/img/follower-avatar.jpg')?>">
@@ -35,8 +38,9 @@
 							<p><span>Phone </span>: no data</p>
 						</div>
 					</div>
-				<?php endforeach?>
-			</div>
+					<?php endforeach?>
+				</div>
+			</section>
 		</section>
 	</section>
-</aside>
+	<!--main content end-->
